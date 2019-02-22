@@ -1,3 +1,6 @@
+This file describes my thought process of the app when building skeleton, some elements may or may not be represented in the HTML
+
+
 Login page: Button: Login as Instructor
             Button: Login as Coordinator
 
