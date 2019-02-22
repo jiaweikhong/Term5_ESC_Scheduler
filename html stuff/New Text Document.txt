@@ -1,0 +1,58 @@
+Login page: Button: Login as Instructor
+            Button: Login as Coordinator
+
+Login as Instructor Pressed:
+
+Home Page(Instructor): Fancy top thing done by CSS
+A table at the center with buttons with Hyperlinks as below
+Hyperlink options: Return to top (Seperate from table)
+                   View Notifications
+		   View Current/Existing Course Schedule
+		   View Current/Existing Event Schedule
+		   Logout
+
+Login as Coordinator Pressed:
+
+Home page(Coordinator): Also fancy top thing done by CSS
+A table at the center with buttons with Hyperlinks as below
+Hyperlink options: Create new Schedule
+		   View current/existing Course schedule
+		   View Current/Existing Event Schedule
+		   Delete Schedule
+           View Notifications
+		   Return to top (Seperate from table)
+		   Logout
+
+View Notifications Pressed:
+
+Notifications: Hyperlink to individual Notifications coming from respective schedules
+
+View Current/Existing Course/Event Schedule pressed:
+(Instructor)
+Course/Event Schedule: Top bar with Hyperlink Button to "HOME"
+		       Center of the screen, a box, Javascript appears that will pull the schedule from the database and display it in the center of the screen, with size/zoom at bottom left, can be moved within the center box
+		       Below the box, Hyperlink buttons that say "Send Comment to Coordinator","Sync to Calendar"
+
+(Coordinator)
+Course/Event Schedule: Top bar with Hyperlink Button to "HOME"
+		       Center of the screen, a box, Javascript appears that will pull the schedule from the database and display it in the center of the screen, with size/zoom at bottom left, can be moved within the center box
+		       Below the box, Hyperlink buttons that say "Edit Schedule","View Notifications/Comments"
+
+Send comment to coordinator pressed:
+
+Comment: simple page with a message box with preface: "Please indicate required constraint/s:"
+Underneath a button that sends message.
+
+Create new Schedule pressed:
+
+Creation: A list of hard constraints and inputs in respective choice/message boxes that will become inputs for the javascript. [This is also where edit schedule will go to and will save all prior states from the last creation.][unknown]
+	  Below all the constraint and input, a button hyperlink to actual schedule creation.
+
+All possible course schedules appear: Dropbox of choice for coordinator to choose which schedule, or return no schedule found if none meet the criteria. Once chosen, at the bottom with notify Instructors hyperlink button.
+
+All possible event schedules appear: Dropbox of choice for coordinator to choose which schedule, or return no schedule found if none meet the criteria. 
+
+Delete Schedule Pressed: Selection box on existing schedule, then delete button to remove it from database
+
+
+
