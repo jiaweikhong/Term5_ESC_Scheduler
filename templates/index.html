@@ -15,11 +15,15 @@
     
     <h1>Log-In</h1>
 
-    <form action="/action_page.php">
-        Username: <input type="text" name="username"><br><br>
-        Password: <input type="text" name="password"><br><br>
-        <input type="submit" value="Submit">
+    <form action="" method="post">
+        <input type="text" placeholder="Username" name="username" value="{{request.form.username}}"><br>
+        <input type="password" placeholder="Password" name="password" value="{{request.form.password}}"><br>
+        <input class="btn btn-default" type="submit" value="Login"><br>
     </form>
+
+    {% if error %}
+    <p class="error"><strong>Error:</strong> {{ error }}
+    {% endif %}
 
     {% endblock %}
 </body>
