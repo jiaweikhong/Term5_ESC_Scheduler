@@ -1,0 +1,30 @@
+<html>
+
+<head>
+	<title>Login as Administrator</title>
+</head>
+
+<body>
+	{% extends "template.html" %}
+	{% block content %}
+	<form action="" method="post">
+		<label for="username">Username:</label>
+		<input type="text" placeholder="Username" name="username" required="required" value="{{request.form.username}}">
+		<br>
+		<label for="password">Password:</label>
+		<input type="password" placeholder="Password" name="password" required="required"
+			value="{{request.form.password}}">
+		<br>
+		<input type="submit" value="Login">
+		<!--will be removed-->
+		<p><a href="adminwelcome.html">bypass</a></p>
+	</form>
+
+	{% if error %}
+	<p class="error"><strong>Error:</strong> {{ error }}
+		{% endif %}
+
+		{% endblock %}
+</body>
+
+</html>
