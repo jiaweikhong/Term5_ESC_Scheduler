@@ -94,6 +94,8 @@ def adminwelcome():
     if request.method == 'POST':
         if "createSchedule" in request.form:
             return redirect(url_for('courseSchedule'))
+        if "viewEditSchedule" in request.form:
+            return redirect(url_for('courseScheduleedit'))
     return render_template('adminwelcome.html')
 
 
@@ -101,11 +103,13 @@ def adminwelcome():
 def schedulecreation():
     return render_template('schedulecreation.html')
 
-
 @app.route("/courseSchedule")
 def courseSchedule():
     return render_template('courseSchedule.html')
 
+@app.route("/courseScheduleedit")
+def courseScheduleedit():
+    return render_template('courseScheduleedit.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
