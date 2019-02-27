@@ -3,6 +3,7 @@ This file describes my thought process of the app when building skeleton, some e
 (home.html)
 Login page: Button: Login as Instructor
             Button: Login as Coordinator
+	    Button: Login as Planner
 
 
 Login as Instructor Pressed:
@@ -30,6 +31,7 @@ Hyperlink options: Create new Schedule
            	   View Notifications
 		   Return to top (Seperate from table)
 		   Logout
+
 
 View Notifications Pressed:
 (instructornotifications.html)(adminnotifications.html)
