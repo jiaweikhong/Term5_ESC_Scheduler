@@ -65,13 +65,11 @@ def instructorhome():
             return redirect(url_for('instructorwelcome'))
     return render_template('instructorhome.html', error=error)
 
-
 @app.route("/instructorwelcome")
 def instructorwelcome():
     return render_template('instructorwelcome.html')
 
 # Admin:
-
 
 @app.route("/adminhome", methods=['GET', 'POST'])
 def adminhome():
