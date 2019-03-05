@@ -1,35 +1,34 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+import timetableplaceholder from "./images/timetableplaceholder.png";
 
 
 const InstructorWelcome = () => {
 
-	return (
+    return (
 
-		<html>
-            <head>
+        <html>
+            {/* <head>
                 <title>Welcome Instructor</title>
-            </head>
+            </head> */}
 
             <body>
                 <h1>Welcome</h1>
 
-                <p><a href="instructornotifications">View Notifications</a></p>
-
-                <table>
-                    <tr>
-                    <td><form><input type="button" class="button button1" value="View Event Schedule" onclick="window.location.href='eventSchedule.html'" /></form></td>
-				    <td><input type="button" class="button button1" value="View Course Schedule" onclick="window.location.href='courseSchedule.html'" /></td>
-
-                    </tr>
+                <img src={timetableplaceholder} /> <br /><br />
+                <table class="center">
+                    <tr><td><form method="post"><input type="button" class="button button1" name="toInstructorNotif" value="View Notifications" /></form></td></tr>
+                    <tr><td><form method="post"><input type="button" class="button button1" name="toUploadCourse" value="Upload a Course" /></form></td></tr>
+                    <tr><td><form method="post"><input type="button" class="button button1" name="toSubmitPersonalConstraints" value="Submit Personal Constraints" /></form></td></tr>
+                    <tr><td><form method="post"><input type="button" class="button button1" name="toInstructorEventSchedule" value="View Event Schedule" /></form></td></tr>
                 </table>
 
-                <p><a href="home">Logout</a></p>
+                <p><NavLink to="/">Logout</NavLink></p>
             </body>
 
 
-
         </html>
-	);
+    );
 };
 
 

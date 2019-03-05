@@ -4,16 +4,15 @@ const Home = () => {
 
 	return (
         <html>
-
-            <head>
+            {/* <head>
                 <title>Home</title>
-            </head>
+            </head> */}
 
             <body>
 
-                <h1>Login</h1>
-                <p><a href="adminlogin">Login as administrator</a></p>
+                <h1>SUTD Timetable Scheduler</h1>
                 <p><a href="instructorlogin">Login as instructor</a></p>
+                <p><a href="adminlogin">Login as administrator</a></p>
                 <p><a href="plannerlogin">Login as planner</a></p>
 
             </body>

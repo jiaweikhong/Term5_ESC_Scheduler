@@ -15,7 +15,7 @@ const PlannerWelcome = () => {
                 <h1>Welcome</h1>
 
 
-                <table>
+                <table class="center">
                     <tr>
                     <td><form><input type="button" class="button button1" value="Create Schedule" onclick="window.location.href='createschedule'" /></form></td>
 				    <td><input type="button" class="button button1" value="Delete Schedule" onclick="window.location.href='deleteSchedule.html'" /></td>
@@ -29,11 +29,7 @@ const PlannerWelcome = () => {
                 </table>
             </body>
 
-
 		<p><NavLink to="/">Logout</NavLink></p>
-
-
-
 
         </html>
 	);

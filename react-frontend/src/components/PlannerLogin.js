@@ -1,19 +1,20 @@
 import React from 'react';
 
-
 const PlannerLogin = () => {
 
 	return (
 
 		<html>
-			<head>
+			{/* <head>
 				<title>Planner Login</title>
-			</head>
+			</head> */}
 
 			<body>
+
+				<h1>Login as Planner</h1>
 				<form action="" method="post">
 
-					<label for="username">Username:</label>
+					<label for="username">Username: </label>
 					<input type="text" name="username" required="required"></input> <br />
 
 					<label for="password">Password:	</label>
@@ -21,18 +22,12 @@ const PlannerLogin = () => {
 
 					<input type="submit" name="plannersubmit" value="Submit"></input>
 
-                    <p><a href="plannerwelcome">bypass</a></p>
-					
-
-					
-
-					
+					<p><a href="plannerwelcome">bypass</a></p>
 
 				</form>
 			</body>
 		</html>
 	);
 };
-
 
 export default PlannerLogin;

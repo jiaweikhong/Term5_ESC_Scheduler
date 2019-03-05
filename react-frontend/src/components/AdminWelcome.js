@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom'; 
 
 
 const AdminWelcome = () => {
@@ -16,17 +17,16 @@ const AdminWelcome = () => {
 
                 <p><a href="adminnotifications">View Notifications</a></p>
 
-                <table>
+                <table class="center">
                     <tr>
                     <td><form><input type="button" class="button button1" value="Edit Soft Constraints" onclick="window.location.href='createSchedule.html'" /></form></td>
 				    <td><input type="button" class="button button1" value="View/Edit Course Material" onclick="window.location.href='deleteSchedule.html'" /></td>
                     </tr>
-
                 </table>
             </body>
 
-
-		<p><a href="home">Logout</a></p>
+        <p><NavLink to="/">Logout</NavLink></p>
+		
 
 
 

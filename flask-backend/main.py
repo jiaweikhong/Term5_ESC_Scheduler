@@ -15,6 +15,7 @@ config = {
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 
+
 @app.route("/", methods=['GET', 'POST'])
 def my_index():
     print("hello1")
@@ -34,7 +35,21 @@ def about():
 
 @app.route("/instructorlogin", methods=['GET', 'POST'])
 def instructorlogin():
-    return render_template("index.html")
+    error = None
+    if request.method == 'POST':
+        if "instructorsubmit" in request.form:
+            # Check if username match password
+            check_username = request.form['username']
+            check_password = request.form['password']
+            fire_password = db.child("instructors").child(check_username).child("password").get().val()
+
+            if (fire_password != check_password):
+                error = 'Invalid Credentials. Please try again.'
+
+            else:
+                return redirect(url_for('instructorwelcome'))
+
+    return render_template('index.html', error=error)
 
 
 @app.route("/instructorwelcome", methods=['GET', 'POST'])
@@ -59,7 +74,21 @@ def instructornotifications():
 
 @app.route("/adminlogin", methods=['GET', 'POST'])
 def adminlogin():
-    return render_template("index.html")
+    error = None
+    if request.method == 'POST':
+        if "adminsubmit" in request.form:
+            # Check if username match password
+            check_username = request.form['username']
+            check_password = request.form['password']
+            fire_password = db.child("admins").child(check_username).child("password").get().val()
+
+            if (fire_password != check_password):
+                error = 'Invalid Credentials. Please try again.'
+
+            else:
+                return redirect(url_for('adminwelcome'))
+
+    return render_template('index.html', error=error)
 
 
 @app.route("/adminwelcome", methods=['GET', 'POST'])
