@@ -2,6 +2,7 @@ import React from 'react'
 import { Typography, Paper, Avatar, Button} from '@material-ui/core'
 import VerifiedUserOutlined from '@material-ui/icons/LockOutlined'
 import withStyles from '@material-ui/core/styles/withStyles'
+import { Link } from 'react-router-dom'; 
 
 const styles = theme => ({
     main: {
@@ -31,9 +32,10 @@ const styles = theme => ({
     },
 })
 
+
 function Home(props) {
 
-	const { classes } = props
+    const { classes } = props
 
     return (
         <main className={classes.main}>
@@ -44,7 +46,8 @@ function Home(props) {
                 <Typography component="h1" variant="h5">
                     SUTD Timetable Scheduler
                 </Typography>
-                <Button
+                <Button 
+                    component = {Link} to = "/instructorlogin"
                     type="submit"
                     fullWidth
                     variant="outlined"
@@ -53,6 +56,7 @@ function Home(props) {
                     Instructor
                 </Button>
                 <Button
+                    component = {Link} to = "/adminlogin"
                     type="submit"
                     fullWidth
                     variant="contained"
@@ -61,6 +65,7 @@ function Home(props) {
                     Administrator
                 </Button>
                 <Button
+                    component = {Link} to = "/plannerlogin"
                     type="submit"
                     fullWidth
                     variant="contained"
@@ -72,5 +77,6 @@ function Home(props) {
         </main>
     )
 }
+
 
 export default withStyles(styles)(Home);

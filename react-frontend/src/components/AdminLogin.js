@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { NavLink } from 'react-router-dom'; 
 
 const styles = theme => ({
     main: {
@@ -58,7 +59,8 @@ const styles = theme => ({
           <Typography component="h1" variant="h5">
             Administrator Login
           </Typography>
-          <form className={classes.form}>
+          <form 
+          className={classes.form}>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">Email Address</InputLabel>
               <Input id="email" name="email" autoComplete="email" autoFocus />
@@ -80,6 +82,10 @@ const styles = theme => ({
             >
               Sign in
             </Button>
+            <p>
+            <NavLink to = "/adminwelcome">
+              Bypass</NavLink></p>
+            
           </form>
         </Paper>
       </main>

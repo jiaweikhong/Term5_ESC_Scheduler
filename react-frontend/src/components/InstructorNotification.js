@@ -1,4 +1,5 @@
 import React from 'react';
+import {Button} from '@material-ui/core'
 
 
 const InstructorNotification = () => {
@@ -13,7 +14,9 @@ const InstructorNotification = () => {
 			<body>
 
 				<h1>View Notifications</h1>
-                <p><button>Send Message</button></p>
+                <Button variant="contained" color="primary" >
+       			 Send Message
+      			</Button>
 		        <p><a href="instructorwelcome">back</a></p>
 			</body>
 		</html>
