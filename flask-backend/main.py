@@ -29,7 +29,6 @@ def about():
 
     return render_template("index.html")
 
-
 def check_instructor_login(check_username, check_password):
     fire_password = db.child("instructors").child(
         check_username).child("password").get().val()
@@ -37,7 +36,6 @@ def check_instructor_login(check_username, check_password):
         raise ValueError('Invalid Credentials!')
     else:
         return
-
 
 @app.route("/instructorlogin", methods=['GET', 'POST'])
 def instructorlogin():
