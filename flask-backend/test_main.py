@@ -3,19 +3,16 @@ import main  # import main.py
 
 class TestMain(unittest.TestCase):
     def test_admin_login(self):
-        with self.assertRaises(ValueError):
-            main.check_admin_login("tom", "tommy")
-        self.assertEqual(main.check_admin_login("tom", "tom"), None)
+        self.assertEqual(main.check_admin_login("tom", "tommy"), 0)
+        self.assertEqual(main.check_admin_login("tom", "tom"), 1)
 
     def test_instructor_login(self):
-        with self.assertRaises(ValueError):
-            main.check_instructor_login("karen", "wrongpw")
-        self.assertEqual(main.check_instructor_login("karen", "karen"), None)
+        self.assertEqual(main.check_instructor_login("karen", "wrongpw"), 0)
+        self.assertEqual(main.check_instructor_login("karen", "karen"), 1)
 
     def test_planner_login(self):
-        with self.assertRaises(ValueError):
-            main.check_planner_login("lolo", "lala")
-        self.assertEqual(main.check_planner_login("bob", "bob"), None)
+        self.assertEqual(main.check_planner_login("lolo", "lala"), 0)
+        self.assertEqual(main.check_planner_login("bob", "bob"), 1)
 
 if __name__ == '__main__':      # allows you to run using "python test_main.py" in terminal, or inside code editor
     unittest.main(exit=False)
