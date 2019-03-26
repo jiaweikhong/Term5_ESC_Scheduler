@@ -10,6 +10,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 
 
+
 export const mainListItems = (
 
 
@@ -34,7 +35,7 @@ export const mainListItems = (
 
     <ListItem 
     button
-component = {Link} to = "/softconstraints"> {/*need to change */}
+  component = {Link} to = "/softconstraints"> {/*need to change */}
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>

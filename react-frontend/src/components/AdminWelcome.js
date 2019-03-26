@@ -57,6 +57,8 @@ import {Link} from 'react-router-dom';
 import {Button} from '@material-ui/core'
 import timetableplaceholder from "./images/timetableplaceholder.png";
 
+
+
 // TODO
 // try to stay in welcome page and only change the content when clicking on the list icons
 //change icons for list
@@ -64,10 +66,13 @@ import timetableplaceholder from "./images/timetableplaceholder.png";
 
 const drawerWidth = 240;
 
+
+
 const styles = theme => ({
   root: {
     display: 'flex',
   },
+
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
   },
@@ -78,11 +83,20 @@ const styles = theme => ({
   drawerPaper: {
     width: drawerWidth,
   },
+
+  icons:{
+    position: 'absolute',
+    right: 15
+    
+  },
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
   },
   toolbar: theme.mixins.toolbar,
+  
+
+  
 });
 
 function AdminWelcome (props) {
@@ -101,20 +115,22 @@ function AdminWelcome (props) {
               variant="h6"
               color="inherit"
               noWrap
+              // className ={classes.welcome}
             >
               Welcome
             </Typography>
+            <div className={classes.icons}>
             <IconButton 
             color="inherit"
-            component = {Link} to = "/instructornotifications">    
+            component = {Link} to = "/adminnotifications">    
                 <NotificationsIcon />    
             </IconButton>
             <Button 
-            color="primary" 
-            variant="outlined"
+            color='inherit' 
             component = {Link} to = "/">   
             LOGOUT
           </Button>
+          </div>
           </Toolbar>
         </AppBar>
 
