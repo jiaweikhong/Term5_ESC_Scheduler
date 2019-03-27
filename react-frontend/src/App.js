@@ -8,7 +8,7 @@ import About from "./components/About";
 import InstructorLogin from "./components/InstructorLogin";
 import InstructorWelcome from './components/InstructorWelcome';
 import UploadCourse from './components/UploadCourse';
-import SoftConstraints from './components/Softconstrains';
+import SoftConstraints from './components/SoftConstraints';
 import InstructorNotification from './components/InstructorNotification';
 
 import AdminLogin from "./components/AdminLogin";
