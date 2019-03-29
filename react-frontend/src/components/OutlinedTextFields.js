@@ -1,19 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import { FormControl } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 
+// need to work on submit button
 
 const styles = theme => ({
 
-  // container: {
-  //   display: 'flex',
-  //   flexWrap: 'wrap',
-  // },
+  button: {
+    margin: theme.spacing.unit,
+
+  },
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    flexdirection: 'column'
+  },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
@@ -50,10 +57,10 @@ const constraints = [
 
 class OutlinedTextFields extends React.Component {
   state = {
-    name: 'Cat in the Hat',
-    age: '',
-    multiline: 'Controlled',
-    currency: 'EUR',
+    constraint1:'',
+    constraint2:'',
+    constraint3:'',
+    
   };
 
   handleChange = name => event => {
@@ -66,18 +73,18 @@ class OutlinedTextFields extends React.Component {
     const { classes } = this.props;
 
     return (
-      // <form className={classes.container} noValidate autoComplete="off">
-      <form noValidate autoComplete="off">
+      <form className={classes.container} noValidate autoComplete="off">
+      {/* <form noValidate autoComplete="off"> */}
+
       
-        
-        <TextField
-          
+      <FormControl  fullWidth>
+      <TextField
           id='choose-soft-constraint'
           select
-
+          placeholder = 'd'
           className={classes.textField}
-          value={this.state.constraint}
-          onChange={this.handleChange('constraint')}
+          value={this.state.constraints1}
+          onChange={this.handleChange('constraints1')}
           InputProps={{
             startAdornment: <InputAdornment position="start">1.</InputAdornment>,
           }}
@@ -97,14 +104,17 @@ class OutlinedTextFields extends React.Component {
           ))}
         </TextField>
 
+      </FormControl>
+        
+      
+      <FormControl  fullWidth>
         <TextField
-
+          InputLabel='hello'
           id='choose-soft-constraint'
           select
-          
           className={classes.textField}
-          value={this.state.constraint}
-          onChange={this.handleChange('constraint')}
+          value={this.state.constraints2}
+          onChange={this.handleChange('constraints2')}
           InputProps={{
             startAdornment: <InputAdornment position="start">2.</InputAdornment>,
           }}
@@ -123,15 +133,17 @@ class OutlinedTextFields extends React.Component {
             </MenuItem>
           ))}
         </TextField>
+        </FormControl>
 
+        <FormControl  fullWidth>
         <TextField
       
           id='choose-soft-constraint'
           select
           
           className={classes.textField}
-          value={this.state.constraint}
-          onChange={this.handleChange('constraint')}
+          value={this.state.constraints3}
+          onChange={this.handleChange('constraints3')}
           InputProps={{
             startAdornment: <InputAdornment position="start">3.</InputAdornment>,
           }}
@@ -150,7 +162,39 @@ class OutlinedTextFields extends React.Component {
             </MenuItem>
           ))}
         </TextField>
+        </FormControl>
 
+        <FormControl fullWidth>
+        <TextField
+          id="instructor-input"
+          className={classes.textField}
+          margin="normal"
+          variant="outlined"
+          multiline
+          placeholder= " Please type in your soft constraint"
+          InputProps={{
+            startAdornment: <InputAdornment position="start">4.</InputAdornment>,
+          }}
+        />
+        </FormControl>
+
+        <FormControl fullWidth>
+        <TextField
+          id="instructor-input"
+          className={classes.textField}
+          margin="normal"
+          variant="outlined"
+          multiline
+          placeholder= " Please type in your soft constraint"
+          InputProps={{
+            startAdornment: <InputAdornment position="start">5.</InputAdornment>,
+          }}
+        />
+        </FormControl>
+
+        <Button variant="contained" color="primary" className={classes.button}>
+        Submit
+      </Button>
    
       </form>
     );

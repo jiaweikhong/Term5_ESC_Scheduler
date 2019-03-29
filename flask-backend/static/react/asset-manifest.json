@@ -1,14 +1,14 @@
 {
   "main.css": "/static/react/css/main.13f7dd37.chunk.css",
-  "main.js": "/static/react/js/main.aa96044e.chunk.js",
-  "main.js.map": "/static/react/js/main.aa96044e.chunk.js.map",
+  "main.js": "/static/react/js/main.1d213089.chunk.js",
+  "main.js.map": "/static/react/js/main.1d213089.chunk.js.map",
   "runtime~main.js": "/static/react/js/runtime~main.53eac5d4.js",
   "runtime~main.js.map": "/static/react/js/runtime~main.53eac5d4.js.map",
-  "js/2.4bc10d80.chunk.js": "/static/react/js/2.4bc10d80.chunk.js",
-  "js/2.4bc10d80.chunk.js.map": "/static/react/js/2.4bc10d80.chunk.js.map",
+  "js/2.220cfec2.chunk.js": "/static/react/js/2.220cfec2.chunk.js",
+  "js/2.220cfec2.chunk.js.map": "/static/react/js/2.220cfec2.chunk.js.map",
   "../../templates/index.html": "/static/react/../../templates/index.html",
   "css/main.13f7dd37.chunk.css.map": "/static/react/css/main.13f7dd37.chunk.css.map",
   "media/sutdlogo.jpeg": "/static/react/media/sutdlogo.7508c2ba.jpeg",
-  "precache-manifest.7cb536dc05089d624469bc18b2cab0d8.js": "/static/react/precache-manifest.7cb536dc05089d624469bc18b2cab0d8.js",
+  "precache-manifest.b7eecbae960f6ff97f5c15744b8a6b3d.js": "/static/react/precache-manifest.b7eecbae960f6ff97f5c15744b8a6b3d.js",
   "service-worker.js": "/static/react/service-worker.js"
 }
