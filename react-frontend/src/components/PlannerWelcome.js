@@ -51,8 +51,8 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems } from '../lists/PlannerMenu';
-import {Link} from 'react-router-dom';
-import {Button} from '@material-ui/core'
+import { Link } from 'react-router-dom';
+import { Button } from '@material-ui/core'
 
 
 // TODO
@@ -78,22 +78,22 @@ const styles = theme => ({
     width: drawerWidth,
   },
 
-  icons:{
+  icons: {
     position: 'absolute',
     right: 15
-    
+
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
   },
   toolbar: theme.mixins.toolbar,
-  
 
-  
+
+
 });
 
-function PlannerWelcome (props) {
+function PlannerWelcome(props) {
 
   const { classes } = props;
 
@@ -103,51 +103,81 @@ function PlannerWelcome (props) {
       <AppBar
         position="fixed"
         className={classNames(classes.appBar)}>
-      
+
         <Toolbar >
           <Typography
             variant="h6"
             color="inherit"
             noWrap
-            // className ={classes.welcome}
+          // className ={classes.welcome}
           >
             Welcome
           </Typography>
           <div className={classes.icons}>
-          <IconButton 
-          color="inherit"
-          component = {Link} to = "/plannernotification">    
-              <NotificationsIcon />    
-          </IconButton>
-          <Button 
-          color='inherit' 
-          component = {Link} to = "/">   
-          LOGOUT
+            <IconButton
+              color="inherit"
+              component={Link} to="/plannernotification">
+              <NotificationsIcon />
+            </IconButton>
+            <Button
+              color='inherit'
+              component={Link} to="/">
+              LOGOUT
         </Button>
-        </div>
+          </div>
         </Toolbar>
       </AppBar>
 
-      
+
       <Drawer
-      className={classes.drawer}
+        className={classes.drawer}
         variant="permanent"
         classes={{
           paper: classNames(classes.drawerPaper),
         }}
       >
         <div className={classes.toolbar} />
-        
+
         <List>{mainListItems}</List>
-
-
       </Drawer>
+
+
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Typography variant="h4" gutterBottom component="h2">
-          My Timetable
+          My Schedules
         </Typography>
-        
+
+        <Button
+          color='inherit'
+          component={Link} to="/freshmoreschedule">
+          Freshmore
+        </Button>
+
+        <Button
+          color='inherit'
+          component={Link} to="/epdschedule">
+          EPD
+        </Button>
+
+        <Button
+          color='inherit'
+          component={Link} to="/istdschedule">
+          ISTD
+        </Button>
+
+        <Button
+          color='inherit'
+          component={Link} to="/esdschedule">
+          ESD
+        </Button>
+
+        <Button
+          color='inherit'
+          component={Link} to="/asdschedule">
+          ASD
+        </Button>
+
       </main>
     </div>
   );

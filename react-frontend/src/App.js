@@ -22,6 +22,11 @@ import CreateSchedule from './components/CreateSchedule';
 import PlannerEditSchedule from './components/PlannerEditSchedule';
 import DeleteSchedule from './components/DeleteSchedule';
 import EventSchedule from './components/EventSchedule';
+import FreshmoreSchedule from './components/FreshmoreSchedule';
+import EPDSchedule from './components/EPDSchedule';
+import ISTDSchedule from './components/ISTDSchedule';
+import ESDSchedule from './components/ESDSchedule';
+import ASDSchedule from './components/ASDSchedule';
 
 class App extends Component {
   render() {
@@ -55,6 +60,12 @@ class App extends Component {
             <Route path="/plannereditschedule" component={PlannerEditSchedule} />
             <Route path="/deleteschedule" component={DeleteSchedule} />
             <Route path="/eventscheduling" component={EventSchedule} />
+            <Route path="/freshmoreschedule" component={FreshmoreSchedule} />
+            <Route path="/epdschedule" component={EPDSchedule} />
+            <Route path="/istdschedule" component={ISTDSchedule} />
+            <Route path="/esdschedule" component={ESDSchedule} />
+            <Route path="/asdschedule" component={ASDSchedule} />
+
           </Switch>
         </div>
       </BrowserRouter>
