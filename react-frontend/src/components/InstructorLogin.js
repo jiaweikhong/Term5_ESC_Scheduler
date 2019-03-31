@@ -46,25 +46,6 @@ const styles = theme => ({
   },
 });
 
-// class MyButton extends Button {
-//   constructor() {
-//     super();
-//     this.handleSubmit = this.handleSubmit.bind(this);
-//   }
-
-
-//   handleSubmit(event) {
-//     event.preventDefault();
-//     const data = new FormData(event.target);
-
-//     fetch('/api/form-submit-url', {
-//       method: 'POST',
-//       body: data,
-//     });
-//   }
-// }
-
-
 function InstructorLogin(props) {
   const { classes } = props;
 

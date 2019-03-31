@@ -22,14 +22,14 @@ def my_index():
     return render_template("index.html")
 
 
-@app.route("/about", methods=['GET', 'POST'])
-def about():
-    if request.method == 'POST':
-        print("clickered")
-        if "click" in request.form:
-            print("clicked!")
+# @app.route("/about", methods=['GET', 'POST'])
+# def about():
+#     if request.method == 'POST':
+#         print("clickered")
+#         if "click" in request.form:
+#             print("clicked!")
 
-    return render_template("index.html")
+#     return render_template("index.html")
 
 
 def check_instructor_login(check_username, check_password):
@@ -55,24 +55,24 @@ def instructorlogin():
     return render_template('index.html', error=error)
 
 
-@app.route("/instructorwelcome", methods=['GET', 'POST'])
-def instructorwelcome():
-    return render_template("index.html")
+# @app.route("/instructorwelcome", methods=['GET', 'POST'])
+# def instructorwelcome():
+#     return render_template("index.html")
 
 
-@app.route("/uploadcourse", methods=['GET', 'POST'])
-def uploadcourse():
-    return render_template("index.html")
+# @app.route("/uploadcourse", methods=['GET', 'POST'])
+# def uploadcourse():
+#     return render_template("index.html")
 
 
-@app.route("/softconstraints", methods=['GET', 'POST'])
-def softconstraints():
-    return render_template("index.html")
+# @app.route("/softconstraints", methods=['GET', 'POST'])
+# def softconstraints():
+#     return render_template("index.html")
 
 
-@app.route("/instructornotifications", methods=['GET', 'POST'])
-def instructornotifications():
-    return render_template("index.html")
+# @app.route("/instructornotifications", methods=['GET', 'POST'])
+# def instructornotifications():
+#     return render_template("index.html")
 
 
 def check_admin_login(check_username, check_password):
@@ -98,19 +98,19 @@ def adminlogin():
     return render_template('index.html', error=error)
 
 
-@app.route("/adminwelcome", methods=['GET', 'POST'])
-def adminwelcome():
-    return render_template("index.html")
+# @app.route("/adminwelcome", methods=['GET', 'POST'])
+# def adminwelcome():
+#     return render_template("index.html")
 
 
-@app.route("/editschedule", methods=['GET', 'POST'])
-def editschedule():
-    return render_template("index.html")
+# @app.route("/editschedule", methods=['GET', 'POST'])
+# def editschedule():
+#     return render_template("index.html")
 
 
-@app.route("/adminnotifications", methods=['GET', 'POST'])
-def adminnotifications():
-    return render_template("index.html")
+# @app.route("/adminnotifications", methods=['GET', 'POST'])
+# def adminnotifications():
+#     return render_template("index.html")
 
 
 def check_planner_login(check_username, check_password):
@@ -136,29 +136,29 @@ def plannerlogin():
     return render_template('index.html', error=error)
 
 
-@app.route("/plannerwelcome", methods=['GET', 'POST'])
-def plannerwelcome():
-    return render_template("index.html")
+# @app.route("/plannerwelcome", methods=['GET', 'POST'])
+# def plannerwelcome():
+#     return render_template("index.html")
 
 
-@app.route("/createschedule", methods=['GET', 'POST'])
-def createschedule():
-    return render_template("index.html")
+# @app.route("/createschedule", methods=['GET', 'POST'])
+# def createschedule():
+#     return render_template("index.html")
 
 
-@app.route("/plannereditschedule", methods=['GET', 'POST'])
-def plannereditschedule():
-    return render_template("index.html")
+# @app.route("/plannereditschedule", methods=['GET', 'POST'])
+# def plannereditschedule():
+#     return render_template("index.html")
 
 
-@app.route("/deleteschedule", methods=['GET', 'POST'])
-def deleteschedule():
-    return render_template("index.html")
+# @app.route("/deleteschedule", methods=['GET', 'POST'])
+# def deleteschedule():
+#     return render_template("index.html")
 
 
-@app.route("/eventscheduling", methods=['GET', 'POST'])
-def eventscheduling():
-    return render_template("index.html")
+# @app.route("/eventscheduling", methods=['GET', 'POST'])
+# def eventscheduling():
+#     return render_template("index.html")
 
 
 app.run(debug="True")
