@@ -110,6 +110,8 @@ function FreshmoreSchedule (props) {
         </Typography>
 
         {/* TODO: insert timetable here */}
+        <p>This is part of FreshmoreSchedule.js. token: {window.token} </p>
+
         
       </main>
     </div>

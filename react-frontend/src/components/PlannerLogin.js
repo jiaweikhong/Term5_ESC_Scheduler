@@ -59,6 +59,7 @@ function PlannerLogin(props) {
         <Typography component="h1" variant="h5">
           Planner Login
           </Typography>
+
         <form className={classes.form} method="POST">
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="email">Email Address</InputLabel>
@@ -77,14 +78,14 @@ function PlannerLogin(props) {
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
-          >
+            className={classes.submit}>
             Sign in
             </Button>
           <p>
             <NavLink to="/plannerwelcome">
               Bypass</NavLink></p>
         </form>
+
       </Paper>
     </main>
   );

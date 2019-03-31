@@ -110,7 +110,9 @@ function ESDSchedule (props) {
         </Typography>
 
         {/* TODO: insert timetable here */}
-        
+        <p>This is part of ESDSchedule.js. token: {window.token} </p>
+
+
       </main>
     </div>
   );

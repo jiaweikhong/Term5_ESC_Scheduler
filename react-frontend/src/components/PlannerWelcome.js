@@ -148,35 +148,50 @@ function PlannerWelcome(props) {
           My Schedules
         </Typography>
 
-        <Button
-          color='inherit'
-          component={Link} to="/freshmoreschedule">
-          Freshmore
+        <form method="POST">
+          <Button
+            type="submit"
+            color='inherit'
+            name="Freshmore">
+            Freshmore
         </Button>
+        </form>
 
-        <Button
-          color='inherit'
-          component={Link} to="/epdschedule">
-          EPD
+        <form method="POST">
+          <Button
+            type="submit"
+            color='inherit'
+            name="EPD">
+            EPD
         </Button>
+        </form>
 
-        <Button
-          color='inherit'
-          component={Link} to="/istdschedule">
-          ISTD
+        <form method="POST">
+          <Button
+            type='submit'
+            color='inherit'
+            name='ISTD'>
+            ISTD
         </Button>
+        </form>
 
-        <Button
-          color='inherit'
-          component={Link} to="/esdschedule">
-          ESD
+        <form method="POST">
+          <Button
+            type="submit"
+            color='inherit'
+            name="ESD">
+            ESD
         </Button>
+        </form>
 
-        <Button
-          color='inherit'
-          component={Link} to="/asdschedule">
-          ASD
+        <form method="POST">
+          <Button
+            type="submit"
+            color='inherit'
+            name="ASD">
+            ASD
         </Button>
+        </form>
 
       </main>
     </div>

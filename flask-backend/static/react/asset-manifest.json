@@ -1,7 +1,7 @@
 {
   "main.css": "/static/react/css/main.bb8d5d1e.chunk.css",
-  "main.js": "/static/react/js/main.27770d9c.chunk.js",
-  "main.js.map": "/static/react/js/main.27770d9c.chunk.js.map",
+  "main.js": "/static/react/js/main.04354e4c.chunk.js",
+  "main.js.map": "/static/react/js/main.04354e4c.chunk.js.map",
   "runtime~main.js": "/static/react/js/runtime~main.53eac5d4.js",
   "runtime~main.js.map": "/static/react/js/runtime~main.53eac5d4.js.map",
   "js/2.0cff887d.chunk.js": "/static/react/js/2.0cff887d.chunk.js",
@@ -9,6 +9,6 @@
   "../../templates/index.html": "/static/react/../../templates/index.html",
   "css/main.bb8d5d1e.chunk.css.map": "/static/react/css/main.bb8d5d1e.chunk.css.map",
   "media/sutdlogo.jpeg": "/static/react/media/sutdlogo.7508c2ba.jpeg",
-  "precache-manifest.f44ae6191087a8e4ee91b93f797e7b6d.js": "/static/react/precache-manifest.f44ae6191087a8e4ee91b93f797e7b6d.js",
+  "precache-manifest.04eed0ab79e9bc58f7f6c16af7df4753.js": "/static/react/precache-manifest.04eed0ab79e9bc58f7f6c16af7df4753.js",
   "service-worker.js": "/static/react/service-worker.js"
 }

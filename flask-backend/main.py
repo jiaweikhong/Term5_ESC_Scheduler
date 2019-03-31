@@ -19,7 +19,7 @@ db = firebase.database()
 @app.route("/", methods=['GET', 'POST'])
 def my_index():
     # print("hello1")
-    return render_template("index.html")
+    return render_template("index.html", token="hi start")
 
 
 # @app.route("/about", methods=['GET', 'POST'])
@@ -95,7 +95,7 @@ def adminlogin():
         login_pass = check_admin_login(check_username, check_password)
         if login_pass == 1:
             return redirect(url_for('adminwelcome'))
-    return render_template('index.html', error=error)
+    return render_template('index.html', token="Hello admin")
 
 
 # @app.route("/adminwelcome", methods=['GET', 'POST'])
@@ -124,7 +124,6 @@ def check_planner_login(check_username, check_password):
 
 @app.route("/plannerlogin", methods=['GET', 'POST'])
 def plannerlogin():
-    error = None
     if request.method == 'POST':
         # Check if username match password
         check_username = request.form['email']
@@ -133,13 +132,42 @@ def plannerlogin():
         # will raise error if user does not match password
         if login_pass == 1:
             return redirect(url_for('plannerwelcome'))
-    return render_template('index.html', error=error)
+    return render_template('index.html')
 
+@app.route("/plannerwelcome", methods=['GET', 'POST'])
+def plannerwelcome():
+    if request.method == 'POST':
+        if 'Freshmore' in request.form:
+            return redirect(url_for('freshmoreschedule'))
+        elif 'EPD' in request.form:
+            return redirect(url_for('epdschedule'))
+        elif 'ISTD' in request.form:
+            return redirect(url_for('istdschedule'))
+        elif 'ESD' in request.form:
+            return redirect(url_for('esdschedule'))
+        elif 'ASD' in request.form:
+            return redirect(url_for('asdschedule'))
+    return render_template("index.html")
 
-# @app.route("/plannerwelcome", methods=['GET', 'POST'])
-# def plannerwelcome():
-#     return render_template("index.html")
+@app.route("/freshmoreschedule", methods=['GET', 'POST'])
+def freshmoreschedule():
+    return render_template('index.html', token="this is from main.py (freshmore)")
 
+@app.route("/epdschedule", methods=['GET', 'POST'])
+def epdschedule():
+    return render_template('index.html', token="this is from main.py (epd)")
+
+@app.route("/istdschedule", methods=['GET', 'POST'])
+def istdschedule():
+    return render_template('index.html', token="this is from main.py (istd)")
+    
+@app.route("/esdschedule", methods=['GET', 'POST'])
+def esdschedule():
+    return render_template('index.html', token="this is from main.py (esd)")
+
+@app.route("/asdschedule", methods=['GET', 'POST'])
+def asdschedule():
+    return render_template('index.html', token="this is from main.py (asd)")
 
 # @app.route("/createschedule", methods=['GET', 'POST'])
 # def createschedule():

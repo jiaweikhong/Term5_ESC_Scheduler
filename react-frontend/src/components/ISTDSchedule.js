@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
@@ -11,8 +11,9 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems } from '../lists/PlannerMenu';
-import {Link} from 'react-router-dom';
-import {Button} from '@material-ui/core'
+import { Link } from 'react-router-dom';
+import { Button } from '@material-ui/core'
+// import request from 'superagent'
 
 
 // TODO
@@ -38,23 +39,93 @@ const styles = theme => ({
     width: drawerWidth,
   },
 
-  icons:{
+  icons: {
     position: 'absolute',
     right: 15
-    
+
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
   },
   toolbar: theme.mixins.toolbar,
-  
 
-  
+
+
 });
 
-function ISTDSchedule (props) {
+// class ISTDSchedule extends Component {
+  
+//   // Lifecycle Method
+//   // componentDidMount() {
+//   //   request.get('/istdschedule')
+//   // }
 
+//   // Lifecycle Method
+//   render(props) {
+//     const { classes } = props;
+
+//     return (
+//       <div className={classes.root}>
+//         <CssBaseline />
+//         <AppBar
+//           position="fixed"
+//           className={classNames(classes.appBar)}>
+
+//           <Toolbar >
+//             <Typography
+//               variant="h6"
+//               color="inherit"
+//               noWrap>
+//               View Schedule
+//           </Typography>
+
+//             <div className={classes.icons}>
+//               <IconButton
+//                 color="inherit"
+//                 component={Link} to="/plannernotification">
+//                 <NotificationsIcon />
+//               </IconButton>
+
+//               <Button
+//                 color='inherit'
+//                 component={Link} to="/">
+//                 LOGOUT
+//         </Button>
+
+//             </div>
+//           </Toolbar>
+//         </AppBar>
+
+
+//         <Drawer
+//           className={classes.drawer}
+//           variant="permanent"
+//           classes={{
+//             paper: classNames(classes.drawerPaper),
+//           }}
+//         >
+//           <div className={classes.toolbar} />
+
+//           <List>{mainListItems}</List>
+//         </Drawer>
+
+
+//         <main className={classes.content}>
+//           <div className={classes.toolbar} />
+//           <Typography variant="h4" gutterBottom component="h2">
+//             ISTD Schedule
+//         </Typography>
+
+//           <p>My Token = {window.token} </p>
+
+//         </main>
+//       </div>
+//     );
+//   }
+// }
+
+function ISTDSchedule (props) {
   const { classes } = props;
 
   return (
@@ -63,7 +134,7 @@ function ISTDSchedule (props) {
       <AppBar
         position="fixed"
         className={classNames(classes.appBar)}>
-      
+
         <Toolbar >
           <Typography
             variant="h6"
@@ -89,7 +160,7 @@ function ISTDSchedule (props) {
         </Toolbar>
       </AppBar>
 
-      
+
       <Drawer
       className={classes.drawer}
         variant="permanent"
@@ -98,7 +169,7 @@ function ISTDSchedule (props) {
         }}
       >
         <div className={classes.toolbar} />
-        
+
         <List>{mainListItems}</List>
       </Drawer>
 
@@ -109,8 +180,8 @@ function ISTDSchedule (props) {
           ISTD Schedule
         </Typography>
 
-        {/* TODO: insert timetable here */}
-        
+        <p>This is part of ISTDSchedule.js. token: {window.token} </p>
+
       </main>
     </div>
   );

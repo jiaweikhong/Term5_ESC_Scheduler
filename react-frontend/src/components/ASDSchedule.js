@@ -110,6 +110,8 @@ function ASDSchedule (props) {
         </Typography>
 
         {/* TODO: insert timetable here */}
+        <p>This is part of ASDSchedule.js. token: {window.token} </p>
+
         
       </main>
     </div>

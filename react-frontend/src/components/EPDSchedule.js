@@ -110,7 +110,9 @@ function EPDSchedule (props) {
         </Typography>
 
         {/* TODO: insert timetable here */}
-        
+        <p>This is part of EPDSchedule.js. token: {window.token} </p>
+
+
       </main>
     </div>
   );
