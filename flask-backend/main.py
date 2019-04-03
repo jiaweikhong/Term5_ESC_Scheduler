@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
 import pyrebase
+import time
 
 app = Flask("__main__")
 
@@ -112,15 +113,12 @@ def adminlogin():
 # def adminnotifications():
 #     return render_template("index.html")
 
-
 def check_planner_login(check_username, check_password):
-    fire_password = db.child("planners").child(
-        check_username).child("password").get().val()
+    fire_password = db.child("planners").child(check_username).child("password").get().val()
     if (fire_password != check_password):
         return 0
     else:
         return 1
-
 
 @app.route("/plannerlogin", methods=['GET', 'POST'])
 def plannerlogin():
@@ -157,9 +155,43 @@ def freshmoreschedule():
 def epdschedule():
     return render_template('index.html', token="this is from main.py (epd)")
 
+def retrieveCourse(courseID):
+    # print (db.child("Courses").child(courseID).child("Monday").child("0").get().val())
+    # print ( db.child("planners").child("bob").child("password").get().val())
+
+    course = db.child("Courses").child(courseID)
+    monday = course.child("Monday")
+    # print (monday.child("0").get().val())
+    tuesday = course.child("Tuesday")
+    wednesday = course.child("Wednesday")
+    thursday = course.child("Thursday")
+    friday = course.child("Friday")
+    print (db.child("Courses").child(courseID).child("Monday").child(0).get().val())
+    print ("for loop here:dsf")
+    print (db.child("Courses").child(courseID).child("Monday").child(0).get().val())
+
+
+    for i in range(4):
+        retstring = (db.child("Courses").child(courseID).child("Monday").child(str(i)).get().val())
+        print (retstring)
+
+    # week = [monday, tuesday, wednesday, thursday, friday]
+    # for day in week:
+    #     print (monday.child("0").get().val())
+        # for i in range(3):
+        #     print (day.child(i).get().val())
+        #     if day.child(i).get().val() != None:
+        #         print (day.child(i).get().val())
+
+    # print (tuesday.child(0).get().val())
+    return None
+
 @app.route("/istdschedule", methods=['GET', 'POST'])
 def istdschedule():
-    return render_template('index.html', token="this is from main.py (istd)")
+    # this is where we obtain data from firebase
+    myString = retrieveCourse("50_034")
+    # return template
+    return render_template('index.html', token=myString)
     
 @app.route("/esdschedule", methods=['GET', 'POST'])
 def esdschedule():
