@@ -1,21 +1,31 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
-import pyrebase
-import time
+import firebase_admin
+from firebase_admin import credentials, firestore
+
+cred = credentials.Certificate('term-5-esc-scheduler-firebase-adminsdk-cfadg-cd4c469d4d.json')
+default_app = firebase_admin.initialize_app(cred)
+dbfs = firestore.client()
+
+adminscollection = dbfs.collection('admins').stream()
+# print (adminscollection)
+for admindoct in adminscollection:
+    doctdict = admindoct.to_dict()
+    for user in doctdict['Login']:
+        print(user['name'])
 
 app = Flask("__main__")
 
-config = {
-    "apiKey": "AIzaSyDBG8zzWCimpkUeuVjWQgYUcdOBI65KXUg",
-    "authDomain": "term-5-esc-scheduler.firebaseapp.com",
-    "databaseURL": "https://term-5-esc-scheduler.firebaseio.com",
-    "projectId": "term-5-esc-scheduler",
-    "storageBucket": "term-5-esc-scheduler.appspot.com",
-    "messagingSenderId": "212971464322"
-}
+# config = {
+#     "apiKey": "AIzaSyDBG8zzWCimpkUeuVjWQgYUcdOBI65KXUg",
+#     "authDomain": "term-5-esc-scheduler.firebaseapp.com",
+#     "databaseURL": "https://term-5-esc-scheduler.firebaseio.com",
+#     "projectId": "term-5-esc-scheduler",
+#     "storageBucket": "term-5-esc-scheduler.appspot.com",
+#     "messagingSenderId": "212971464322"
+# }
 
-firebase = pyrebase.initialize_app(config)
-db = firebase.database()
-
+# firebase = pyrebase.initialize_app(config)
+# db = firebase.database()
 
 @app.route("/", methods=['GET', 'POST'])
 def my_index():
@@ -34,11 +44,11 @@ def my_index():
 
 
 def check_instructor_login(check_username, check_password):
-    fire_password = db.child("instructors").child(
-        check_username).child("password").get().val()
-    if (fire_password != check_password):
-        return 0
-    else:
+#     fire_password = db.child("instructors").child(
+#         check_username).child("password").get().val()
+#     if (fire_password != check_password):
+#         return 0
+#     else:
         return 1
 
 
@@ -77,11 +87,11 @@ def instructorlogin():
 
 
 def check_admin_login(check_username, check_password):
-    fire_password = db.child("admins").child(check_username).child(
-        "password").get().val()  # retrieve password from given username
-    if (fire_password != check_password):
-        return 0
-    else:
+    # fire_password = db.child("admins").child(check_username).child(
+    #     "password").get().val()  # retrieve password from given username
+    # if (fire_password != check_password):
+    #     return 0
+    # else:
         return 1
 
 
@@ -114,10 +124,10 @@ def adminlogin():
 #     return render_template("index.html")
 
 def check_planner_login(check_username, check_password):
-    fire_password = db.child("planners").child(check_username).child("password").get().val()
-    if (fire_password != check_password):
-        return 0
-    else:
+    # fire_password = db.child("planners").child(check_username).child("password").get().val()
+    # if (fire_password != check_password):
+    #     return 0
+    # else:
         return 1
 
 @app.route("/plannerlogin", methods=['GET', 'POST'])
