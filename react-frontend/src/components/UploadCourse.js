@@ -1,34 +1,3 @@
-// import React from 'react';
-// import { NavLink } from 'react-router-dom';
-// const InstructorWelcome = () => {
-
-//     return (
-
-//         <html>
-//             {/* <head>
-//                 <title>Welcome Instructor</title>
-//             </head> */}
-
-//             <body>
-//                 <h1>Welcome</h1>
-
-//                 <img src={timetableplaceholder} /> <br /><br />
-//                 <table class="center">
-//                     <tr><td><form method="post"><input type="button" class="button button1" name="toInstructorNotif" value="View Notifications" /></form></td></tr>
-//                     <tr><td><form method="post"><input type="button" class="button button1" name="toUploadCourse" value="Upload a Course" /></form></td></tr>
-//                     <tr><td><form method="post"><input type="button" class="button button1" name="toSubmitPersonalConstraints" value="Submit Personal Constraints" /></form></td></tr>
-//                     <tr><td><form method="post"><input type="button" class="button button1" name="toInstructorEventSchedule" value="View Event Schedule" /></form></td></tr>
-//                 </table>
-
-//                 <p><NavLink to="/">Logout</NavLink></p>
-//             </body>
-
-
-//         </html>
-//     );
-// };
-
-
 
 
 import React from 'react';
@@ -45,8 +14,17 @@ import IconButton from '@material-ui/core/IconButton';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems } from '../lists/instructormenu';
 import {Link} from 'react-router-dom';
-import {Button, Divider} from '@material-ui/core'
-import timetableplaceholder from "./images/timetableplaceholder.png";
+import {Button, Divider, TextField, FormControl} from '@material-ui/core'
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CourseMaterial from './CourseMaterial';
+
+
+
+
+
+
 
 // TODO
 // try to stay in welcome page and only change the content when clicking on the list icons
@@ -56,12 +34,36 @@ import timetableplaceholder from "./images/timetableplaceholder.png";
 const drawerWidth = 240;
 
 const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+    width: 70
+
+  },
+  coursecode: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width:150
+
+  },
+  coursetitle:{
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width:400
+  },
+  card: {
+    minWidth: 275,
+    padding:50
+    
+  },
+  space:{
+    height:20
+  },
+
   root: {
     display: 'flex',
   },
-
   text:{
-	  
+    textAlign: 'left'
   },
 
   appBar: {
@@ -83,12 +85,21 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
+
   },
   toolbar: theme.mixins.toolbar,
+
+
+
+  textfields:{
+    display: 'flex',
+    flexWrap: 'wrap'
+  }
   
 
   
 });
+
 
 function UploadCourse (props) {
 
@@ -140,17 +151,180 @@ function UploadCourse (props) {
 
       </Drawer>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
-		<div className={classes.text}>
-		<Typography variant='h4' component='h4' gutterBottom>
-		Upload Course Material
-		</Typography>
-		<Typography variant='h4' gutterBottom>
-		Please fill in your respective course information. 
-		</Typography>
-		<Divider/>
-		</div>
-		
+
+        <Card className={classes.card}>
+          <CardContent>
+        <div className={classes.text}>
+        <Typography gutterBottom variant="h4" component="h4">
+        My Courses</Typography>
+        <Typography gutterBottom component ="h6">
+        Please fill in the course code and course title of the courses you are teaching. Thank you</Typography>
+        </div>
+        <Divider/>
+
+        <CardActions>
+        <div className={classes.text}>
+        <FormControl fullWidth>
+        <div>
+        <TextField
+          id="instructor-input"
+          className={classes.coursecode}
+          margin="normal"
+          variant='outlined'
+          placeholder= "Course Code"
+          
+        />
+
+        <TextField
+          id="instructor-input"
+          className={classes.coursetitle}
+          margin="normal"
+          variant='outlined'
+          placeholder= "Course Title"
+        />
+        </div>
+        
+        </FormControl>
+        <FormControl fullWidth>
+        <div>
+        <TextField
+          id="instructor-input"
+          className={classes.coursecode}
+          margin="normal"
+          variant='outlined'
+          placeholder= "Course Code"
+          
+        />
+
+        <TextField
+          id="instructor-input"
+          className={classes.coursetitle}
+          margin="normal"
+          variant='outlined'
+          placeholder= "Course Title"
+        />
+        </div>
+        </FormControl>
+        <FormControl fullWidth>
+        <div>
+        <TextField
+          id="instructor-input"
+          className={classes.coursecode}
+          margin="normal"
+          variant='outlined'
+          placeholder= "Course Code"
+          
+        />
+
+        <TextField
+          id="instructor-input"
+          className={classes.coursetitle}
+          margin="normal"
+          variant='outlined'
+          placeholder= "Course Title"
+        />
+        </div>
+        <Button variant="contained" color="primary" className={classes.button}>
+        Submit
+      </Button>
+        </FormControl>
+        </div>
+        </CardActions>
+        </CardContent>
+        </Card>
+
+        <div className={classes.space} />
+        
+
+        <Card className={classes.card}>
+          <CardContent>
+          <div className={classes.text}>
+        <Typography gutterBottom variant="h4" component="h4">
+        Course Information</Typography>
+        <Typography gutterBottom component ="h6">
+        This section is to be filled ONLY by the individual course leaders. Please leave this blank if you are not a course leader.
+         Course leaders should discuss with his/her colleauges before filling this section. You do not need to fill in all three course soft constraints. Thank you. </Typography>
+       
+        </div>
+        <CardActions className={classes.textfields}>
+        <FormControl fullWidth className={classes.text} >
+        <Typography variant='h5'>First Course</Typography>
+        <Divider/>
+        </FormControl>
+        
+        <div >
+        <TextField
+          id="instructor-input"
+          className={classes.coursecode}
+          margin="normal"
+          variant="outlined"
+          placeholder= "Course Code"
+          
+        />
+        <TextField
+          id="instructor-input"
+          className={classes.coursetitle}
+          margin="normal"
+          variant="outlined"
+          placeholder= "Course Title"
+        />
+        </div>
+
+        
+
+        <div>
+        <div className={classes.space} />
+        <CourseMaterial/>
+        </div>
+
+        </CardActions>
+          </CardContent>
+        
+        </Card>
+      
+        <div className={classes.space} />
+        <Card className={classes.card}>
+          <CardContent>
+
+        <CardActions className={classes.textfields}>
+        <FormControl fullWidth className={classes.text} >
+        <Typography variant='h5'>Second Course</Typography>
+        <Divider/>
+        </FormControl>
+        
+        <div >
+        <TextField
+          id="instructor-input"
+          className={classes.coursecode}
+          margin="normal"
+          variant="outlined"
+          placeholder= "Course Code"
+          
+        />
+        <TextField
+          id="instructor-input"
+          className={classes.coursetitle}
+          margin="normal"
+          variant="outlined"
+          placeholder= "Course Title"
+        />
+        </div>
+
+        
+
+        <div>
+        <div className={classes.space} />
+        <CourseMaterial/>
+        </div>
+
+        </CardActions>
+          </CardContent>
+        
+        </Card>
+
+        <div className={classes.space} />
+
+        
       </main>
     </div>
   );
