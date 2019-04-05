@@ -6,51 +6,27 @@ cred = credentials.Certificate('term-5-esc-scheduler-firebase-adminsdk-cfadg-cd4
 default_app = firebase_admin.initialize_app(cred)
 dbfs = firestore.client()
 
-adminscollection = dbfs.collection('admins').stream()
-# print (adminscollection)
-for admindoct in adminscollection:
-    doctdict = admindoct.to_dict()
-    for user in doctdict['Login']:
-        print(user['name'])
+adminsdocument = dbfs.collection(u'admins').document(u'LlE9Gj5E1ySq6VcIUkM0').get().to_dict()
+instructorsdocument = dbfs.collection('instructors').document('JBXLfE3480F9TYQMqd4j').get().to_dict()
+plannersdocument = dbfs.collection('planners').document('WnUTmtoFR8eLh6zM8Of1').get().to_dict()
 
 app = Flask("__main__")
-
-# config = {
-#     "apiKey": "AIzaSyDBG8zzWCimpkUeuVjWQgYUcdOBI65KXUg",
-#     "authDomain": "term-5-esc-scheduler.firebaseapp.com",
-#     "databaseURL": "https://term-5-esc-scheduler.firebaseio.com",
-#     "projectId": "term-5-esc-scheduler",
-#     "storageBucket": "term-5-esc-scheduler.appspot.com",
-#     "messagingSenderId": "212971464322"
-# }
-
-# firebase = pyrebase.initialize_app(config)
-# db = firebase.database()
 
 @app.route("/", methods=['GET', 'POST'])
 def my_index():
     # print("hello1")
     return render_template("index.html", token="hi start")
 
-
-# @app.route("/about", methods=['GET', 'POST'])
-# def about():
-#     if request.method == 'POST':
-#         print("clickered")
-#         if "click" in request.form:
-#             print("clicked!")
-
-#     return render_template("index.html")
-
-
 def check_instructor_login(check_username, check_password):
-#     fire_password = db.child("instructors").child(
-#         check_username).child("password").get().val()
-#     if (fire_password != check_password):
-#         return 0
-#     else:
-        return 1
-
+    for instructor in instructorsdocument:
+        if instructor == check_username:
+            instructorinfo = instructorsdocument[check_username]
+            fspassword = instructorinfo['password']
+            if (check_password == fspassword):
+                # print ("valid login")
+                return 1
+    # print ("invalid login")
+    return 0
 
 @app.route("/instructorlogin", methods=['GET', 'POST'])
 def instructorlogin():
@@ -87,12 +63,15 @@ def instructorlogin():
 
 
 def check_admin_login(check_username, check_password):
-    # fire_password = db.child("admins").child(check_username).child(
-    #     "password").get().val()  # retrieve password from given username
-    # if (fire_password != check_password):
-    #     return 0
-    # else:
-        return 1
+    for admin in adminsdocument:
+        if admin == check_username:
+            admininfo = adminsdocument[check_username]
+            fspassword = admininfo['password']
+            if (check_password == fspassword):
+                # print ("valid login")
+                return 1
+    # print ("invalid login")
+    return 0
 
 
 @app.route("/adminlogin", methods=['GET', 'POST'])
@@ -124,11 +103,15 @@ def adminlogin():
 #     return render_template("index.html")
 
 def check_planner_login(check_username, check_password):
-    # fire_password = db.child("planners").child(check_username).child("password").get().val()
-    # if (fire_password != check_password):
-    #     return 0
-    # else:
-        return 1
+    for planner in plannersdocument:
+        if planner == check_username:
+            plannerinfo = plannersdocument[check_username]
+            fspassword = plannerinfo['password']
+            if (check_password == fspassword):
+                # print ("valid login")
+                return 1
+    # print ("invalid login")
+    return 0
 
 @app.route("/plannerlogin", methods=['GET', 'POST'])
 def plannerlogin():
