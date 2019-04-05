@@ -1,34 +1,3 @@
-// import React from 'react';
-// import { NavLink } from 'react-router-dom';
-// const InstructorWelcome = () => {
-
-//     return (
-
-//         <html>
-//             {/* <head>
-//                 <title>Welcome Instructor</title>
-//             </head> */}
-
-//             <body>
-//                 <h1>Welcome</h1>
-
-//                 <img src={timetableplaceholder} /> <br /><br />
-//                 <table class="center">
-//                     <tr><td><form method="post"><input type="button" class="button button1" name="toInstructorNotif" value="View Notifications" /></form></td></tr>
-//                     <tr><td><form method="post"><input type="button" class="button button1" name="toUploadCourse" value="Upload a Course" /></form></td></tr>
-//                     <tr><td><form method="post"><input type="button" class="button button1" name="toSubmitPersonalConstraints" value="Submit Personal Constraints" /></form></td></tr>
-//                     <tr><td><form method="post"><input type="button" class="button button1" name="toInstructorEventSchedule" value="View Event Schedule" /></form></td></tr>
-//                 </table>
-
-//                 <p><NavLink to="/">Logout</NavLink></p>
-//             </body>
-
-
-//         </html>
-//     );
-// };
-
-
 
 
 import React from 'react';
@@ -45,13 +14,17 @@ import IconButton from '@material-ui/core/IconButton';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems } from '../lists/instructormenu';
 import {Link} from 'react-router-dom';
-import {Button, Divider, TextField} from '@material-ui/core'
-import OutlinedTextFields from './OutlinedTextFields';
+import {Button, Divider, TextField, FormControl} from '@material-ui/core'
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import { FormControl } from '@material-ui/core';
+import OutlinedTextFields from './OutlinedTextFields';
+
+
+
+
+
+
 
 // TODO
 // try to stay in welcome page and only change the content when clicking on the list icons
@@ -61,6 +34,11 @@ import { FormControl } from '@material-ui/core';
 const drawerWidth = 240;
 
 const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+    width: 70
+
+  },
   coursecode: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
@@ -74,7 +52,7 @@ const styles = theme => ({
   },
   card: {
     minWidth: 275,
-    padding:50
+    padding:30
     
   },
   space:{
@@ -183,10 +161,16 @@ function SoftConstraints (props) {
         Individual Soft Constraints</Typography>
         <Typography gutterBottom component ="h6">
         Please rank you soft constraints. They will be taken into consideration when creating your timetable. Thank you</Typography>
-        <Divider/>
         </div>
+        <Divider/>
         <CardActions>
+          <FormControl fullWidth>
         <OutlinedTextFields/>
+        
+        <Button variant="contained" color="primary" className={classes.button}>
+        Submit
+      </Button>
+      </FormControl>
         </CardActions>
         </CardContent>
         </Card>
@@ -200,10 +184,13 @@ function SoftConstraints (props) {
         Course Soft Constraints</Typography>
         <Typography gutterBottom component ="h6">
         This section is to be filled ONLY by the individual course leaders. Please leave this blank if you are not a course leader.
-         Course leaders should discuss with his/her colleauges before filling this section. Thank you. </Typography>
+         Course leaders should discuss with his/her colleauges before filling this section. You do not need to fill in all three course soft constraints. Thank you. </Typography>
         <Divider/>
         </div>
         <CardActions className={classes.textfields}>
+        <FormControl fullWidth className={classes.text} >
+        <Typography variant='h5'>First Course</Typography>
+        </FormControl>
         <div >
         <TextField
           id="instructor-input"
@@ -219,12 +206,46 @@ function SoftConstraints (props) {
           className={classes.coursetitle}
           margin="normal"
           variant="outlined"
-          placeholder= "Course Name"
+          placeholder= "Course Title"
         />
         </div>
+       
         <div>
         <OutlinedTextFields/>
         </div>
+
+        <div className={classes.main} />
+        <FormControl fullWidth className={classes.text} >
+        <Typography variant='h5'>Second Course</Typography>
+        </FormControl>
+        <div >
+        <TextField
+          id="instructor-input"
+          className={classes.coursecode}
+          margin="normal"
+          variant="outlined"
+          placeholder= "Course Code"
+          
+        />
+
+        <TextField
+          id="instructor-input"
+          className={classes.coursetitle}
+          margin="normal"
+          variant="outlined"
+          placeholder= "Course Title"
+        />
+        </div>
+       
+        <div>
+        <OutlinedTextFields/>
+        </div>
+
+        
+        <Button variant="contained" color="primary" className={classes.button}>
+        Submit
+      </Button>
+
         </CardActions>
           </CardContent>
         

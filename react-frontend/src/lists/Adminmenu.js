@@ -4,10 +4,12 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import PeopleIcon from '@material-ui/icons/People';
 import { Link } from 'react-router-dom'; 
 import ListSubheader from '@material-ui/core/ListSubheader';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+
+
 
 
 
@@ -28,19 +30,19 @@ export const mainListItems = (
     button
     component = {Link} to = "/editschedule">
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <LibraryBooksIcon />
       </ListItemIcon>
-      <ListItemText primary="View/Edit Schedule" />
+      <ListItemText primary="Course Details" />
     </ListItem>
 
-    <ListItem 
+    {/* <ListItem 
     button
-  component = {Link} to = "/softconstraints"> {/*need to change */}
+  component = {Link} to = "/softconstraints"> {/*need to change 
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Edit Soft Constraints" />
-    </ListItem>
+    </ListItem> */}
 
     
   </div>
@@ -48,23 +50,24 @@ export const mainListItems = (
 
 export const secondaryListItems = (
   <div>
-    <ListSubheader 
-    inset
-    
-    >Instructors</ListSubheader>
-    <ListItem button>
+
+    <ListSubheader >Instructors</ListSubheader>
+    <ListItem button
+    component = {Link} to = "/instructorinformation">
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="Sudipta Chattopadhyay" />
     </ListItem>
-    <ListItem button>
+    <ListItem button
+    component = {Link} to = "/instructorinformation">
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="Sun Jun" />
     </ListItem>
-    <ListItem button>
+    <ListItem button
+    component = {Link} to = "/instructorinformation">
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>

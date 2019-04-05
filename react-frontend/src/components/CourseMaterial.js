@@ -10,9 +10,15 @@ import { TextField } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
+import {Button} from '@material-ui/core';
 
 
 const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+    width: 70
+
+  },
   text:{
     textAlign: 'left'
   },
@@ -280,9 +286,15 @@ render() {
           </MenuItem>
         ))}
       </TextField>
+      
+      
+      
       </FormControl>
 
-      </Grid></Grid></div>
+      </Grid>
+      <Button variant="contained" color="primary" className={classes.button}>
+        Submit
+      </Button></Grid></div>
 
 
 

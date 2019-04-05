@@ -7,6 +7,9 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import { Link } from 'react-router-dom'; 
+import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
+import ClearIcon from '@material-ui/icons/Clear';
+import CreateIcon from '@material-ui/icons/Create';
 
 
 export const mainListItems = (
@@ -26,7 +29,7 @@ export const mainListItems = (
     button
     component = {Link} to = "/createschedule">
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <LibraryAddIcon />
       </ListItemIcon>
       <ListItemText primary="Create Schedule" />
     </ListItem>
@@ -35,7 +38,7 @@ export const mainListItems = (
     button
     component = {Link} to = "/deleteschedule">
       <ListItemIcon>
-        <PeopleIcon />
+        <ClearIcon />
       </ListItemIcon>
       <ListItemText primary="Delete Schedule" />
     </ListItem>
@@ -44,14 +47,15 @@ export const mainListItems = (
     button
     component = {Link} to = "/plannereditschedule">
       <ListItemIcon>
-        <PeopleIcon />
+        <CreateIcon />
       </ListItemIcon>
       <ListItemText primary="Edit Schedule" />
     </ListItem>
 
 
     
-    <ListItem button>
+    <ListItem button
+    component = {Link} to ='/eventscheduling'>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>

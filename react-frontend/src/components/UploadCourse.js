@@ -52,7 +52,7 @@ const styles = theme => ({
   },
   card: {
     minWidth: 275,
-    padding:50
+    padding:30
     
   },
   space:{

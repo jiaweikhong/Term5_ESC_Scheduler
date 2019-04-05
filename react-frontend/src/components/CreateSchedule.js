@@ -1,33 +1,158 @@
-import React from 'react';
+// import React from 'react';
 
 
-const CreateSchedule = () => {
+// const CreateSchedule = () => {
 
-	return (
-
-		
-<html>
-	<head>
-		<title>Schedule Creation</title>
-	</head>
-
-	<body>
-		<h1>Please Implement Hard Constraints(All constraints for Event Schedule Creation)</h1>
+// 	return (
 
 		
-		<h1>Please Implement Soft Constraints(Course Schedule Creation Only)</h1>
-		<hr />
+// <html>
+// 	<head>
+// 		<title>Schedule Creation</title>
+// 	</head>
+
+// 	<body>
+// 		<h1>Please Implement Hard Constraints(All constraints for Event Schedule Creation)</h1>
+
 		
-		<p><button>Create Schedule</button></p>
+// 		<h1>Please Implement Soft Constraints(Course Schedule Creation Only)</h1>
+// 		<hr />
+		
+// 		<p><button>Create Schedule</button></p>
 	
-		<hr />
+// 		<hr />
 
-		<p><button>Upload/Update Schedule and send notifications to Instructors</button></p>
-		<p><a href="plannerwelcome">back</a></p>
-	</body>
-</html>
-	);
+// 		<p><button>Upload/Update Schedule and send notifications to Instructors</button></p>
+// 		<p><a href="plannerwelcome">back</a></p>
+// 	</body>
+// </html>
+// 	);
+// };
+
+
+// export default CreateSchedule;
+
+
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Drawer from '@material-ui/core/Drawer';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import List from '@material-ui/core/List';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import { mainListItems } from '../lists/PlannerMenu';
+import {Link} from 'react-router-dom';
+import {Button} from '@material-ui/core'
+
+
+const drawerWidth = 240;
+
+const styles = theme => ({
+  root: {
+    display: 'flex',
+  },
+
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+
+  icons:{
+    position: 'absolute',
+    right: 15
+    
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing.unit * 3,
+  },
+  toolbar: theme.mixins.toolbar,
+  
+
+  
+});
+
+function CreateSchedule (props) {
+
+  const { classes } = props;
+
+  return (
+    <div className={classes.root}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        className={classNames(classes.appBar)}>
+      
+        <Toolbar >
+          <Typography
+            variant="h6"
+            color="inherit"
+            noWrap
+            // className ={classes.welcome}
+          >
+            Welcome
+          </Typography>
+          <div className={classes.icons}>
+          <IconButton 
+          color="inherit"
+          component = {Link} to = "/plannernotification">    
+              <NotificationsIcon />    
+          </IconButton>
+          <Button 
+          color='inherit' 
+          component = {Link} to = "/">   
+          LOGOUT
+        </Button>
+        </div>
+        </Toolbar>
+      </AppBar>
+
+      
+      <Drawer
+      className={classes.drawer}
+        variant="permanent"
+        classes={{
+          paper: classNames(classes.drawerPaper),
+        }}
+      >
+        <div className={classes.toolbar} />
+        
+        <List>{mainListItems}</List>
+
+
+      </Drawer>
+      <main className={classes.content}>
+	  	<h1>Please Implement Hard Constraints(All constraints for Event Schedule Creation)</h1>
+
+		
+ 		<h1>Please Implement Soft Constraints(Course Schedule Creation Only)</h1>
+ 		<hr />
+		
+ 		<p><button>Create Schedule</button></p>
+	
+ 		<hr />
+ 		<p><button>Upload/Update Schedule and send notifications to Instructors</button></p>
+ 		<p><a href="plannerwelcome">back</a></p>
+      
+      </main>
+    </div>
+  );
+}
+
+CreateSchedule.propTypes = {
+  classes: PropTypes.object.isRequired,
 };
 
-
-export default CreateSchedule;
+export default withStyles(styles)(CreateSchedule);

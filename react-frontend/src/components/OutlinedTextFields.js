@@ -53,6 +53,10 @@ const constraints = [
     value: 'No classes on Friday',
     label: 'No classes on Friday',
   },
+  {
+    value:'',
+    label:'-'
+  }
 ];
 
 class OutlinedTextFields extends React.Component {
@@ -81,7 +85,7 @@ class OutlinedTextFields extends React.Component {
       <TextField
           id='choose-soft-constraint'
           select
-          placeholder = 'd'
+          label ='select'
           className={classes.textField}
           value={this.state.constraints1}
           onChange={this.handleChange('constraints1')}
@@ -109,9 +113,10 @@ class OutlinedTextFields extends React.Component {
       
       <FormControl  fullWidth>
         <TextField
-          InputLabel='hello'
+          
           id='choose-soft-constraint'
           select
+          label ='select'
           className={classes.textField}
           value={this.state.constraints2}
           onChange={this.handleChange('constraints2')}
@@ -140,7 +145,7 @@ class OutlinedTextFields extends React.Component {
       
           id='choose-soft-constraint'
           select
-          
+          label ='select'
           className={classes.textField}
           value={this.state.constraints3}
           onChange={this.handleChange('constraints3')}
@@ -192,9 +197,7 @@ class OutlinedTextFields extends React.Component {
         />
         </FormControl>
 
-        <Button variant="contained" color="primary" className={classes.button}>
-        Submit
-      </Button>
+      
    
       </form>
     );

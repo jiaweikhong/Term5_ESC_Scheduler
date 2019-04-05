@@ -7,6 +7,8 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import { Link } from 'react-router-dom'; 
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
 
 
 export const mainListItems = (
@@ -26,26 +28,26 @@ export const mainListItems = (
     button
     component = {Link} to = "/uploadcourse">
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <LibraryBooksIcon />
       </ListItemIcon>
-      <ListItemText primary="Upload Course" />
+      <ListItemText primary="Course Material" />
     </ListItem>
 
     <ListItem 
     button
     component = {Link} to = "/softconstraints">
       <ListItemIcon>
-        <PeopleIcon />
+        <CheckBoxIcon />
       </ListItemIcon>
-      <ListItemText primary="Personal Constraints" />
+      <ListItemText primary="Soft Constraints" />
     </ListItem>
     
-    <ListItem button>
+    {/* <ListItem button>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
       <ListItemText primary="Event Schedule" />
-    </ListItem>
+    </ListItem> */}
     
   </div>
 );
