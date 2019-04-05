@@ -6,7 +6,7 @@ cred = credentials.Certificate('term-5-esc-scheduler-firebase-adminsdk-cfadg-cd4
 default_app = firebase_admin.initialize_app(cred)
 dbfs = firestore.client()
 
-adminsdocument = dbfs.collection(u'admins').document(u'LlE9Gj5E1ySq6VcIUkM0').get().to_dict()
+adminsdocument = dbfs.collection('admins').document('LlE9Gj5E1ySq6VcIUkM0').get().to_dict()
 instructorsdocument = dbfs.collection('instructors').document('JBXLfE3480F9TYQMqd4j').get().to_dict()
 plannersdocument = dbfs.collection('planners').document('WnUTmtoFR8eLh6zM8Of1').get().to_dict()
 
@@ -92,11 +92,9 @@ def adminlogin():
 # def adminwelcome():
 #     return render_template("index.html")
 
-
 # @app.route("/editschedule", methods=['GET', 'POST'])
 # def editschedule():
 #     return render_template("index.html")
-
 
 # @app.route("/adminnotifications", methods=['GET', 'POST'])
 # def adminnotifications():
@@ -149,40 +147,18 @@ def epdschedule():
     return render_template('index.html', token="this is from main.py (epd)")
 
 def retrieveCourse(courseID):
-    # print (db.child("Courses").child(courseID).child("Monday").child("0").get().val())
-    # print ( db.child("planners").child("bob").child("password").get().val())
-
-    course = db.child("Courses").child(courseID)
-    monday = course.child("Monday")
-    # print (monday.child("0").get().val())
-    tuesday = course.child("Tuesday")
-    wednesday = course.child("Wednesday")
-    thursday = course.child("Thursday")
-    friday = course.child("Friday")
-    print (db.child("Courses").child(courseID).child("Monday").child(0).get().val())
-    print ("for loop here:dsf")
-    print (db.child("Courses").child(courseID).child("Monday").child(0).get().val())
-
-
-    for i in range(4):
-        retstring = (db.child("Courses").child(courseID).child("Monday").child(str(i)).get().val())
-        print (retstring)
-
-    # week = [monday, tuesday, wednesday, thursday, friday]
-    # for day in week:
-    #     print (monday.child("0").get().val())
-        # for i in range(3):
-        #     print (day.child(i).get().val())
-        #     if day.child(i).get().val() != None:
-        #         print (day.child(i).get().val())
-
-    # print (tuesday.child(0).get().val())
-    return None
+    coursesdocument = dbfs.collection('courses').document(courseID).get().to_dict()
+    week = coursesdocument['Week']
+    monday = week['Monday']
+    print (monday)
+    # for i in monday:
+    #     print (i, monday[i])
+    return "Hello from flask"
 
 @app.route("/istdschedule", methods=['GET', 'POST'])
 def istdschedule():
     # this is where we obtain data from firebase
-    myString = retrieveCourse("50_034")
+    myString = retrieveCourse("50.034")
     # return template
     return render_template('index.html', token=myString)
     
