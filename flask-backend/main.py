@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, jsonify
 import firebase_admin
 from firebase_admin import credentials, firestore
 
@@ -149,11 +149,13 @@ def epdschedule():
 def retrieveCourse(courseID):
     coursesdocument = dbfs.collection('courses').document(courseID).get().to_dict()
     week = coursesdocument['Week']
-    monday = week['Monday']
+    monday = week['Monday']     # dictionary
     print (monday)
+    first = monday['0']     # list
+    print (first[0])
     # for i in monday:
     #     print (i, monday[i])
-    return "Hello from flask"
+    return jsonify({"helloword" : "heloo" })
 
 @app.route("/istdschedule", methods=['GET', 'POST'])
 def istdschedule():
