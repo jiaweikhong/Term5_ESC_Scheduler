@@ -12,7 +12,18 @@
 
 
     <title>SUTD Timetable Scheduler</title>
-    <script>window.token = "{{ token }}" </script>
+    <script type="text/javascript">
+    window.token = "{{ token.username }}";
+    window.token2 = "{{ token.1 }}";
+
+    window.array = ["helllo", "world"];
+    window.array.push("apple");
+    window.array.push("pear");
+
+    // window.dict = {0 : "noob"};
+    // window.dict = "{{ token }}" ;
+    </script>
+    <script type ="text/javascript" src="../src/components/ISTDSchedule.js"></script>
   </head>
 
   <body>

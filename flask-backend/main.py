@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, jsonify
 import firebase_admin
 from firebase_admin import credentials, firestore
+import json
 
 cred = credentials.Certificate('term-5-esc-scheduler-firebase-adminsdk-cfadg-cd4c469d4d.json')
 default_app = firebase_admin.initialize_app(cred)
@@ -150,19 +151,24 @@ def retrieveCourse(courseID):
     coursesdocument = dbfs.collection('courses').document(courseID).get().to_dict()
     week = coursesdocument['Week']
     monday = week['Monday']     # dictionary
-    print (monday)
+    tuesday = week['Tuesday']   # dictionary
+    # print (monday)
+    print (tuesday)
     first = monday['0']     # list
-    print (first[0])
+    # print (first[0])
     # for i in monday:
     #     print (i, monday[i])
-    return jsonify({"helloword" : "heloo" })
+    # return jsonify({"helloword" : "heloo" })
+    # return ({"helloword" : "heloo" })
+    return tuesday  # dictionary
 
 @app.route("/istdschedule", methods=['GET', 'POST'])
 def istdschedule():
     # this is where we obtain data from firebase
-    myString = retrieveCourse("50.034")
+    tuesday = retrieveCourse("50.034")
     # return template
-    return render_template('index.html', token=myString)
+    token = {'0': 'pang', 'username': ['apple', 'orange']}
+    return render_template('index.html', token=['a', 'b', 'c'])
     
 @app.route("/esdschedule", methods=['GET', 'POST'])
 def esdschedule():

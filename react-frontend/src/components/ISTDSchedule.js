@@ -180,7 +180,12 @@ function ISTDSchedule (props) {
           ISTD Schedule
         </Typography>
 
-        <p>This is part of ISTDSchedule.js. token: {window.token} </p>
+        <p>This is part of ISTDSchedule.js. token: </p>
+        <p>{window.token} </p>
+        <p>{window.token2} </p>
+        <p>{window.array[0]} </p>
+        <p>{window.array[1]} </p>
+        {/* <p>{window.dict["meow"]} </p> */}
 
       </main>
     </div>
