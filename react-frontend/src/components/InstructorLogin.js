@@ -77,13 +77,11 @@ function InstructorLogin(props) {
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
-          >
+            className={classes.submit}>
             Sign in
           </Button>
-          <p>
-            <NavLink to="/instructorwelcome">
-              Bypass</NavLink></p>
+          <p>{ window.errornotif }</p>
+          <p><NavLink to="/instructorwelcome">Bypass</NavLink></p>
         </form>
       </Paper>
     </main>

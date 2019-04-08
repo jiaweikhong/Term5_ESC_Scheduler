@@ -10,13 +10,35 @@
     <meta name="theme-color" content="#000000" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
-
     <title>SUTD Timetable Scheduler</title>
     <script type="text/javascript">
+    window.user = "{{ user }}"
+    window.pillar = "{{ pillar }}"
+    
+    switch (window.pillar) {
+      case 'Freshmore':
+        window.pillarcourses = ['Fresh1', 'Fresh2','Fresh3'];
+        break;
+      case 'ISTD':
+        window.pillarcourses = ['50.003','50.005','50.034'];
+        break;
+      case 'EPD':
+        window.pillarcourses = ['EPD1', 'EPD2','EPD3'];
+        break;
+      case 'ESD':
+        window.pillarcourses = ['ESD1', 'ESD2','ESD3'];
+        break;
+      case 'ASD':
+        window.pillarcourses = ['ASD1', 'ASD2','ASD3'];
+        break;
+    }
+
+    window.errornotif = "{{ error }}";
     window.unparsedtoken = "{{ token }}";
     window.unparsedtoken = window.unparsedtoken.replace(/&#39;/g, "\"");
     window.parsedtoken = JSON.parse(unparsedtoken);
-    // window.test = parsedtoken['test'];
+    
+    
     </script>
     <script type ="text/javascript" src="../src/components/ISTDSchedule.js"></script>
   </head>

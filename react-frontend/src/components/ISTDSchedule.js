@@ -13,8 +13,6 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems } from '../lists/PlannerMenu';
 import { Link } from 'react-router-dom';
 import { Button, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core'
-// import request from 'superagent'
-
 
 // TODO
 // try to stay in welcome page and only change the content when clicking on the list icons
@@ -119,180 +117,176 @@ function ISTDSchedule(props) {
           <TableHead>
             <TableRow>
               <TableCell>Time Slot</TableCell>
-              <TableCell>Monday</TableCell>
-              <TableCell>Tuesday</TableCell>
-              <TableCell>Wednesday</TableCell>
-              <TableCell>Thursday</TableCell>
-              <TableCell>Friday</TableCell>
+              <TableCell align="center">Monday</TableCell>
+              <TableCell align="center">Tuesday</TableCell>
+              <TableCell align="center">Wednesday</TableCell>
+              <TableCell align="center">Thursday</TableCell>
+              <TableCell align="center">Friday</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow>
               <TableCell>0830 - 0900</TableCell>
-              <TableCell>{window.parsedtoken['Monday'][0]}</TableCell>
-              <TableCell>{window.parsedtoken['Tuesday'][0]}</TableCell>
-              <TableCell>{window.parsedtoken['Wednesday'][0]}</TableCell>
-              <TableCell>{window.parsedtoken['Thursday'][0]}</TableCell>
-              <TableCell>{window.parsedtoken['Friday'][0]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Monday'][0]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Tuesday'][0]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Wednesday'][0]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Thursday'][0]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Friday'][0]}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>0900 - 0930</TableCell>
-              <TableCell>{window.parsedtoken['Monday'][1]}</TableCell>
-              <TableCell>{window.parsedtoken['Tuesday'][1]}</TableCell>
-              <TableCell>{window.parsedtoken['Wednesday'][1]}</TableCell>
-              <TableCell>{window.parsedtoken['Thursday'][1]}</TableCell>
-              <TableCell>{window.parsedtoken['Friday'][1]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Monday'][1]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Tuesday'][1]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Wednesday'][1]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Thursday'][1]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Friday'][1]}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>0930 - 1000</TableCell>
-              <TableCell>{window.parsedtoken['Monday'][2]}</TableCell>
-              <TableCell>{window.parsedtoken['Tuesday'][2]}</TableCell>
-              <TableCell>{window.parsedtoken['Wednesday'][2]}</TableCell>
-              <TableCell>{window.parsedtoken['Thursday'][2]}</TableCell>
-              <TableCell>{window.parsedtoken['Friday'][2]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Monday'][2]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Tuesday'][2]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Wednesday'][2]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Thursday'][2]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Friday'][2]}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>1000 - 1030</TableCell>
-              <TableCell>{window.parsedtoken['Monday'][3]}</TableCell>
-              <TableCell>{window.parsedtoken['Tuesday'][3]}</TableCell>
-              <TableCell>{window.parsedtoken['Wednesday'][3]}</TableCell>
-              <TableCell>{window.parsedtoken['Thursday'][3]}</TableCell>
-              <TableCell>{window.parsedtoken['Friday'][3]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Monday'][3]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Tuesday'][3]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Wednesday'][3]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Thursday'][3]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Friday'][3]}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>1030 - 1100</TableCell>
-              <TableCell>{window.parsedtoken['Monday'][4]}</TableCell>
-              <TableCell>{window.parsedtoken['Tuesday'][4]}</TableCell>
-              <TableCell>{window.parsedtoken['Wednesday'][4]}</TableCell>
-              <TableCell>{window.parsedtoken['Thursday'][4]}</TableCell>
-              <TableCell>{window.parsedtoken['Friday'][4]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Monday'][4]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Tuesday'][4]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Wednesday'][4]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Thursday'][4]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Friday'][4]}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>1100 - 1130</TableCell>
-              <TableCell>{window.parsedtoken['Monday'][5]}</TableCell>
-              <TableCell>{window.parsedtoken['Tuesday'][5]}</TableCell>
-              <TableCell>{window.parsedtoken['Wednesday'][5]}</TableCell>
-              <TableCell>{window.parsedtoken['Thursday'][5]}</TableCell>
-              <TableCell>{window.parsedtoken['Friday'][5]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Monday'][5]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Tuesday'][5]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Wednesday'][5]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Thursday'][5]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Friday'][5]}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>1130 - 1200</TableCell>
-              <TableCell>{window.parsedtoken['Monday'][6]}</TableCell>
-              <TableCell>{window.parsedtoken['Tuesday'][6]}</TableCell>
-              <TableCell>{window.parsedtoken['Wednesday'][6]}</TableCell>
-              <TableCell>{window.parsedtoken['Thursday'][6]}</TableCell>
-              <TableCell>{window.parsedtoken['Friday'][6]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Monday'][6]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Tuesday'][6]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Wednesday'][6]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Thursday'][6]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Friday'][6]}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>1200 - 1230</TableCell>
-              <TableCell>{window.parsedtoken['Monday'][7]}</TableCell>
-              <TableCell>{window.parsedtoken['Tuesday'][7]}</TableCell>
-              <TableCell>{window.parsedtoken['Wednesday'][7]}</TableCell>
-              <TableCell>{window.parsedtoken['Thursday'][7]}</TableCell>
-              <TableCell>{window.parsedtoken['Friday'][7]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Monday'][7]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Tuesday'][7]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Wednesday'][7]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Thursday'][7]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Friday'][7]}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>1230 - 1300</TableCell>
-              <TableCell>{window.parsedtoken['Monday'][8]}</TableCell>
-              <TableCell>{window.parsedtoken['Tuesday'][8]}</TableCell>
-              <TableCell>{window.parsedtoken['Wednesday'][8]}</TableCell>
-              <TableCell>{window.parsedtoken['Thursday'][8]}</TableCell>
-              <TableCell>{window.parsedtoken['Friday'][8]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Monday'][8]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Tuesday'][8]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Wednesday'][8]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Thursday'][8]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Friday'][8]}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>1300 - 1330</TableCell>
-              <TableCell>{window.parsedtoken['Monday'][9]}</TableCell>
-              <TableCell>{window.parsedtoken['Tuesday'][9]}</TableCell>
-              <TableCell>{window.parsedtoken['Wednesday'][9]}</TableCell>
-              <TableCell>{window.parsedtoken['Thursday'][9]}</TableCell>
-              <TableCell>{window.parsedtoken['Friday'][9]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Monday'][9]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Tuesday'][9]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Wednesday'][9]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Thursday'][9]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Friday'][9]}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>1330 - 1400</TableCell>
-              <TableCell>{window.parsedtoken['Monday'][10]}</TableCell>
-              <TableCell>{window.parsedtoken['Tuesday'][10]}</TableCell>
-              <TableCell>{window.parsedtoken['Wednesday'][10]}</TableCell>
-              <TableCell>{window.parsedtoken['Thursday'][10]}</TableCell>
-              <TableCell>{window.parsedtoken['Friday'][10]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Monday'][10]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Tuesday'][10]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Wednesday'][10]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Thursday'][10]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Friday'][10]}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>1400 - 1430</TableCell>
-              <TableCell>{window.parsedtoken['Monday'][11]}</TableCell>
-              <TableCell>{window.parsedtoken['Tuesday'][11]}</TableCell>
-              <TableCell>{window.parsedtoken['Wednesday'][11]}</TableCell>
-              <TableCell>{window.parsedtoken['Thursday'][11]}</TableCell>
-              <TableCell>{window.parsedtoken['Friday'][11]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Monday'][11]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Tuesday'][11]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Wednesday'][11]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Thursday'][11]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Friday'][11]}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>1430 - 1500</TableCell>
-              <TableCell>{window.parsedtoken['Monday'][12]}</TableCell>
-              <TableCell>{window.parsedtoken['Tuesday'][12]}</TableCell>
-              <TableCell>{window.parsedtoken['Wednesday'][12]}</TableCell>
-              <TableCell>{window.parsedtoken['Thursday'][12]}</TableCell>
-              <TableCell>{window.parsedtoken['Friday'][12]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Monday'][12]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Tuesday'][12]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Wednesday'][12]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Thursday'][12]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Friday'][12]}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>1500 - 1530</TableCell>
-              <TableCell>{window.parsedtoken['Monday'][13]}</TableCell>
-              <TableCell>{window.parsedtoken['Tuesday'][13]}</TableCell>
-              <TableCell>{window.parsedtoken['Wednesday'][13]}</TableCell>
-              <TableCell>{window.parsedtoken['Thursday'][13]}</TableCell>
-              <TableCell>{window.parsedtoken['Friday'][13]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Monday'][13]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Tuesday'][13]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Wednesday'][13]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Thursday'][13]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Friday'][13]}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>1530 - 1600</TableCell>
-              <TableCell>{window.parsedtoken['Monday'][14]}</TableCell>
-              <TableCell>{window.parsedtoken['Tuesday'][14]}</TableCell>
-              <TableCell>{window.parsedtoken['Wednesday'][14]}</TableCell>
-              <TableCell>{window.parsedtoken['Thursday'][14]}</TableCell>
-              <TableCell>{window.parsedtoken['Friday'][14]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Monday'][14]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Tuesday'][14]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Wednesday'][14]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Thursday'][14]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Friday'][14]}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>1600 - 1630</TableCell>
-              <TableCell>{window.parsedtoken['Monday'][15]}</TableCell>
-              <TableCell>{window.parsedtoken['Tuesday'][15]}</TableCell>
-              <TableCell>{window.parsedtoken['Wednesday'][15]}</TableCell>
-              <TableCell>{window.parsedtoken['Thursday'][15]}</TableCell>
-              <TableCell>{window.parsedtoken['Friday'][15]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Monday'][15]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Tuesday'][15]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Wednesday'][15]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Thursday'][15]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Friday'][15]}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>1630 - 1700</TableCell>
-              <TableCell>{window.parsedtoken['Monday'][16]}</TableCell>
-              <TableCell>{window.parsedtoken['Tuesday'][16]}</TableCell>
-              <TableCell>{window.parsedtoken['Wednesday'][16]}</TableCell>
-              <TableCell>{window.parsedtoken['Thursday'][16]}</TableCell>
-              <TableCell>{window.parsedtoken['Friday'][16]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Monday'][16]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Tuesday'][16]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Wednesday'][16]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Thursday'][16]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Friday'][16]}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>1700 - 1730</TableCell>
-              <TableCell>{window.parsedtoken['Monday'][17]}</TableCell>
-              <TableCell>{window.parsedtoken['Tuesday'][17]}</TableCell>
-              <TableCell>{window.parsedtoken['Wednesday'][17]}</TableCell>
-              <TableCell>{window.parsedtoken['Thursday'][17]}</TableCell>
-              <TableCell>{window.parsedtoken['Friday'][17]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Monday'][17]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Tuesday'][17]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Wednesday'][17]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Thursday'][17]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Friday'][17]}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>1730 - 1800</TableCell>
-              <TableCell>{window.parsedtoken['Monday'][18]}</TableCell>
-              <TableCell>{window.parsedtoken['Tuesday'][18]}</TableCell>
-              <TableCell>{window.parsedtoken['Wednesday'][18]}</TableCell>
-              <TableCell>{window.parsedtoken['Thursday'][18]}</TableCell>
-              <TableCell>{window.parsedtoken['Friday'][18]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Monday'][18]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Tuesday'][18]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Wednesday'][18]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Thursday'][18]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Friday'][18]}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>1800 - 1830</TableCell>
-              <TableCell>{window.parsedtoken['Monday'][19]}</TableCell>
-              <TableCell>{window.parsedtoken['Tuesday'][19]}</TableCell>
-              <TableCell>{window.parsedtoken['Wednesday'][19]}</TableCell>
-              <TableCell>{window.parsedtoken['Thursday'][19]}</TableCell>
-              <TableCell>{window.parsedtoken['Friday'][19]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Monday'][19]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Tuesday'][19]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Wednesday'][19]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Thursday'][19]}</TableCell>
+              <TableCell align="center">{window.parsedtoken['Friday'][19]}</TableCell>
             </TableRow>
           </TableBody>
-
-
         </Table>
-
-
       </main>
     </div>
   );

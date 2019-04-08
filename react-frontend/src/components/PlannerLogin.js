@@ -81,6 +81,7 @@ function PlannerLogin(props) {
             className={classes.submit}>
             Sign in
             </Button>
+            <p>{ window.errornotif }</p>
           <p>
             <NavLink to="/plannerwelcome">
               Bypass</NavLink></p>

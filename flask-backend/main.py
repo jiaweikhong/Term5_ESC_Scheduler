@@ -13,6 +13,10 @@ plannersdocument = dbfs.collection('planners').document('WnUTmtoFR8eLh6zM8Of1').
 
 app = Flask("__main__")
 
+class Data():
+    loggedUser = ""
+    pillar = ""
+
 @app.route("/", methods=['GET', 'POST'])
 def my_index():
     # print("hello1")
@@ -31,37 +35,33 @@ def check_instructor_login(check_username, check_password):
 
 @app.route("/instructorlogin", methods=['GET', 'POST'])
 def instructorlogin():
-    error = None
+    error = ""
+    # print("helloasdf" + user)
     if request.method == 'POST':
         # Check if username match password
         check_username = request.form['email']
         check_password = request.form['password']
         # will raise error if username does not match password
         login_pass = check_instructor_login(check_username, check_password)
+        # print("hello0" + user)
         if login_pass == 1:
+            # print("hello" + user)
+            Data.loggedUser = check_username
             return redirect(url_for('instructorwelcome'))
+        error = "Invalid credentials, please try again."
     return render_template('index.html', error=error)
 
+def retrieveInstructorCourses(loggedUser):
+    coursesdocument = dbfs.collection('instructors').document('JBXLfE3480F9TYQMqd4j').get().to_dict()
+    week = coursesdocument[loggedUser]['Week']
+    return week #dictionary
 
-# @app.route("/instructorwelcome", methods=['GET', 'POST'])
-# def instructorwelcome():
-#     return render_template("index.html")
-
-
-# @app.route("/uploadcourse", methods=['GET', 'POST'])
-# def uploadcourse():
-#     return render_template("index.html")
-
-
-# @app.route("/softconstraints", methods=['GET', 'POST'])
-# def softconstraints():
-#     return render_template("index.html")
-
-
-# @app.route("/instructornotifications", methods=['GET', 'POST'])
-# def instructornotifications():
-#     return render_template("index.html")
-
+@app.route("/instructorwelcome", methods=['GET', 'POST'])
+def instructorwelcome():
+    loggedUser = Data.loggedUser
+    weeklysched = retrieveInstructorCourses(loggedUser)
+    jsonify(weeklysched)
+    return render_template("index.html", user=loggedUser, token=weeklysched)
 
 def check_admin_login(check_username, check_password):
     for admin in adminsdocument:
@@ -70,14 +70,15 @@ def check_admin_login(check_username, check_password):
             fspassword = admininfo['password']
             if (check_password == fspassword):
                 # print ("valid login")
+                adminpillar = admininfo['pillar']
+                Data.pillar = adminpillar
                 return 1
     # print ("invalid login")
     return 0
 
-
 @app.route("/adminlogin", methods=['GET', 'POST'])
 def adminlogin():
-    error = None
+    error = ""
     if request.method == 'POST':
         # Check if username match password
         check_username = request.form['email']
@@ -85,21 +86,25 @@ def adminlogin():
         # will raise error if user does not match password
         login_pass = check_admin_login(check_username, check_password)
         if login_pass == 1:
+            Data.loggedUser = check_username
             return redirect(url_for('adminwelcome'))
-    return render_template('index.html', token="Hello admin")
+        error = "Invalid credentials, please try again."
+    return render_template('index.html', error=error)
 
-
-# @app.route("/adminwelcome", methods=['GET', 'POST'])
-# def adminwelcome():
-#     return render_template("index.html")
-
-# @app.route("/editschedule", methods=['GET', 'POST'])
-# def editschedule():
-#     return render_template("index.html")
-
-# @app.route("/adminnotifications", methods=['GET', 'POST'])
-# def adminnotifications():
-#     return render_template("index.html")
+@app.route("/adminwelcome", methods=['GET', 'POST'])
+def adminwelcome():
+    loggedUser = Data.loggedUser
+    weeklysched = retrieveCourse("EmptyCourse")
+    if request.method == 'POST':
+        if '50.003' in request.form:
+            weeklysched = retrieveCourse("50.003")
+        elif '50.005' in request.form:
+            weeklysched = retrieveCourse("50.005")
+        elif '50.034' in request.form:
+            weeklysched = retrieveCourse("50.034")
+    jsonify(weeklysched)
+    adminPillar = Data.pillar
+    return render_template('index.html', token=weeklysched, user=loggedUser, pillar=adminPillar)
 
 def check_planner_login(check_username, check_password):
     for planner in plannersdocument:
@@ -114,6 +119,7 @@ def check_planner_login(check_username, check_password):
 
 @app.route("/plannerlogin", methods=['GET', 'POST'])
 def plannerlogin():
+    error = ""
     if request.method == 'POST':
         # Check if username match password
         check_username = request.form['email']
@@ -122,7 +128,8 @@ def plannerlogin():
         # will raise error if user does not match password
         if login_pass == 1:
             return redirect(url_for('plannerwelcome'))
-    return render_template('index.html')
+        error = "Invalid credentials, please try again."
+    return render_template('index.html', error=error)
 
 @app.route("/plannerwelcome", methods=['GET', 'POST'])
 def plannerwelcome():
@@ -149,10 +156,7 @@ def epdschedule():
 
 def retrieveCourse(courseID):
     coursesdocument = dbfs.collection('courses').document(courseID).get().to_dict()
-    week = coursesdocument['Week']  # dictionary
-    # monday = week['Monday']     # dictionary
-    # tuesday = week['Tuesday']   # dictionary
-    # wednesday = week['Wednesday']   # array
+    week = coursesdocument['Week']
     return week #dictionary
 
 @app.route("/istdschedule", methods=['GET', 'POST'])
@@ -176,25 +180,5 @@ def esdschedule():
 @app.route("/asdschedule", methods=['GET', 'POST'])
 def asdschedule():
     return render_template('index.html', token="this is from main.py (asd)")
-
-# @app.route("/createschedule", methods=['GET', 'POST'])
-# def createschedule():
-#     return render_template("index.html")
-
-
-# @app.route("/plannereditschedule", methods=['GET', 'POST'])
-# def plannereditschedule():
-#     return render_template("index.html")
-
-
-# @app.route("/deleteschedule", methods=['GET', 'POST'])
-# def deleteschedule():
-#     return render_template("index.html")
-
-
-# @app.route("/eventscheduling", methods=['GET', 'POST'])
-# def eventscheduling():
-#     return render_template("index.html")
-
 
 app.run(debug="True")
