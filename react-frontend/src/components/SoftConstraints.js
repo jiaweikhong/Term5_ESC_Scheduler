@@ -19,6 +19,8 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import OutlinedTextFields from './OutlinedTextFields';
+import MenuItem from '@material-ui/core/MenuItem';
+
 
 
 
@@ -44,6 +46,10 @@ const styles = theme => ({
     marginRight: theme.spacing.unit,
     width:150
 
+  },
+  pillar:{
+    //marginLeft: theme.spacing.unit,
+    width:150
   },
   coursetitle:{
     marginLeft: theme.spacing.unit,
@@ -102,10 +108,50 @@ const styles = theme => ({
   
 });
 
+const constraints = [
+  {
+    value: 'ISTD',
+    label: 'ISTD',
+  },
+  {
+    value: 'EPD',
+    label: 'EPD',
+  },
+  {
+    value: 'ESD',
+    label: 'ESD',
+  },
+  {
+    value: 'ASD',
+    label: 'ASD',
+  },
+  {
+    value:'Freshmore',
+    label:'Freshmore'
+  },
+  {
+    value:'HASS',
+    label:'HASS'
+  },
 
-function SoftConstraints (props) {
+];
 
-  const { classes } = props;
+
+class SoftConstraints extends React.Component {
+
+  state = {
+    pillar:''
+    
+  };
+
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
+  render(){
+    const { classes } = this.props;
 
   return (
     <div className={classes.root}>
@@ -191,12 +237,38 @@ function SoftConstraints (props) {
         <FormControl fullWidth className={classes.text} >
         <Typography variant='h5'>First Course</Typography>
         </FormControl>
+
         <div >
+        <TextField
+        id='choose-pillar'
+        select
+        //label ='Pillar'
+        helperText='Select your pillar'
+        className={classes.pillar}
+        value={this.state.pillar}
+        onChange={this.handleChange('pillar')}
+        //variant='outlined'
+        SelectProps={{
+          MenuProps: {
+            className: classes.menu,
+          },
+        }}
+        
+        margin="normal"
+       
+        //variant="outlined"
+      >
+        {constraints.map(option => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </TextField>
         <TextField
           id="instructor-input"
           className={classes.coursecode}
           margin="normal"
-          variant="outlined"
+          //variant="outlined"
           placeholder= "Course Code"
           
         />
@@ -205,7 +277,7 @@ function SoftConstraints (props) {
           id="instructor-input"
           className={classes.coursetitle}
           margin="normal"
-          variant="outlined"
+          //variant="outlined"
           placeholder= "Course Title"
         />
         </div>
@@ -215,15 +287,45 @@ function SoftConstraints (props) {
         </div>
 
         <div className={classes.main} />
+
         <FormControl fullWidth className={classes.text} >
+        <div className={classes.main} />
         <Typography variant='h5'>Second Course</Typography>
         </FormControl>
         <div >
         <TextField
+        id='choose-pillar'
+        select
+        //label ='Pillar'
+        InputLa
+        className={classes.pillar}
+        value={this.state.pillar}
+        onChange={this.handleChange('pillar')}
+        helperText='Select your pillar'
+        //variant='outlined'
+        
+        SelectProps={{
+          MenuProps: {
+            className: classes.menu,
+          },
+        }}
+        
+        margin="normal"
+       
+        //variant="outlined"
+      >
+        {constraints.map(option => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </TextField>
+
+        <TextField
           id="instructor-input"
           className={classes.coursecode}
           margin="normal"
-          variant="outlined"
+          //variant="outlined"
           placeholder= "Course Code"
           
         />
@@ -232,7 +334,7 @@ function SoftConstraints (props) {
           id="instructor-input"
           className={classes.coursetitle}
           margin="normal"
-          variant="outlined"
+          //variant="outlined"
           placeholder= "Course Title"
         />
         </div>
@@ -241,11 +343,13 @@ function SoftConstraints (props) {
         <OutlinedTextFields/>
         </div>
 
-        
+        <FormControl fullWidth>
+
         <Button variant="contained" color="primary" className={classes.button}>
         Submit
       </Button>
 
+      </FormControl>
         </CardActions>
           </CardContent>
         
@@ -253,7 +357,7 @@ function SoftConstraints (props) {
       </main>
     </div>
   );
-}
+}}
 
 SoftConstraints.propTypes = {
   classes: PropTypes.object.isRequired,

@@ -19,7 +19,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CourseMaterial from './CourseMaterial';
-
+import MenuItem from '@material-ui/core/MenuItem';
 
 
 
@@ -57,6 +57,10 @@ const styles = theme => ({
   },
   space:{
     height:20
+  },
+  pillar:{
+    marginReft: theme.spacing.unit,
+    width:150
   },
 
   root: {
@@ -100,10 +104,53 @@ const styles = theme => ({
   
 });
 
+const constraints = [
+  {
+    value: 'ISTD',
+    label: 'ISTD',
+  },
+  {
+    value: 'EPD',
+    label: 'EPD',
+  },
+  {
+    value: 'ESD',
+    label: 'ESD',
+  },
+  {
+    value: 'ASD',
+    label: 'ASD',
+  },
+  {
+    value:'Freshmore',
+    label:'Freshmore'
+  },
+  {
+    value:'HASS',
+    label:'HASS'
+  }
+];
 
-function UploadCourse (props) {
 
-  const { classes } = props;
+class UploadCourse extends React.Component {
+
+  state = {
+    pillar1:'',
+    pillar2:'',
+    pillar3:'',
+    pillar4:'',
+    pillar5:'',
+    
+  };
+
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
+render(){
+  const { classes } = this.props;
 
   return (
     <div className={classes.root}>
@@ -167,6 +214,30 @@ function UploadCourse (props) {
         <FormControl fullWidth>
         <div>
         <TextField
+        id='choose-pillar'
+        select
+        label ='Pillar'
+        className={classes.pillar}
+        value={this.state.pillar1}
+        onChange={this.handleChange('pillar1')}
+        variant='outlined'
+        SelectProps={{
+          MenuProps: {
+            className: classes.menu,
+          },
+        }}
+        
+        margin="normal"
+       
+        //variant="outlined"
+      >
+        {constraints.map(option => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </TextField>
+        <TextField
           id="instructor-input"
           className={classes.coursecode}
           margin="normal"
@@ -186,7 +257,32 @@ function UploadCourse (props) {
         
         </FormControl>
         <FormControl fullWidth>
+      
         <div>
+        <TextField
+        id='choose-pillar'
+        select
+        label ='Pillar'
+        className={classes.pillar}
+        value={this.state.pillar2}
+        onChange={this.handleChange('pillar2')}
+        variant='outlined'
+        SelectProps={{
+          MenuProps: {
+            className: classes.menu,
+          },
+        }}
+        
+        margin="normal"
+       
+        //variant="outlined"
+      >
+        {constraints.map(option => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </TextField>
         <TextField
           id="instructor-input"
           className={classes.coursecode}
@@ -207,6 +303,30 @@ function UploadCourse (props) {
         </FormControl>
         <FormControl fullWidth>
         <div>
+        <TextField
+        id='choose-pillar'
+        select
+        label ='Pillar'
+        className={classes.pillar}
+        value={this.state.pillar3}
+        onChange={this.handleChange('pillar3')}
+        variant='outlined'
+        SelectProps={{
+          MenuProps: {
+            className: classes.menu,
+          },
+        }}
+        
+        margin="normal"
+       
+        //variant="outlined"
+      >
+        {constraints.map(option => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </TextField>
         <TextField
           id="instructor-input"
           className={classes.coursecode}
@@ -252,7 +372,32 @@ function UploadCourse (props) {
         <Divider/>
         </FormControl>
         
+        
         <div >
+        <TextField
+        id='choose-pillar'
+        select
+        label ='Pillar'
+        className={classes.pillar}
+        value={this.state.pillar4}
+        onChange={this.handleChange('pillar4')}
+        variant='outlined'
+        SelectProps={{
+          MenuProps: {
+            className: classes.menu,
+          },
+        }}
+        
+        margin="normal"
+       
+        //variant="outlined"
+      >
+        {constraints.map(option => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </TextField>
         <TextField
           id="instructor-input"
           className={classes.coursecode}
@@ -294,6 +439,30 @@ function UploadCourse (props) {
         
         <div >
         <TextField
+        id='choose-pillar'
+        select
+        label ='Pillar'
+        className={classes.pillar}
+        value={this.state.pillar5}
+        onChange={this.handleChange('pillar5')}
+        variant='outlined'
+        SelectProps={{
+          MenuProps: {
+            className: classes.menu,
+          },
+        }}
+        
+        margin="normal"
+       
+        //variant="outlined"
+      >
+        {constraints.map(option => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </TextField>
+        <TextField
           id="instructor-input"
           className={classes.coursecode}
           margin="normal"
@@ -329,7 +498,7 @@ function UploadCourse (props) {
     </div>
   );
 }
-
+}
 UploadCourse.propTypes = {
   classes: PropTypes.object.isRequired,
 };

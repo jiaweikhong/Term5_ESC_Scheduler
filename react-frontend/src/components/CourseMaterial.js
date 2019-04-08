@@ -101,7 +101,7 @@ render() {
     <Grid container spacing={24}>
 
     <Grid item xs ={6}>
-    <FormLabel component="legend" className={classes.text}>Number of lelctures per week</FormLabel>
+    <FormLabel component="legend" className={classes.text} focused>Number of lelctures per week</FormLabel>
         <RadioGroup
           aria-label="lecture"
           name="lecture"
@@ -117,7 +117,7 @@ render() {
         </Grid>
 
         <Grid item xs={6}>
-    <FormLabel component='legend' className={classes.text}>Duration of each lecture</FormLabel>
+    <FormLabel component='legend' className={classes.text} focused>Duration of each lecture</FormLabel>
     <FormControl fullWidth>
     <TextField
         id='choose-soft-constraint'
@@ -196,7 +196,7 @@ render() {
 
     <Grid item xs={6}>
     <div className={classes.space} />
-    <FormLabel component="legend" className={classes.text}>Number of cohort classes per week</FormLabel>
+    <FormLabel component="legend" className={classes.text} focused>Number of cohort classes per week</FormLabel>
         <RadioGroup
           aria-label="lecture"
           name="lecture"
@@ -214,7 +214,7 @@ render() {
 
     <Grid item xs={6}>
     <div className={classes.space} />
-    <FormLabel component='legend' className={classes.text}>Duration of each cohort class</FormLabel>
+    <FormLabel component='legend' className={classes.text} focused>Duration of each cohort class</FormLabel>
     <FormControl fullWidth>
     <TextField
         id='choose-soft-constraint'
