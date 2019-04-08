@@ -13,12 +13,8 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems } from '../lists/instructormenu';
 import {Link} from 'react-router-dom';
 import { Button, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core'
-import timetableplaceholder from "./images/timetableplaceholder.png";
 
-// TODO
-// try to stay in welcome page and only change the content when clicking on the list icons
-//change icons for list
-//
+
 
 const drawerWidth = 240;
 
