@@ -149,48 +149,23 @@ function PlannerWelcome(props) {
         </Typography>
 
         <form method="POST">
-          <Button
-            type="submit"
-            color='inherit'
-            name="Freshmore">
-            Freshmore
-        </Button>
+          <Button type="submit" color='inherit' name="Freshmore">Freshmore</Button>
         </form>
 
         <form method="POST">
-          <Button
-            type="submit"
-            color='inherit'
-            name="EPD">
-            EPD
-        </Button>
+          <Button type="submit" color='inherit' name="EPD">EPD</Button>
         </form>
 
         <form method="POST">
-          <Button
-            type='submit'
-            color='inherit'
-            name='ISTD'>
-            ISTD
-        </Button>
+          <Button type='submit'color='inherit'name='ISTD'>ISTD</Button>
         </form>
 
         <form method="POST">
-          <Button
-            type="submit"
-            color='inherit'
-            name="ESD">
-            ESD
-        </Button>
+          <Button type="submit" color='inherit' name="ESD">ESD</Button>
         </form>
 
         <form method="POST">
-          <Button
-            type="submit"
-            color='inherit'
-            name="ASD">
-            ASD
-        </Button>
+          <Button type="submit" color='inherit' name="ASD">ASD</Button>
         </form>
 
       </main>

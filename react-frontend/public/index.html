@@ -13,23 +13,10 @@
 
     <title>SUTD Timetable Scheduler</title>
     <script type="text/javascript">
-    window.token = "{{ token }}";
-    // window.token2 = "{{ token.1 }}";
-
-    // window.array = ["helllo", "world"];
-    // window.array.push("apple");
-    // window.array.push("pear");
-
-    // window.dict = {0 : "noob"};
-    // var myarray = '[1, 5, "false"]'; //works
-  
-    // var mydict = {"hello": "world", "0": "test"};
-    // var token = "{{token}}";
-    // console.log(token);
-    
-    window.token2 = JSON.parse(window.token) ;
-    // window.token3 = JSON.parse(window.token[username]);
-    // window.token3 = mydict;
+    window.unparsedtoken = "{{ token }}";
+    window.unparsedtoken = window.unparsedtoken.replace(/&#39;/g, "\"");
+    window.parsedtoken = JSON.parse(unparsedtoken);
+    // window.test = parsedtoken['test'];
     </script>
     <script type ="text/javascript" src="../src/components/ISTDSchedule.js"></script>
   </head>

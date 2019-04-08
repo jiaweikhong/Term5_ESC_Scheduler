@@ -149,26 +149,25 @@ def epdschedule():
 
 def retrieveCourse(courseID):
     coursesdocument = dbfs.collection('courses').document(courseID).get().to_dict()
-    week = coursesdocument['Week']
-    monday = week['Monday']     # dictionary
-    tuesday = week['Tuesday']   # dictionary
-    # print (monday)
-    print (tuesday)
-    first = monday['0']     # list
-    # print (first[0])
-    # for i in monday:
-    #     print (i, monday[i])
-    # return jsonify({"helloword" : "heloo" })
-    # return ({"helloword" : "heloo" })
-    return tuesday  # dictionary
+    week = coursesdocument['Week']  # dictionary
+    # monday = week['Monday']     # dictionary
+    # tuesday = week['Tuesday']   # dictionary
+    # wednesday = week['Wednesday']   # array
+    return week #dictionary
 
 @app.route("/istdschedule", methods=['GET', 'POST'])
 def istdschedule():
     # this is where we obtain data from firebase
-    tuesday = retrieveCourse("50.034")
-    # return template
-    token = {'0': 'pang', 'username': ['apple', 'orange']}
-    return render_template('index.html', token=jsonify(token))
+    weeklysched = retrieveCourse("EmptyCourse")
+    if request.method == 'POST':
+        if '50.003' in request.form:
+            weeklysched = retrieveCourse("50.003")
+        elif '50.005' in request.form:
+            weeklysched = retrieveCourse("50.005")
+        elif '50.034' in request.form:
+            weeklysched = retrieveCourse("50.034")
+    jsonify(weeklysched)
+    return render_template('index.html', token=weeklysched)
     
 @app.route("/esdschedule", methods=['GET', 'POST'])
 def esdschedule():
