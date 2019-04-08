@@ -128,6 +128,28 @@ const styles = theme => ({
 function ISTDSchedule (props) {
   const { classes } = props;
 
+  // window.token = "{{ token }}";
+
+  // var myDict = JSON.parse('{{ token|tojson }}');
+  // var myDict = { token };
+  // console.log(myDict);
+
+  // this.state = {
+  //   items: [],
+  //   isLoaded: false,
+  // }
+
+  // fetch('http://jsonplaceholder.typicode.com/users')
+  // .then(res => res.json())
+  // .then(json => {
+  //   this.setState({
+  //     isLoaded: true,
+  //     items: json,
+  //   })
+  // })
+
+  // var { isLoaded, items } = this.state;
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -181,12 +203,14 @@ function ISTDSchedule (props) {
         </Typography>
 
         <p>This is part of ISTDSchedule.js. token: </p>
-        <p>{window.token} </p>
-        <p>{window.token2} </p>
+        <p>{window.token}</p>
+        <p>{window.token2}</p>
+        {/* <p>{window.token2.username}</p> */}
+        <p>{window.token3}</p>
+        {/* <p>{window.dict[name]}</p> */}
+        {/* <p>{window.token2} </p>
         <p>{window.array[0]} </p>
-        <p>{window.array[1]} </p>
-        {/* <p>{window.dict["meow"]} </p> */}
-
+        <p>{window.array[1]} </p> */}
       </main>
     </div>
   );

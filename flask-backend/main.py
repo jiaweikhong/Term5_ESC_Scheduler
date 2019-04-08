@@ -168,7 +168,7 @@ def istdschedule():
     tuesday = retrieveCourse("50.034")
     # return template
     token = {'0': 'pang', 'username': ['apple', 'orange']}
-    return render_template('index.html', token=['a', 'b', 'c'])
+    return render_template('index.html', token=jsonify(token))
     
 @app.route("/esdschedule", methods=['GET', 'POST'])
 def esdschedule():
