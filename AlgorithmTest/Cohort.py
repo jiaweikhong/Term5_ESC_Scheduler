@@ -1,4 +1,5 @@
 from Timetable import Timetable
+import unittest
 
 class Cohort:
     def __init__(self, num, pillar):
@@ -7,9 +8,12 @@ class Cohort:
         self.name = pillar + str(num)
         self.courses = []
         self.timetable = Timetable()
+        self.courseComponents = {}
 
-    def addIntoTimeTable(self, course, day, timeslot):
-        self.timetable.setTimeslot(course, day, timeslot)
+    def addIntoTimeTable(self, course, day, timeslot, numslots, component, cohortName, roomID):
+        for i in range(numslots):
+            self.timetable.setTimeslot(course, day, timeslot, component, cohortName, roomID)
+            timeslot += 1
 
     def getTimetable(self):
         return self.timetable
@@ -17,9 +21,15 @@ class Cohort:
     def printTimetable(self):
         for i in range(len(self.timetable.week)):
             day = self.timetable.week[i]
-            print(str(i) + "\n")
+            print(i)
             for j in range(len(day)):
-                print(day[j])
+                # print(day[j])
+                if day[j] == []:
+                    print(day[j])
+                else:
+                    for name in range(len(day[j])):
+                        #print(day[j][name][0].courseName)
+                        print(day[j][name][0].courseName + ", " + day[j][name][1])
             print("\n")
 
     def addCourses(self, course):
@@ -27,6 +37,11 @@ class Cohort:
 
     def getTimeslot(self, day, timeslot):
         return self.timetable.week[day][timeslot]
+
+
+
+
+
 
 
 
