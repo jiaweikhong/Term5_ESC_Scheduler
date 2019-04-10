@@ -28,8 +28,8 @@ class Cohort:
                     print(day[j])
                 else:
                     for name in range(len(day[j])):
-                        #print(day[j][name][0].courseName)
-                        print(day[j][name][0].courseName + ", " + day[j][name][1])
+                        print(day[j][name])
+                        #print(day[j][name][0].courseName + ", " + day[j][name][1])
             print("\n")
 
     def addCourses(self, course):

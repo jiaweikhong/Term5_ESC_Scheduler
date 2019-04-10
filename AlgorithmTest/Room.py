@@ -30,4 +30,7 @@ class Room:
                     for name in range(len(day[j])):
                         print(day[j][name])
             print("\n")
+    
+    def getTimetable(self):
+        return self.timetable
 

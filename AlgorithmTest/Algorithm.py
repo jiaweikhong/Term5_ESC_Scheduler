@@ -6,6 +6,9 @@ from Room import Room
 import random
 import itertools
 import unittest
+#import firebase_admin
+#from firebase_admin import credentials, firestore
+import json
 
 # TODO assign venues (algorithm)
 # TODO instructors who take different cohorts
@@ -27,6 +30,7 @@ class Algorithm:
         self.courseComponents = {course.courseName: course.getComponents() for course in self.totalCourses}
 
     def generate_schedule(self):
+        isPossible = True
 
         # Randomise the courses
         permutedCourses = itertools.permutations(self.totalCourses)
@@ -64,36 +68,28 @@ class Algorithm:
                     conditions = (day[time] == [],
                                   self.checkInstructorSchedule(self.instructors, dayindex, time),
                                   self.checkClassSchedule(self.cohorts, dayindex, time),
-                                  self.isCourseOnSameDay(course.courseName, self.cohorts, courseComponent[3], dayindex),
+                                  self.isCourseOnSameDay(course, self.cohorts, courseComponent[3], dayindex),
                                   self.checkRoomAvailability(chosenRoom, dayindex, time))
                     if all(conditions):  # all is for and, any is for or
-                        course.addIntoTimeTable(course, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
+                        course.addIntoTimeTable(course.courseName, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
                         for instructor in course.courseInstructors:
-                            instructor.addIntoTimeTable(course, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
+                            instructor.addIntoTimeTable(course.courseName, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
                         for cohort in course.cohorts:
                             if courseComponent[2] is False and courseComponent[3] == cohort.name:
-                                cohort.addIntoTimeTable(course, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
+                                cohort.addIntoTimeTable(course.courseName, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
                             elif courseComponent[2] is True:
-                                cohort.addIntoTimeTable(course, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
-                        chosenRoom.addIntoTimeTable(course, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
+                                cohort.addIntoTimeTable(course.courseName, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
+                        chosenRoom.addIntoTimeTable(course.courseName, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
                         coursesAdded.append(course)
                         self.courseComponents[course.courseName].remove(courseComponent)
 
         for course in self.totalCourses:
             for component in self.courseComponents[course.courseName]:
                 if component != []:
-                    for cohort in self.cohorts:
-                        cohort.timetable = Timetable()
-                    for roomType in self.rooms:
-                        for room in self.rooms[roomType]:
-                            room.timetable = Timetable()
-                    for instructor in self.instructors:
-                        instructor.timetable = Timetable()
-                    for course in self.totalCourses:
-                        course.timetable = Timetable()
-                    return False
+                    isPossible = False
 
-        return True
+        self.wipeTimetable(isPossible)
+        return isPossible
 
     #def generate_holiday_timetable(self):
 
@@ -125,7 +121,7 @@ class Algorithm:
                     for j in time:
                         if j == []:
                             continue
-                        elif j[0].courseName == courseName:
+                        elif j[0] == courseName:
                             return False
         return True
 
@@ -139,83 +135,23 @@ class Algorithm:
                 if self.checkInstructorSchedule(instructors, dayindex, time):
                     for instructor in instructors:
                         instructor.addIntoTimeTable(meetingName, dayindex, time, duration, None, None, meetingRoom)
-                    return
+                    return True
+
+        return False
+
+    def wipeTimetable(self, isPossible):
+        if not isPossible:
+            for cohort in self.cohorts:
+                cohort.timetable = Timetable()
+            for roomType in self.rooms:
+                for room in self.rooms[roomType]:
+                    room.timetable = Timetable()
+            for instructor in self.instructors:
+                instructor.timetable = Timetable()
+            for course in self.totalCourses:
+                course.timetable = Timetable()
+
 
 # Have a function that generates multiple possible timetables and store them in an array
 
-istd1 = Cohort(1, "ISTD")
-istd2 = Cohort(2, "ISTD")
-istd3 = Cohort(3, "ISTD")
 
-rooms = {"Cohort":[Room("2.513", "Cohort Classroom 13", "Cohort Classroom"), Room("2.514", "Cohort Classroom 14", "Cohort Classroom")],
-         "Lab":[Room("2.403", "Digital Systems Lab", "Laboratory")],
-         "Lecture":[Room("1.203", "Lecture Theatre 2", "Lecture Theatre")]}
-
-comp_struct = Course(1, "Comp Struct", rooms)
-dw = Course(2, "Digital World", rooms)
-cv = Course(3, "Computer Vision", rooms)
-cse = Course(4, "Computer Systems Engineering", rooms)
-
-# Can initialise instructors first, then loop through them and create and add in the courses and cohorts
-oka = Instructor(100, "Oka", [comp_struct, dw])
-oka.addSoftConstraints(0, 1, 8.5, 10, "Consulting slot")
-nat = Instructor(101, "Natalie", [cv, cse])
-
-instructorArray = [oka, nat]
-courses = [comp_struct, dw, cv, cse]
-for course in courses:
-    for instructor in instructorArray:
-        if course in instructor.getCourses():
-            course.addInstructors(instructor)
-cohorts = [istd1, istd2, istd3]
-for cohort in cohorts:
-    for course in courses:
-        cohort.addCourses(course)
-for course in courses:
-    for cohort in cohorts:
-        course.addCohorts(cohort)
-
-comp_struct.setComponentsAndDuration("Lecture", 1.5, True, [cohort.name for cohort in cohorts])
-comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
-comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
-comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
-comp_struct.setComponentsAndDuration("Lab", 1, False, "ISTD1")
-comp_struct.setComponentsAndDuration("Lab", 1, False, "ISTD2")
-comp_struct.setComponentsAndDuration("Lab", 1, False, "ISTD3")
-
-dw.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
-dw.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
-dw.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
-
-cv.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
-cv.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
-cv.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
-
-cse.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
-cse.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
-cse.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
-cse.setComponentsAndDuration("Lab", 1, False, "ISTD1")
-cse.setComponentsAndDuration("Lab", 1, False, "ISTD2")
-cse.setComponentsAndDuration("Lab", 1, False, "ISTD3")
-
-algo = Algorithm(instructorArray, cohorts, rooms)
-algo.generate_schedule()
-algo.compareScheduleForMeeting(instructorArray, 3)
-for instructor in instructorArray:
-    print(instructor.instructorName)
-    instructor.printTimetable()
-
-for course in courses:
-    print(course.courseName)
-    course.printTimetable()
-
-for cohort in cohorts:
-    print(cohort.name)
-    cohort.printTimetable()
-
-print(rooms['Cohort'][0].roomName)
-rooms['Cohort'][0].printTimetable()
-
-#oka.removeSoftConstraints(("Consulting slot", None))
-#oka.printTimetable()
-#print(len(algo.getPossibleTimetables()))
