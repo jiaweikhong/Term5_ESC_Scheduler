@@ -34,14 +34,14 @@ export const mainListItems = (
       <ListItemText primary="Create Schedule" />
     </ListItem>
 
-    <ListItem 
+    {/* <ListItem 
     button
     component = {Link} to = "/deleteschedule">
       <ListItemIcon>
         <ClearIcon />
       </ListItemIcon>
       <ListItemText primary="Delete Schedule" />
-    </ListItem>
+    </ListItem> */}
 
     <ListItem 
     button

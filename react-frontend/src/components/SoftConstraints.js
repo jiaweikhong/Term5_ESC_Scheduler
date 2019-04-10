@@ -20,18 +20,9 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import OutlinedTextFields from './OutlinedTextFields';
 import MenuItem from '@material-ui/core/MenuItem';
+import CourseMaterial from './CourseMaterial';
 
 
-
-
-
-
-
-
-// TODO
-// try to stay in welcome page and only change the content when clicking on the list icons
-//change icons for list
-//
 
 const drawerWidth = 240;
 
@@ -102,6 +93,9 @@ const styles = theme => ({
   textfields:{
     display: 'flex',
     flexWrap: 'wrap'
+  },
+  instructors:{
+    width:830
   }
   
 
@@ -200,37 +194,15 @@ class SoftConstraints extends React.Component {
       </Drawer>
       <main className={classes.content}>
 
-        <Card className={classes.card}>
-          <CardContent>
-        <div className={classes.text}>
-        <Typography gutterBottom variant="h4" component="h4">
-        Individual Soft Constraints</Typography>
-        <Typography gutterBottom component ="h6">
-        Please rank you soft constraints. They will be taken into consideration when creating your timetable. Thank you</Typography>
-        </div>
-        <Divider/>
-        <CardActions>
-          <FormControl fullWidth>
-        <OutlinedTextFields/>
-        
-        <Button variant="contained" color="primary" className={classes.button}>
-        Submit
-      </Button>
-      </FormControl>
-        </CardActions>
-        </CardContent>
-        </Card>
-
-        <div className={classes.space} />
-
-        <Card className={classes.card}>
+      <Card className={classes.card}>
           <CardContent>
           <div className={classes.text}>
         <Typography gutterBottom variant="h4" component="h4">
-        Course Soft Constraints</Typography>
+        Course Details</Typography>
         <Typography gutterBottom component ="h6">
         This section is to be filled ONLY by the individual course leaders. Please leave this blank if you are not a course leader.
-         Course leaders should discuss with his/her colleauges before filling this section. You do not need to fill in all three course soft constraints. Thank you. </Typography>
+         Course leaders should discuss with his/her colleauges before filling this section. It is not required to fill in all the soft constraints. If you are a course lead of more than one course,
+         use the next template to fill in the respective course details. Thank you. </Typography>
         <Divider/>
         </div>
         <CardActions className={classes.textfields}>
@@ -238,7 +210,7 @@ class SoftConstraints extends React.Component {
         <Typography variant='h5'>First Course</Typography>
         </FormControl>
 
-        <div >
+        <div className={classes.text}>
         <TextField
         id='choose-pillar'
         select
@@ -280,30 +252,62 @@ class SoftConstraints extends React.Component {
           //variant="outlined"
           placeholder= "Course Title"
         />
+        <TextField
+          id="instructor-input"
+          className={classes.instructors}
+          margin="normal"
+          //variant="outlined"
+          placeholder= "Name of Course Instructors"
+        />
         </div>
        
         <div>
-        <OutlinedTextFields/>
+        <CourseMaterial/>
         </div>
 
         <div className={classes.main} />
 
         <FormControl fullWidth className={classes.text} >
         <div className={classes.main} />
+        <Typography variant='h5'>Course Soft Constraints</Typography>
+        </FormControl>
+        
+       
+        <div>
+        <Divider/>
+        <OutlinedTextFields/>
+        </div>
+
+        <FormControl fullWidth>
+
+        <Button variant="contained" color="primary" className={classes.button}>
+        Submit
+      </Button>
+
+      </FormControl>
+        </CardActions>
+          </CardContent>
+        
+        </Card>
+        <div className={classes.space} />
+
+        <Card className={classes.card}>
+          <CardContent>
+        <CardActions className={classes.textfields}>
+        <FormControl fullWidth className={classes.text} >
         <Typography variant='h5'>Second Course</Typography>
         </FormControl>
-        <div >
+
+        <div className={classes.text}>
         <TextField
         id='choose-pillar'
         select
         //label ='Pillar'
-        InputLa
+        helperText='Select your pillar'
         className={classes.pillar}
         value={this.state.pillar}
         onChange={this.handleChange('pillar')}
-        helperText='Select your pillar'
         //variant='outlined'
-        
         SelectProps={{
           MenuProps: {
             className: classes.menu,
@@ -320,7 +324,6 @@ class SoftConstraints extends React.Component {
           </MenuItem>
         ))}
       </TextField>
-
         <TextField
           id="instructor-input"
           className={classes.coursecode}
@@ -337,9 +340,29 @@ class SoftConstraints extends React.Component {
           //variant="outlined"
           placeholder= "Course Title"
         />
+        <TextField
+          id="instructor-input"
+          className={classes.instructors}
+          margin="normal"
+          //variant="outlined"
+          placeholder= "Name of Course Instructors"
+        />
         </div>
        
         <div>
+        <CourseMaterial/>
+        </div>
+
+        <div className={classes.main} />
+
+        <FormControl fullWidth className={classes.text} >
+        <div className={classes.main} />
+        <Typography variant='h5'>Course Soft Constraints</Typography>
+        </FormControl>
+        
+       
+        <div>
+        <Divider/>
         <OutlinedTextFields/>
         </div>
 

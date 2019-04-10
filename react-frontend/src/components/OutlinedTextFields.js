@@ -13,7 +13,7 @@ import { FORMERR } from 'dns';
 
 const styles = theme => ({
   input:{
-    width: 500,
+    width: 800,
 },
 
   button: {
@@ -43,6 +43,9 @@ const styles = theme => ({
   },
   text:{
     textAlign: 'left'
+  },
+  space:{
+    height:50
   }
 });
 
@@ -100,18 +103,14 @@ class OutlinedTextFields extends React.Component {
 
     return (
       <form className={classes.container} noValidate autoComplete="off">
-      {/* <form noValidate autoComplete="off"> */}
-      {/* <FormControl fullWidth>
-      <div className={classes.dense}></div>
-        <Typography
-        className={classes.text}
-        variant='h6'>Select the time slot you wish to keep free from your timetable.</Typography>
-        </FormControl> */}
+
       <FormControl >
         <div className={classes.dense}></div>
-        <FormLabel className={classes.text} focused>Select the time slot you wish to keep free from your timetable.</FormLabel>
+        <FormLabel className={classes.text} focused>Select the time slot you wish to keep free from your timetable. Requets with valid reasons will be prioritised. Thank you.</FormLabel>
         
-     <div>
+     <div >
+     
+     <div className={classes.container}>
       <TextField
           id='day'
           select
@@ -130,7 +129,7 @@ class OutlinedTextFields extends React.Component {
           
           margin="normal"
           
-          variant="outlined"
+          //variant="outlined"
         >
           {day.map(option => (
             <MenuItem key={option.value} value={option.value}>
@@ -138,6 +137,7 @@ class OutlinedTextFields extends React.Component {
             </MenuItem>
           ))}
         </TextField>
+        
 
 
         <TextField
@@ -153,7 +153,7 @@ class OutlinedTextFields extends React.Component {
             },
           }}          
           margin="normal"
-          variant="outlined"
+          //variant="outlined"
         >
           {constraints.map(option => (
             <MenuItem key={option.value} value={option.value}>
@@ -174,7 +174,7 @@ class OutlinedTextFields extends React.Component {
             },
           }}
           margin="normal"
-          variant="outlined"
+          //variant="outlined"
         >
           {constraints.map(option => (
             <MenuItem key={option.value} value={option.value}>
@@ -184,9 +184,25 @@ class OutlinedTextFields extends React.Component {
         </TextField>
         </div>
         
+        <FormControl fullWidth>
+        <TextField
+          id="instructor-input"
+          className={classes.input}
+          margin="normal"
+          variant="outlined"
+          multiline
+          rows ="5"
+          placeholder= "Please provide a valid reason for your request"
+
+        />
+        </FormControl>
+        </div>
+        
         
 
-      <div>
+        <div >
+     <FormControl fullWidth margin="none">
+     <div className={classes.container}> 
       <TextField
           id='day'
           select
@@ -204,7 +220,8 @@ class OutlinedTextFields extends React.Component {
           }}
           
           margin="normal"
-          variant="outlined"
+          
+          //variant="outlined"
         >
           {day.map(option => (
             <MenuItem key={option.value} value={option.value}>
@@ -212,6 +229,9 @@ class OutlinedTextFields extends React.Component {
             </MenuItem>
           ))}
         </TextField>
+        
+
+
         <TextField
           id='from'
           select
@@ -225,7 +245,7 @@ class OutlinedTextFields extends React.Component {
             },
           }}          
           margin="normal"
-          variant="outlined"
+          //variant="outlined"
         >
           {constraints.map(option => (
             <MenuItem key={option.value} value={option.value}>
@@ -246,7 +266,7 @@ class OutlinedTextFields extends React.Component {
             },
           }}
           margin="normal"
-          variant="outlined"
+          //variant="outlined"
         >
           {constraints.map(option => (
             <MenuItem key={option.value} value={option.value}>
@@ -255,11 +275,27 @@ class OutlinedTextFields extends React.Component {
           ))}
         </TextField>
         </div>
+        </FormControl>
+        <FormControl fullWidth>
+        <TextField
+          id="instructor-input"
+          className={classes.input}
+          margin="normal"
+          variant="outlined"
+          multiline
+          rows ="5"
+          placeholder= "Please provide a valid reason for your request"
+
+        />
+        </FormControl>
+        </div>
        
         
        
 
-        <div>
+        <div >
+     <FormControl fullWidth margin="none">
+     <div className={classes.container}>
       <TextField
           id='day'
           select
@@ -277,7 +313,8 @@ class OutlinedTextFields extends React.Component {
           }}
           
           margin="normal"
-          variant="outlined"
+          
+          //variant="outlined"
         >
           {day.map(option => (
             <MenuItem key={option.value} value={option.value}>
@@ -285,6 +322,9 @@ class OutlinedTextFields extends React.Component {
             </MenuItem>
           ))}
         </TextField>
+        
+
+
         <TextField
           id='from'
           select
@@ -298,7 +338,7 @@ class OutlinedTextFields extends React.Component {
             },
           }}          
           margin="normal"
-          variant="outlined"
+          //variant="outlined"
         >
           {constraints.map(option => (
             <MenuItem key={option.value} value={option.value}>
@@ -319,7 +359,7 @@ class OutlinedTextFields extends React.Component {
             },
           }}
           margin="normal"
-          variant="outlined"
+          //variant="outlined"
         >
           {constraints.map(option => (
             <MenuItem key={option.value} value={option.value}>
@@ -329,16 +369,32 @@ class OutlinedTextFields extends React.Component {
         </TextField>
         </div>
         </FormControl>
-        
         <FormControl fullWidth>
-        <div className={classes.dense}></div>
-        <FormLabel focused className={classes.text}>Write down any other soft constraint you would like us to consider when creating your schedule.</FormLabel>
         <TextField
           id="instructor-input"
           className={classes.input}
           margin="normal"
           variant="outlined"
           multiline
+          rows ="5"
+          placeholder= "Please provide a valid reason for your request"
+
+        />
+        </FormControl>
+        </div>
+        </FormControl>
+        
+        <FormControl fullWidth>
+        <div className={classes.space}></div>
+        <FormLabel focused className={classes.text}>Write down any other soft constraint you would like us to consider when creating your schedule.</FormLabel>
+        {/* <div className={classes.dense}/> */}
+        <TextField
+          id="instructor-input"
+          className={classes.input}
+          margin="normal"
+          variant="outlined"
+          multiline
+          rows="5"
           placeholder= " Please type in your soft constraint"
           InputProps={{
             startAdornment: <InputAdornment position="start">4.</InputAdornment>,
@@ -352,9 +408,10 @@ class OutlinedTextFields extends React.Component {
           margin="normal"
           variant="outlined"
           multiline
+          rows="5"
           placeholder= " Please type in your soft constraint"
           InputProps={{
-            startAdornment: <InputAdornment position="start">5.</InputAdornment>,
+            startAdornment: <InputAdornment position="top-start" >5.</InputAdornment>,
           }}
         />
         </FormControl>

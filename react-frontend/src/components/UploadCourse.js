@@ -20,6 +20,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CourseMaterial from './CourseMaterial';
 import MenuItem from '@material-ui/core/MenuItem';
+import OutlinedTextFields from './OutlinedTextFields';
 
 
 
@@ -205,7 +206,7 @@ render(){
         <Typography gutterBottom variant="h4" component="h4">
         My Courses</Typography>
         <Typography gutterBottom component ="h6">
-        Please fill in the course code and course title of the courses you are teaching. Thank you</Typography>
+        Please fill in the following details for the courses you teach. Thank you.</Typography>
         </div>
         <Divider/>
 
@@ -344,7 +345,7 @@ render(){
           placeholder= "Course Title"
         />
         </div>
-        <Button variant="contained" color="primary" className={classes.button}>
+        <Button variant="contained" color="primary" className={classes.button} type='submit'>
         Submit
       </Button>
         </FormControl>
@@ -360,131 +361,20 @@ render(){
           <CardContent>
           <div className={classes.text}>
         <Typography gutterBottom variant="h4" component="h4">
-        Course Information</Typography>
+        Soft Constraints</Typography>
         <Typography gutterBottom component ="h6">
-        This section is to be filled ONLY by the individual course leaders. Please leave this blank if you are not a course leader.
-         Course leaders should discuss with his/her colleauges before filling this section. You do not need to fill in all three course soft constraints. Thank you. </Typography>
-       
+        Please rank your desired soft constraints. They will be taken into consideration when creating your schedule. Thank you. </Typography>
         </div>
-        <CardActions className={classes.textfields}>
-        <FormControl fullWidth className={classes.text} >
-        <Typography variant='h5'>First Course</Typography>
         <Divider/>
-        </FormControl>
-        
-        
-        <div >
-        <TextField
-        id='choose-pillar'
-        select
-        label ='Pillar'
-        className={classes.pillar}
-        value={this.state.pillar4}
-        onChange={this.handleChange('pillar4')}
-        variant='outlined'
-        SelectProps={{
-          MenuProps: {
-            className: classes.menu,
-          },
-        }}
-        
-        margin="normal"
-       
-        //variant="outlined"
-      >
-        {constraints.map(option => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-        <TextField
-          id="instructor-input"
-          className={classes.coursecode}
-          margin="normal"
-          variant="outlined"
-          placeholder= "Course Code"
-          
-        />
-        <TextField
-          id="instructor-input"
-          className={classes.coursetitle}
-          margin="normal"
-          variant="outlined"
-          placeholder= "Course Title"
-        />
-        </div>
-
-        
+        <CardActions className={classes.textfields}>
 
         <div>
-        <div className={classes.space} />
-        <CourseMaterial/>
+        {/* <div className={classes.space} /> */}
+        <OutlinedTextFields/>
         </div>
-
-        </CardActions>
-          </CardContent>
-        
-        </Card>
-      
-        <div className={classes.space} />
-        <Card className={classes.card}>
-          <CardContent>
-
-        <CardActions className={classes.textfields}>
-        <FormControl fullWidth className={classes.text} >
-        <Typography variant='h5'>Second Course</Typography>
-        <Divider/>
-        </FormControl>
-        
-        <div >
-        <TextField
-        id='choose-pillar'
-        select
-        label ='Pillar'
-        className={classes.pillar}
-        value={this.state.pillar5}
-        onChange={this.handleChange('pillar5')}
-        variant='outlined'
-        SelectProps={{
-          MenuProps: {
-            className: classes.menu,
-          },
-        }}
-        
-        margin="normal"
-       
-        //variant="outlined"
-      >
-        {constraints.map(option => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-        <TextField
-          id="instructor-input"
-          className={classes.coursecode}
-          margin="normal"
-          variant="outlined"
-          placeholder= "Course Code"
-          
-        />
-        <TextField
-          id="instructor-input"
-          className={classes.coursetitle}
-          margin="normal"
-          variant="outlined"
-          placeholder= "Course Title"
-        />
-        </div>
-
-        
-
-        <div>
-        <div className={classes.space} />
-        <CourseMaterial/>
-        </div>
+        <Button variant="contained" color="primary" className={classes.button} type='submit'>
+        Submit
+      </Button>
 
         </CardActions>
           </CardContent>
