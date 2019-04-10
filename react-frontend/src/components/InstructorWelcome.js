@@ -72,7 +72,8 @@ function InstructorWelcome (props) {
           component = {Link} to = "/instructornotifications">    
               <NotificationsIcon />    
           </IconButton>
-          <Button 
+          <Button
+          id = "logout" 
           color='inherit' 
           component = {Link} to = "/">   
           LOGOUT

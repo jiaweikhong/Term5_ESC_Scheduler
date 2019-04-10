@@ -10,12 +10,17 @@ dbfs = firestore.client()
 adminsdocument = dbfs.collection('admins').document('LlE9Gj5E1ySq6VcIUkM0').get().to_dict()
 instructorsdocument = dbfs.collection('instructors').document('JBXLfE3480F9TYQMqd4j').get().to_dict()
 plannersdocument = dbfs.collection('planners').document('WnUTmtoFR8eLh6zM8Of1').get().to_dict()
+bannedaccountsdocument = dbfs.collection('bannedaccounts').document('SkLtTnXzztUdQ66QKZsA')
+bannedaccountsdict = bannedaccountsdocument.get().to_dict()
+bannedaccountsarray = bannedaccountsdict['banned']
 
 app = Flask("__main__")
 
 class Data():
     loggedUser = ""
     pillar = ""
+    incorrectLoginUser = ""
+    incorrectTries = 0
 
 @app.route("/", methods=['GET', 'POST'])
 def my_index():
@@ -54,6 +59,7 @@ def instructorlogin():
 def retrieveInstructorCourses(loggedUser):
     coursesdocument = dbfs.collection('instructors').document('JBXLfE3480F9TYQMqd4j').get().to_dict()
     week = coursesdocument[loggedUser]['Week']
+    # print (week)
     return week #dictionary
 
 @app.route("/instructorwelcome", methods=['GET', 'POST'])
@@ -64,6 +70,9 @@ def instructorwelcome():
     return render_template("index.html", user=loggedUser, token=weeklysched)
 
 def check_admin_login(check_username, check_password):
+    for bannedacc in bannedaccountsarray:
+        if bannedacc == check_username:
+            return 2
     for admin in adminsdocument:
         if admin == check_username:
             admininfo = adminsdocument[check_username]
@@ -72,8 +81,18 @@ def check_admin_login(check_username, check_password):
                 # print ("valid login")
                 adminpillar = admininfo['pillar']
                 Data.pillar = adminpillar
+                Data.incorrectLoginUser = ""
+                Data.incorrectTries = 0
                 return 1
-    # print ("invalid login")
+    if (Data.incorrectLoginUser == check_username or Data.incorrectLoginUser == ""):
+        Data.incorrectTries += 1
+        if (Data.incorrectTries >= 5):
+            return 2
+    else:
+        Data.incorrectTries = 1
+    Data.incorrectLoginUser = check_username
+    # print ("incorrect login user: " + Data.incorrectLoginUser)
+    # print ("incorrect tries: " + str(Data.incorrectTries))
     return 0
 
 @app.route("/adminlogin", methods=['GET', 'POST'])
@@ -85,10 +104,13 @@ def adminlogin():
         check_password = request.form['password']
         # will raise error if user does not match password
         login_pass = check_admin_login(check_username, check_password)
-        if login_pass == 1:
+        if login_pass == 2:
+            error = "You are locked out due to consecutive login failures. Please contact your admin."
+        elif login_pass == 1:
             Data.loggedUser = check_username
             return redirect(url_for('adminwelcome'))
-        error = "Invalid credentials, please try again."
+        else:
+            error = "Invalid credentials, please try again. Incorrect tries = " + str(Data.incorrectTries)
     return render_template('index.html', error=error)
 
 @app.route("/adminwelcome", methods=['GET', 'POST'])
@@ -157,6 +179,7 @@ def epdschedule():
 def retrieveCourse(courseID):
     coursesdocument = dbfs.collection('courses').document(courseID).get().to_dict()
     week = coursesdocument['Week']
+    # print(week)
     return week #dictionary
 
 @app.route("/istdschedule", methods=['GET', 'POST'])
@@ -170,6 +193,7 @@ def istdschedule():
             weeklysched = retrieveCourse("50.005")
         elif '50.034' in request.form:
             weeklysched = retrieveCourse("50.034")
+            # print (weeklysched)
     jsonify(weeklysched)
     return render_template('index.html', token=weeklysched)
     

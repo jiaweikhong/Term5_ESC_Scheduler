@@ -62,7 +62,8 @@ function Home(props) {
                     fullWidth
                     variant="outlined"
                     color="primary"
-                    className={classes.submit}>
+                    className={classes.submit}
+                    id = "instructorlogin">
                     Instructor
                 </Button>
                 <Button
@@ -71,7 +72,8 @@ function Home(props) {
                     fullWidth
                     variant="contained"
                     color="primary"
-                    className={classes.submit}>
+                    className={classes.submit}
+                    id = "adminlogin">
                     Administrator
                 </Button>
                 <Button
@@ -80,7 +82,8 @@ function Home(props) {
                     fullWidth
                     variant="contained"
                     color="secondary"
-                    className={classes.submit}>
+                    className={classes.submit}
+                    id = "plannerlogin">
                     Planner
                 </Button>
             </Paper>

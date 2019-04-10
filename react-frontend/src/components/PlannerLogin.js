@@ -74,6 +74,7 @@ function PlannerLogin(props) {
             label="Remember me"
           />
           <Button
+            id="submit"
             type="submit"
             fullWidth
             variant="contained"

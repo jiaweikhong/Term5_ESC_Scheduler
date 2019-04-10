@@ -78,10 +78,11 @@ function ISTDSchedule(props) {
             </IconButton>
 
             <Button
+              id="logout"
               color='inherit'
               component={Link} to="/">
               LOGOUT
-        </Button>
+            </Button>
 
           </div>
         </Toolbar>
@@ -108,9 +109,9 @@ function ISTDSchedule(props) {
         </Typography>
 
         <form method="POST">
-          <Button type='submit' color='inherit' name='50.003'>50.003</Button>
-          <Button type='submit' color='inherit' name='50.005'>50.005</Button>
-          <Button type='submit' color='inherit' name='50.034'>50.034</Button>
+          <Button id="course1" type='submit' color='inherit' name='50.003'>50.003</Button>
+          <Button id="course2" type='submit' color='inherit' name='50.005'>50.005</Button>
+          <Button id="course3" type='submit' color='inherit' name='50.034'>50.034</Button>
         </form>
 
         <Table>

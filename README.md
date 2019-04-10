@@ -39,7 +39,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ### Installing required Python Packages
 
-In the root directory Term5_ESC_Scheduler in your command prompt, run:
+In the root directory Term5_ESC_Scheduler in your command prompt, run: <br>
 pip install -r -y requirements.txt
 
 ## Learn More

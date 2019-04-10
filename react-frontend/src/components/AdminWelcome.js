@@ -80,6 +80,7 @@ function AdminWelcome(props) {
               <NotificationsIcon />
             </IconButton>
             <Button
+              id = "logout"
               color='inherit'
               component={Link} to="/">
               LOGOUT
@@ -111,9 +112,9 @@ function AdminWelcome(props) {
           </Typography>
 
         <form method="POST">
-          <Button type='submit' color='inherit' name={window.pillarcourses[0]}>{window.pillarcourses[0]}</Button>
-          <Button type='submit' color='inherit' name={window.pillarcourses[1]}>{window.pillarcourses[1]}</Button>
-          <Button type='submit' color='inherit' name={window.pillarcourses[2]}>{window.pillarcourses[2]}</Button>
+          <Button id="course1" type='submit' color='inherit' name={window.pillarcourses[0]}>{window.pillarcourses[0]}</Button>
+          <Button id="course2" type='submit' color='inherit' name={window.pillarcourses[1]}>{window.pillarcourses[1]}</Button>
+          <Button id="course3" type='submit' color='inherit' name={window.pillarcourses[2]}>{window.pillarcourses[2]}</Button>
         </form>
 
         <Table>
