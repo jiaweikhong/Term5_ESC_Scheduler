@@ -28,32 +28,47 @@ def my_index():
     return render_template("index.html", token="hi start")
 
 def check_instructor_login(check_username, check_password):
+    bannedaccountsarray = bannedaccountsdict['banned']
+    for bannedacc in bannedaccountsarray:
+        if bannedacc == check_username:
+            return 2
     for instructor in instructorsdocument:
         if instructor == check_username:
             instructorinfo = instructorsdocument[check_username]
             fspassword = instructorinfo['password']
-            if (check_password == fspassword):
-                # print ("valid login")
+            if (check_password == fspassword):      # valid login
+                Data.incorrectLoginUser = ""
+                Data.incorrectTries = 0
                 return 1
-    # print ("invalid login")
+    if (Data.incorrectLoginUser == check_username or Data.incorrectLoginUser == ""):
+        Data.incorrectTries += 1
+        if (Data.incorrectTries >= 3):
+            bannedaccountsarray = bannedaccountsdict['banned']
+            bannedaccountsarray.append(check_username)
+            data = {'banned': bannedaccountsarray}
+            dbfs.collection('bannedaccounts').document('SkLtTnXzztUdQ66QKZsA').set(data)
+            return 2
+    else:
+        Data.incorrectTries = 1
+    Data.incorrectLoginUser = check_username
     return 0
 
 @app.route("/instructorlogin", methods=['GET', 'POST'])
 def instructorlogin():
     error = ""
-    # print("helloasdf" + user)
     if request.method == 'POST':
         # Check if username match password
         check_username = request.form['email']
         check_password = request.form['password']
         # will raise error if username does not match password
         login_pass = check_instructor_login(check_username, check_password)
-        # print("hello0" + user)
-        if login_pass == 1:
-            # print("hello" + user)
+        if login_pass == 2:
+            error = "You are locked out due to consecutive login failures. Please contact your admin."
+        elif login_pass == 1:
             Data.loggedUser = check_username
             return redirect(url_for('instructorwelcome'))
-        error = "Invalid credentials, please try again."
+        else:
+            error = "Invalid credentials, please try again. Incorrect tries = " + str(Data.incorrectTries)
     return render_template('index.html', error=error)
 
 def retrieveInstructorCourses(loggedUser):
@@ -70,6 +85,7 @@ def instructorwelcome():
     return render_template("index.html", user=loggedUser, token=weeklysched)
 
 def check_admin_login(check_username, check_password):
+    bannedaccountsarray = bannedaccountsdict['banned']
     for bannedacc in bannedaccountsarray:
         if bannedacc == check_username:
             return 2
@@ -77,8 +93,7 @@ def check_admin_login(check_username, check_password):
         if admin == check_username:
             admininfo = adminsdocument[check_username]
             fspassword = admininfo['password']
-            if (check_password == fspassword):
-                # print ("valid login")
+            if (check_password == fspassword):      # valid login
                 adminpillar = admininfo['pillar']
                 Data.pillar = adminpillar
                 Data.incorrectLoginUser = ""
@@ -86,13 +101,15 @@ def check_admin_login(check_username, check_password):
                 return 1
     if (Data.incorrectLoginUser == check_username or Data.incorrectLoginUser == ""):
         Data.incorrectTries += 1
-        if (Data.incorrectTries >= 5):
+        if (Data.incorrectTries >= 3):
+            bannedaccountsarray = bannedaccountsdict['banned']
+            bannedaccountsarray.append(check_username)
+            data = {'banned': bannedaccountsarray}
+            dbfs.collection('bannedaccounts').document('SkLtTnXzztUdQ66QKZsA').set(data)
             return 2
     else:
         Data.incorrectTries = 1
     Data.incorrectLoginUser = check_username
-    # print ("incorrect login user: " + Data.incorrectLoginUser)
-    # print ("incorrect tries: " + str(Data.incorrectTries))
     return 0
 
 @app.route("/adminlogin", methods=['GET', 'POST'])
@@ -129,14 +146,29 @@ def adminwelcome():
     return render_template('index.html', token=weeklysched, user=loggedUser, pillar=adminPillar)
 
 def check_planner_login(check_username, check_password):
+    bannedaccountsarray = bannedaccountsdict['banned']
+    for bannedacc in bannedaccountsarray:
+        if bannedacc == check_username:
+            return 2
     for planner in plannersdocument:
         if planner == check_username:
             plannerinfo = plannersdocument[check_username]
             fspassword = plannerinfo['password']
-            if (check_password == fspassword):
-                # print ("valid login")
+            if (check_password == fspassword):      # valid login
+                Data.incorrectLoginUser = ""
+                Data.incorrectTries = 0
                 return 1
-    # print ("invalid login")
+    if (Data.incorrectLoginUser == check_username or Data.incorrectLoginUser == ""):
+        Data.incorrectTries += 1
+        if (Data.incorrectTries >= 3):
+            bannedaccountsarray = bannedaccountsdict['banned']
+            bannedaccountsarray.append(check_username)
+            data = {'banned': bannedaccountsarray}
+            dbfs.collection('bannedaccounts').document('SkLtTnXzztUdQ66QKZsA').set(data)
+            return 2
+    else:
+        Data.incorrectTries = 1
+    Data.incorrectLoginUser = check_username
     return 0
 
 @app.route("/plannerlogin", methods=['GET', 'POST'])
@@ -146,11 +178,15 @@ def plannerlogin():
         # Check if username match password
         check_username = request.form['email']
         check_password = request.form['password']
-        login_pass = check_planner_login(check_username, check_password)
         # will raise error if user does not match password
-        if login_pass == 1:
+        login_pass = check_planner_login(check_username, check_password)
+        if login_pass == 2:
+            error = "You are locked out due to consecutive login failures. Please contact your admin."
+        elif login_pass == 1:
+            Data.loggedUser = check_username
             return redirect(url_for('plannerwelcome'))
-        error = "Invalid credentials, please try again."
+        else:
+            error = "Invalid credentials, please try again. Incorrect tries = " + str(Data.incorrectTries)
     return render_template('index.html', error=error)
 
 @app.route("/plannerwelcome", methods=['GET', 'POST'])

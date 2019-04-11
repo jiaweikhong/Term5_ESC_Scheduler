@@ -1,24 +1,25 @@
 import unittest  # standard library for testing
 import main  # import main.py
+import time
 
 class TestMain(unittest.TestCase):
     def test_admin_login(self):
         self.assertEqual(main.check_admin_login("ISTDadmin", "haha"), 0) # correct username, wrong pw, should fail.
         self.assertEqual(main.check_admin_login("Sudipta", "sudipta"), 0)   # instructor credentials should fail.
-        self.assertEqual(main.check_admin_login("bob", "bob"), 0) # planner credentials should fail.
+        self.assertEqual(main.check_admin_login("john", "john"), 0) # planner credentials should fail.
         self.assertEqual(main.check_admin_login("ISTDadmin", "pw"), 1)   # correct username & pw, should pass.
 
     def test_instructor_login(self):
         self.assertEqual(main.check_instructor_login("karen", "wrongpw"), 0)    # correct username, wrong pw, should fail.
         self.assertEqual(main.check_instructor_login("tom", "tom"), 0)   # admin credentials should fail.
-        self.assertEqual(main.check_instructor_login("bob", "bob"), 0) # planner credentials should fail.
+        self.assertEqual(main.check_instructor_login("john", "john"), 0) # planner credentials should fail.
         self.assertEqual(main.check_instructor_login("Oka", "Oka"), 1)  # correct username & pw, should pass.
 
     def test_planner_login(self):
-        self.assertEqual(main.check_planner_login("bob", "lala"), 0)   # correct username, wrong pw, should fail.
+        self.assertEqual(main.check_planner_login("john", "lala"), 0)   # correct username, wrong pw, should fail.
         self.assertEqual(main.check_planner_login("tom", "tom"), 0)   # admin credentials should fail.
         self.assertEqual(main.check_planner_login("karen", "karen"), 0)  # instructor credentials should fail.
-        self.assertEqual(main.check_planner_login("bob", "bob"), 1) # correct username & pw, should pass
+        self.assertEqual(main.check_planner_login("john", "john"), 1) # correct username & pw, should pass
 
     def test_instructor_course(self):
         retrievedCourses = main.retrieveInstructorCourses("Natalie")
@@ -29,6 +30,19 @@ class TestMain(unittest.TestCase):
         retrievedCourse = main.retrieveCourse("50.034")
         course = {'Monday': ['50.034, Lecture, all, 2.505', '50.034, Lecture, all, 2.505', '50.034, Lecture, all, 2.505'], 'Wednesday': ['', '', ''], 'Thursday': ['50.034, Cohort, CI01, 2.506', '50.034, Cohort, CI01, 2.506', '50.034, Cohort, CI01, 2.506', '', ' ', ' ', ' ', ' ', '50.034, Cohort, CI03, 2.506', '50.034, Cohort, CI03, 2.506', '50.034, Cohort, CI03, 2.506'], 'Tuesday': ['', '','', '', '', '', '50.034, Lecture, all, 2.505', '50.034, Lecture, all, 2.505', '50.034, Lecture, all, 2.505'], 'Friday': ['', '', '']}
         self.assertEqual(retrievedCourse, course)
+
+    def test_lockout(self):
+        main.check_planner_login("bob", "wrongpw")
+        main.check_planner_login("bob", "wrongpw")
+        main.check_planner_login("bob", "wrongpw")
+        fbData = main.dbfs.collection('bannedaccounts').document('SkLtTnXzztUdQ66QKZsA').get().to_dict()
+        if ("trudy" in fbData['banned']):
+            banUpdate = 1
+        else:
+            banUpdate = 0
+        self.assertEqual(banUpdate, 1)
+        bannedUser = main.check_planner_login("bob", "bob")
+        self.assertEqual(bannedUser, 2)
 
 if __name__ == '__main__':      # allows you to run using "python test_main.py" in terminal, or inside code editor
     unittest.main(exit=False)
