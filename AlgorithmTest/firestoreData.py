@@ -6,91 +6,98 @@ from Room import Room
 import random
 import itertools
 import unittest
-#import firebase_admin
-#from firebase_admin import credentials, firestore
+import firebase_admin
+from firebase_admin import credentials, firestore
 import json
 from Algorithm import Algorithm
 
-istd1 = Cohort(1, "ISTD")
-istd2 = Cohort(2, "ISTD")
-istd3 = Cohort(3, "ISTD")
+cred = credentials.Certificate('term-5-esc-scheduler-firebase-adminsdk-cfadg-cd4c469d4d.json')
+default_app = firebase_admin.initialize_app(cred)
+dbfs = firestore.client()
 
-rooms = {"Cohort":[Room("2.513", "Cohort Classroom 13", "Cohort Classroom"), Room("2.514", "Cohort Classroom 14", "Cohort Classroom")],
-         "Lab":[Room("2.403", "Digital Systems Lab", "Laboratory")],
-         "Lecture":[Room("1.203", "Lecture Theatre 2", "Lecture Theatre")]}
+courseDict = dbfs.collection("RawInput").document("CourseInfo").get().to_dict()
+instructorDict = dbfs.collection("RawInput").document("InstructorDetails").get().to_dict()
 
-comp_struct = Course(1, "Comp Struct", rooms)
-dw = Course(2, "Digital World", rooms)
-cv = Course(3, "Computer Vision", rooms)
-cse = Course(4, "Computer Systems Engineering", rooms)
+print(courseDict)
+print(instructorDict)
 
-# Can initialise instructors first, then loop through them and create and add in the courses and cohorts
-oka = Instructor(100, "Oka", [comp_struct, dw])
-oka.addSoftConstraints(0, 1, 8.5, 10, "Consulting slot")
-nat = Instructor(101, "Natalie", [cv, cse])
+# istd1 = Cohort(1, "ISTD")
+# istd2 = Cohort(2, "ISTD")
+# istd3 = Cohort(3, "ISTD")
 
-instructorArray = [oka, nat]
-courses = [comp_struct, dw, cv, cse]
-for course in courses:
-    for instructor in instructorArray:
-        if course in instructor.getCourses():
-            course.addInstructors(instructor)
-cohorts = [istd1, istd2, istd3]
-for cohort in cohorts:
-    for course in courses:
-        cohort.addCourses(course)
-for course in courses:
-    for cohort in cohorts:
-        course.addCohorts(cohort)
+# rooms = {"Cohort":[Room("2.513", "Cohort Classroom 13", "Cohort Classroom"), Room("2.514", "Cohort Classroom 14", "Cohort Classroom")],
+#          "Lab":[Room("2.403", "Digital Systems Lab", "Laboratory")],
+#          "Lecture":[Room("1.203", "Lecture Theatre 2", "Lecture Theatre")]}
 
-comp_struct.setComponentsAndDuration("Lecture", 1.5, True, [cohort.name for cohort in cohorts])
-comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
-comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
-comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
-comp_struct.setComponentsAndDuration("Lab", 1, False, "ISTD1")
-comp_struct.setComponentsAndDuration("Lab", 1, False, "ISTD2")
-comp_struct.setComponentsAndDuration("Lab", 1, False, "ISTD3")
+# comp_struct = Course(1, "Comp Struct", rooms)
+# dw = Course(2, "Digital World", rooms)
+# cv = Course(3, "Computer Vision", rooms)
+# cse = Course(4, "Computer Systems Engineering", rooms)
 
-dw.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
-dw.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
-dw.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
+# # Can initialise instructors first, then loop through them and create and add in the courses and cohorts
+# oka = Instructor(100, "Oka", [comp_struct, dw])
+# oka.addSoftConstraints(0, 1, 8.5, 10, "Consulting slot")
+# nat = Instructor(101, "Natalie", [cv, cse])
 
-cv.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
-cv.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
-cv.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
+# instructorArray = [oka, nat]
+# courses = [comp_struct, dw, cv, cse]
+# for course in courses:
+#     for instructor in instructorArray:
+#         if course in instructor.getCourses():
+#             course.addInstructors(instructor)
+# cohorts = [istd1, istd2, istd3]
+# for cohort in cohorts:
+#     for course in courses:
+#         cohort.addCourses(course)
+# for course in courses:
+#     for cohort in cohorts:
+#         course.addCohorts(cohort)
 
-cse.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
-cse.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
-cse.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
-cse.setComponentsAndDuration("Lab", 1, False, "ISTD1")
-cse.setComponentsAndDuration("Lab", 1, False, "ISTD2")
-cse.setComponentsAndDuration("Lab", 1, False, "ISTD3")
+# comp_struct.setComponentsAndDuration("Lecture", 1.5, True, [cohort.name for cohort in cohorts])
+# comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
+# comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
+# comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
+# comp_struct.setComponentsAndDuration("Lab", 1, False, "ISTD1")
+# comp_struct.setComponentsAndDuration("Lab", 1, False, "ISTD2")
+# comp_struct.setComponentsAndDuration("Lab", 1, False, "ISTD3")
 
-algo = Algorithm(instructorArray, cohorts, rooms)
-algo.generate_schedule()
-algo.compareScheduleForMeeting(instructorArray, 3)
-for instructor in instructorArray:
-    print(instructor.instructorName)
-    instructor.printTimetable()
+# dw.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
+# dw.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
+# dw.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
 
-for course in courses:
-    print(course.courseName)
-    course.printTimetable()
+# cv.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
+# cv.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
+# cv.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
 
-for cohort in cohorts:
-    print(cohort.name)
-    cohort.printTimetable()
+# cse.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
+# cse.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
+# cse.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
+# cse.setComponentsAndDuration("Lab", 1, False, "ISTD1")
+# cse.setComponentsAndDuration("Lab", 1, False, "ISTD2")
+# cse.setComponentsAndDuration("Lab", 1, False, "ISTD3")
 
-print(rooms['Cohort'][0].roomName)
-rooms['Cohort'][0].printTimetable()
+# algo = Algorithm(instructorArray, cohorts, rooms)
+# algo.generate_schedule()
+# algo.compareScheduleForMeeting(instructorArray, 3)
+# for instructor in instructorArray:
+#     print(instructor.instructorName)
+#     instructor.printTimetable()
+
+# for course in courses:
+#     print(course.courseName)
+#     course.printTimetable()
+
+# for cohort in cohorts:
+#     print(cohort.name)
+#     cohort.printTimetable()
+
+# print(rooms['Cohort'][0].roomName)
+# rooms['Cohort'][0].printTimetable()
 
 #oka.removeSoftConstraints(("Consulting slot", None))
 #oka.printTimetable()
 #print(len(algo.getPossibleTimetables()))
 
-# cred = credentials.Certificate('term-5-esc-scheduler-firebase-adminsdk-cfadg-cd4c469d4d.json')
-# default_app = firebase_admin.initialize_app(cred)
-# dbfs = firestore.client()
 #
 # for course in courses:
 #     coursesdocument = dbfs.collection('courses').document(str(course.courseID))
