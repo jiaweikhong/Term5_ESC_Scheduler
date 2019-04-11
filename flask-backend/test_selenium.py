@@ -25,7 +25,7 @@ time.sleep(1) # seconds
 loginElem = driver.find_element_by_id("submit")
 loginElem.click()
 
-assert "instructorwelcome" in driver.url
+# assert "instructorwelcome" in driver.url
 
 time.sleep(1)
 logoutElem = driver.find_element_by_id("logout")
@@ -71,11 +71,11 @@ plannerLoginElem.click()
 
 emailElem = driver.find_element_by_id("email")
 emailElem.clear()
-emailElem.send_keys("bob")
+emailElem.send_keys("john")
 
 passwordElem = driver.find_element_by_id("password")
 passwordElem.clear()
-passwordElem.send_keys("bob")
+passwordElem.send_keys("john")
 
 time.sleep(1) # seconds
 loginElem = driver.find_element_by_id("submit")

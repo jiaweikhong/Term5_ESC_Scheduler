@@ -212,6 +212,7 @@ render(){
 
         <CardActions>
         <div className={classes.text}>
+
         <FormControl fullWidth>
         <div>
         <TextField
@@ -302,6 +303,7 @@ render(){
         />
         </div>
         </FormControl>
+        
         <FormControl fullWidth>
         <div>
         <TextField
