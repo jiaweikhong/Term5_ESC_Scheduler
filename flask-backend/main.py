@@ -16,11 +16,16 @@ bannedaccountsarray = bannedaccountsdict['banned']
 
 app = Flask("__main__")
 
+createInstructor = 0
 class Data():
     loggedUser = ""
     pillar = ""
     incorrectLoginUser = ""
     incorrectTries = 0
+    createInstructor = 0
+    create=0
+    courseFields = ['coursecode1', 'coursecode2','coursecode3','ID','name']
+    
 
 @app.route("/", methods=['GET', 'POST'])
 def my_index():
@@ -88,52 +93,81 @@ def instructorwelcome():
 @app.route("/uploadcourse", methods=['GET','POST'])
 def uploadcourse():
     if request.method == 'POST':
-        ## pull from firestore
-        InstructorDetailsDict = dbfs.collection('RawInput').document('InstructorDetails').get().to_dict()
+        ## submission for registered courses of instructor
+        if('course' in request.form ):
+         #the first time 'course' is clicked, create all the fields.
+            if((Data.create ==0)):    
+                InstructorDetailsDict = dbfs.collection('RawInput').document('InstructorDetails').get().to_dict()
+                natalie = {}
+                natalie['Natalie']={}
+                natalie['Natalie']['Courses']={}
+                natalie['Natalie']['Name']={}
+                natalie['Natalie']['ID']={}
+                natalie['Natalie']['Soft Constraints']={}
+                natalie['Natalie']['Soft Constraints']['0']={}
+                natalie['Natalie']['Soft Constraints']['1']={}
+                natalie['Natalie']['Soft Constraints']['2']={}
+                natalie['Natalie']['Soft Constraints']['3']={}
+                natalie['Natalie']['Soft Constraints']['4']={}
+                natalie['Natalie']['Name']=request.form['name']
+                natalie['Natalie']['ID']=request.form['ID']
+                natalie['Natalie']['Courses']['0']= request.form['coursecode1']
+                natalie['Natalie']['Courses']['1']= request.form['coursecode2']
+                natalie['Natalie']['Courses']['2']= request.form['coursecode3']
+                #Data.create = 1 prevents the next "POST" from emptying all the fields again
+                Data.create=1
+                NewInstructorDetailsDict = natalie 
+                dbfs.collection('RawInput').document('InstructorDetails').set(NewInstructorDetailsDict)
+            
+            #for subsequent submissions. each submission clears only courses,name,id. 
+            else: 
+                natalie = dbfs.collection('RawInput').document('InstructorDetails').get().to_dict()
+                natalie['Natalie']['Courses']={}
+                natalie['Natalie']['Name']={}
+                natalie['Natalie']['ID']={}
+                natalie['Natalie']['Name']=request.form['name']
+                natalie['Natalie']['ID']=request.form['ID']
+                natalie['Natalie']['Courses']['0']= request.form['coursecode1']
+                natalie['Natalie']['Courses']['1']= request.form['coursecode2']
+                natalie['Natalie']['Courses']['2']= request.form['coursecode3']
+                
+                dbfs.collection('RawInput').document('InstructorDetails').update(natalie)
+        
+        if('constraints' in request.form ):
+            # soft constraint fields will be already created when instructor presses submit under courses
+            natalie = dbfs.collection('RawInput').document('InstructorDetails').get().to_dict()
 
-        # now creating instructor dict
-        natalie = {}
-        natalie['Natalie']={}
-        natalie['Natalie']['Courses']={}
-        # natalie['Natalie']['Name']={}
-        # natalie['Natalie']['ID']={}
-        natalie['Natalie']['Soft Constraints']={}
-        natalie['Natalie']['Soft Constraints']['0']={}
-        natalie['Natalie']['Soft Constraints']['1']={}
-        natalie['Natalie']['Soft Constraints']['2']={}
-        natalie['Natalie']['Soft Constraints']['3']={}
-        natalie['Natalie']['Soft Constraints']['4']={}
+            natalie['Natalie']['Soft Constraints']['0']={}
+            natalie['Natalie']['Soft Constraints']['1']={}
+            natalie['Natalie']['Soft Constraints']['2']={}
+            natalie['Natalie']['Soft Constraints']['3']={}
+            natalie['Natalie']['Soft Constraints']['4']={}
 
-        natalie['Natalie']['Name']=request.form['name']
-        natalie['Natalie']['ID']=request.form['ID']
-        natalie['Natalie']['Courses']['0']= request.form['coursecode1']
-        natalie['Natalie']['Courses']['1']= request.form['coursecode2']
-        natalie['Natalie']['Courses']['2']= request.form['coursecode3']
-        natalie['Natalie']['Soft Constraints']['0']['0']=request.form['day1']
-        natalie['Natalie']['Soft Constraints']['0']['1']=request.form['from1']
-        natalie['Natalie']['Soft Constraints']['0']['2']=request.form['to1']
-        natalie['Natalie']['Soft Constraints']['0']['3']=request.form['reason1']
-        natalie['Natalie']['Soft Constraints']['1']['0']=request.form['day2']
-        natalie['Natalie']['Soft Constraints']['1']['1']=request.form['from2']
-        natalie['Natalie']['Soft Constraints']['1']['2']=request.form['to2']
-        natalie['Natalie']['Soft Constraints']['1']['3']=request.form['reason2']
-        natalie['Natalie']['Soft Constraints']['2']['0']=request.form['day3']
-        natalie['Natalie']['Soft Constraints']['2']['1']=request.form['from3']
-        natalie['Natalie']['Soft Constraints']['2']['2']=request.form['to3']
-        natalie['Natalie']['Soft Constraints']['2']['3']=request.form['reason3']
-        natalie['Natalie']['Soft Constraints']['3']['0']=request.form['day4']
-        natalie['Natalie']['Soft Constraints']['3']['1']=request.form['from4']
-        natalie['Natalie']['Soft Constraints']['3']['2']=request.form['to4']
-        natalie['Natalie']['Soft Constraints']['3']['3']=request.form['reason4']
-        natalie['Natalie']['Soft Constraints']['4']['0']=request.form['day5']
-        natalie['Natalie']['Soft Constraints']['4']['1']=request.form['from5']
-        natalie['Natalie']['Soft Constraints']['4']['2']=request.form['to5']
-        natalie['Natalie']['Soft Constraints']['4']['3']=request.form['reason5']
+            natalie['Natalie']['Soft Constraints']['0']['0']=request.form['day1']
+            natalie['Natalie']['Soft Constraints']['0']['1']=request.form['from1']
+            natalie['Natalie']['Soft Constraints']['0']['2']=request.form['to1']
+            natalie['Natalie']['Soft Constraints']['0']['3']=request.form['reason1']
+            natalie['Natalie']['Soft Constraints']['1']['0']=request.form['day2']
+            natalie['Natalie']['Soft Constraints']['1']['1']=request.form['from2']
+            natalie['Natalie']['Soft Constraints']['1']['2']=request.form['to2']
+            natalie['Natalie']['Soft Constraints']['1']['3']=request.form['reason2']
+            natalie['Natalie']['Soft Constraints']['2']['0']=request.form['day3']
+            natalie['Natalie']['Soft Constraints']['2']['1']=request.form['from3']
+            natalie['Natalie']['Soft Constraints']['2']['2']=request.form['to3']
+            natalie['Natalie']['Soft Constraints']['2']['3']=request.form['reason3']
+            natalie['Natalie']['Soft Constraints']['3']['0']=request.form['day4']
+            natalie['Natalie']['Soft Constraints']['3']['1']=request.form['from4']
+            natalie['Natalie']['Soft Constraints']['3']['2']=request.form['to4']
+            natalie['Natalie']['Soft Constraints']['3']['3']=request.form['reason4']
+            natalie['Natalie']['Soft Constraints']['4']['0']=request.form['day5']
+            natalie['Natalie']['Soft Constraints']['4']['1']=request.form['from5']
+            natalie['Natalie']['Soft Constraints']['4']['2']=request.form['to5']
+            natalie['Natalie']['Soft Constraints']['4']['3']=request.form['reason5']
 
-        NewInstructorDetailsDict = natalie # = InstructorDetailsDict + natalie 
+            NewInstructorDetailsDict = natalie  
 
-        # paste back to firestore. this will delete the whole dict and set it from scratch.
-        dbfs.collection('RawInput').document('InstructorDetails').set(NewInstructorDetailsDict)
+            # paste back to firestore. this will delete the whole dict and set it from scratch.
+            dbfs.collection('RawInput').document('InstructorDetails').update(NewInstructorDetailsDict)
 
     return render_template('index.html')
 
@@ -142,6 +176,7 @@ def CourseMaterial():
     if request.method == 'POST':
         ## pull from firestore
         CourseDetailsDict = dbfs.collection('RawInput').document('CourseInfo').get().to_dict()
+
 
 # write code to create dictionary when more courses are added
 

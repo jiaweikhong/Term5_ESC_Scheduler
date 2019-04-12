@@ -266,7 +266,7 @@ render(){
         <Typography gutterBottom variant="h4" component="h4">
         My Courses</Typography>
         <Typography gutterBottom component ="h6">
-        Please fill in the following details for the courses you teach. Thank you.</Typography>
+        Please fill in the following details for the courses you teach. Note that each submission will be a new submission. If uou wish to make changes to previous submissions, you are required to re-fill all fields. Thank you.</Typography>
         </div>
         <Divider/>
 
@@ -277,12 +277,13 @@ render(){
         <FormControl fullWidth>
         <div>
         <TextField
-        name='ID'
+          name='ID'
           id="instructor-input"
           className={classes.coursecode}
           margin="normal"
           //variant='outlined'
           placeholder= "Your ID"
+          
           
         />
 
@@ -293,6 +294,7 @@ render(){
           margin="normal"
           //variant='outlined'
           placeholder= "Your Name"
+        
           
         />
         </div>
@@ -332,6 +334,7 @@ render(){
           margin="normal"
           variant='outlined'
           placeholder= "Course Code"
+          
           
         />
 
@@ -441,10 +444,12 @@ render(){
           placeholder= "Course Title"
         />
         </div>
-        {/* temporary. testing out oen submit button first */}
-        {/* <Button variant="contained" color="primary" className={classes.button} type='submit'>
+        <FormControl fullWidth>
+        <Button variant="contained" color="primary" className={classes.button} type='submit' name='course'>
         Submit
-      </Button> */}
+      </Button>
+      </FormControl>
+        
         </FormControl>
         </div>
         </CardActions>
@@ -464,7 +469,7 @@ render(){
         <Typography gutterBottom variant="h4" component="h4">
         Soft Constraints</Typography>
         <Typography gutterBottom component ="h6">
-        Please rank your desired soft constraints. They will be taken into consideration when creating your schedule. Thank you. </Typography>
+        Please rank your desired soft constraints. They will be taken into consideration when creating your schedule. Note that each submission overwrites all your previous submissions. Thank you. </Typography>
         </div>
         <Divider/>
         <CardActions className={classes.textfields}>
@@ -951,7 +956,7 @@ render(){
         
         </FormControl>
         <FormControl fullWidth>
-        <Button variant="contained" color="primary" className={classes.button} type='submit'>
+        <Button variant="contained" color="primary" className={classes.button} type='submit' name='constraints'>
         Submit
       </Button>
       </FormControl>

@@ -83,9 +83,7 @@ function PlannerLogin(props) {
             Sign in
             </Button>
             <p>{ window.errornotif }</p>
-          <p>
-            <NavLink to="/plannerwelcome">
-              Bypass</NavLink></p>
+         
         </form>
 
       </Paper>
