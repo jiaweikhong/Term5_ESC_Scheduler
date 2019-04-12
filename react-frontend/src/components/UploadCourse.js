@@ -18,9 +18,10 @@ import {Button, Divider, TextField, FormControl} from '@material-ui/core'
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CourseMaterial from './CourseMaterial';
 import MenuItem from '@material-ui/core/MenuItem';
-import OutlinedTextFields from './OutlinedTextFields';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import { FormLabel } from '@material-ui/core';
+
 
 
 
@@ -99,9 +100,28 @@ const styles = theme => ({
   textfields:{
     display: 'flex',
     flexWrap: 'wrap'
-  }
-  
+  },
+  input:{
+    width: 800,
+},
 
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    flexdirection: 'column'
+  },
+  textField: {
+    //marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width:150
+
+  },
+  dense: {
+    marginTop: 16,
+  },
+  menu: {
+    width: 200,
+  },
   
 });
 
@@ -132,6 +152,42 @@ const constraints = [
   }
 ];
 
+const time = [
+  {value: '0', label: '-'},
+  {value: '0830',label: '0830',},
+  {value: '0900',label: '0900',},
+  {value: '0930',label: '0930'},
+  {value: '1000',label: '1000'},
+  {value: '1030',label:'1030'},
+  {value: '1100',label: '1100',},
+  {value: '1130',label: '1130',},
+  {value: '1200',label: '1200',},
+  {value: '1230',label: '1230',},
+  {value: '1300',label: '1300',},
+  {value: '1330',label: '1330',},
+  {value: '1400',label: '1400',},
+  {value: '1430',label: '1430',},
+  {value: '1500',label: '1500',},
+  {value: '1530',label: '1530',},
+  {value: '1600',label: '1600',},
+  {value: '1630',label: '1630',},
+  {value: '1700',label: '1700',},
+  {value: '1730',label: '1730',},
+  {value: '1800',label: '1800',},
+  {value: '1830',label: '1830',},
+
+];
+
+const day = [
+  {value: '0', label: '-'},
+  {value: 'Monday', label: 'Monday'},
+  {value: 'Tuesday', label: 'Tuesday'},
+  {value: 'Wednesday', label: 'Wednesday'},
+  {value: 'Thursday', label: 'Thursday'},
+  {value: 'Friday', label: 'Friday'},
+
+]
+
 
 class UploadCourse extends React.Component {
 
@@ -141,6 +197,9 @@ class UploadCourse extends React.Component {
     pillar3:'',
     pillar4:'',
     pillar5:'',
+    from1:'',from2:'',from3:'',from4:'',from5:'',
+    to1:'',to2:'',to3:'',to4:'',to5:'',
+    day1:'',day2:'',day3:'',day4:'',day5:''
     
   };
 
@@ -149,6 +208,7 @@ class UploadCourse extends React.Component {
       [name]: event.target.value,
     });
   };
+
 
 render(){
   const { classes } = this.props;
@@ -199,7 +259,7 @@ render(){
 
       </Drawer>
       <main className={classes.content}>
-
+      <form method='POST'>
         <Card className={classes.card}>
           <CardContent>
         <div className={classes.text}>
@@ -210,12 +270,38 @@ render(){
         </div>
         <Divider/>
 
+       
         <CardActions>
         <div className={classes.text}>
 
         <FormControl fullWidth>
         <div>
         <TextField
+        name='ID'
+          id="instructor-input"
+          className={classes.coursecode}
+          margin="normal"
+          //variant='outlined'
+          placeholder= "Your ID"
+          
+        />
+
+        <TextField
+        name='name'
+          id="instructor-input"
+          className={classes.coursetitle}
+          margin="normal"
+          //variant='outlined'
+          placeholder= "Your Name"
+          
+        />
+        </div>
+        </FormControl>
+
+        <FormControl fullWidth>
+        <div>
+        <TextField
+        name='pillar1'
         id='choose-pillar'
         select
         label ='Pillar'
@@ -240,6 +326,7 @@ render(){
         ))}
       </TextField>
         <TextField
+        name='coursecode1'
           id="instructor-input"
           className={classes.coursecode}
           margin="normal"
@@ -249,6 +336,7 @@ render(){
         />
 
         <TextField
+        name='coursetitle1'
           id="instructor-input"
           className={classes.coursetitle}
           margin="normal"
@@ -262,6 +350,7 @@ render(){
       
         <div>
         <TextField
+        name='pillar2'
         id='choose-pillar'
         select
         label ='Pillar'
@@ -286,6 +375,7 @@ render(){
         ))}
       </TextField>
         <TextField
+        name='coursecode2'
           id="instructor-input"
           className={classes.coursecode}
           margin="normal"
@@ -295,6 +385,7 @@ render(){
         />
 
         <TextField
+        name='coursetitle2'
           id="instructor-input"
           className={classes.coursetitle}
           margin="normal"
@@ -307,6 +398,7 @@ render(){
         <FormControl fullWidth>
         <div>
         <TextField
+        name='pillar3'
         id='choose-pillar'
         select
         label ='Pillar'
@@ -331,6 +423,7 @@ render(){
         ))}
       </TextField>
         <TextField
+        name='coursecode3'
           id="instructor-input"
           className={classes.coursecode}
           margin="normal"
@@ -340,6 +433,7 @@ render(){
         />
 
         <TextField
+        name='coursetitle3'
           id="instructor-input"
           className={classes.coursetitle}
           margin="normal"
@@ -347,12 +441,17 @@ render(){
           placeholder= "Course Title"
         />
         </div>
-        <Button variant="contained" color="primary" className={classes.button} type='submit'>
+        {/* temporary. testing out oen submit button first */}
+        {/* <Button variant="contained" color="primary" className={classes.button} type='submit'>
         Submit
-      </Button>
+      </Button> */}
         </FormControl>
         </div>
         </CardActions>
+        <FormControl fullWidth>
+
+      </FormControl>
+        
         </CardContent>
         </Card>
 
@@ -372,16 +471,502 @@ render(){
 
         <div>
         {/* <div className={classes.space} /> */}
-        <OutlinedTextFields/>
+        
+
+      <FormControl >
+        <div className={classes.dense}></div>
+        <FormLabel className={classes.text} focused>Select the time slot you wish to keep free from your timetable. Requets with valid reasons will be prioritised. Thank you.</FormLabel>
+        
+     <div >
+     
+     <div className={classes.container}>
+      <TextField
+          name='day1'
+          id='day'
+          select
+          label ='Day'
+          className={classes.textField}
+          value={this.state.day1}
+          onChange={this.handleChange('day1')}
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}
+          InputProps={{
+            startAdornment: <InputAdornment position="start">1.</InputAdornment>,
+          }}
+          
+          margin="normal"
+          
+          //variant="outlined"
+        >
+          {day.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        
+
+
+        <TextField
+          name='from1'
+          id='from'
+          select
+          label ='From'
+          className={classes.textField}
+          value={this.state.from1}
+          onChange={this.handleChange('from1')}
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}          
+          margin="normal"
+          //variant="outlined"
+        >
+          {time.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        <TextField
+          name='to1'
+          id='to'
+          select
+          label ='To'
+          className={classes.textField}
+          value={this.state.to1}
+          onChange={this.handleChange('to1')}
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}
+          margin="normal"
+          //variant="outlined"
+        >
+          {time.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
         </div>
+        
+        <FormControl fullWidth>
+        <TextField
+          name='reason1'
+          id="instructor-input"
+          className={classes.input}
+          margin="normal"
+          variant="outlined"
+          multiline
+          rows ="5"
+          placeholder= "Please provide a valid reason for your request"
+
+        />
+        </FormControl>
+        </div>
+        
+        
+        <div >
+     <FormControl fullWidth margin="none">
+     <div className={classes.container}> 
+      <TextField
+          name='day2'
+          id='day'
+          select
+          label ='Day'
+          className={classes.textField}
+          value={this.state.day2}
+          onChange={this.handleChange('day2')}
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}
+          InputProps={{
+            startAdornment: <InputAdornment position="start">2.</InputAdornment>,
+          }}
+          
+          margin="normal"
+          
+          //variant="outlined"
+        >
+          {day.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        
+
+
+        <TextField
+          name='from2'
+          id='from'
+          select
+          label ='From'
+          className={classes.textField}
+          value={this.state.from2}
+          onChange={this.handleChange('from2')}
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}          
+          margin="normal"
+          //variant="outlined"
+        >
+          {time.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        <TextField
+        name='to2'
+          id='to'
+          select
+          label ='To'
+          className={classes.textField}
+          value={this.state.to2}
+          onChange={this.handleChange('to2')}
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}
+          margin="normal"
+          //variant="outlined"
+        >
+          {time.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        </div>
+        </FormControl>
+        <FormControl fullWidth>
+        <TextField
+        name='reason2'
+          id="instructor-input"
+          className={classes.input}
+          margin="normal"
+          variant="outlined"
+          multiline
+          rows ="5"
+          placeholder= "Please provide a valid reason for your request"
+
+        />
+        </FormControl>
+        </div>
+       
+
+        <div >
+     <FormControl fullWidth margin="none">
+     <div className={classes.container}>
+      <TextField
+      name='day3'
+          id='day'
+          select
+          label ='Day'
+          className={classes.textField}
+          value={this.state.day3}
+          onChange={this.handleChange('day3')}
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}
+          InputProps={{
+            startAdornment: <InputAdornment position="start">3.</InputAdornment>,
+          }}
+          
+          margin="normal"
+          
+          //variant="outlined"
+        >
+          {day.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        
+
+
+        <TextField
+        name='from3'
+          id='from'
+          select
+          label ='From'
+          className={classes.textField}
+          value={this.state.from3}
+          onChange={this.handleChange('from3')}
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}          
+          margin="normal"
+          //variant="outlined"
+        >
+          {time.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        <TextField
+        name='to3'
+          id='to'
+          select
+          label ='To'
+          className={classes.textField}
+          value={this.state.to3}
+          onChange={this.handleChange('to3')}
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}
+          margin="normal"
+          //variant="outlined"
+        >
+          {time.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        </div>
+        </FormControl>
+        <FormControl fullWidth>
+        <TextField
+        name='reason3'
+          id="instructor-input"
+          className={classes.input}
+          margin="normal"
+          variant="outlined"
+          multiline
+          rows ="5"
+          placeholder= "Please provide a valid reason for your request"
+
+        />
+        </FormControl>
+        </div>
+        <div >
+     <FormControl fullWidth margin="none">
+     <div className={classes.container}> 
+      <TextField
+      name='day4'
+          id='day'
+          select
+          label ='Day'
+          className={classes.textField}
+          value={this.state.day4}
+          onChange={this.handleChange('day4')}
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}
+          InputProps={{
+            startAdornment: <InputAdornment position="start">4.</InputAdornment>,
+          }}
+          
+          margin="normal"
+          
+          //variant="outlined"
+        >
+          {day.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        
+
+
+        <TextField
+        name='from4'
+          id='from'
+          select
+          label ='From'
+          className={classes.textField}
+          value={this.state.from4}
+          onChange={this.handleChange('from4')}
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}          
+          margin="normal"
+          //variant="outlined"
+        >
+          {time.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        <TextField
+        name='to4'
+          id='to'
+          select
+          label ='To'
+          className={classes.textField}
+          value={this.state.to4}
+          onChange={this.handleChange('to4')}
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}
+          margin="normal"
+          //variant="outlined"
+        >
+          {time.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        </div>
+        </FormControl>
+        <FormControl fullWidth>
+        <TextField
+        name='reason4'
+          id="instructor-input"
+          className={classes.input}
+          margin="normal"
+          variant="outlined"
+          multiline
+          rows ="5"
+          placeholder= "Please provide a valid reason for your request"
+
+        />
+        </FormControl>
+        </div>
+       
+        <div >
+     <FormControl fullWidth margin="none">
+     <div className={classes.container}> 
+      <TextField
+      name='day5'
+          id='day'
+          select
+          label ='Day'
+          className={classes.textField}
+          value={this.state.day5}
+          onChange={this.handleChange('day5')}
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}
+          InputProps={{
+            startAdornment: <InputAdornment position="start">5.</InputAdornment>,
+          }}
+          
+          margin="normal"
+          
+          //variant="outlined"
+        >
+          {day.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        
+
+
+        <TextField
+        name='from5'
+          id='from'
+          select
+          label ='From'
+          className={classes.textField}
+          value={this.state.from5}
+          onChange={this.handleChange('from5')}
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}          
+          margin="normal"
+          //variant="outlined"
+        >
+          {time.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        <TextField
+        name='to5'
+          id='to'
+          select
+          label ='To'
+          className={classes.textField}
+          value={this.state.to5}
+          onChange={this.handleChange('to5')}
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}
+          margin="normal"
+          //variant="outlined"
+        >
+          {time.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        </div>
+        </FormControl>
+        <FormControl fullWidth>
+        <TextField
+        name='reason5'
+          id="instructor-input"
+          className={classes.input}
+          margin="normal"
+          variant="outlined"
+          multiline
+          rows ="5"
+          placeholder= "Please provide a valid reason for your request"
+
+        />
+        </FormControl>
+        </div>
+       
+        
+        </FormControl>
+        <FormControl fullWidth>
         <Button variant="contained" color="primary" className={classes.button} type='submit'>
         Submit
       </Button>
+      </FormControl>
+      
+      
+        </div>
+
 
         </CardActions>
+        
           </CardContent>
         
         </Card>
+        </form>
+        
 
         <div className={classes.space} />
 

@@ -30,7 +30,7 @@ export const mainListItems = (
       <ListItemIcon>
         <LibraryBooksIcon />
       </ListItemIcon>
-      <ListItemText primary="Course Material" />
+      <ListItemText primary="My Information" />
     </ListItem>
 
     <ListItem 
@@ -39,7 +39,7 @@ export const mainListItems = (
       <ListItemIcon>
         <CheckBoxIcon />
       </ListItemIcon>
-      <ListItemText primary="Soft Constraints" />
+      <ListItemText primary="Course Information" />
     </ListItem>
     
     {/* <ListItem button>
