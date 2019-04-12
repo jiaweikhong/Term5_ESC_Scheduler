@@ -36,7 +36,7 @@ class TestMain(unittest.TestCase):
         main.check_planner_login("bob", "wrongpw")
         main.check_planner_login("bob", "wrongpw")
         fbData = main.dbfs.collection('bannedaccounts').document('SkLtTnXzztUdQ66QKZsA').get().to_dict()
-        if ("trudy" in fbData['banned']):
+        if ("bob" in fbData['banned']):
             banUpdate = 1
         else:
             banUpdate = 0

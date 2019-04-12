@@ -46,13 +46,11 @@ class Instructor:
         return self.timetable.week[day][timeslot]
 
     def addSoftConstraints(self, priority, day, startTime, endTime, softConstraint):
-        startTimeIndex = startTime - 8.5
-        self.softConstraints[priority] = softConstraint
-        self.addIntoTimeTable(softConstraint, day, int(startTimeIndex), int((endTime - startTime)/0.5), None, None, None)
+        self.softConstraints[priority] = [softConstraint, day, startTime, endTime]
 
     def removeSoftConstraints(self, softConstraint):
         for key, value in self.softConstraints.items():
-            if value == softConstraint:
+            if value[0] == softConstraint:
                 self.softConstraints.pop(key)
                 break
         for i in range(len(self.timetable.week)):
