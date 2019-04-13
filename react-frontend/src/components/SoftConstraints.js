@@ -1188,6 +1188,11 @@ class SoftConstraints extends React.Component {
         </FormControl>
 
         </div>
+        <FormControl fullWidth>
+        <Button variant="contained" color="primary" className={classes.button} type='submit' name='courseInfo1'>
+        Submit
+      </Button>
+      </FormControl>
 
         </CardActions>
           </CardContent>
@@ -1199,7 +1204,8 @@ class SoftConstraints extends React.Component {
           <CardContent>
         <CardActions className={classes.textfields}>
         <FormControl fullWidth className={classes.text} >
-        <Typography variant='h5'>Second Course</Typography>
+        <Typography variant='h5'>Second Course  </Typography>
+        <Typography variant='h6'>This is for instructors who are the course lead of more than one course. </Typography>
         </FormControl>
 
         <div className={classes.text}>
@@ -2058,7 +2064,7 @@ class SoftConstraints extends React.Component {
         </div>
 
         <FormControl fullWidth>
-        <Button variant="contained" color="primary" className={classes.button} type='submit'>
+        <Button variant="contained" color="primary" className={classes.button} type='submit' name='courseInfo2'>
         Submit
       </Button>
       </FormControl>
