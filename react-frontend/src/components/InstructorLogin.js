@@ -82,7 +82,7 @@ function InstructorLogin(props) {
             Sign in
           </Button>
           <p>{ window.errornotif }</p>
-          <p><NavLink to="/instructorwelcome">Bypass</NavLink></p>
+       
         </form>
       </Paper>
     </main>

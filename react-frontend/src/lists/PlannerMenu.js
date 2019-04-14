@@ -16,6 +16,15 @@ export const mainListItems = (
 
 
   <div>
+<ListItem 
+    button
+    component = {Link} to = "/createschedule">
+      <ListItemIcon>
+        <LibraryAddIcon />
+      </ListItemIcon>
+      <ListItemText primary="Create Schedule" />
+    </ListItem>
+
     <ListItem 
     button
     component = {Link} to = "/plannerwelcome">
@@ -25,14 +34,7 @@ export const mainListItems = (
       <ListItemText primary="Home" />
     </ListItem>
 
-    <ListItem 
-    button
-    component = {Link} to = "/createschedule">
-      <ListItemIcon>
-        <LibraryAddIcon />
-      </ListItemIcon>
-      <ListItemText primary="Create Schedule" />
-    </ListItem>
+    
 
     {/* <ListItem 
     button

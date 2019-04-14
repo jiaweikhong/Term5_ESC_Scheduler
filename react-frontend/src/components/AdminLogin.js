@@ -83,9 +83,7 @@ function AdminLogin(props) {
             Sign in
             </Button>
             <p>{ window.errornotif }</p>
-          <p>
-            <NavLink to="/adminwelcome">
-              Bypass</NavLink></p>
+          
 
         </form>
       </Paper>

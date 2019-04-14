@@ -6,18 +6,19 @@ import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { FormControl, Typography, FormLabel } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import { FORMERR } from 'dns';
 
 
 // need to work on submit button
 
 const styles = theme => ({
+
   input:{
     width: 800,
 },
 
   button: {
     margin: theme.spacing.unit,
+    width: 70
 
   },
   container: {
@@ -76,19 +77,19 @@ const constraints = [
 
 const day = [
   {value: '0', label: '-'},
-  {value: '1', label: 'Monday'},
-  {value: '2', label: 'Tuesday'},
-  {value: '3', label: 'Wednesday'},
-  {value: '4', label: 'Thursday'},
-  {value: '5', label: 'Friday'},
+  {value: 'Monday', label: 'Monday'},
+  {value: 'Tuesday', label: 'Tuesday'},
+  {value: 'Wednesday', label: 'Wednesday'},
+  {value: 'Thursday', label: 'Thursday'},
+  {value: 'Friday', label: 'Friday'},
 
 ]
 
 class OutlinedTextFields extends React.Component {
   state = {
-    from1:'',from2:'',from3:'',from4:'',from5:'',from6:'',
-    to1:'',to2:'',to3:'',to4:'',to5:'',to6:'',
-    day1:'',day2:'',day3:''
+    from1:'',from2:'',from3:'',from4:'',from5:'',
+    to1:'',to2:'',to3:'',to4:'',to5:'',
+    day1:'',day2:'',day3:'',day4:'',day5:''
     
   };
 
@@ -102,7 +103,7 @@ class OutlinedTextFields extends React.Component {
     const { classes } = this.props;
 
     return (
-      <form className={classes.container} noValidate autoComplete="off">
+      <form className={classes.container} noValidate autoComplete="off" method='POST' >
 
       <FormControl >
         <div className={classes.dense}></div>
@@ -112,6 +113,7 @@ class OutlinedTextFields extends React.Component {
      
      <div className={classes.container}>
       <TextField
+          name='day1'
           id='day'
           select
           label ='Day'
@@ -141,6 +143,7 @@ class OutlinedTextFields extends React.Component {
 
 
         <TextField
+          name='from1'
           id='from'
           select
           label ='From'
@@ -162,6 +165,7 @@ class OutlinedTextFields extends React.Component {
           ))}
         </TextField>
         <TextField
+          name='to1'
           id='to'
           select
           label ='To'
@@ -186,6 +190,7 @@ class OutlinedTextFields extends React.Component {
         
         <FormControl fullWidth>
         <TextField
+          name='reason1'
           id="instructor-input"
           className={classes.input}
           margin="normal"
@@ -199,11 +204,11 @@ class OutlinedTextFields extends React.Component {
         </div>
         
         
-
         <div >
      <FormControl fullWidth margin="none">
      <div className={classes.container}> 
       <TextField
+          name='day2'
           id='day'
           select
           label ='Day'
@@ -233,6 +238,7 @@ class OutlinedTextFields extends React.Component {
 
 
         <TextField
+          name='from2'
           id='from'
           select
           label ='From'
@@ -254,6 +260,7 @@ class OutlinedTextFields extends React.Component {
           ))}
         </TextField>
         <TextField
+        name='to2'
           id='to'
           select
           label ='To'
@@ -278,6 +285,7 @@ class OutlinedTextFields extends React.Component {
         </FormControl>
         <FormControl fullWidth>
         <TextField
+        name='reason2'
           id="instructor-input"
           className={classes.input}
           margin="normal"
@@ -290,13 +298,12 @@ class OutlinedTextFields extends React.Component {
         </FormControl>
         </div>
        
-        
-       
 
         <div >
      <FormControl fullWidth margin="none">
      <div className={classes.container}>
       <TextField
+      name='day3'
           id='day'
           select
           label ='Day'
@@ -326,6 +333,7 @@ class OutlinedTextFields extends React.Component {
 
 
         <TextField
+        name='from3'
           id='from'
           select
           label ='From'
@@ -347,6 +355,7 @@ class OutlinedTextFields extends React.Component {
           ))}
         </TextField>
         <TextField
+        name='to3'
           id='to'
           select
           label ='To'
@@ -371,6 +380,7 @@ class OutlinedTextFields extends React.Component {
         </FormControl>
         <FormControl fullWidth>
         <TextField
+        name='reason3'
           id="instructor-input"
           className={classes.input}
           margin="normal"
@@ -382,45 +392,202 @@ class OutlinedTextFields extends React.Component {
         />
         </FormControl>
         </div>
-        </FormControl>
-        
-        <FormControl fullWidth>
-        <div className={classes.space}></div>
-        <FormLabel focused className={classes.text}>Write down any other soft constraint you would like us to consider when creating your schedule.</FormLabel>
-        {/* <div className={classes.dense}/> */}
-        <TextField
-          id="instructor-input"
-          className={classes.input}
-          margin="normal"
-          variant="outlined"
-          multiline
-          rows="5"
-          placeholder= " Please type in your soft constraint"
+        <div >
+     <FormControl fullWidth margin="none">
+     <div className={classes.container}> 
+      <TextField
+      name='day4'
+          id='day'
+          select
+          label ='Day'
+          className={classes.textField}
+          value={this.state.day4}
+          onChange={this.handleChange('day4')}
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}
           InputProps={{
             startAdornment: <InputAdornment position="start">4.</InputAdornment>,
           }}
-        />
-         
+          
+          margin="normal"
+          
+          //variant="outlined"
+        >
+          {day.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
         
+
+
         <TextField
+        name='from4'
+          id='from'
+          select
+          label ='From'
+          className={classes.textField}
+          value={this.state.from4}
+          onChange={this.handleChange('from4')}
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}          
+          margin="normal"
+          //variant="outlined"
+        >
+          {constraints.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        <TextField
+        name='form4'
+          id='to'
+          select
+          label ='To'
+          className={classes.textField}
+          value={this.state.to4}
+          onChange={this.handleChange('to4')}
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}
+          margin="normal"
+          //variant="outlined"
+        >
+          {constraints.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        </div>
+        </FormControl>
+        <FormControl fullWidth>
+        <TextField
+        name='reason4'
           id="instructor-input"
           className={classes.input}
           margin="normal"
           variant="outlined"
           multiline
-          rows="5"
-          placeholder= " Please type in your soft constraint"
-          InputProps={{
-            startAdornment: <InputAdornment position="top-start" >5.</InputAdornment>,
-          }}
+          rows ="5"
+          placeholder= "Please provide a valid reason for your request"
+
         />
         </FormControl>
+        </div>
+       
+        <div >
+     <FormControl fullWidth margin="none">
+     <div className={classes.container}> 
+      <TextField
+      name='day5'
+          id='day'
+          select
+          label ='Day'
+          className={classes.textField}
+          value={this.state.day5}
+          onChange={this.handleChange('day5')}
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}
+          InputProps={{
+            startAdornment: <InputAdornment position="start">5.</InputAdornment>,
+          }}
+          
+          margin="normal"
+          
+          //variant="outlined"
+        >
+          {day.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
         
-       
-       
 
-      
+
+        <TextField
+        name='from5'
+          id='from'
+          select
+          label ='From'
+          className={classes.textField}
+          value={this.state.from5}
+          onChange={this.handleChange('from5')}
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}          
+          margin="normal"
+          //variant="outlined"
+        >
+          {constraints.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        <TextField
+        name='to5'
+          id='to'
+          select
+          label ='To'
+          className={classes.textField}
+          value={this.state.to5}
+          onChange={this.handleChange('to5')}
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}
+          margin="normal"
+          //variant="outlined"
+        >
+          {constraints.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        </div>
+        </FormControl>
+        <FormControl fullWidth>
+        <TextField
+        name='reason5'
+          id="instructor-input"
+          className={classes.input}
+          margin="normal"
+          variant="outlined"
+          multiline
+          rows ="5"
+          placeholder= "Please provide a valid reason for your request"
+
+        />
+        </FormControl>
+        </div>
        
+        
+        </FormControl>
+        <FormControl fullWidth>
+        <Button variant="contained" color="primary" className={classes.button} type='submit'>
+        Submit
+      </Button>
+      </FormControl>
+      
       </form>
     );
   }
