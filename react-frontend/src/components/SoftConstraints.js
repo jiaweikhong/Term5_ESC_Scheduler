@@ -25,7 +25,9 @@ import { FormLabel } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
+import ChipInput from 'material-ui-chip-input'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+
 
 
 
@@ -257,14 +259,27 @@ class SoftConstraints extends React.Component {
     lab12:'',
     lab22:'',
     lab32:'',
+
+    chips:[]
     
   };
+
+
+
 
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
     });
   };
+
+  handleAdd = name =>event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+    //chips.append(this.value)
+
+  }
 
   render(){
     const { classes } = this.props;
@@ -372,7 +387,7 @@ class SoftConstraints extends React.Component {
         />
 
         <TextField
-        name='courseTitle1'
+          name='courseTitle1'
           id="instructor-input"
           className={classes.coursetitle}
           margin="normal"
@@ -380,12 +395,13 @@ class SoftConstraints extends React.Component {
           placeholder= "Course Title"
         />
         <TextField
-        name='instructors1'
+          name='instructors1'
           id="instructor-input"
           className={classes.instructors}
           margin="normal"
           //variant="outlined"
-          placeholder= "Name of Course Instructors"
+          label="Course Instructors"
+          placeholder= "Please put a ',' inbetween instructor names"
         />
         <TextField
         name='lead1'
@@ -1253,14 +1269,17 @@ class SoftConstraints extends React.Component {
           //variant="outlined"
           placeholder= "Course Title"
         />
+
         <TextField
-        name='instructors2'
+          name='instructors2'
           id="instructor-input"
           className={classes.instructors}
           margin="normal"
           //variant="outlined"
-          placeholder= "Name of Course Instructors"
-        />
+          label="Course Instructors"
+          placeholder= "Please put a ',' inbetween instructor names"
+        />        
+     
         <TextField
         name='lead2'
           id="instructor-input"

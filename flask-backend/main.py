@@ -179,30 +179,8 @@ def CourseMaterial():
 
         # first course input from course lead. assumption: intructor fills in course1 before course2
         if('courseInfo1' in request.form):
-            
-            # first time course info is 'POST'ed. create all the fields required
-            # if( Data.course==0):
-            #     course = {}
-            #     #creating fields for course1
-            #     course['course1'] ={}
-            #     course['course1']['Components']={}
-            #     course['course1']['Components']['Lecture']={}
-            #     course['course1']['Components']['Lecture']['CohortClasses']={}
-            #     course['course1']['Components']['Lecture']['NumberSessions']={}
-            #     course['course1']['Components']['Lecture']['LectSession1']={}
-            #     course['course1']['Components']['Lecture']['LectSession2']={}
-            #     course['course1']['Components']['Lecture']['LectSession3']={}
-            #     # creating fields for course2
-            #     course['course2'] ={}
-            #     course['course2']['Components']={}
-            #     course['course2']['Components']['Lecture']={}
-            #     course['course2']['Components']['Lecture']['CohortClasses']={}
-            #     course['course2']['Components']['Lecture']['NumberSessions']={}
-            #     course['course2']['Components']['Lecture']['LectSession1']={}
-            #     course['course2']['Components']['Lecture']['LectSession2']={}
-            #     course['course2']['Components']['Lecture']['LectSession3']={}
-            #     # set course to 1 so that fields are not overwritten everytime smth is posted
-            #     Data.course=1
+            instrut = request.form['instructors1']
+            instructors1 = instrut.split(",")
 
 
             course = {}
@@ -210,7 +188,7 @@ def CourseMaterial():
             course['course1']['Pillar']=request.form['pillar1']
             course['course1']['CourseCode']=request.form['courseCode1']
             course['course1']['CourseTitle']=request.form['courseTitle1']
-            course['course1']['Instructors']=request.form['instructors1']
+            course['course1']['Instructors']=instructors1
             course['course1']['Course Lead']=request.form['lead1']
             course['course1']['Cohort Classes']={}
 
@@ -276,6 +254,10 @@ def CourseMaterial():
 
         if('courseInfo2' in request.form):
             # empty course 2
+
+            instrut = request.form['instructors2']
+            instructors2 = instrut.split(",")
+
             course = {}
             course['course2'] ={}
             course['course2']['Pillar']=request.form['pillar2']
@@ -292,7 +274,7 @@ def CourseMaterial():
             # course['course2']['Pillar']=request.form['pillar2']
             course['course2']['CourseCode']=request.form['courseCode2']
             course['course2']['CourseTitle']=request.form['courseTitle2']
-            course['course2']['Instructors']=request.form['instructors2']
+            course['course2']['Instructors']=instructors2
             course['course2']['Course Lead']=request.form['lead2']
             # # course['course2']['Cohort Classes']=request.form['']
 
@@ -356,6 +338,28 @@ def CourseMaterial():
 
             # paste back to firestore. this will delete the whole dict and set it from scratch.
             dbfs.collection('RawInput').document('CourseInfo').update(NewCourseDetailsDict)
+
+
+
+    return render_template('index.html')
+
+@app.route("/editschedule", methods=['GET','POST'])
+def EditSchedule():
+    if request.method == 'POST':
+        ## pull from firestore
+        
+        CourseDetailsDict = dbfs.collection('RawInput').document('CourseInfo').get().to_dict()
+
+        # first course input from course lead. assumption: intructor fills in course1 before course2
+        if('please' in request.form):
+            classes = request.form['cohortclass']
+            classList = classes.split(",")
+            
+            CourseDetailsDict['course1']['Cohort Classes'] = classList
+            CourseDetailsDict['course1']['Components']['Lab Session']['Venue'] = request.form['venue']
+
+            # paste back to firestore. this will delete the whole dict and set it from scratch.
+            dbfs.collection('RawInput').document('CourseInfo').update(CourseDetailsDict)
 
 
 

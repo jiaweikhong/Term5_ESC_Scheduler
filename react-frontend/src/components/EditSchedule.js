@@ -15,18 +15,21 @@ import { mainListItems } from '../lists/Adminmenu';
 import {secondaryListItems} from '../lists/Adminmenu';
 import {Link} from 'react-router-dom';
 import {Button} from '@material-ui/core'
-import CourseTable from './CourseTable'
-
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import MUIDataTable from "mui-datatables";
 
 const drawerWidth = 240;
-
-
 
 const styles = theme => ({
   root: {
     display: 'flex',
   },
-
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
   },
@@ -37,25 +40,132 @@ const styles = theme => ({
   drawerPaper: {
     width: drawerWidth,
   },
-
   icons:{
     position: 'absolute',
     right: 15
-    
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
   },
   toolbar: theme.mixins.toolbar,
-  
-
-  
 });
 
-function EditSchedule (props) {
+const lab = [
+  {value: 'physics', label: 'Physics Lab'},
+  {value: 'chembio',label: 'Chemistry and Biology Lab',},
+  {value:'armsII',label:'AMRS II'},
+  {value:'dsl',label:'Digital Systems Lab'},
+  {value:'', label:'None'}]
 
-    const { classes } = props;
+class EditSchedule extends React.Component {
+
+  constructor() {
+    super();
+    this.state = {
+      name: "",
+      shareholders: [{ name: "" }],
+    };
+  }
+
+  handleNameChange = evt => {this.setState({ name: evt.target.value });};
+
+
+
+  handleShareholderNameChange = idx => evt => {
+    const newShareholders = this.state.shareholders.map((shareholder, sidx) => {
+      if (idx !== sidx) return shareholder;
+      
+      return { ...shareholder, name: evt.target.value };
+    });
+
+    this.setState({ shareholders: newShareholders });
+  };
+
+  handleSubmit = evt => {
+    const { name, shareholders } = this.state;
+    alert(`Incorporated: ${name} with ${shareholders.length} shareholders`);
+  };
+
+  handleAddShareholder = () => {
+    this.setState({
+      shareholders: this.state.shareholders.concat([{ name: "" }])
+    });
+  };
+
+  handleRemoveShareholder = idx => () => {
+    this.setState({
+      shareholders: this.state.shareholders.filter((s, sidx) => idx !== sidx)
+    });
+  };
+
+  state = {
+      open: false,}   
+
+        handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
+ 
+  onChange = chips => {
+    this.setState({ chips });
+  }
+
+
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+   
+  render(){
+
+    const { classes } = this.props;
+
+        
+    const columns = [
+      "Course Code",
+      "Course Title",
+      "Course Lead",
+      "Instructors",
+      "Cohort Classes",
+      "Lab Venue"
+
+    ];
+
+    const data = [
+      [50.003, "Computer System Engineering", "David Yau", "David Yau, Natalie Agus", "C01,C02,C03","Digital System Laboratory"],
+      [50.004, "Introduction to Algorithm", "David Yau", "David Yau, Natalie Agus", "C01,C02,C03"],
+      [50.032, "Introduction to Probability and Statistics", "David Yau", "David Yau, Natalie Agus", "C01,C02,C03"],
+  
+    ];
+
+    const options = {
+      filter: true,
+      selectableRows: false,
+      filterType: 'dropdown',
+      responsive: 'stacked',
+      rowsPerPage: 10,
+      onChangePage: (numberRows) => {
+        console.log(numberRows);
+      },
+      onSearchChange: (searchText) => {
+        console.log(searchText);
+      },
+      onRowClick: (rowData, rowState) => {
+        console.log(rowData, rowState);
+        this.setState({
+          open:true
+        })
+        
+        
+        
+      },
+    };
+    
+    
 
     return (
       <div className={classes.root}>
@@ -104,12 +214,85 @@ function EditSchedule (props) {
           <List>{secondaryListItems}</List> 
 
         </Drawer>
+        
         <main className={classes.content}>
-          <CourseTable/>
+          {/* <CourseTable/> */}
+          <div>
+      <MUIDataTable title={"Course Details"} data={data} columns={columns} options={options} />
+      
+      {/* {this.renderDialog()} */}
+      
+      <Dialog
+      open={this.state.open}
+      onClose={this.handleClose}
+      aria-labelledby="form-dialog-title"
+  
+    >
+    <form method='POST'>
+      <DialogTitle id="form-dialog-title">Course Details</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          You may leave irrelevant fields blank. Please provide the details accurately.                 
+        </DialogContentText>
+        <DialogContentText>
+          Please list the classes enlisted in this class.                 
+        </DialogContentText>
+
+        <TextField
+        name='cohortclass'
+        variant='outlined'
+        fullWidth
+        placeholder='Please separate the classes with a comma.'></TextField>
+
+       
+
+    <TextField
+        //autoFocus
+        margin="dense"
+        name='venue'
+      id='lab'
+      select
+      label ='Choice of lab for lab sessions '
+      //className={classes.textField}
+      value={this.state.lab}
+      fullWidth
+      onChange={this.handleChange('lab')}
+      SelectProps={{
+        // MenuProps: {
+        //   className: classes.menu,
+        // },
+      }}          
+     
+      variant="outlined"
+    >
+      {lab.map(option => (
+        <MenuItem key={option.value} value={option.value}>
+          {option.label}
+        </MenuItem>
+      ))}
+    </TextField>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={this.handleClose} color="primary" type='submit' name='please'>
+          Save
+        </Button>
+      </DialogActions>
+      </form>
+    </Dialog>
+    
+
+    <Button onClick={this.handleClose} color="primary" type='submit' name='WORKBIJ'>
+          Save
+        </Button>
+
+        {this.shareholder}
+   
+      </div>
         </main>
+       
       </div>
     );
-  }
+  }}
 
 
 EditSchedule.propTypes = {
