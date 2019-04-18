@@ -6,6 +6,10 @@ from Course import Course
 from Room import Room
 from Algorithm import Algorithm
 
+#core: take 3 
+#elective: take 1
+#stress test (must be able to handle 10, 12 classes)
+
 class AlgorithmTest(unittest.TestCase):
     def testSureFail(self):
         istd1 = Cohort(1, "ISTD")

@@ -16,9 +16,16 @@ default_app = firebase_admin.initialize_app(cred)
 dbfs = firestore.client()
 
 courseDict = dbfs.collection("RawInput").document("CourseInfo").get().to_dict()
+courseArray = []
+for key, value in courseDict.items():
+    newCourse = Course(courseDict[key]['CourseCode'], courseDict[key]['CourseTitle'], None, 
+    courseDict[key]['CourseCode']['Pillar'])
+    newCourse.setComponentsAndDuration(courseDict[key]['Components'])
+
 instructorDict = dbfs.collection("RawInput").document("InstructorDetails").get().to_dict()
 
 print(courseDict)
+print("\n")
 print(instructorDict)
 
 # istd1 = Cohort(1, "ISTD")
