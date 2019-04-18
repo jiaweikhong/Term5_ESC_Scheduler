@@ -16,11 +16,16 @@ bannedaccountsarray = bannedaccountsdict['banned']
 
 app = Flask("__main__")
 
+createInstructor = 0
 class Data():
     loggedUser = ""
     pillar = ""
     incorrectLoginUser = ""
     incorrectTries = 0
+    createInstructor = 0
+    create=0
+    course =0
+    
 
 @app.route("/", methods=['GET', 'POST'])
 def my_index():
@@ -83,6 +88,283 @@ def instructorwelcome():
     weeklysched = retrieveInstructorCourses(loggedUser)
     jsonify(weeklysched)
     return render_template("index.html", user=loggedUser, token=weeklysched)
+
+
+@app.route("/uploadcourse", methods=['GET','POST'])
+def uploadcourse():
+    if request.method == 'POST':
+        ## submission for registered courses of instructor
+        if('course' in request.form ):
+         #the first time 'course' is clicked, create all the fields.
+            if((Data.create ==0)):    
+                InstructorDetailsDict = dbfs.collection('RawInput').document('InstructorDetails').get().to_dict()
+                natalie = {}
+                natalie['Natalie']={}
+                natalie['Natalie']['Courses']={}
+                natalie['Natalie']['Name']={}
+                natalie['Natalie']['ID']={}
+                natalie['Natalie']['Soft Constraints']={}
+                natalie['Natalie']['Soft Constraints']['0']={}
+                natalie['Natalie']['Soft Constraints']['1']={}
+                natalie['Natalie']['Soft Constraints']['2']={}
+                natalie['Natalie']['Soft Constraints']['3']={}
+                natalie['Natalie']['Soft Constraints']['4']={}
+                natalie['Natalie']['Name']=request.form['name']
+                natalie['Natalie']['ID']=request.form['ID']
+                natalie['Natalie']['Courses']['0']= request.form['coursecode1']
+                natalie['Natalie']['Courses']['1']= request.form['coursecode2']
+                natalie['Natalie']['Courses']['2']= request.form['coursecode3']
+                #Data.create = 1 prevents the next "POST" from emptying all the fields again
+                Data.create=1
+                NewInstructorDetailsDict = natalie 
+                dbfs.collection('RawInput').document('InstructorDetails').set(NewInstructorDetailsDict)
+            
+            #for subsequent submissions. each submission clears only courses,name,id. 
+            else: 
+                natalie = dbfs.collection('RawInput').document('InstructorDetails').get().to_dict()
+                natalie['Natalie']['Courses']={}
+                natalie['Natalie']['Name']={}
+                natalie['Natalie']['ID']={}
+                natalie['Natalie']['Name']=request.form['name']
+                natalie['Natalie']['ID']=request.form['ID']
+                natalie['Natalie']['Courses']['0']= request.form['coursecode1']
+                natalie['Natalie']['Courses']['1']= request.form['coursecode2']
+                natalie['Natalie']['Courses']['2']= request.form['coursecode3']
+                
+                dbfs.collection('RawInput').document('InstructorDetails').update(natalie)
+        
+        if('constraints' in request.form ):
+            # soft constraint fields will be already created when instructor presses submit under courses
+            natalie = dbfs.collection('RawInput').document('InstructorDetails').get().to_dict()
+
+            natalie['Natalie']['Soft Constraints']['0']={}
+            natalie['Natalie']['Soft Constraints']['1']={}
+            natalie['Natalie']['Soft Constraints']['2']={}
+            natalie['Natalie']['Soft Constraints']['3']={}
+            natalie['Natalie']['Soft Constraints']['4']={}
+
+            natalie['Natalie']['Soft Constraints']['0']['0']=request.form['day1']
+            natalie['Natalie']['Soft Constraints']['0']['1']=request.form['from1']
+            natalie['Natalie']['Soft Constraints']['0']['2']=request.form['to1']
+            natalie['Natalie']['Soft Constraints']['0']['3']=request.form['reason1']
+            natalie['Natalie']['Soft Constraints']['1']['0']=request.form['day2']
+            natalie['Natalie']['Soft Constraints']['1']['1']=request.form['from2']
+            natalie['Natalie']['Soft Constraints']['1']['2']=request.form['to2']
+            natalie['Natalie']['Soft Constraints']['1']['3']=request.form['reason2']
+            natalie['Natalie']['Soft Constraints']['2']['0']=request.form['day3']
+            natalie['Natalie']['Soft Constraints']['2']['1']=request.form['from3']
+            natalie['Natalie']['Soft Constraints']['2']['2']=request.form['to3']
+            natalie['Natalie']['Soft Constraints']['2']['3']=request.form['reason3']
+            natalie['Natalie']['Soft Constraints']['3']['0']=request.form['day4']
+            natalie['Natalie']['Soft Constraints']['3']['1']=request.form['from4']
+            natalie['Natalie']['Soft Constraints']['3']['2']=request.form['to4']
+            natalie['Natalie']['Soft Constraints']['3']['3']=request.form['reason4']
+            natalie['Natalie']['Soft Constraints']['4']['0']=request.form['day5']
+            natalie['Natalie']['Soft Constraints']['4']['1']=request.form['from5']
+            natalie['Natalie']['Soft Constraints']['4']['2']=request.form['to5']
+            natalie['Natalie']['Soft Constraints']['4']['3']=request.form['reason5']
+
+            NewInstructorDetailsDict = natalie  
+
+            # paste back to firestore. this will delete the whole dict and set it from scratch.
+            dbfs.collection('RawInput').document('InstructorDetails').update(NewInstructorDetailsDict)
+
+    return render_template('index.html')
+
+@app.route("/softconstraints", methods=['GET','POST'])
+def CourseMaterial():
+    if request.method == 'POST':
+        ## pull from firestore
+        CourseDetailsDict = dbfs.collection('RawInput').document('CourseInfo').get().to_dict()
+
+        # first course input from course lead. assumption: intructor fills in course1 before course2
+        if('courseInfo1' in request.form):
+            instrut = request.form['instructors1']
+            instructors1 = instrut.split(",")
+
+
+            course = {}
+            course['course1'] ={}
+            course['course1']['Pillar']=request.form['pillar1']
+            course['course1']['CourseCode']=request.form['courseCode1']
+            course['course1']['CourseTitle']=request.form['courseTitle1']
+            course['course1']['Instructors']=instructors1
+            course['course1']['Course Lead']=request.form['lead1']
+            course['course1']['Cohort Classes']={}
+
+            ####### COMPONENTS
+            # Lecture
+            course['course1']['Components']={}
+            course['course1']['Components']['Lecture']={}
+            course['course1']['Components']['Lecture']['CohortClasses']={}
+            course['course1']['Components']['Lecture']['NumberSessions']={}  
+            course['course1']['Components']['Lecture']['LectSession1']=request.form['lect_1']
+            course['course1']['Components']['Lecture']['LectSession2']=request.form['lect_2']
+            course['course1']['Components']['Lecture']['LectSession3']=request.form['lect_3']
+            course['course1']['Components']['Lecture']['shared']={}
+
+            #Cohort session
+            course['course1']['Components']['Cohort Session']={}
+            course['course1']['Components']['Cohort Session']['Cohort Classes']={}
+            course['course1']['Components']['Cohort Session']['NumberSessions']={}
+            course['course1']['Components']['Cohort Session']['CohortSession1']=request.form['co_1']
+            course['course1']['Components']['Cohort Session']['CohortSession2']=request.form['co_2']
+            course['course1']['Components']['Cohort Session']['CohortSession3']=request.form['co_3']
+            #Lab session
+            course['course1']['Components']['Lab Session']={}
+            course['course1']['Components']['Lab Session']['Cohort Classes']={}
+            course['course1']['Components']['Lab Session']['NumberSessions']={}
+            course['course1']['Components']['Lab Session']['LabSession1']=request.form['lab1']
+            course['course1']['Components']['Lab Session']['LabSession2']=request.form['lab2']
+            course['course1']['Components']['Lab Session']['LabSession3']=request.form['lab3']
+            #course['course1']['Components']['Lab Session']['Venue']={}
+
+            ####### soft constraints
+            course['course1']['Soft Constraints']={}
+            course['course1']['Soft Constraints']['0']={}
+            course['course1']['Soft Constraints']['1']={}
+            course['course1']['Soft Constraints']['2']={}
+            course['course1']['Soft Constraints']['3']={}
+            course['course1']['Soft Constraints']['4']={}
+            course['course1']['Soft Constraints']['0']['0']=request.form['day1']
+            course['course1']['Soft Constraints']['0']['1']=request.form['from1']
+            course['course1']['Soft Constraints']['0']['2']=request.form['to1']
+            course['course1']['Soft Constraints']['0']['3']=request.form['reason1']
+            course['course1']['Soft Constraints']['1']['0']=request.form['day2']
+            course['course1']['Soft Constraints']['1']['1']=request.form['from2']
+            course['course1']['Soft Constraints']['1']['2']=request.form['to2']
+            course['course1']['Soft Constraints']['1']['3']=request.form['reason2']
+            course['course1']['Soft Constraints']['2']['0']=request.form['day3']
+            course['course1']['Soft Constraints']['2']['1']=request.form['from3']
+            course['course1']['Soft Constraints']['2']['2']=request.form['to3']
+            course['course1']['Soft Constraints']['2']['3']=request.form['reason3']
+            course['course1']['Soft Constraints']['3']['0']=request.form['day4']
+            course['course1']['Soft Constraints']['3']['1']=request.form['from4']
+            course['course1']['Soft Constraints']['3']['2']=request.form['to4']
+            course['course1']['Soft Constraints']['3']['3']=request.form['reason4']
+            course['course1']['Soft Constraints']['4']['0']=request.form['day5']
+            course['course1']['Soft Constraints']['4']['1']=request.form['from5']
+            course['course1']['Soft Constraints']['4']['2']=request.form['to5']
+            course['course1']['Soft Constraints']['4']['3']=request.form['reason5']
+
+            NewCourseDetailsDict = course 
+
+            # paste back to firestore. this will delete the whole dict and set it from scratch.
+            dbfs.collection('RawInput').document('CourseInfo').update(NewCourseDetailsDict)
+
+        if('courseInfo2' in request.form):
+            # empty course 2
+
+            instrut = request.form['instructors2']
+            instructors2 = instrut.split(",")
+
+            course = {}
+            course['course2'] ={}
+            course['course2']['Pillar']=request.form['pillar2']
+            course['course2']['Course Lead']={}
+            course['course2']['Cohort Classes']={}
+            course['course2']['Components']={}
+            course['course2']['Components']['Lecture']={}
+            course['course2']['Components']['Lecture']['CohortClasses']={}
+            course['course2']['Components']['Lecture']['NumberSessions']={}
+            course['course2']['Components']['Lecture']['LectSession1']={}
+            course['course2']['Components']['Lecture']['LectSession2']={}
+            course['course2']['Components']['Lecture']['LectSession3']={}
+
+            # course['course2']['Pillar']=request.form['pillar2']
+            course['course2']['CourseCode']=request.form['courseCode2']
+            course['course2']['CourseTitle']=request.form['courseTitle2']
+            course['course2']['Instructors']=instructors2
+            course['course2']['Course Lead']=request.form['lead2']
+            # # course['course2']['Cohort Classes']=request.form['']
+
+            ####### COMPONENTS
+            # Lecture
+            course['course2']['Components']={}
+            course['course2']['Components']['Lecture']={}
+            course['course2']['Components']['Lecture']['CohortClasses']={}
+            course['course2']['Components']['Lecture']['NumberSessions']={} 
+            course['course2']['Components']['Lecture']['LectSession1']=request.form['lect_12']
+            course['course2']['Components']['Lecture']['LectSession2']=request.form['lect_22']
+            course['course2']['Components']['Lecture']['LectSession3']=request.form['lect_32']
+            course['course2']['Components']['Lecture']['shared']={}
+
+            # Cohort session
+            course['course2']['Components']['Cohort Session']={}
+            course['course2']['Components']['Cohort Session']['Cohort Classes']={}
+            course['course2']['Components']['Cohort Session']['NumberSessions']={}
+            course['course2']['Components']['Cohort Session']['CohortSession1']=request.form['co_12']
+            course['course2']['Components']['Cohort Session']['CohortSession2']=request.form['co_22']
+            course['course2']['Components']['Cohort Session']['CohortSession3']=request.form['co_32']
+
+            # Lab session
+            course['course2']['Components']['Lab Session']={}
+            course['course2']['Components']['Lab Session']['Cohort Classes']={}
+            course['course2']['Components']['Lab Session']['NumberSessions']={}
+            course['course2']['Components']['Lab Session']['LabSession1']=request.form['lab12']
+            course['course2']['Components']['Lab Session']['LabSession2']=request.form['lab22']
+            course['course2']['Components']['Lab Session']['LabSession3']=request.form['lab32']
+            course['course2']['Components']['Lab Session']['Venue']={}
+
+            # course soft constraints
+            course['course2']['Soft Constraints']={}
+            course['course2']['Soft Constraints']['0']={}
+            course['course2']['Soft Constraints']['1']={}
+            course['course2']['Soft Constraints']['2']={}
+            course['course2']['Soft Constraints']['3']={}
+            course['course2']['Soft Constraints']['4']={}
+            course['course2']['Soft Constraints']['0']['0']=request.form['day12']
+            course['course2']['Soft Constraints']['0']['1']=request.form['from12']
+            course['course2']['Soft Constraints']['0']['2']=request.form['to12']
+            course['course2']['Soft Constraints']['0']['3']=request.form['reason12']
+            course['course2']['Soft Constraints']['1']['0']=request.form['day22']
+            course['course2']['Soft Constraints']['1']['1']=request.form['from22']
+            course['course2']['Soft Constraints']['1']['2']=request.form['to22']
+            course['course2']['Soft Constraints']['1']['3']=request.form['reason22']
+            course['course2']['Soft Constraints']['2']['0']=request.form['day32']
+            course['course2']['Soft Constraints']['2']['1']=request.form['from32']
+            course['course2']['Soft Constraints']['2']['2']=request.form['to32']
+            course['course2']['Soft Constraints']['2']['3']=request.form['reason32']
+            course['course2']['Soft Constraints']['3']['0']=request.form['day42']
+            course['course2']['Soft Constraints']['3']['1']=request.form['from42']
+            course['course2']['Soft Constraints']['3']['2']=request.form['to42']
+            course['course2']['Soft Constraints']['3']['3']=request.form['reason42']
+            course['course2']['Soft Constraints']['4']['0']=request.form['day52']
+            course['course2']['Soft Constraints']['4']['1']=request.form['from52']
+            course['course2']['Soft Constraints']['4']['2']=request.form['to52']
+            course['course2']['Soft Constraints']['4']['3']=request.form['reason52']
+
+            NewCourseDetailsDict = course 
+
+            # paste back to firestore. this will delete the whole dict and set it from scratch.
+            dbfs.collection('RawInput').document('CourseInfo').update(NewCourseDetailsDict)
+
+
+
+    return render_template('index.html')
+
+@app.route("/editschedule", methods=['GET','POST'])
+def EditSchedule():
+    if request.method == 'POST':
+        ## pull from firestore
+        
+        CourseDetailsDict = dbfs.collection('RawInput').document('CourseInfo').get().to_dict()
+
+        # first course input from course lead. assumption: intructor fills in course1 before course2
+        if('please' in request.form):
+            classes = request.form['cohortclass']
+            classList = classes.split(",")
+            
+            CourseDetailsDict['course1']['Cohort Classes'] = classList
+            CourseDetailsDict['course1']['Components']['Lab Session']['Venue'] = request.form['venue']
+
+            # paste back to firestore. this will delete the whole dict and set it from scratch.
+            dbfs.collection('RawInput').document('CourseInfo').update(CourseDetailsDict)
+
+
+
+    return render_template('index.html')
+
 
 def check_admin_login(check_username, check_password):
     bannedaccountsarray = bannedaccountsdict['banned']
