@@ -270,6 +270,11 @@ def EditSchedule():
             
             CourseDetailsDict['CohortClasses'] = classList
             CourseDetailsDict['Components']['Lab Session']['Venue'] = request.form['venue']
+            CourseDetailsDict['Components']['Lab Session']['Cohort Classes'] = classList
+            CourseDetailsDict['Components']['Lecture']['Cohort Classes'] = classList
+            CourseDetailsDict['Components']['Cohort Session']['Cohort Classes'] = classList
+
+
 
             # paste back to firestore. this will delete the whole dict and set it from scratch.
             dbfs.collection('courses').document(courseCode).update(CourseDetailsDict)
