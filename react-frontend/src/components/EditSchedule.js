@@ -238,14 +238,17 @@ class EditSchedule extends React.Component {
           Please list the classes enlisted in this class.                 
         </DialogContentText>
 
+
+        <TextField
+        name='courseCode'
+        variant='outlined'
+        fullWidth
+        placeholder='Please type in the course code.'></TextField>
         <TextField
         name='cohortclass'
         variant='outlined'
         fullWidth
         placeholder='Please separate the classes with a comma.'></TextField>
-
-       
-
     <TextField
         //autoFocus
         margin="dense"
@@ -281,9 +284,6 @@ class EditSchedule extends React.Component {
     </Dialog>
     
 
-    <Button onClick={this.handleClose} color="primary" type='submit' name='WORKBIJ'>
-          Save
-        </Button>
 
         {this.shareholder}
    

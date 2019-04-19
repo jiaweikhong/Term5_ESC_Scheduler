@@ -193,36 +193,37 @@ const hours = [
 
 const time = [
   {value: '0', label: '-'},
-  {value: '1',label: '0830',},
-  {value: '2',label: '0900',},
-  {value: '3',label: '0930'},
-  {value: '4',label: '1000'},
-  {value: '5',label:'1030'},
-  {value: '6',label: '1100',},
-  {value: '7',label: '1130',},
-  {value: '8',label: '1200',},
-  {value: '9',label: '1230',},
-  {value: '10',label: '1300',},
-  {value: '11',label: '1330',},
-  {value: '12',label: '1400',},
-  {value: '13',label: '1430',},
-  {value: '14',label: '1500',},
-  {value: '15',label: '1530',},
-  {value: '16',label: '1600',},
-  {value: '17',label: '1700',},
-  {value: '18',label: '1730',},
-  {value: '19',label: '1800',},
-  {value: '20',label: '1830',},
+  {value: '0830',label: '0830',},
+  {value: '0900',label: '0900',},
+  {value: '0930',label: '0930'},
+  {value: '1000',label: '1000'},
+  {value: '1030',label:'1030'},
+  {value: '1100',label: '1100',},
+  {value: '1130',label: '1130',},
+  {value: '1200',label: '1200',},
+  {value: '1230',label: '1230',},
+  {value: '1300',label: '1300',},
+  {value: '1330',label: '1330',},
+  {value: '1400',label: '1400',},
+  {value: '1430',label: '1430',},
+  {value: '1500',label: '1500',},
+  {value: '1530',label: '1530',},
+  {value: '1600',label: '1600',},
+  {value: '1630',label: '1630',},
+  {value: '1700',label: '1700',},
+  {value: '1730',label: '1730',},
+  {value: '1800',label: '1800',},
+  {value: '1830',label: '1830',},
 
 ];
 
 const day = [
   {value: '0', label: '-'},
-  {value: 'Monday', label: 'Monday'},
-  {value: 'Tuesday', label: 'Tuesday'},
-  {value: 'Wednesday', label: 'Wednesday'},
-  {value: 'Thursday', label: 'Thursday'},
-  {value: 'Friday', label: 'Friday'},
+  {value: '1', label: 'Monday'},
+  {value: '2', label: 'Tuesday'},
+  {value: '3', label: 'Wednesday'},
+  {value: '4', label: 'Thursday'},
+  {value: '5', label: 'Friday'},
 
 ]
 
@@ -241,26 +242,12 @@ class SoftConstraints extends React.Component {
     co_1:'',
     co_2:'',
     co_3:'',
+    lab:'',
     lab1:'',
     lab2:'',
     lab3:'',
+    value: 'female',
 
-    pillar2:'',from12:'',from22:'',from32:'',from42:'',from52:'',
-    to12:'',to22:'',to32:'',to42:'',to52:'',
-    day12:'',day22:'',day32:'',day42:'',day52:'',
-    lecture2: '',
-    lect_12:'',
-    lect_22:'',
-    lect_32:'',
-    cohort2:'',
-    co_12:'',
-    co_22:'',
-    co_32:'',
-    lab12:'',
-    lab22:'',
-    lab32:'',
-
-    chips:[]
     
   };
 
@@ -268,9 +255,8 @@ class SoftConstraints extends React.Component {
 
 
   handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    });
+    this.setState({[name]: event.target.value,});
+    this.setState({ value: event.target.value });
   };
 
   handleAdd = name =>event => {
@@ -336,16 +322,14 @@ class SoftConstraints extends React.Component {
           <CardContent>
           <div className={classes.text}>
         <Typography gutterBottom variant="h4" component="h4">
-        Course Details</Typography>
+        Course Details - ONLY for course leads</Typography>
         <Typography gutterBottom component ="h6">
-        This section is to be filled ONLY by the individual course leaders. Please leave this blank if you are not a course leader.
-         Course leaders should discuss with his/her colleauges before filling this section. It is not required to fill in all the soft constraints. If you are a course lead of more than one course,
-         use the next template to fill in the respective course details. Thank you. </Typography>
+        You may make subsequent submissions for course information on other courses.  </Typography>
         <Divider/>
         </div>
         <CardActions className={classes.textfields}>
         <FormControl fullWidth className={classes.text} >
-        <Typography variant='h5'>First Course</Typography>
+        {/* <Typography variant='h5'>First Course</Typography> */}
         </FormControl>
 
         <div className={classes.text}>
@@ -402,6 +386,7 @@ class SoftConstraints extends React.Component {
           //variant="outlined"
           label="Course Instructors"
           placeholder= "Please put a ',' inbetween instructor names"
+          helperText='Please include course lead'
         />
         <TextField
         name='lead1'
@@ -424,7 +409,7 @@ class SoftConstraints extends React.Component {
           name="lecture"
           className={classes.group}
           lecture={this.state.lecture}
-          value={this.state.lecture}
+          //value={this.state.lecture}
           onChange={this.handleChange}
         >
           <FormControlLabel value="1" control={<Radio />} label="1" />
@@ -432,7 +417,9 @@ class SoftConstraints extends React.Component {
           <FormControlLabel value="3" control={<Radio />} label="3" />
           <FormControlLabel value="none" control={<Radio />} label="No lecture" />
         </RadioGroup>
+
         </Grid>
+
 
         <Grid item xs={6}>
         <div className={classes.space} />
@@ -525,6 +512,7 @@ class SoftConstraints extends React.Component {
           className={classes.group}
           cohort={this.state.cohort}
           onChange={this.handleChange}
+          value={this.state.cohort}
         >
           <FormControlLabel value="1" control={<Radio />} label="1" />
           <FormControlLabel value="2" control={<Radio />} label="2" />
@@ -623,6 +611,7 @@ class SoftConstraints extends React.Component {
           className={classes.group}
           lab={this.state.lab}
           onChange={this.handleChange}
+          value = {this.state.lab}
         >
           <FormControlLabel value="1" control={<Radio />} label="1" />
           <FormControlLabel value="2" control={<Radio />} label="2" />
@@ -1216,881 +1205,7 @@ class SoftConstraints extends React.Component {
         </Card>
         <div className={classes.space} />
 
-        <Card className={classes.card}>
-          <CardContent>
-        <CardActions className={classes.textfields}>
-        <FormControl fullWidth className={classes.text} >
-        <Typography variant='h5'>Second Course  </Typography>
-        <Typography variant='h6'>This is for instructors who are the course lead of more than one course. </Typography>
-        </FormControl>
-
-        <div className={classes.text}>
-        <TextField
-        name='pillar2'
-        id='choose-pillar'
-        select
-        //label ='Pillar'
-        helperText='Select your pillar'
-        className={classes.pillar}
-        value={this.state.pillar2}
-        onChange={this.handleChange('pillar2')}
-        //variant='outlined'
-        SelectProps={{
-          MenuProps: {
-            className: classes.menu,
-          },
-        }}
-        
-        margin="normal"
        
-        //variant="outlined"
-      >
-        {constraints.map(option => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-        <TextField
-        name='courseCode2'
-          id="instructor-input"
-          className={classes.coursecode}
-          margin="normal"
-          //variant="outlined"
-          placeholder= "Course Code"
-          
-        />
-
-        <TextField
-        name='courseTitle2'
-          id="instructor-input"
-          className={classes.coursetitle}
-          margin="normal"
-          //variant="outlined"
-          placeholder= "Course Title"
-        />
-
-        <TextField
-          name='instructors2'
-          id="instructor-input"
-          className={classes.instructors}
-          margin="normal"
-          //variant="outlined"
-          label="Course Instructors"
-          placeholder= "Please put a ',' inbetween instructor names"
-        />        
-     
-        <TextField
-        name='lead2'
-          id="instructor-input"
-          className={classes.instructors}
-          margin="normal"
-          //variant="outlined"
-          placeholder= "Name of Course Lead"
-        />
-        </div>
-       
-        <div>
-        <Grid container spacing={36}>
-
-    <Grid item xs ={6}>
-    <div className={classes.space} />
-    <FormLabel component="legend" className={classes.text} focused>Number of lelctures per week</FormLabel>
-        <RadioGroup
-          aria-label="lecture"
-          name="lecture2"
-          className={classes.group}
-          lecture={this.state.lecture2}
-          value={this.state.lecture2}
-          onChange={this.handleChange}
-        >
-          <FormControlLabel value="1" control={<Radio />} label="1" />
-          <FormControlLabel value="2" control={<Radio />} label="2" />
-          <FormControlLabel value="3" control={<Radio />} label="3" />
-          <FormControlLabel value="none" control={<Radio />} label="No lecture" />
-        </RadioGroup>
-        </Grid>
-
-        <Grid item xs={6}>
-        <div className={classes.space} />
-    <FormLabel component='legend' className={classes.text} focused>Duration of each lecture</FormLabel>
-    <FormControl fullWidth>
-    <TextField
-        id='choose-soft-constraint'
-        name='lect_12'
-        select
-        label ='First lecture'
-        className={classes.textField}
-        value={this.state.lect_12}
-        onChange={this.handleChange('lect_12')}
-        SelectProps={{
-          MenuProps: {
-            className: classes.menu,
-          },
-        }}
-        
-        margin="normal"
-        //variant="outlined"
-      >
-        {hours.map(option => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-
-    
-    <TextField
-        id='choose-soft-constraint'
-        name='lect_22'
-        select
-        label ='Second lecture'
-        className={classes.textField}
-        value={this.state.lect_22}
-        onChange={this.handleChange('lect_22')}
-        SelectProps={{
-          MenuProps: {
-            className: classes.menu,
-          },
-        }}
-        
-        margin="normal"
-        //variant="outlined"
-      >
-        {hours.map(option => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-
-     
-    <TextField
-        id='choose-soft-constraint'
-        name='lect_32'
-        select
-        label ='Third lecture'
-        className={classes.textField}
-        value={this.state.lect_32}
-        onChange={this.handleChange('lect_32')}
-        SelectProps={{
-          MenuProps: {
-            className: classes.menu,
-          },
-        }}
-        
-        margin="normal"
-        //variant="outlined"
-      >
-        {hours.map(option => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-      </FormControl>
-
-
-    </Grid>
-
-    <Grid item xs={6}>
-    <div className={classes.space} />
-    <FormLabel component="legend" className={classes.text} focused>Number of cohort classes per week</FormLabel>
-        <RadioGroup
-          aria-label="lecture"
-          name="cohort2"
-          className={classes.group}
-          cohort={this.state.cohort2}
-          onChange={this.handleChange}
-        >
-          <FormControlLabel value="1" control={<Radio />} label="1" />
-          <FormControlLabel value="2" control={<Radio />} label="2" />
-          <FormControlLabel value="3" control={<Radio />} label="3" />
-          <FormControlLabel value="none" control={<Radio />} label="No cohort classes" />
-        </RadioGroup>
-    </Grid>
-
-
-    <Grid item xs={6}>
-    <div className={classes.space} />
-    <FormLabel component='legend' className={classes.text} focused>Duration of each cohort class</FormLabel>
-    <FormControl fullWidth>
-    <TextField
-        id='choose-soft-constraint'
-        name='co_12'
-        select
-        label ='First cohort'
-        className={classes.textField}
-        value={this.state.co_12}
-        onChange={this.handleChange('co_12')}
-        SelectProps={{
-          MenuProps: {
-            className: classes.menu,
-          },
-        }}
-        
-        margin="normal"
-        //variant="outlined"
-      >
-        {hours.map(option => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-
-    
-    <TextField
-        id='choose-soft-constraint'
-        name='co_22'
-        select
-        label ='Second cohort'
-        className={classes.textField}
-        value={this.state.co_22}
-        onChange={this.handleChange('co_22')}
-        SelectProps={{
-          MenuProps: {
-            className: classes.menu,
-          },
-        }}
-        
-        margin="normal"
-        //variant="outlined"
-      >
-        {hours.map(option => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-
-     
-    <TextField
-        id='choose-soft-constraint'
-        name='co_32'
-        select
-        label ='Third cohort'
-        className={classes.textField}
-        value={this.state.co_32}
-        onChange={this.handleChange('co_32')}
-        SelectProps={{
-          MenuProps: {
-            className: classes.menu,
-          },
-        }}
-        
-        margin="normal"
-        //variant="outlined"
-      >
-        {hours.map(option => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-      </FormControl>
-      </Grid>
-
-       <Grid item xs ={6}>
-       <div className={classes.space} />
-    <FormLabel component="legend" className={classes.text} focused>Number of lab sessions per week</FormLabel>
-        <RadioGroup
-          aria-label="lab"
-          name="lab"
-          className={classes.group}
-          lab={this.state.lab2}
-          onChange={this.handleChange}
-        >
-          <FormControlLabel value="1" control={<Radio />} label="1" />
-          <FormControlLabel value="2" control={<Radio />} label="2" />
-          <FormControlLabel value="3" control={<Radio />} label="3" />
-          <FormControlLabel value="none" control={<Radio />} label="No lab" />
-        </RadioGroup>
-        </Grid> 
-
-         <Grid item xs={6}>
-         <div className={classes.space} />
-    <FormLabel component='legend' className={classes.text} focused>Duration of each lab session</FormLabel>
-    <FormControl fullWidth>
-    <TextField
-        id='choose-soft-constraint'
-        name='lab12'
-        select
-        label ='First lab session'
-        className={classes.textField}
-        value={this.state.lab12}
-        onChange={this.handleChange('lab12')}
-        SelectProps={{
-          MenuProps: {
-            className: classes.menu,
-          },
-        }}
-        
-        margin="normal"
-        //variant="outlined"
-      >
-        {hours.map(option => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-
-    
-    <TextField
-        id='choose-soft-constraint'
-        name='lab22'
-        select
-        label ='Second lab session'
-        className={classes.textField}
-        value={this.state.lab22}
-        onChange={this.handleChange('lab22')}
-        SelectProps={{
-          MenuProps: {
-            className: classes.menu,
-          },
-        }}
-        
-        margin="normal"
-        //variant="outlined"
-      >
-        {hours.map(option => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-
-     
-    <TextField
-        id='choose-soft-constraint'
-        name='lab32'
-        select
-        label ='Third lab session'
-        className={classes.textField}
-        value={this.state.lab32}
-        onChange={this.handleChange('lab32')}
-        SelectProps={{
-          MenuProps: {
-            className: classes.menu,
-          },
-        }}
-        
-        margin="normal"
-        //variant="outlined"
-      >
-        {hours.map(option => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-      </FormControl>
-
-
-    </Grid> 
-</Grid>
-        </div>
-
-        <div className={classes.main} />
-
-        <FormControl fullWidth className={classes.text} >
-        <div className={classes.main} />
-        <Typography variant='h5'>Course Soft Constraints</Typography>
-        </FormControl>
-        
-       
-        <div>
-        <Divider/>
-        <FormControl >
-        <div className={classes.dense}></div>
-        <FormLabel className={classes.text} focused>Select the time slot you wish to keep free from your timetable. Requets with valid reasons will be prioritised. Thank you.</FormLabel>
-        
-     <div >
-     
-     <div className={classes.container}>
-      <TextField
-          name='day12'
-          id='day'
-          select
-          label ='Day'
-          className={classes.textField}
-          value={this.state.day12}
-          onChange={this.handleChange('day12')}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}
-          InputProps={{
-            startAdornment: <InputAdornment position="start">1.</InputAdornment>,
-          }}
-          
-          margin="normal"
-          
-          //variant="outlined"
-        >
-          {day.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        
-
-
-        <TextField
-          name='from12'
-          id='from'
-          select
-          label ='From'
-          className={classes.textField}
-          value={this.state.from12}
-          onChange={this.handleChange('from12')}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}          
-          margin="normal"
-          //variant="outlined"
-        >
-          {time.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          name='to12'
-          id='to'
-          select
-          label ='To'
-          className={classes.textField}
-          value={this.state.to12}
-          onChange={this.handleChange('to12')}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}
-          margin="normal"
-          //variant="outlined"
-        >
-          {time.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        </div>
-        
-        <FormControl fullWidth>
-        <TextField
-          name='reason12'
-          id="instructor-input"
-          className={classes.input}
-          margin="normal"
-          variant="outlined"
-          multiline
-          rows ="5"
-          placeholder= "Please provide a valid reason for your request"
-
-        />
-        </FormControl>
-        </div>
-        
-        
-        <div >
-     <FormControl fullWidth margin="none">
-     <div className={classes.container}> 
-      <TextField
-          name='day22'
-          id='day'
-          select
-          label ='Day'
-          className={classes.textField}
-          value={this.state.day22}
-          onChange={this.handleChange('day22')}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}
-          InputProps={{
-            startAdornment: <InputAdornment position="start">2.</InputAdornment>,
-          }}
-          
-          margin="normal"
-          
-          //variant="outlined"
-        >
-          {day.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        
-
-
-        <TextField
-          name='from22'
-          id='from'
-          select
-          label ='From'
-          className={classes.textField}
-          value={this.state.from2}
-          onChange={this.handleChange('from22')}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}          
-          margin="normal"
-          //variant="outlined"
-        >
-          {time.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-        name='to22'
-          id='to'
-          select
-          label ='To'
-          className={classes.textField}
-          value={this.state.to22}
-          onChange={this.handleChange('to22')}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}
-          margin="normal"
-          //variant="outlined"
-        >
-          {time.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        </div>
-        </FormControl>
-        <FormControl fullWidth>
-        <TextField
-        name='reason22'
-          id="instructor-input"
-          className={classes.input}
-          margin="normal"
-          variant="outlined"
-          multiline
-          rows ="5"
-          placeholder= "Please provide a valid reason for your request"
-
-        />
-        </FormControl>
-        </div>
-       
-
-        <div >
-     <FormControl fullWidth margin="none">
-     <div className={classes.container}>
-      <TextField
-      name='day32'
-          id='day'
-          select
-          label ='Day'
-          className={classes.textField}
-          value={this.state.day32}
-          onChange={this.handleChange('day32')}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}
-          InputProps={{
-            startAdornment: <InputAdornment position="start">3.</InputAdornment>,
-          }}
-          
-          margin="normal"
-          
-          //variant="outlined"
-        >
-          {day.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        
-
-
-        <TextField
-        name='from32'
-          id='from'
-          select
-          label ='From'
-          className={classes.textField}
-          value={this.state.from32}
-          onChange={this.handleChange('from32')}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}          
-          margin="normal"
-          //variant="outlined"
-        >
-          {time.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-        name='to32'
-          id='to'
-          select
-          label ='To'
-          className={classes.textField}
-          value={this.state.to32}
-          onChange={this.handleChange('to32')}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}
-          margin="normal"
-          //variant="outlined"
-        >
-          {time.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        </div>
-        </FormControl>
-        <FormControl fullWidth>
-        <TextField
-        name='reason32'
-          id="instructor-input"
-          className={classes.input}
-          margin="normal"
-          variant="outlined"
-          multiline
-          rows ="5"
-          placeholder= "Please provide a valid reason for your request"
-
-        />
-        </FormControl>
-        </div>
-        <div >
-     <FormControl fullWidth margin="none">
-     <div className={classes.container}> 
-      <TextField
-      name='day42'
-          id='day'
-          select
-          label ='Day'
-          className={classes.textField}
-          value={this.state.day42}
-          onChange={this.handleChange('day42')}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}
-          InputProps={{
-            startAdornment: <InputAdornment position="start">4.</InputAdornment>,
-          }}
-          
-          margin="normal"
-          
-          //variant="outlined"
-        >
-          {day.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        
-
-
-        <TextField
-        name='from42'
-          id='from'
-          select
-          label ='From'
-          className={classes.textField}
-          value={this.state.from42}
-          onChange={this.handleChange('from42')}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}          
-          margin="normal"
-          //variant="outlined"
-        >
-          {time.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-        name='to42'
-          id='to'
-          select
-          label ='To'
-          className={classes.textField}
-          value={this.state.to42}
-          onChange={this.handleChange('to42')}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}
-          margin="normal"
-          //variant="outlined"
-        >
-          {time.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        </div>
-        </FormControl>
-        <FormControl fullWidth>
-        <TextField
-        name='reason42'
-          id="instructor-input"
-          className={classes.input}
-          margin="normal"
-          variant="outlined"
-          multiline
-          rows ="5"
-          placeholder= "Please provide a valid reason for your request"
-
-        />
-        </FormControl>
-        </div>
-       
-        <div >
-     <FormControl fullWidth margin="none">
-     <div className={classes.container}> 
-      <TextField
-      name='day52'
-          id='day'
-          select
-          label ='Day'
-          className={classes.textField}
-          value={this.state.day52}
-          onChange={this.handleChange('day52')}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}
-          InputProps={{
-            startAdornment: <InputAdornment position="start">5.</InputAdornment>,
-          }}
-          
-          margin="normal"
-          
-          //variant="outlined"
-        >
-          {day.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        
-
-
-        <TextField
-        name='from52'
-          id='from'
-          select
-          label ='From'
-          className={classes.textField}
-          value={this.state.from52}
-          onChange={this.handleChange('from52')}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}          
-          margin="normal"
-          //variant="outlined"
-        >
-          {time.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-        name='to52'
-          id='to'
-          select
-          label ='To'
-          className={classes.textField}
-          value={this.state.to52}
-          onChange={this.handleChange('to52')}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}
-          margin="normal"
-          //variant="outlined"
-        >
-          {time.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        </div>
-        </FormControl>
-        <FormControl fullWidth>
-        <TextField
-        name='reason52'
-          id="instructor-input"
-          className={classes.input}
-          margin="normal"
-          variant="outlined"
-          multiline
-          rows ="5"
-          placeholder= "Please provide a valid reason for your request"
-
-        />
-        </FormControl>
-        </div>
-       
-        
-        </FormControl>
- =
-        </div>
-
-        <FormControl fullWidth>
-        <Button variant="contained" color="primary" className={classes.button} type='submit' name='courseInfo2'>
-        Submit
-      </Button>
-      </FormControl>
-        </CardActions>
-          </CardContent>
-        
-        </Card>
         </form>
       </main>
     </div>
