@@ -1,51 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="theme-color" content="#000000" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
-    <title>SUTD Timetable Scheduler</title>
-    <script type="text/javascript">
+<head>
+  <meta charset="utf-8" />
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="theme-color" content="#000000" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+  <title>SUTD Timetable Scheduler</title>
+  <script type="text/javascript">
     window.user = "{{ user }}"
     window.pillar = "{{ pillar }}"
-    
+
     switch (window.pillar) {
       case 'Freshmore':
-        window.pillarcourses = ['Fresh1', 'Fresh2','Fresh3'];
+        window.pillarcourses = ['Fresh1', 'Fresh2', 'Fresh3'];
         break;
       case 'ISTD':
-        window.pillarcourses = ['50.003','50.005','50.034'];
+        window.pillarcourses = ['50.003', '50.005', '50.034'];
         break;
       case 'EPD':
-        window.pillarcourses = ['30.007', '30.101','30.102'];
+        window.pillarcourses = ['30.007', '30.101', '30.102'];
         break;
       case 'ESD':
-        window.pillarcourses = ['ESD1', 'ESD2','ESD3'];
+        window.pillarcourses = ['ESD1', 'ESD2', 'ESD3'];
         break;
       case 'ASD':
-        window.pillarcourses = ['ASD1', 'ASD2','ASD3'];
+        window.pillarcourses = ['ASD1', 'ASD2', 'ASD3'];
         break;
     }
 
     window.errornotif = "{{ error }}";
-    window.unparsedtoken = "{{ token }}";
-    window.unparsedtoken = window.unparsedtoken.replace(/&#39;/g, "\"");
-    window.parsedtoken = JSON.parse(unparsedtoken);
-    
-    </script>
-    <script type ="text/javascript" src="../src/components/ISTDSchedule.js"></script>
-  </head>
 
-  <body>
-    <!-- <noscript>You need to enable JavaScript to run this app.</noscript> -->
-    <div id="root"></div>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  </body>
+    window.unparsedtoken = "{{ token }}";
+    if (window.unparsedtoken != "") {
+      window.unparsedtoken = window.unparsedtoken.replace(/&#39;/g, "\"");
+      window.parsedtoken = JSON.parse(unparsedtoken);
+    }
+
+    window.notif = "{{ notif }}"
+
+  </script>
+  <script type="text/javascript" src="../src/components/ISTDSchedule.js"></script>
+</head>
+
+<body>
+  <!-- <noscript>You need to enable JavaScript to run this app.</noscript> -->
+  <div id="root"></div>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</body>
 
 </html>
