@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request, jsonify
 import firebase_admin
 from firebase_admin import credentials, firestore
 import json
+# from AlgorithmTest.Algorithm import *
 
 cred = credentials.Certificate('term-5-esc-scheduler-firebase-adminsdk-cfadg-cd4c469d4d.json')
 default_app = firebase_admin.initialize_app(cred)
@@ -479,6 +480,14 @@ def plannerwelcome():
             return redirect(url_for('esdschedule'))
         elif 'ASD' in request.form:
             return redirect(url_for('asdschedule'))
+    return render_template("index.html")
+
+@app.route("/createschedule", methods=['GET', 'POST'])
+def createschedule():
+    if request.method == 'POST':
+        # run algo here
+        print ("Calling algo function now...")
+        # Algorithm.printHello()        # test function
     return render_template("index.html")
 
 @app.route("/freshmoreschedule", methods=['GET', 'POST'])

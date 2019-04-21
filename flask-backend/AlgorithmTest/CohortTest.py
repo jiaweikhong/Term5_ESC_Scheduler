@@ -1,4 +1,8 @@
 import unittest
+# Use the following imports if calling from Flask's main.py
+# from .Cohort import Cohort
+# from .Timetable import Timetable
+# Use the following imports if using this file on its own
 from Cohort import Cohort
 from Timetable import Timetable
 

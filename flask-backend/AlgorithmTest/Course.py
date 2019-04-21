@@ -1,3 +1,8 @@
+# Use the following imports if calling from Flask's main.py
+# from .Timetable import Timetable
+# from .Instructor import Instructor
+# from .Room import Room
+# Use the following imports if using this file on its own
 from Timetable import Timetable
 from Instructor import Instructor
 from Room import Room
