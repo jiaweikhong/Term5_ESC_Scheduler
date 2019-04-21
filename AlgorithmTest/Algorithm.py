@@ -285,189 +285,189 @@ class Algorithm:
 #     course.printTimetable()
 
 #Instantiate classes
-cohorts = []
-istd1 = Cohort(1, "ISTD")
-cohorts.append(istd1)
-istd2 = Cohort(2, "ISTD")
-cohorts.append(istd2)
-istd3 = Cohort(3, "ISTD")
-cohorts.append(istd3)
-istd4 = Cohort(4, "ISTD")
-cohorts.append(istd4)
-istd5 = Cohort(5, "ISTD")
-cohorts.append(istd5)
-istd6 = Cohort(6, "ISTD")
-cohorts.append(istd6)
-# istd7 = Cohort(7, "ISTD")
-# cohorts.append(istd7)
-# istd8 = Cohort(8, "ISTD")
-# cohorts.append(istd8)
+# cohorts = []
+# istd1 = Cohort(1, "ISTD")
+# cohorts.append(istd1)
+# istd2 = Cohort(2, "ISTD")
+# cohorts.append(istd2)
+# istd3 = Cohort(3, "ISTD")
+# cohorts.append(istd3)
+# istd4 = Cohort(4, "ISTD")
+# cohorts.append(istd4)
+# istd5 = Cohort(5, "ISTD")
+# cohorts.append(istd5)
+# istd6 = Cohort(6, "ISTD")
+# cohorts.append(istd6)
+# # istd7 = Cohort(7, "ISTD")
+# # cohorts.append(istd7)
+# # istd8 = Cohort(8, "ISTD")
+# # cohorts.append(istd8)
 
-rooms = {"Cohort": [Room("2.513", "Cohort Classroom 13", "Cohort Classroom"),
-                    Room("2.514", "Cohort Classroom 14", "Cohort Classroom"),
-                    Room("2.515", "Cohort Classroom 15", "Cohort Classroom"),
-                    Room("2.516", "Cohort Classroom 16", "Cohort Classroom"),
-                    Room("2.517", "Cohort Classroom 17", "Cohort Classroom"),
-                    Room("2.518", "Cohort Classroom 18", "Cohort Classroom"),
-                    Room("2.519", "Cohort Classroom 19", "Cohort Classroom"),
-                    Room("2.520", "Cohort Classroom 20", "Cohort Classroom")],
-         "Lab": [Room("2.412", "Digital Systems Lab", "Laboratory")],
-         "Lecture": [Room("1.203", "Lecture Theatre 2", "Lecture Theatre"),
-                     Room("2.403", "Lecture Theatre 4", "Lecture Theatre"),
-                     Room("2.503", "Lecture Theatre 5", "Lecture Theatre"),
-                     Room("2.303", "Lecture Theatre 3", "Lecture Theatre")]}
+# rooms = {"Cohort": [Room("2.513", "Cohort Classroom 13", "Cohort Classroom"),
+#                     Room("2.514", "Cohort Classroom 14", "Cohort Classroom"),
+#                     Room("2.515", "Cohort Classroom 15", "Cohort Classroom"),
+#                     Room("2.516", "Cohort Classroom 16", "Cohort Classroom"),
+#                     Room("2.517", "Cohort Classroom 17", "Cohort Classroom"),
+#                     Room("2.518", "Cohort Classroom 18", "Cohort Classroom"),
+#                     Room("2.519", "Cohort Classroom 19", "Cohort Classroom"),
+#                     Room("2.520", "Cohort Classroom 20", "Cohort Classroom")],
+#          "Lab": [Room("2.412", "Digital Systems Lab", "Laboratory")],
+#          "Lecture": [Room("1.203", "Lecture Theatre 2", "Lecture Theatre"),
+#                      Room("2.403", "Lecture Theatre 4", "Lecture Theatre"),
+#                      Room("2.503", "Lecture Theatre 5", "Lecture Theatre"),
+#                      Room("2.303", "Lecture Theatre 3", "Lecture Theatre")]}
 
-#Instantiate courses
-courses = []
-info_sys = Course("50.001", "Introduction to Information Systems", rooms, "ISTD", ["ISTD1", "ISTD2", "ISTD3","ISTD4"])
-info_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
-info_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
-info_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
-info_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD4")
-info_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
-info_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
-info_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
-info_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD4")
-info_sys.setComponentsAndDuration("Cohort", 2, False, "ISTD1")
-info_sys.setComponentsAndDuration("Cohort", 2, False, "ISTD2")
-info_sys.setComponentsAndDuration("Cohort", 2, False, "ISTD3")
-info_sys.setComponentsAndDuration("Cohort", 2, False, "ISTD4")
-courses.append(info_sys)
+# #Instantiate courses
+# courses = []
+# info_sys = Course("50.001", "Introduction to Information Systems", rooms, "ISTD", ["ISTD1", "ISTD2", "ISTD3","ISTD4"])
+# info_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
+# info_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
+# info_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
+# info_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD4")
+# info_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
+# info_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
+# info_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
+# info_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD4")
+# info_sys.setComponentsAndDuration("Cohort", 2, False, "ISTD1")
+# info_sys.setComponentsAndDuration("Cohort", 2, False, "ISTD2")
+# info_sys.setComponentsAndDuration("Cohort", 2, False, "ISTD3")
+# info_sys.setComponentsAndDuration("Cohort", 2, False, "ISTD4")
+# courses.append(info_sys)
 
-comp_struct = Course("50.002", "Computation Structures", rooms, "ISTD", ["ISTD1", "ISTD2", "ISTD3", "ISTD4"])
-comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
-comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
-comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
-comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD4")
-comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
-comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
-comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
-comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD4")
-comp_struct.setComponentsAndDuration("Lab", 2, False, "ISTD1")
-comp_struct.setComponentsAndDuration("Lab", 2, False, "ISTD2")
-comp_struct.setComponentsAndDuration("Lab", 2, False, "ISTD3")
-comp_struct.setComponentsAndDuration("Lab", 2, False, "ISTD4")
-courses.append(comp_struct)
+# comp_struct = Course("50.002", "Computation Structures", rooms, "ISTD", ["ISTD1", "ISTD2", "ISTD3", "ISTD4"])
+# comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
+# comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
+# comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
+# comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD4")
+# comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
+# comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
+# comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
+# comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD4")
+# comp_struct.setComponentsAndDuration("Lab", 2, False, "ISTD1")
+# comp_struct.setComponentsAndDuration("Lab", 2, False, "ISTD2")
+# comp_struct.setComponentsAndDuration("Lab", 2, False, "ISTD3")
+# comp_struct.setComponentsAndDuration("Lab", 2, False, "ISTD4")
+# courses.append(comp_struct)
 
-intro_algo = Course("50.004", "Introduction to Algorithms", rooms, "ISTD", ["ISTD1", "ISTD2", "ISTD3", "ISTD4"])
-intro_algo.setComponentsAndDuration("Lecture", 3, True, ["ISTD1", "ISTD2", "ISTD3","ISTD4"])
-intro_algo.setComponentsAndDuration("Cohort", 2, False, "ISTD1")
-intro_algo.setComponentsAndDuration("Cohort", 2, False, "ISTD2")
-intro_algo.setComponentsAndDuration("Cohort", 2, False, "ISTD3")
-intro_algo.setComponentsAndDuration("Cohort", 2, False, "ISTD4")
-courses.append(intro_algo)
+# intro_algo = Course("50.004", "Introduction to Algorithms", rooms, "ISTD", ["ISTD1", "ISTD2", "ISTD3", "ISTD4"])
+# intro_algo.setComponentsAndDuration("Lecture", 3, True, ["ISTD1", "ISTD2", "ISTD3","ISTD4"])
+# intro_algo.setComponentsAndDuration("Cohort", 2, False, "ISTD1")
+# intro_algo.setComponentsAndDuration("Cohort", 2, False, "ISTD2")
+# intro_algo.setComponentsAndDuration("Cohort", 2, False, "ISTD3")
+# intro_algo.setComponentsAndDuration("Cohort", 2, False, "ISTD4")
+# courses.append(intro_algo)
 
-ml = Course("1.112", "Machine Learning", rooms, "ISTD", ["ISTD5", "ISTD6"])
-ml.setComponentsAndDuration("Cohort", 1.5, False, "ISTD5")
-ml.setComponentsAndDuration("Cohort", 1.5, False, "ISTD6")
-ml.setComponentsAndDuration("Cohort", 1.5, False, "ISTD5")
-ml.setComponentsAndDuration("Cohort", 1.5, False, "ISTD6")
-ml.setComponentsAndDuration("Lab", 2, False, "ISTD5")
-ml.setComponentsAndDuration("Lab", 2, False, "ISTD6")
-courses.append(ml)
+# ml = Course("1.112", "Machine Learning", rooms, "ISTD", ["ISTD5", "ISTD6"])
+# ml.setComponentsAndDuration("Cohort", 1.5, False, "ISTD5")
+# ml.setComponentsAndDuration("Cohort", 1.5, False, "ISTD6")
+# ml.setComponentsAndDuration("Cohort", 1.5, False, "ISTD5")
+# ml.setComponentsAndDuration("Cohort", 1.5, False, "ISTD6")
+# ml.setComponentsAndDuration("Lab", 2, False, "ISTD5")
+# ml.setComponentsAndDuration("Lab", 2, False, "ISTD6")
+# courses.append(ml)
 
-networks = Course("50.012", "Networks", rooms, "ISTD", ["ISTD5", "ISTD6"])
-networks.setComponentsAndDuration("Cohort", 1.5, False, "ISTD5")
-networks.setComponentsAndDuration("Cohort", 1.5, False, "ISTD6")
-networks.setComponentsAndDuration("Cohort", 1.5, False, "ISTD5")
-networks.setComponentsAndDuration("Cohort", 1.5, False, "ISTD6")
-networks.setComponentsAndDuration("Lecture", 2, True, ["ISTD5", "ISTD6"])
-courses.append(networks)
+# networks = Course("50.012", "Networks", rooms, "ISTD", ["ISTD5", "ISTD6"])
+# networks.setComponentsAndDuration("Cohort", 1.5, False, "ISTD5")
+# networks.setComponentsAndDuration("Cohort", 1.5, False, "ISTD6")
+# networks.setComponentsAndDuration("Cohort", 1.5, False, "ISTD5")
+# networks.setComponentsAndDuration("Cohort", 1.5, False, "ISTD6")
+# networks.setComponentsAndDuration("Lecture", 2, True, ["ISTD5", "ISTD6"])
+# courses.append(networks)
 
-# data_science = Course("50.038", "Computational Data Science", rooms, "ISTD", ["ISTD5", "ISTD6"])
-# data_science.setComponentsAndDuration("Cohort", 1.5, False, "ISTD5")
-# data_science.setComponentsAndDuration("Cohort", 1.5, False, "ISTD6")
-# data_science.setComponentsAndDuration("Cohort", 1.5, False, "ISTD5")
-# data_science.setComponentsAndDuration("Cohort", 1.5, False, "ISTD6")
-# data_science.setComponentsAndDuration("Lecture", 2, True, ["ISTD5", "ISTD6"])
-# courses.append(data_science)
+# # data_science = Course("50.038", "Computational Data Science", rooms, "ISTD", ["ISTD5", "ISTD6"])
+# # data_science.setComponentsAndDuration("Cohort", 1.5, False, "ISTD5")
+# # data_science.setComponentsAndDuration("Cohort", 1.5, False, "ISTD6")
+# # data_science.setComponentsAndDuration("Cohort", 1.5, False, "ISTD5")
+# # data_science.setComponentsAndDuration("Cohort", 1.5, False, "ISTD6")
+# # data_science.setComponentsAndDuration("Lecture", 2, True, ["ISTD5", "ISTD6"])
+# # courses.append(data_science)
 
-comp_sys = Course("50.005", "Computer System Engineering", rooms, "ISTD", ["ISTD1", "ISTD2", "ISTD3", "ISTD4"])
-comp_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
-comp_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
-comp_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
-comp_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD4")
-comp_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
-comp_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
-comp_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
-comp_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD4")
-comp_sys.setComponentsAndDuration("Lab", 2, False, "ISTD1")
-comp_sys.setComponentsAndDuration("Lab", 2, False, "ISTD2")
-comp_sys.setComponentsAndDuration("Lab", 2, False, "ISTD3")
-comp_sys.setComponentsAndDuration("Lab", 2, False, "ISTD4")
-courses.append(comp_sys)
+# comp_sys = Course("50.005", "Computer System Engineering", rooms, "ISTD", ["ISTD1", "ISTD2", "ISTD3", "ISTD4"])
+# comp_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
+# comp_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
+# comp_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
+# comp_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD4")
+# comp_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
+# comp_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
+# comp_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
+# comp_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD4")
+# comp_sys.setComponentsAndDuration("Lab", 2, False, "ISTD1")
+# comp_sys.setComponentsAndDuration("Lab", 2, False, "ISTD2")
+# comp_sys.setComponentsAndDuration("Lab", 2, False, "ISTD3")
+# comp_sys.setComponentsAndDuration("Lab", 2, False, "ISTD4")
+# courses.append(comp_sys)
 
-probs_stats = Course("50.034", "Introduction to Probability and Statistics", rooms, "ISTD", ["ISTD5", "ISTD6"])
-probs_stats.setComponentsAndDuration("Lecture", 1.5, True, ["ISTD5", "ISTD6"])
-probs_stats.setComponentsAndDuration("Lecture", 1.5, True, ["ISTD5", "ISTD6"])
-probs_stats.setComponentsAndDuration("Cohort", 2, False, "ISTD5")
-probs_stats.setComponentsAndDuration("Cohort", 2, False, "ISTD6")
-courses.append(probs_stats)
+# probs_stats = Course("50.034", "Introduction to Probability and Statistics", rooms, "ISTD", ["ISTD5", "ISTD6"])
+# probs_stats.setComponentsAndDuration("Lecture", 1.5, True, ["ISTD5", "ISTD6"])
+# probs_stats.setComponentsAndDuration("Lecture", 1.5, True, ["ISTD5", "ISTD6"])
+# probs_stats.setComponentsAndDuration("Cohort", 2, False, "ISTD5")
+# probs_stats.setComponentsAndDuration("Cohort", 2, False, "ISTD6")
+# courses.append(probs_stats)
 
-esc = Course("50.003", "Elements of Software Construction", rooms, "ISTD", ["ISTD5", "ISTD6"])
-esc.setComponentsAndDuration("Cohort", 1.5, False, "ISTD5")
-esc.setComponentsAndDuration("Cohort", 1.5, False, "ISTD6")
-esc.setComponentsAndDuration("Cohort", 1.5, False, "ISTD5")
-esc.setComponentsAndDuration("Cohort", 1.5, False, "ISTD6")
-esc.setComponentsAndDuration("Cohort", 2, False, "ISTD5")
-esc.setComponentsAndDuration("Cohort", 2, False, "ISTD6")
-courses.append(esc)
+# esc = Course("50.003", "Elements of Software Construction", rooms, "ISTD", ["ISTD5", "ISTD6"])
+# esc.setComponentsAndDuration("Cohort", 1.5, False, "ISTD5")
+# esc.setComponentsAndDuration("Cohort", 1.5, False, "ISTD6")
+# esc.setComponentsAndDuration("Cohort", 1.5, False, "ISTD5")
+# esc.setComponentsAndDuration("Cohort", 1.5, False, "ISTD6")
+# esc.setComponentsAndDuration("Cohort", 2, False, "ISTD5")
+# esc.setComponentsAndDuration("Cohort", 2, False, "ISTD6")
+# courses.append(esc)
 
-# cv = Course("50.035", "Computer Vision", rooms, "ISTD", ["ISTD5", "ISTD6"])
-# cv.setComponentsAndDuration("Cohort", 1.5, False, "ISTD5")
-# cv.setComponentsAndDuration("Cohort", 1.5, False, "ISTD6")
-# cv.setComponentsAndDuration("Cohort", 1.5, False, "ISTD5")
-# cv.setComponentsAndDuration("Cohort", 1.5, False, "ISTD6")
-# cv.setComponentsAndDuration("Cohort", 2, False, "ISTD5")
-# cv.setComponentsAndDuration("Cohort", 2, False, "ISTD6")
-# courses.append(cv)
+# # cv = Course("50.035", "Computer Vision", rooms, "ISTD", ["ISTD5", "ISTD6"])
+# # cv.setComponentsAndDuration("Cohort", 1.5, False, "ISTD5")
+# # cv.setComponentsAndDuration("Cohort", 1.5, False, "ISTD6")
+# # cv.setComponentsAndDuration("Cohort", 1.5, False, "ISTD5")
+# # cv.setComponentsAndDuration("Cohort", 1.5, False, "ISTD6")
+# # cv.setComponentsAndDuration("Cohort", 2, False, "ISTD5")
+# # cv.setComponentsAndDuration("Cohort", 2, False, "ISTD6")
+# # courses.append(cv)
 
 
-instructors = []
-oka = Instructor(100, "Oka", [comp_struct])
-#oka.addSoftConstraints(1, 1, 8.5, 10, "Consulting slot")
-instructors.append(oka)
-#oka.addSoftConstraints(2, 3, 16.5, 18.5, "Family")
-nat = Instructor(101, "Natalie", [comp_struct])
-#nat.addSoftConstraints(1, 2, 8.5, 10.5, "Date")
-instructors.append(nat)
-#nat.addSoftConstraints(2, 3, 16, 18, "Club")
-ngai = Instructor(102, "Ngai Man", [info_sys])
-instructors.append(ngai)
-norman = Instructor(103, "Norman Lee", [info_sys])
-instructors.append(norman)
-sudipta = Instructor(104, "Sudipta", [esc, ml])
-instructors.append(sudipta)
-sunjun = Instructor(105, "Sun Jun", [esc, comp_sys])
-instructors.append(sunjun)
-# gemma = Instructor(106, "Gemma Roig", [intro_algo])
-# instructors.append(gemma)
-tony = Instructor(107, "Tony Quek", [probs_stats, ml])
-instructors.append(tony)
-dude = Instructor(108, "Dude", [networks])
-instructors.append(dude)
+# instructors = []
+# oka = Instructor(100, "Oka", [comp_struct])
+# #oka.addSoftConstraints(1, 1, 8.5, 10, "Consulting slot")
+# instructors.append(oka)
+# #oka.addSoftConstraints(2, 3, 16.5, 18.5, "Family")
+# nat = Instructor(101, "Natalie", [comp_struct])
+# #nat.addSoftConstraints(1, 2, 8.5, 10.5, "Date")
+# instructors.append(nat)
+# #nat.addSoftConstraints(2, 3, 16, 18, "Club")
+# ngai = Instructor(102, "Ngai Man", [info_sys])
+# instructors.append(ngai)
+# norman = Instructor(103, "Norman Lee", [info_sys])
+# instructors.append(norman)
+# sudipta = Instructor(104, "Sudipta", [esc, ml])
+# instructors.append(sudipta)
+# sunjun = Instructor(105, "Sun Jun", [esc, comp_sys])
+# instructors.append(sunjun)
+# # gemma = Instructor(106, "Gemma Roig", [intro_algo])
+# # instructors.append(gemma)
+# tony = Instructor(107, "Tony Quek", [probs_stats, ml])
+# instructors.append(tony)
+# dude = Instructor(108, "Dude", [networks])
+# instructors.append(dude)
 
-for course in courses:
-    for instructor in instructors:
-        if course in instructor.getCourses():
-            course.addInstructors(instructor)
-for course in courses:
-    for cohort in cohorts:
-        if cohort.name in course.cohorts:
-            cohort.addCourses(course)
-            course.cohorts.remove(cohort.name)
-            course.cohorts.append(cohort)
+# for course in courses:
+#     for instructor in instructors:
+#         if course in instructor.getCourses():
+#             course.addInstructors(instructor)
+# for course in courses:
+#     for cohort in cohorts:
+#         if cohort.name in course.cohorts:
+#             cohort.addCourses(course)
+#             course.cohorts.remove(cohort.name)
+#             course.cohorts.append(cohort)
 
-algo = Algorithm(instructors, cohorts, rooms, courses)
-#print(algo.generate_schedule())
-print(algo.generateTimetableWithSoftConstraints())
-for instructor in instructors:
-    print(instructor.instructorName)
-    instructor.printTimetable()
-for cohort in cohorts:
-    print(cohort.name)
-    cohort.printTimetable()
-for key, value in rooms.items():
-    for room in value:
-        print(room.roomName)
-        room.printTimetable()
+# algo = Algorithm(instructors, cohorts, rooms, courses)
+# #print(algo.generate_schedule())
+# print(algo.generateTimetableWithSoftConstraints())
+# for instructor in instructors:
+#     print(instructor.instructorName)
+#     instructor.printTimetable()
+# for cohort in cohorts:
+#     print(cohort.name)
+#     cohort.printTimetable()
+# for key, value in rooms.items():
+#     for room in value:
+#         print(room.roomName)
+#         room.printTimetable()
