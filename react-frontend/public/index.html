@@ -18,7 +18,7 @@
         window.pillarcourses = ['Fresh1', 'Fresh2', 'Fresh3'];
         break;
       case 'ISTD':
-        window.pillarcourses = ['50.003', '50.005', '50.034'];
+        window.pillarcourses = ['50.002', '50.005', '50.034'];
         break;
       case 'EPD':
         window.pillarcourses = ['30.007', '30.101', '30.102'];
@@ -33,8 +33,10 @@
 
     window.errornotif = "{{ error }}";
 
-    window.unparsedtoken = "{{ token }}";
-    if (window.unparsedtoken != "") {
+    if ("{{ token }}" != "") {
+      // console.log("token is not empty");
+      window.unparsedtoken = "{{ token }}";
+      // console.log(window.unparsedtoken)
       window.unparsedtoken = window.unparsedtoken.replace(/&#39;/g, "\"");
       window.parsedtoken = JSON.parse(unparsedtoken);
     }

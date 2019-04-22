@@ -357,8 +357,6 @@ def CourseMaterial():
             # paste back to firestore. this will delete the whole dict and set it from scratch.
             dbfs.collection('RawInput').document('CourseInfo').update(NewCourseDetailsDict)
 
-
-
     return render_template('index.html')
 
 
@@ -403,6 +401,7 @@ def adminlogin():
             error = "You are locked out due to consecutive login failures. Please contact your admin."
         elif login_pass == 1:
             Data.loggedUser = check_username
+            # print ("login loggeduser name : " + Data.loggedUser)
             return redirect(url_for('adminwelcome'))
         else:
             error = "Invalid credentials, please try again. Incorrect tries = " + str(Data.incorrectTries)
@@ -413,14 +412,16 @@ def adminwelcome():
     loggedUser = Data.loggedUser
     weeklysched = retrieveCourse("EmptyCourse")
     if request.method == 'POST':
-        if '50.003' in request.form:
-            weeklysched = retrieveCourse("50.003")
+        if '50.002' in request.form:
+            weeklysched = retrieveCourse("50.002")
         elif '50.005' in request.form:
             weeklysched = retrieveCourse("50.005")
         elif '50.034' in request.form:
             weeklysched = retrieveCourse("50.034")
     jsonify(weeklysched)
     adminPillar = Data.pillar
+    # print ("pillar: " + adminPillar)
+    # print ("user: " + loggedUser)
     return render_template('index.html', token=weeklysched, user=loggedUser, pillar=adminPillar)
 
 def check_planner_login(check_username, check_password):
@@ -499,7 +500,7 @@ def epdschedule():
     return render_template('index.html', token="this is from main.py (epd)")
 
 def retrieveCourse(courseID):
-    coursesdocument = dbfs.collection('courses').document(courseID).get().to_dict()
+    coursesdocument = dbfs.collection('courseTimetable').document(courseID).get().to_dict()
     week = coursesdocument['Week']
     # print(week)
     return week #dictionary
@@ -509,13 +510,12 @@ def istdschedule():
     # this is where we obtain data from firebase
     weeklysched = retrieveCourse("EmptyCourse")
     if request.method == 'POST':
-        if '50.003' in request.form:
-            weeklysched = retrieveCourse("50.003")
+        if '50.002' in request.form:
+            weeklysched = retrieveCourse("50.002")
         elif '50.005' in request.form:
             weeklysched = retrieveCourse("50.005")
         elif '50.034' in request.form:
             weeklysched = retrieveCourse("50.034")
-            # print (weeklysched)
     jsonify(weeklysched)
     return render_template('index.html', token=weeklysched)
     

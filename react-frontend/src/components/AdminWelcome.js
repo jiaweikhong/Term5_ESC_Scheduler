@@ -110,6 +110,9 @@ function AdminWelcome(props) {
         <Typography variant="h4" gutterBottom component="h2">
           {window.pillar} Pillar Timetable
           </Typography>
+        {/* {window.user}<br/>
+        {window.pillar}<br/>
+        {window.pillarcourses[0]}<br/> */}
 
         <form method="POST">
           <Button id="course1" type='submit' color='inherit' name={window.pillarcourses[0]}>{window.pillarcourses[0]}</Button>
