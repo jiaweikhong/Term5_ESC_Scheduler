@@ -32,20 +32,48 @@
     }
 
     window.errornotif = "{{ error }}";
+    window.notif = "{{ notif }}"
 
-    if ("{{ token }}" != "") {
-      window.unparsedtoken = "{{ token }}";
-      window.unparsedtoken = window.unparsedtoken.replace(/&#39;/g, "\"");
+    // window.data = [
+    //   ["ISTD", 50.003, "Elements of Software Construction", "Sun Jun", "Sudipta Chattopadhyay"],
+    //   ["rqcww", 50.005, "Computer Systems Engineering", "David Yau", "Natalie Agus"],
+    //   ["haha", 50.034, "Introduction to Probability and Statistics", "Tony Quek", "Gemma Roig, Cong Kai Fong Ernest"],
+    //   ["Freshmore", 10.004, "Advanced Math II", "Sergey Kushnarev", "Wang XinYin"],
+    //   ["hehe", "01.010", "Freshmore Writing Programme", "Pang Yang Hui", "Eunice Leong"]
+    // ]
+
+    window.unparsedtoken = "{{ token }}";
+    window.unparsedtoken = window.unparsedtoken.replace(/&#39;/g, "\"");
+    if (window.unparsedtoken != "") {
       window.parsedtoken = JSON.parse(unparsedtoken);
     }
 
-    if ("{{ coursesInfo }}" != "") {
-      window.unparsedCoursesInfo = "{{ coursesInfo }}";
-      window.unparsedCoursesInfo = window.unparsedCoursesInfo.replace(/&#39;/g, "\"");
-      window.parsedCoursesInfo = JSON.parse(unparsedCoursesInfo)
+    window.unparsedCoursesInfo = "{{ coursesInfo }}";
+    window.unparsedCoursesInfo = window.unparsedCoursesInfo.replace(/&#39;/g, "\"");
+    window.unparsedCoursesInfo = window.unparsedCoursesInfo.replace(/False/g, "\"false\"");
+    window.unparsedCoursesInfo = window.unparsedCoursesInfo.replace(/True/g, "\"true\"");
+    // console.log(window.unparsedCoursesInfo)
+    if (window.unparsedCoursesInfo != "") {
+      window.parsedCoursesInfo = JSON.parse(window.unparsedCoursesInfo)
+      window.data = []
+      for (var id in parsedCoursesInfo) {  // id is the courseID eg. 50.001, 50.002 etc
+        oneCourse = []
+        oneCourse.push(parsedCoursesInfo[id]['Pillar'])
+        oneCourse.push(id)
+        oneCourse.push(parsedCoursesInfo[id]['CourseTitle'])
+        oneCourse.push(parsedCoursesInfo[id]['CourseLead'])
+        instructors = ""
+        for (i = 0; i < parsedCoursesInfo[id]['Instructors'].length; i++) {
+          instructors += parsedCoursesInfo[id]['Instructors'][i]
+          instructors += ", "
+        }
+        instructors = instructors.substring(0, instructors.length - 2)
+        oneCourse.push(instructors)
+        // console.log(oneCourse)
+        window.data.push(oneCourse)
+      }
+      // console.log(window.data)
     }
-
-    window.notif = "{{ notif }}"
 
   </script>
 </head>

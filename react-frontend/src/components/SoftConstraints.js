@@ -284,7 +284,7 @@ class SoftConstraints extends React.Component {
             noWrap
             // className ={classes.welcome}
           >
-            Welcome
+            Welcome {window.user}
           </Typography>
           <div className={classes.icons}>
           <IconButton 
