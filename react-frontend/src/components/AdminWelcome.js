@@ -111,6 +111,8 @@ function AdminWelcome(props) {
           <Button id="course1" type='submit' color='inherit' name={window.pillarcourses[0]}>{window.pillarcourses[0]}</Button>
           <Button id="course2" type='submit' color='inherit' name={window.pillarcourses[1]}>{window.pillarcourses[1]}</Button>
           <Button id="course3" type='submit' color='inherit' name={window.pillarcourses[2]}>{window.pillarcourses[2]}</Button>
+          <Button id="course1" type='submit' color='inherit' name={window.pillarcourses[3]}>{window.pillarcourses[3]}</Button>
+          <Button id="course2" type='submit' color='inherit' name={window.pillarcourses[4]}>{window.pillarcourses[4]}</Button>
         </form>
 
         <Table>

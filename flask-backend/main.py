@@ -26,7 +26,6 @@ class Data():
     createInstructor = 0
     create=0
     course =0
-    
 
 @app.route("/", methods=['GET', 'POST'])
 def my_index():
@@ -351,10 +350,14 @@ def adminwelcome():
     loggedUser = Data.loggedUser
     weeklysched = retrieveCourse("EmptyCourse")
     if request.method == 'POST':
-        if '50.002' in request.form:
+        if '50.001' in request.form:
+            weeklysched = retrieveCourse("50.001")
+        elif '50.002' in request.form:
             weeklysched = retrieveCourse("50.002")
         elif '50.005' in request.form:
             weeklysched = retrieveCourse("50.005")
+        elif '50.012' in request.form:
+            weeklysched = retrieveCourse("50.012")
         elif '50.034' in request.form:
             weeklysched = retrieveCourse("50.034")
     jsonify(weeklysched)
@@ -449,10 +452,14 @@ def istdschedule():
     # this is where we obtain data from firebase
     weeklysched = retrieveCourse("EmptyCourse")
     if request.method == 'POST':
-        if '50.002' in request.form:
+        if '50.001' in request.form:
+            weeklysched = retrieveCourse("50.001")
+        elif '50.002' in request.form:
             weeklysched = retrieveCourse("50.002")
         elif '50.005' in request.form:
             weeklysched = retrieveCourse("50.005")
+        elif '50.012' in request.form:
+            weeklysched = retrieveCourse("50.012")
         elif '50.034' in request.form:
             weeklysched = retrieveCourse("50.034")
     jsonify(weeklysched)

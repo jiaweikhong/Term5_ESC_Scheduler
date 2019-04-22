@@ -13,8 +13,8 @@ import IconButton from '@material-ui/core/IconButton';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems } from '../lists/Adminmenu';
 // import {secondaryListItems} from '../lists/Adminmenu';
-import {Link} from 'react-router-dom';
-import {Button} from '@material-ui/core'
+import { Link } from 'react-router-dom';
+import { Button } from '@material-ui/core'
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -40,7 +40,7 @@ const styles = theme => ({
   drawerPaper: {
     width: drawerWidth,
   },
-  icons:{
+  icons: {
     position: 'absolute',
     right: 15
   },
@@ -52,11 +52,11 @@ const styles = theme => ({
 });
 
 const lab = [
-  {value: 'physics', label: 'Physics Lab'},
-  {value: 'chembio',label: 'Chemistry and Biology Lab',},
-  {value:'armsII',label:'AMRS II'},
-  {value:'dsl',label:'Digital Systems Lab'},
-  {value:'', label:'None'}]
+  { value: 'physics', label: 'Physics Lab' },
+  { value: 'chembio', label: 'Chemistry and Biology Lab', },
+  { value: 'armsII', label: 'AMRS II' },
+  { value: 'dsl', label: 'Digital Systems Lab' },
+  { value: '', label: 'None' }]
 
 class EditSchedule extends React.Component {
 
@@ -68,14 +68,14 @@ class EditSchedule extends React.Component {
     };
   }
 
-  handleNameChange = evt => {this.setState({ name: evt.target.value });};
+  handleNameChange = evt => { this.setState({ name: evt.target.value }); };
 
 
 
   handleShareholderNameChange = idx => evt => {
     const newShareholders = this.state.shareholders.map((shareholder, sidx) => {
       if (idx !== sidx) return shareholder;
-      
+
       return { ...shareholder, name: evt.target.value };
     });
 
@@ -100,15 +100,16 @@ class EditSchedule extends React.Component {
   };
 
   state = {
-      open: false,}   
+    open: false,
+  }
 
-        handleChange = name => event => {
+  handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
     });
   };
 
- 
+
   onChange = chips => {
     this.setState({ chips });
   }
@@ -119,12 +120,12 @@ class EditSchedule extends React.Component {
     this.setState({ open: false });
   };
 
-   
-  render(){
+
+  render() {
 
     const { classes } = this.props;
 
-        
+
     const columns = [
       "Course Code",
       "Course Title",
@@ -137,10 +138,10 @@ class EditSchedule extends React.Component {
     ];
 
     const data = [
-      [50.003, "Computer System Engineering", "David Yau", "David Yau, Natalie Agus", "C01,C02,C03","Digital System Laboratory","Updated"],
-      [50.004, "Introduction to Algorithm", "David Yau", "David Yau, Natalie Agus", "C01,C02,C03","","Updated"],
-      [50.032, "Introduction to Probability and Statistics", "David Yau", "David Yau, Natalie Agus", "C01,C02,C03","","Updated"],
-  
+      [50.003, "Computer System Engineering", "David Yau", "David Yau, Natalie Agus", "C01,C02,C03", "Digital System Laboratory", "Updated"],
+      [50.004, "Introduction to Algorithm", "David Yau", "David Yau, Natalie Agus", "C01,C02,C03", "", "Updated"],
+      [50.032, "Introduction to Probability and Statistics", "David Yau", "David Yau, Natalie Agus", "C01,C02,C03", "", "Updated"],
+
     ];
 
     const options = {
@@ -158,15 +159,15 @@ class EditSchedule extends React.Component {
       onRowClick: (rowData, rowState) => {
         console.log(rowData, rowState);
         this.setState({
-          open:true
+          open: true
         })
-        
-        
-        
+
+
+
       },
     };
-    
-    
+
+
 
     return (
       <div className={classes.root}>
@@ -174,65 +175,65 @@ class EditSchedule extends React.Component {
         <AppBar
           position="fixed"
           className={classNames(classes.appBar)}>
-        
+
           <Toolbar >
             <Typography
               variant="h6"
               color="inherit"
               noWrap
-              // className ={classes.welcome}
+            // className ={classes.welcome}
             >
               Welcome
             </Typography>
             <div className={classes.icons}>
-            <IconButton 
-            color="inherit"
-            component = {Link} to = "/adminnotifications">    
-                <NotificationsIcon />    
-            </IconButton>
-            <Button 
-            color='inherit' 
-            component = {Link} to = "/">   
-            LOGOUT
+              <IconButton
+                color="inherit"
+                component={Link} to="/adminnotifications">
+                <NotificationsIcon />
+              </IconButton>
+              <Button
+                color='inherit'
+                component={Link} to="/">
+                LOGOUT
           </Button>
-          </div>
+            </div>
           </Toolbar>
         </AppBar>
 
-        
+
         <Drawer
-        className={classes.drawer}
+          className={classes.drawer}
           variant="permanent"
           classes={{
             paper: classNames(classes.drawerPaper),
           }}
         >
           <div className={classes.toolbar} />
-          
+
           <List>{mainListItems}</List>
 
           {/* <Divider />
           <List>{secondaryListItems}</List>  */}
 
         </Drawer>
-        
+
         <main className={classes.content}>
           {/* <CourseTable/> */}
           <div>
-      <MUIDataTable title={"Course Details"} data={data} columns={columns} options={options} />
-      
-      {/* {this.renderDialog()} */}
-      
-      <Dialog
-      open={this.state.open}
-      onClose={this.handleClose}
-      aria-labelledby="form-dialog-title"
-  
-    >
-    <form method='POST'>
-      <DialogTitle id="form-dialog-title">Course Details</DialogTitle>
-      <DialogContent>
-        {/* <DialogContentText>
+            <MUIDataTable title={"Course Details"} data={data} columns={columns} options={options} />
+
+            {/* {this.renderDialog()} */}
+
+            <Dialog
+              open={this.state.open}
+              onClose={this.handleClose}
+              aria-labelledby="form-dialog-title"
+
+            >
+              <form method='POST'>
+                <DialogTitle id="form-dialog-title">Course Details</DialogTitle>
+                <DialogContent>
+                  {/* <DialogContentText>
           You may leave irrelevant fields blank. Please provide the details accurately.                 
         </DialogContentText>
         <DialogContentText>
@@ -240,61 +241,62 @@ class EditSchedule extends React.Component {
         </DialogContentText> */}
 
 
-        <TextField
-        name='courseCode'
-        variant='outlined'
-        margin="dense"
-        fullWidth
-        placeholder='Please type in the course code.'></TextField>
-        <TextField
-        name='cohortclass'
-        variant='outlined'
-        fullWidth
-        placeholder='Please separate the classes with a comma.'></TextField>
-    <TextField
-        //autoFocus
-        margin="dense"
-        name='venue'
-      id='lab'
-      select
-      label ='Choice of lab for lab sessions '
-      //className={classes.textField}
-      value={this.state.lab}
-      fullWidth
-      onChange={this.handleChange('lab')}
-      SelectProps={{
-        // MenuProps: {
-        //   className: classes.menu,
-        // },
-      }}          
-     
-      variant="outlined"
-    >
-      {lab.map(option => (
-        <MenuItem key={option.value} value={option.value}>
-          {option.label}
-        </MenuItem>
-      ))}
-    </TextField>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={this.handleClose} color="primary" type='submit' name='please'>
-          Save
+                  <TextField
+                    name='courseCode'
+                    variant='outlined'
+                    margin="dense"
+                    fullWidth
+                    placeholder='Please type in the course code.'></TextField>
+                  <TextField
+                    name='cohortclass'
+                    variant='outlined'
+                    fullWidth
+                    placeholder='Please separate the classes with a comma.'></TextField>
+                  <TextField
+                    //autoFocus
+                    margin="dense"
+                    name='venue'
+                    id='lab'
+                    select
+                    label='Choice of lab for lab sessions '
+                    //className={classes.textField}
+                    value={this.state.lab}
+                    fullWidth
+                    onChange={this.handleChange('lab')}
+                    SelectProps={{
+                      // MenuProps: {
+                      //   className: classes.menu,
+                      // },
+                    }}
+
+                    variant="outlined"
+                  >
+                    {lab.map(option => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={this.handleClose} color="primary" type='submit' name='please'>
+                    Save
         </Button>
-      </DialogActions>
-      </form>
-    </Dialog>
-    
+                </DialogActions>
+              </form>
+            </Dialog>
 
 
-        {this.shareholder}
-   
-      </div>
+
+            {this.shareholder}
+
+          </div>
         </main>
-       
+
       </div>
     );
-  }}
+  }
+}
 
 
 EditSchedule.propTypes = {
