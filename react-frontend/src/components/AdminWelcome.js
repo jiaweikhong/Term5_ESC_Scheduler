@@ -8,19 +8,12 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems } from '../lists/Adminmenu';
-import { secondaryListItems } from '../lists/Adminmenu';
 import { Link } from 'react-router-dom';
 import { Button, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core'
-import timetableplaceholder from "./images/timetableplaceholder.png";
 
-// TODO
-// try to stay in welcome page and only change the content when clicking on the list icons
-//change icons for list
-//
 
 const drawerWidth = 240;
 
@@ -101,8 +94,8 @@ function AdminWelcome(props) {
 
         <List>{mainListItems}</List>
 
-        <Divider />
-        <List>{secondaryListItems}</List>
+        {/* <Divider />
+        <List>{secondaryListItems}</List> */}
 
       </Drawer>
       <main className={classes.content}>

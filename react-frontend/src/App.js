@@ -16,6 +16,7 @@ import AdminWelcome from './components/AdminWelcome';
 import EditSchedule from './components/EditSchedule';
 import AdminNotification from './components/AdminNotifications';
 import AdminInstructPage from './components/AdminInstructPage';
+import CohortClass from './components/CohortClass';
 
 import PlannerLogin from "./components/PlannerLogin";
 import PlannerWelcome from './components/PlannerWelcome';
@@ -54,6 +55,7 @@ class App extends Component {
             <Route path="/editschedule" component={EditSchedule} />
             <Route path="/adminnotifications" component={AdminNotification} />
             <Route path="/instructorinformation" component={AdminInstructPage}/>
+            <Route path="/cohortclass" component={CohortClass}/>
 
             {/* related to planners */}
             <Route path="/plannerlogin" component={PlannerLogin} />

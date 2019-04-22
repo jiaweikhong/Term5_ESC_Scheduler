@@ -35,6 +35,15 @@ export const mainListItems = (
       <ListItemText primary="Course Details" />
     </ListItem>
 
+    <ListItem 
+    button
+    component = {Link} to = "/cohortclass">
+      <ListItemIcon>
+        <LibraryBooksIcon />
+      </ListItemIcon>
+      <ListItemText primary="Cohort Class Details" />
+    </ListItem>
+
     {/* <ListItem 
     button
   component = {Link} to = "/softconstraints"> {/*need to change 
@@ -48,30 +57,30 @@ export const mainListItems = (
   </div>
 );
 
-export const secondaryListItems = (
-  <div>
+// export const secondaryListItems = (
+//   <div>
 
-    <ListSubheader >Instructors</ListSubheader>
-    <ListItem button
-    component = {Link} to = "/instructorinformation">
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Sudipta Chattopadhyay" />
-    </ListItem>
-    <ListItem button
-    component = {Link} to = "/instructorinformation">
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Sun Jun" />
-    </ListItem>
-    <ListItem button
-    component = {Link} to = "/instructorinformation">
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Natalie Agus" />
-    </ListItem>
-  </div>
-);
+//     <ListSubheader >Instructors</ListSubheader>
+//     <ListItem button
+//     component = {Link} to = "/instructorinformation">
+//       <ListItemIcon>
+//         <AssignmentIcon />
+//       </ListItemIcon>
+//       <ListItemText primary="Sudipta Chattopadhyay" />
+//     </ListItem>
+//     <ListItem button
+//     component = {Link} to = "/instructorinformation">
+//       <ListItemIcon>
+//         <AssignmentIcon />
+//       </ListItemIcon>
+//       <ListItemText primary="Sun Jun" />
+//     </ListItem>
+//     <ListItem button
+//     component = {Link} to = "/instructorinformation">
+//       <ListItemIcon>
+//         <AssignmentIcon />
+//       </ListItemIcon>
+//       <ListItemText primary="Natalie Agus" />
+//     </ListItem>
+//   </div>
+// );
