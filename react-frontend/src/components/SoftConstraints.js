@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -367,6 +365,7 @@ class SoftConstraints extends React.Component {
           margin="normal"
           //variant="outlined"
           placeholder= "Course Code"
+          required
           
         />
 
@@ -387,6 +386,7 @@ class SoftConstraints extends React.Component {
           label="Course Instructors"
           placeholder= "Please put a ',' inbetween instructor names"
           helperText='Please include course lead'
+          required
         />
         <TextField
         name='lead1'
@@ -412,10 +412,10 @@ class SoftConstraints extends React.Component {
           //value={this.state.lecture}
           onChange={this.handleChange('lecture')}
         >
-          <FormControlLabel value="1" control={<Radio />} label="1" />
-          <FormControlLabel value="2" control={<Radio />} label="2" />
-          <FormControlLabel value="3" control={<Radio />} label="3" />
-          <FormControlLabel value="" control={<Radio />} label="No lecture" />
+          <FormControlLabel value="1" control={<Radio required />} label="1" />
+          <FormControlLabel value="2" control={<Radio required/>} label="2" />
+          <FormControlLabel value="3" control={<Radio required/>} label="3" />
+          <FormControlLabel value="" control={<Radio required/>} label="No lecture" />
         </RadioGroup>
 
         </Grid>
@@ -512,13 +512,14 @@ class SoftConstraints extends React.Component {
           className={classes.group}
           cohort={this.state.cohort}
           onChange={this.handleChange('cohort')}
-          value={this.state.cohort}
+          
         >
-          <FormControlLabel value="1" control={<Radio />} label="1" />
-          <FormControlLabel value="2" control={<Radio />} label="2" />
-          <FormControlLabel value="3" control={<Radio />} label="3" />
-          <FormControlLabel value="none" control={<Radio />} label="No cohort classes" />
+          <FormControlLabel value="1" control={<Radio required/>} label="1" />
+          <FormControlLabel value="2" control={<Radio required/>} label="2" />
+          <FormControlLabel value="3" control={<Radio required/>} label="3" />
+          <FormControlLabel value="" control={<Radio required/>} label="No cohort classes" />
         </RadioGroup>
+
     </Grid>
 
 
@@ -611,12 +612,11 @@ class SoftConstraints extends React.Component {
           className={classes.group}
           lab={this.state.lab}
           onChange={this.handleChange('lab')}
-          value = {this.state.lab}
         >
-          <FormControlLabel value="1" control={<Radio />} label="1" />
-          <FormControlLabel value="2" control={<Radio />} label="2" />
-          <FormControlLabel value="3" control={<Radio />} label="3" />
-          <FormControlLabel value="none" control={<Radio />} label="No lab" />
+          <FormControlLabel value="1" control={<Radio required/>} label="1" />
+          <FormControlLabel value="2" control={<Radio required/>} label="2" />
+          <FormControlLabel value="3" control={<Radio required/>} label="3" />
+          <FormControlLabel value="" control={<Radio required/>} label="No lab" />
         </RadioGroup>
         </Grid> 
 
