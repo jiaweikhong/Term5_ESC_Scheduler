@@ -21,6 +21,7 @@ createInstructor = 0
 class Data():
     loggedUser = ""
     pillar = ""
+    courses = ['50.001', '50.002', '50.003', '50.005', '50.034']
     incorrectLoginUser = ""
     incorrectTries = 0
     createInstructor = 0
@@ -412,6 +413,13 @@ def plannerlogin():
 
 @app.route("/plannerwelcome", methods=['GET', 'POST'])
 def plannerwelcome():
+    coursesInfo = {}
+    for courseID in Data.courses:
+        courseInfo = dbfs.collection('courses').document(courseID).get().to_dict()
+        coursesInfo[courseID] = courseInfo
+
+    oneInfo = dbfs.collection('courses').document('50.001').get().to_dict()
+
     if request.method == 'POST':
         if 'Freshmore' in request.form:
             return redirect(url_for('freshmoreschedule'))
@@ -423,7 +431,9 @@ def plannerwelcome():
             return redirect(url_for('esdschedule'))
         elif 'ASD' in request.form:
             return redirect(url_for('asdschedule'))
-    return render_template("index.html")
+
+    # print (coursesInfo)
+    return render_template("index.html", coursesInfo = courseInfo)
 
 @app.route("/createschedule", methods=['GET', 'POST'])
 def createschedule():

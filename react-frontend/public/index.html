@@ -39,6 +39,12 @@
       window.parsedtoken = JSON.parse(unparsedtoken);
     }
 
+    if ("{{ coursesInfo }}" != "") {
+      window.unparsedCoursesInfo = "{{ coursesInfo }}";
+      window.unparsedCoursesInfo = window.unparsedCoursesInfo.replace(/&#39;/g, "\"");
+      window.parsedCoursesInfo = JSON.parse(unparsedCoursesInfo)
+    }
+
     window.notif = "{{ notif }}"
 
   </script>
