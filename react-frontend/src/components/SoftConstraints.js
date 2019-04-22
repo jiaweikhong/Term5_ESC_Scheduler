@@ -246,7 +246,7 @@ class SoftConstraints extends React.Component {
     lab1:'',
     lab2:'',
     lab3:'',
-    value: 'female',
+    //value: 'female',
 
     
   };
@@ -410,12 +410,12 @@ class SoftConstraints extends React.Component {
           className={classes.group}
           lecture={this.state.lecture}
           //value={this.state.lecture}
-          onChange={this.handleChange}
+          onChange={this.handleChange('lecture')}
         >
           <FormControlLabel value="1" control={<Radio />} label="1" />
           <FormControlLabel value="2" control={<Radio />} label="2" />
           <FormControlLabel value="3" control={<Radio />} label="3" />
-          <FormControlLabel value="none" control={<Radio />} label="No lecture" />
+          <FormControlLabel value="" control={<Radio />} label="No lecture" />
         </RadioGroup>
 
         </Grid>
@@ -511,7 +511,7 @@ class SoftConstraints extends React.Component {
           name="cohort"
           className={classes.group}
           cohort={this.state.cohort}
-          onChange={this.handleChange}
+          onChange={this.handleChange('cohort')}
           value={this.state.cohort}
         >
           <FormControlLabel value="1" control={<Radio />} label="1" />
@@ -610,7 +610,7 @@ class SoftConstraints extends React.Component {
           name="lab"
           className={classes.group}
           lab={this.state.lab}
-          onChange={this.handleChange}
+          onChange={this.handleChange('lab')}
           value = {this.state.lab}
         >
           <FormControlLabel value="1" control={<Radio />} label="1" />

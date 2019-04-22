@@ -198,7 +198,7 @@ def CourseMaterial():
         course['Components']={}
         course['Components']['Lecture']={}
         course['Components']['Lecture']['CohortClasses']={}
-        #course['Components']['Lecture']['NumberSessions']=request.form['lecture']
+        course['Components']['Lecture']['NumberSessions']=request.form['lecture']
         course['Components']['Lecture']['LectSession1']=request.form['lect_1']
         course['Components']['Lecture']['LectSession2']=request.form['lect_2']
         course['Components']['Lecture']['LectSession3']=request.form['lect_3']
@@ -207,7 +207,7 @@ def CourseMaterial():
         #Cohort session
         course['Components']['Cohort Session']={}
         course['Components']['Cohort Session']['Cohort Classes']={}
-        #course['Components']['Cohort Session']['NumberSessions']=request.form['cohort']
+        course['Components']['Cohort Session']['NumberSessions']=request.form['cohort']
         course['Components']['Cohort Session']['CohortSession1']=request.form['co_1']
         course['Components']['Cohort Session']['CohortSession2']=request.form['co_2']
         course['Components']['Cohort Session']['CohortSession3']=request.form['co_3']
@@ -215,7 +215,7 @@ def CourseMaterial():
         #Lab session
         course['Components']['Lab Session']={}
         course['Components']['Lab Session']['Cohort Classes']={}
-        #course['Components']['Lab Session']['NumberSessions']=request.form['lab']
+        course['Components']['Lab Session']['NumberSessions']=request.form['lab']
         course['Components']['Lab Session']['LabSession1']=request.form['lab1']
         course['Components']['Lab Session']['LabSession2']=request.form['lab2']
         course['Components']['Lab Session']['LabSession3']=request.form['lab3']
