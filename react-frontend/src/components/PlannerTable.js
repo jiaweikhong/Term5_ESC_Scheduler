@@ -1,5 +1,5 @@
 
-    
+
 import React from "react";
 import MUIDataTable from "mui-datatables";
 import { withStyles } from '@material-ui/core/styles';
@@ -10,20 +10,20 @@ import { TextField, Table, TableBody, TableHead, Typography } from "@material-ui
 
 
 const styles = theme => ({
-    root: {
-      width: '100%',
-      marginTop: theme.spacing.unit ,
-      overflowX: 'auto',
-      minWidth: 500,
-    },
-    text:{
-      textAlign:'left',
-      marginTop:30,
-      marginLeft: 20
-    }
-  
-  
-  });
+  root: {
+    width: '100%',
+    marginTop: theme.spacing.unit,
+    overflowX: 'auto',
+    minWidth: 500,
+  },
+  text: {
+    textAlign: 'left',
+    marginTop: 30,
+    marginLeft: 20
+  }
+
+
+});
 
 class PlannerTable extends React.Component {
 
@@ -36,19 +36,19 @@ class PlannerTable extends React.Component {
       "Course Title",
       "Course Lead",
       "Instructors",
-    //   { name: "Salary", options: { hint: "USD / year"}}
+      //   { name: "Salary", options: { hint: "USD / year"}}
     ];
 
-    const data = [
-        ["ISTD",50.003, "Elements of Software Construction", "Sun Jun","Sudipta Chattopadhyay"],
-        ["ISTD5",50.005, "Computer Systems Engineering", "David Yau","Natalie Agus"],
-        ["ISTD",50.034, "Introduction to Probability and Statistics", "Tony Quek","Gemma Roig, Cong Kai Fong Ernest"],
-      ["Freshmore",10.004, "Advanced Math II", "Sergey Kushnarev", "Wang XinYin"],
-      ["HASS", "01.010" , "Freshmore Writing Programme", "Pang Yang Hui", "Eunice Leong"],
+    // const data = [
+    //   ["ISTD", 50.003, "Elements of Software Construction", "Sun Jun", "Sudipta Chattopadhyay"],
+    //   ["ISTD5", 50.005, "Computer Systems Engineering", "David Yau", "Natalie Agus"],
+    //   ["ISTD", 50.034, "Introduction to Probability and Statistics", "Tony Quek", "Gemma Roig, Cong Kai Fong Ernest"],
+    //   ["Freshmore", 10.004, "Advanced Math II", "Sergey Kushnarev", "Wang XinYin"],
+    //   ["HASS", "01.010", "Freshmore Writing Programme", "Pang Yang Hui", "Eunice Leong"],
 
 
 
-    ];
+    // ];
 
     const options = {
       filter: true,
@@ -57,7 +57,7 @@ class PlannerTable extends React.Component {
       responsive: 'stacked',
       rowsPerPage: 10,
       expandableRows: true,
-      
+
       customToolbarSelect: (selectedRows, displayData, setSelectedRows) => (
         <CustomToolbarSelect selectedRows={selectedRows} displayData={displayData} setSelectedRows={setSelectedRows} />
       ),
@@ -149,20 +149,20 @@ class PlannerTable extends React.Component {
                       <TableCell>1030</TableCell>
                     </TableRow>
                   </TableHead>
-                  </TableBody>
+                </TableBody>
               </Table>
             </TableCell>
           </TableRow>
         );
       }
-    //   isRowSelectable: (dataIndex) => {
-    //     //prevents selection of row with title "Attorney"
-    //     return data[dataIndex][1] != "Attorney";
-    //   }
+      //   isRowSelectable: (dataIndex) => {
+      //     //prevents selection of row with title "Attorney"
+      //     return data[dataIndex][1] != "Attorney";
+      //   }
     };
 
     return (
-      <MUIDataTable title={"Create Timetable"} data={data} columns={columns} options={options} />
+      <MUIDataTable title={"Create Timetable"} data={window.data} columns={columns} options={options} />
     );
 
   }

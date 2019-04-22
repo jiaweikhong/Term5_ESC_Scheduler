@@ -21,6 +21,7 @@ createInstructor = 0
 class Data():
     loggedUser = ""
     pillar = ""
+    # courses = ['50.001', '50.002', '50.003', '50.005', '50.034']
     incorrectLoginUser = ""
     incorrectTries = 0
     createInstructor = 0
@@ -90,6 +91,8 @@ def instructorwelcome():
 
 @app.route("/uploadcourse", methods=['GET','POST'])
 def uploadcourse():
+    loggedUser = Data.loggedUser
+    weeklysched = retrieveInstructorCourses(loggedUser)
     if request.method == 'POST':
         ## submission for registered courses of instructor
         name = Data.loggedUser
@@ -183,10 +186,12 @@ def uploadcourse():
             # paste back to firestore. this will delete the whole dict and set it from scratch.
             dbfs.collection('RawInput').document(name).update(natalie)
 
-    return render_template('index.html')
+    return render_template('index.html', user=loggedUser, token=weeklysched)
 
 @app.route("/softconstraints", methods=['GET','POST'])
 def CourseMaterial():
+    loggedUser = Data.loggedUser
+    weeklysched = retrieveInstructorCourses(loggedUser)
     if request.method == 'POST':
         courseCollection = dbfs.collection('courses').get()
         courseCode = request.form['courseCode1']
@@ -270,7 +275,7 @@ def CourseMaterial():
 
 
 
-    return render_template('index.html')
+    return render_template('index.html', user=loggedUser, token=weeklysched)
 
 
 @app.route("/cohortclass", methods=['GET','POST'])
@@ -428,8 +433,20 @@ def plannerlogin():
             error = "Invalid credentials, please try again. Incorrect tries = " + str(Data.incorrectTries)
     return render_template('index.html', error=error)
 
+def plannerObtainCourses():
+    coursesInfo = {}
+    document = dbfs.collection('courses').get()
+    # coursesInfo = document.getData()
+    for courseID in document:
+        # print(courseID.id)
+        courseInfo = dbfs.collection('courses').document(courseID.id).get().to_dict()
+        coursesInfo[courseID.id] = courseInfo
+    return coursesInfo
+
 @app.route("/plannerwelcome", methods=['GET', 'POST'])
 def plannerwelcome():
+    coursesInfo = plannerObtainCourses()
+    user = Data.loggedUser
     if request.method == 'POST':
         if 'Freshmore' in request.form:
             return redirect(url_for('freshmoreschedule'))
@@ -441,15 +458,19 @@ def plannerwelcome():
             return redirect(url_for('esdschedule'))
         elif 'ASD' in request.form:
             return redirect(url_for('asdschedule'))
-    return render_template("index.html")
+
+    # print (coursesInfo)
+    return render_template("index.html", coursesInfo = coursesInfo, user=user)
 
 @app.route("/createschedule", methods=['GET', 'POST'])
 def createschedule():
+    coursesInfo = plannerObtainCourses()
+    user = Data.loggedUser
     if request.method == 'POST':
         # run algo here
         print ("Calling algo function now...")
         # Algorithm.printHello()        # test function
-    return render_template("index.html")
+    return render_template("index.html", coursesInfo = coursesInfo, user=user)
 
 @app.route("/freshmoreschedule", methods=['GET', 'POST'])
 def freshmoreschedule():
@@ -467,6 +488,8 @@ def retrieveCourse(courseID):
 
 @app.route("/istdschedule", methods=['GET', 'POST'])
 def istdschedule():
+    user = Data.loggedUser
+    coursesInfo = plannerObtainCourses()
     # this is where we obtain data from firebase
     weeklysched = retrieveCourse("EmptyCourse")
     if request.method == 'POST':
@@ -481,7 +504,7 @@ def istdschedule():
         elif '50.034' in request.form:
             weeklysched = retrieveCourse("50.034")
     jsonify(weeklysched)
-    return render_template('index.html', token=weeklysched)
+    return render_template('index.html', token=weeklysched, coursesInfo=coursesInfo, user=user)
     
 @app.route("/esdschedule", methods=['GET', 'POST'])
 def esdschedule():
