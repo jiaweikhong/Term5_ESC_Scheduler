@@ -64,7 +64,7 @@ function AdminWelcome(props) {
             noWrap
           // className ={classes.welcome}
           >
-            Welcome, {window.user}
+            Welcome {window.user}
           </Typography>
           <div className={classes.icons}>
             <IconButton

@@ -215,7 +215,7 @@ class CohortClass extends React.Component {
         
         <main className={classes.content}>
           <div>
-      <MUIDataTable title={"Course Details"} data={data} columns={columns} options={options} />
+      <MUIDataTable title={"Course Details"} data={window.cohortData} columns={columns} options={options} />
       
       <Dialog
       open={this.state.open}

@@ -52,7 +52,7 @@ class PlannerTable extends React.Component {
 
     const options = {
       filter: true,
-      selectableRows: true,
+      selectableRows: false,
       filterType: 'dropdown',
       responsive: 'stacked',
       rowsPerPage: 10,

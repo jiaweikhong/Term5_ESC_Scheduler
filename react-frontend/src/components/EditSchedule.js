@@ -220,8 +220,8 @@ class EditSchedule extends React.Component {
         <main className={classes.content}>
           {/* <CourseTable/> */}
           <div>
-            <MUIDataTable title={"Course Details"} data={data} columns={columns} options={options} />
-
+            <MUIDataTable title={"Course Details"} data={window.data} columns={columns} options={options} />
+            {/* {window.data} */}
             {/* {this.renderDialog()} */}
 
             <Dialog
