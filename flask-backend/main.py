@@ -277,8 +277,11 @@ def CohortInformation():
 
 @app.route("/editschedule", methods=['GET','POST'])
 def EditSchedule():
+    loggedUser = Data.loggedUser
+    adminPillar = Data.pillar
+    weeklysched = retrieveCourse('EmptyCourse')
     if request.method == 'POST':
-
+        # print (weeklysched)
         #course fields need to be created by instructor first. else, submission will give error
         if(request.form['courseCode']):
             courseCode = request.form['courseCode']
@@ -295,7 +298,7 @@ def EditSchedule():
 
             dbfs.collection('courses').document(courseCode).update(CourseDetailsDict)
 
-    return render_template('index.html')
+    return render_template('index.html', user=loggedUser, pillar=adminPillar, token=weeklysched)
 
 
 def check_admin_login(check_username, check_password):
