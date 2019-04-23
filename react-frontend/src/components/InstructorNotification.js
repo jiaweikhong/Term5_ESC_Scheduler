@@ -1,28 +1,41 @@
 import React from 'react';
-import {Button} from '@material-ui/core'
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Typography from '@material-ui/core/Typography';
+import {Link} from 'react-router-dom';
+import {Button, Divider, TextField, FormControl} from '@material-ui/core'
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 
-const InstructorNotification = () => {
 
-	return (
-
-		<html>
-			<head>
-				<title>Notifications</title>
-			</head>
-
-			<body>
-
-				<h1>View Notifications</h1>
-                <Button variant="contained" color="primary" >
-       			 Send Message
-      			</Button>
-		        <p><a href="instructorwelcome">back</a></p>
-			</body>
-		</html>
+const styles = theme => ({
+	root: {
+		display: 'flex',
+	  },
+ 
+});
 
 
-	);
+
+class InstructorNotifications extends React.Component {
+
+
+  render(){
+    const { classes } = this.props;
+
+  return (
+    <div className={classes.root}>
+      <CssBaseline />
+      
+         
+    </div>
+  );
+}}
+
+InstructorNotifications.propTypes = {
+  classes: PropTypes.object.isRequired,
 };
 
-export default InstructorNotification;
+export default withStyles(styles)(InstructorNotifications);

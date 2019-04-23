@@ -285,10 +285,13 @@ def CohortInformation():
     weeklysched = retrieveCourse('EmptyCourse')
     adminCoursesDetail = obtainCourses()
     cohortClassDetails = obtainCohorts()
+    check = True
+    error=""
 
     if request.method == 'POST':
 
-        if(request.form['ClassID']):
+        # if(request.form['ClassID']):
+        if('cohortInfo' in request.form):
             ClassInfo = dbfs.collection('CohortClassInfo').get()
             classID = request.form['ClassID']
             CohortDetailsDict = {}
@@ -298,6 +301,18 @@ def CohortInformation():
 
 
             dbfs.collection('CohortClassInfo').document(classID).set(CohortDetailsDict)
+
+        if('DelButton' in request.form):
+            classID = request.form['delClass']
+            if(dbfs.collection('CohortClassInfo').document(classID).get().exists):
+                print("exist")
+                dbfs.collection('CohortClassInfo').document(classID).get
+                dbfs.collection('CohortClassInfo').document(classID).delete()
+
+                
+
+       
+
 
     return render_template('index.html', user=loggedUser, pillar=adminPillar, token=weeklysched, adminCoursesDetail=adminCoursesDetail, cohortClassDetails=cohortClassDetails)
 

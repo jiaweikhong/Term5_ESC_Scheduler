@@ -12,7 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems } from '../lists/Adminmenu';
 import { Link } from 'react-router-dom';
-import { Button } from '@material-ui/core'
+import { Button, FormControl } from '@material-ui/core'
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -22,6 +22,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MUIDataTable from "mui-datatables";
 import Tooltip from "@material-ui/core/Tooltip";
 import AddIcon from "@material-ui/icons/Add";
+import ClearIcon from "@material-ui/icons/Clear";
 
 const drawerWidth = 240;
 
@@ -82,6 +83,7 @@ class CohortClass extends React.Component {
 
   state = {
     open: false,
+    delopen: false,
   }
 
   handleChange = name => event => {
@@ -91,18 +93,16 @@ class CohortClass extends React.Component {
   };
 
 
-  onChange = chips => {
-    this.setState({ chips });
-  }
-
-
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({ open: false, delopen:false });
   };
 
   handleClick = () => {
     this.setState({ open: true });
+  }
+  handleDelete = () => {
+    this.setState({ delopen: true });
   }
 
 
@@ -120,25 +120,30 @@ class CohortClass extends React.Component {
 
     ];
 
-    const data = [
-      ["ISTD", "ISTD1", "40"],
-      ["ISTD", "ISTD2", "47"],
-      ["ISTD", "ISTD3", "44"],
+    // const data = [
+    //   ["ISTD", "ISTD1", "40"],
+    //   ["ISTD", "ISTD2", "47"],
+    //   ["ISTD", "ISTD3", "44"],
 
-    ];
+    // ];
 
     const options = {
       filter: true,
       selectableRows: false,
       filterType: 'dropdown',
       responsive: 'stacked',
-      rowsPerPage: 10,
+      rowsPerPage: 20,
       customToolbar: () => {
         return (
           <React.Fragment>
             <Tooltip title={"custom icon"}>
               <IconButton className={classes.iconButton} onClick={this.handleClick}>
                 <AddIcon className={classes.deleteIcon} />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title={"Delete Event"}>
+              <IconButton className={classes.iconButton} onClick={this.handleDelete}>
+                <ClearIcon className={classes.deleteIcon} />
               </IconButton>
             </Tooltip>
           </React.Fragment>
@@ -280,6 +285,39 @@ class CohortClass extends React.Component {
                 </DialogActions>
               </form>
             </Dialog>
+
+            <Dialog
+              open={this.state.delopen}
+              onClose={this.handleClose}
+              aria-labelledby="form-dialog-title"
+
+            >
+              <form method='POST'>
+                <DialogTitle id="form-dialog-title"> Delete Cohort Class Details</DialogTitle>
+               
+                <DialogContent>
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    className={classes.pillar}
+                    name='delClass'
+                    label="Cohort Class"
+                    variant="outlined"
+                    fullWidth
+                  ></TextField>
+                  
+
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={this.handleClose} color="primary" type='submit' name='DelButton'>
+                    Save
+                  </Button>
+                </DialogActions>
+                
+              </form>
+            </Dialog>
+
+            
 
 
 
