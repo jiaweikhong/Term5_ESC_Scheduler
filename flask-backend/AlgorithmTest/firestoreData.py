@@ -200,7 +200,7 @@ class firestoreData:
     def pullInstructors(self):
         instructorCollection = self.dbfs.collection("RawInput").get()
         for instructorDoc in instructorCollection:
-            instructorDict = instructorCollection.to_dict()
+            instructorDict = instructorDoc.to_dict()
             coursesTeaching = []
             for course in self.courseArray:
                 if course.courseID in instructorDict['Courses'].values():
@@ -367,6 +367,8 @@ class firestoreData:
                         dayName = "Friday"
                     cohortSchedule["Week"][dayName] = dayDict
                 cohortsdocument.set(cohortSchedule)
+
+
 
 # for instructor in instructorArray:
 #     print(instructor.instructorName)
