@@ -2,6 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 
+driver = webdriver.Chrome()
+
 def clickOn(id):
     clickElem = driver.find_element_by_id(id)
     clickElem.click()
@@ -64,7 +66,6 @@ def testPlanner():
     assertElementByID("tabtitle", "Events")
     clickOn("logout")
 
-driver = webdriver.Chrome()
 driver.get("http://127.0.0.1:5000/")
 assert "SUTD Timetable Scheduler" in driver.title
 

@@ -286,20 +286,16 @@ def CohortInformation():
     weeklysched = retrieveCourse('EmptyCourse')
     adminCoursesDetail = obtainCourses()
     cohortClassDetails = obtainCohorts()
-
     if request.method == 'POST':
-
         if(request.form['ClassID']):
             ClassInfo = dbfs.collection('CohortClassInfo').get()
             classID = request.form['ClassID']
             CohortDetailsDict = {}
-            
             CohortDetailsDict['pillar'] = request.form['cohortPillar']
             CohortDetailsDict['num'] = request.form['studentNo']
 
-
             dbfs.collection('CohortClassInfo').document(classID).set(CohortDetailsDict)
-
+            cohortClassDetails = obtainCohorts()
     return render_template('index.html', user=loggedUser, pillar=adminPillar, token=weeklysched, adminCoursesDetail=adminCoursesDetail, cohortClassDetails=cohortClassDetails)
 
 @app.route("/editschedule", methods=['GET','POST'])
@@ -624,8 +620,7 @@ def createschedule():
         print ("Calling algo function now...")
         algoRunner = firestoreData(cred, default_app, dbfs)
         algoRunner.hihi()
-        # firestoreData.generateAndPushTimetable(firestoreData)
-        # Algorithm.printHello()        # test function
+        # algoRunner.generateAndPushTimetable()
     return render_template("index.html", coursesInfo = coursesInfo, user=user)
 
 @app.route("/freshmoreschedule", methods=['GET', 'POST'])

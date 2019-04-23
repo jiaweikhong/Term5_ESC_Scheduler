@@ -231,7 +231,7 @@ class firestoreData:
                     course.cohorts.append(cohort)
 
     def generateAndPushTimetable(self):
-        print("generating and pushing timetable")
+        print("Generating and pushing timetable")
         possible = self.algo.generate_schedule()
         if possible:
             #push timetable after generating it
@@ -367,6 +367,7 @@ class firestoreData:
                         dayName = "Friday"
                     cohortSchedule["Week"][dayName] = dayDict
                 cohortsdocument.set(cohortSchedule)
+        print("Timetable pushed to Firestore!")
 
 # cred = credentials.Certificate('term-5-esc-scheduler-firebase-adminsdk-cfadg-cd4c469d4d.json')
 # default_app = firebase_admin.initialize_app(cred)
