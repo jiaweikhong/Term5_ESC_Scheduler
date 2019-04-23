@@ -303,7 +303,8 @@ def EditSchedule():
     if request.method == 'POST':
         # print (weeklysched)
         #course fields need to be created by instructor first. else, submission will give error
-        if(request.form['courseCode']):
+        # if(request.form['courseCode']):
+        if('please' in request.form):
             courseCode = request.form['courseCode']
             CourseDetailsDict = dbfs.collection('courses').document(courseCode).get().to_dict()
             classes = request.form['cohortclass']
@@ -319,6 +320,134 @@ def EditSchedule():
             dbfs.collection('courses').document(courseCode).update(CourseDetailsDict)
 
     return render_template('index.html', user=loggedUser, pillar=adminPillar, token=weeklysched)
+
+@app.route("/eventscheduling", methods=['GET','POST'])
+def EventScheduling():
+    if request.method == 'POST':
+        error = ""
+        boolean = True
+        if 'AddEvent' in request.form:
+            dbfs.collection('Events').get
+            eventTitle = request.form['titleAdd']
+            event = {}
+            event['EventTitle'] = request.form['titleAdd']
+            event['Date'] = request.form['DateAdd']
+            event['Day'] = request.form['day']
+            event['Venue'] = request.form['venue']
+
+            venue = request.form['venue']
+            day = request.form['day']
+            start = request.form['StartAdd']
+            end = request.form['EndAdd']
+            i = int(start)
+            roomDocument = dbfs.collection('rooms').document(venue).get().to_dict()
+            for i in range (int(start),int(end)):
+                if(roomDocument['Week'][day][str(i)]):
+                    print(roomDocument['Week'][day][str(i)])
+                    error = "The venue is being used during this time slot"
+                    boolean = False
+
+           
+            if(boolean == True):
+                if(start == '1'):
+                    start = '8.5'
+                elif(start == '2'):
+                    start = '9'
+                elif(start == '3'):
+                    start = '9.5'
+                elif(start == '4'):
+                    start = '10'
+                elif(start == '5'):
+                    start = '10.5'
+                elif(start == '6'):
+                    start = '11'
+                elif(start == '7'):
+                    start = '11.5'
+                elif(start == '8'):
+                    start = '12'
+                elif(start == '9'):
+                    start = '12.5'
+                elif(start == '10'):
+                    start = '13'
+                elif(start == '10'):
+                    start = '13.5'
+                elif(start == '11'):
+                    start = '14'
+                elif(start == '12'):
+                    start = '14.5'
+                elif(start == '13'):
+                    start = '15'
+                elif(start == '14'):
+                    start = '15.5'
+                elif(start == '15'):
+                    start = '16'
+                elif(start == '16'):
+                    start = '16.5'
+                elif(start == '17'):
+                    start = '17'
+                elif(start == '18'):
+                    start = '17.5'
+                elif(start == '19'):
+                    start = '18'
+                elif(start == '20'):
+                    start = '18.5'
+
+                if(end == '1'):
+                    end = '8.5'
+                elif(end == '2'):
+                    end = '9'
+                elif(end == '3'):
+                    end = '9.5'
+                elif(end == '4'):
+                    end = '10'
+                elif(end == '5'):
+                    end = '10.5'
+                elif(end == '6'):
+                    end = '11'
+                elif(end == '7'):
+                    end = '11.5'
+                elif(end == '8'):
+                    end = '12'
+                elif(end == '9'):
+                    end = '12.5'
+                elif(end == '10'):
+                    end = '13'
+                elif(end == '10'):
+                    end = '13.5'
+                elif(end == '11'):
+                    end = '14'
+                elif(end == '12'):
+                    end = '14.5'
+                elif(end == '13'):
+                    end = '15'
+                elif(end == '14'):
+                    end = '15.5'
+                elif(end == '15'):
+                    end = '16'
+                elif(end == '16'):
+                    end = '16.5'
+                elif(end == '17'):
+                    end = '17'
+                elif(end == '18'):
+                    end = '17.5'
+                elif(end == '19'):
+                    end = '18'
+                elif(end == '20'):
+                    end = '18.5'
+                
+                event['StartTime']= start
+                event['EndTime'] = end
+                dbfs.collection('Events').document(eventTitle).set(event)
+
+        if 'DelEvent' in request.form:
+            eventTitle = request.form['titleDel']
+            dbfs.collection('Events').document(eventTitle).get
+            dbfs.collection('Events').document(eventTitle).delete()
+            
+
+
+    return render_template('index.html')
+
 
 
 def check_admin_login(check_username, check_password):

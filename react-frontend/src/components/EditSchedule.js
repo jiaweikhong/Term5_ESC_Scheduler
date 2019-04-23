@@ -52,10 +52,10 @@ const styles = theme => ({
 });
 
 const lab = [
-  { value: 'physics', label: 'Physics Lab' },
-  { value: 'chembio', label: 'Chemistry and Biology Lab', },
-  { value: 'armsII', label: 'AMRS II' },
-  { value: 'dsl', label: 'Digital Systems Lab' },
+  { value: 'Physics Lab', label: 'Physics Lab' },
+  { value: 'Chemistry and Biology Lab', label: 'Chemistry and Biology Lab', },
+  { value: 'ARMS II', label: 'AMRS II' },
+  { value: 'Digital Systems Lab', label: 'Digital Systems Lab' },
   { value: '', label: 'None' }]
 
 class EditSchedule extends React.Component {
@@ -67,37 +67,6 @@ class EditSchedule extends React.Component {
       shareholders: [{ name: "" }],
     };
   }
-
-  handleNameChange = evt => { this.setState({ name: evt.target.value }); };
-
-
-
-  handleShareholderNameChange = idx => evt => {
-    const newShareholders = this.state.shareholders.map((shareholder, sidx) => {
-      if (idx !== sidx) return shareholder;
-
-      return { ...shareholder, name: evt.target.value };
-    });
-
-    this.setState({ shareholders: newShareholders });
-  };
-
-  handleSubmit = evt => {
-    const { name, shareholders } = this.state;
-    alert(`Incorporated: ${name} with ${shareholders.length} shareholders`);
-  };
-
-  handleAddShareholder = () => {
-    this.setState({
-      shareholders: this.state.shareholders.concat([{ name: "" }])
-    });
-  };
-
-  handleRemoveShareholder = idx => () => {
-    this.setState({
-      shareholders: this.state.shareholders.filter((s, sidx) => idx !== sidx)
-    });
-  };
 
   state = {
     open: false,
@@ -286,9 +255,6 @@ class EditSchedule extends React.Component {
               </form>
             </Dialog>
 
-
-
-            {this.shareholder}
 
           </div>
         </main>

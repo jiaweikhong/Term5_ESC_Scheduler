@@ -84,7 +84,7 @@ class CohortClass extends React.Component {
       open: false,
     }   
 
-        handleChange = name => event => {
+  handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
     });
