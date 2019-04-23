@@ -1,15 +1,15 @@
 # Use the following imports if calling from Flask's main.py
-from .Timetable import Timetable
-from .Instructor import Instructor
-from .Cohort import Cohort
-from .Course import Course
-from .Room import Room
+# from .Timetable import Timetable
+# from .Instructor import Instructor
+# from .Cohort import Cohort
+# from .Course import Course
+# from .Room import Room
 # Use the following imports if using this file on its own
-# from Timetable import Timetable
-# from Instructor import Instructor
-# from Cohort import Cohort
-# from Course import Course
-# from Room import Room
+from Timetable import Timetable
+from Instructor import Instructor
+from Cohort import Cohort
+from Course import Course
+from Room import Room
 
 import random
 import itertools
@@ -64,7 +64,7 @@ class Algorithm:
 
                         # if self.isCourseOnSameDay(course.courseName, self.cohorts, courseComponent[3], dayindex):
                         #     continue
-
+                        chosenRoom = None
                         #Need to assign room by availability, rather than random
                         rooms = self.rooms[courseComponent[0]]
                         for room in rooms:
@@ -78,7 +78,6 @@ class Algorithm:
                             print("No possible room for " + course.courseName)
                             print(courseComponent)
                             return False
-
                         conditions = (day[time] == [],
                                       self.checkInstructorSchedule(course.courseInstructors, dayindex, time, duration),
                                       self.checkClassSchedule(course.cohorts, courseComponent[2], courseComponent[3], dayindex, time, duration), 
@@ -96,7 +95,6 @@ class Algorithm:
                             chosenRoom.addIntoTimeTable(course.courseName, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
                             coursesAdded.append(course)
                             self.courseComponents[course.courseName].remove(courseComponent)
-                            chosenRoom = None
 
             for course in self.totalCourses:
                 for component in self.courseComponents[course.courseName]:
