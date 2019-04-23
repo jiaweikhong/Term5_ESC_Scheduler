@@ -369,6 +369,8 @@ class firestoreData:
                 cohortsdocument.set(cohortSchedule)
         print("Timetable pushed to Firestore!")
 
+
+
 # for instructor in instructorArray:
 #     print(instructor.instructorName)
 #     instructor.printTimetable()
