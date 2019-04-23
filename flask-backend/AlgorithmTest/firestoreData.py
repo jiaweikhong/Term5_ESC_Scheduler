@@ -1,15 +1,17 @@
 # Use the following imports if calling from Flask's main.py
-# from .Timetable import Timetable
-# from .Instructor import Instructor
-# from .Cohort import Cohort
-# from .Course import Course
-# from .Room import Room
+from .Timetable import Timetable
+from .Instructor import Instructor
+from .Cohort import Cohort
+from .Course import Course
+from .Room import Room
+from .Algorithm import Algorithm
 # Use the following imports if using this file on its own
-from Timetable import Timetable
-from Instructor import Instructor
-from Cohort import Cohort
-from Course import Course
-from Room import Room
+# from Timetable import Timetable
+# from Instructor import Instructor
+# from Cohort import Cohort
+# from Course import Course
+# from Room import Room
+# from Algorithm import Algorithm
 
 import random
 import itertools
@@ -17,7 +19,7 @@ import unittest
 import firebase_admin
 from firebase_admin import credentials, firestore
 import json
-from .Algorithm import Algorithm
+# from .Algorithm import Algorithm
 
 #TODO make functions
 class firestoreData:
@@ -40,6 +42,9 @@ class firestoreData:
         # cred = credentials.Certificate('term-5-esc-scheduler-firebase-adminsdk-cfadg-cd4c469d4d.json')
         # default_app = firebase_admin.initialize_app(cred)
         # dbfs = firestore.client()
+
+    def hihi(self):
+        print("hello from firestoreData")
 
     #insert classes
     def pullClasses(self):
@@ -226,6 +231,7 @@ class firestoreData:
                     course.cohorts.append(cohort)
 
     def generateAndPushTimetable(self):
+        print("generating and pushing timetable")
         possible = self.algo.generate_schedule()
         if possible:
             #push timetable after generating it

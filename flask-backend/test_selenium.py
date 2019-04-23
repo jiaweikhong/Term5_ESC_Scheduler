@@ -61,7 +61,7 @@ def testPlanner():
     clickOn("editsched")
     assertElementByID("tabtitle", "Edit Schedule")
     clickOn("eventsched")
-    assertElementByID("tabtitle", "Event Schedule")
+    assertElementByID("tabtitle", "Events")
     clickOn("logout")
 
 driver = webdriver.Chrome()
@@ -69,8 +69,8 @@ driver.get("http://127.0.0.1:5000/")
 assert "SUTD Timetable Scheduler" in driver.title
 
 driver.fullscreen_window()
-testInstructor()
-testAdmin()
+# testInstructor()
+# testAdmin()
 testPlanner()
 print("Test run successful :)")
 driver.close()
