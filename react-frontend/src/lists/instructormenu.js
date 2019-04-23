@@ -15,7 +15,7 @@ export const mainListItems = (
 
 
   <div>
-    <ListItem 
+    <ListItem id='mysched'
     button
     component = {Link} to = "/instructorwelcome">
       <ListItemIcon>
@@ -24,7 +24,7 @@ export const mainListItems = (
       <ListItemText primary="My Schedule" />
     </ListItem>
 
-    <ListItem 
+    <ListItem id='myinfo'
     button
     component = {Link} to = "/uploadcourse">
       <ListItemIcon>
@@ -33,7 +33,7 @@ export const mainListItems = (
       <ListItemText primary="My Information" />
     </ListItem>
 
-    <ListItem 
+    <ListItem id='courseinfo'
     button
     component = {Link} to = "/softconstraints">
       <ListItemIcon>

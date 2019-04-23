@@ -111,7 +111,7 @@ function PlannerWelcome(props) {
             noWrap
           // className ={classes.welcome}
           >
-            Welcome
+            Welcome {window.user}
           </Typography>
           <div className={classes.icons}>
             <IconButton
@@ -145,7 +145,7 @@ function PlannerWelcome(props) {
 
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Typography variant="h4" gutterBottom component="h2">
+        <Typography id="tabtitle" variant="h4" gutterBottom component="h2">
           My Schedules
         </Typography>
 

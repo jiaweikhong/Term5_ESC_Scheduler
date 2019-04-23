@@ -8,19 +8,12 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems } from '../lists/Adminmenu';
-import { secondaryListItems } from '../lists/Adminmenu';
 import { Link } from 'react-router-dom';
 import { Button, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core'
-import timetableplaceholder from "./images/timetableplaceholder.png";
 
-// TODO
-// try to stay in welcome page and only change the content when clicking on the list icons
-//change icons for list
-//
 
 const drawerWidth = 240;
 
@@ -71,7 +64,7 @@ function AdminWelcome(props) {
             noWrap
           // className ={classes.welcome}
           >
-            Welcome, {window.user}
+            Welcome {window.user}
           </Typography>
           <div className={classes.icons}>
             <IconButton
@@ -80,7 +73,7 @@ function AdminWelcome(props) {
               <NotificationsIcon />
             </IconButton>
             <Button
-              id = "logout"
+              id="logout"
               color='inherit'
               component={Link} to="/">
               LOGOUT
@@ -101,20 +94,25 @@ function AdminWelcome(props) {
 
         <List>{mainListItems}</List>
 
-        <Divider />
-        <List>{secondaryListItems}</List>
+        {/* <Divider />
+        <List>{secondaryListItems}</List> */}
 
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Typography variant="h4" gutterBottom component="h2">
+        <Typography id="tabtitle" variant="h4" gutterBottom component="h2">
           {window.pillar} Pillar Timetable
           </Typography>
+        {/* {window.user}<br/>
+        {window.pillar}<br/>
+        {window.pillarcourses[0]}<br/> */}
 
         <form method="POST">
           <Button id="course1" type='submit' color='inherit' name={window.pillarcourses[0]}>{window.pillarcourses[0]}</Button>
           <Button id="course2" type='submit' color='inherit' name={window.pillarcourses[1]}>{window.pillarcourses[1]}</Button>
           <Button id="course3" type='submit' color='inherit' name={window.pillarcourses[2]}>{window.pillarcourses[2]}</Button>
+          <Button id="course1" type='submit' color='inherit' name={window.pillarcourses[3]}>{window.pillarcourses[3]}</Button>
+          <Button id="course2" type='submit' color='inherit' name={window.pillarcourses[4]}>{window.pillarcourses[4]}</Button>
         </form>
 
         <Table>

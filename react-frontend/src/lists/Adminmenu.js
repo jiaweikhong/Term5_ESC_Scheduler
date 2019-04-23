@@ -17,7 +17,7 @@ export const mainListItems = (
 
 
   <div>
-    <ListItem 
+    <ListItem id="pillarsched"
     button
     component = {Link} to = "/adminwelcome">
       <ListItemIcon>
@@ -26,13 +26,22 @@ export const mainListItems = (
       <ListItemText primary="Pillar Schedule" />
     </ListItem>
 
-    <ListItem 
+    <ListItem id="coursedet"
     button
     component = {Link} to = "/editschedule">
       <ListItemIcon>
         <LibraryBooksIcon />
       </ListItemIcon>
       <ListItemText primary="Course Details" />
+    </ListItem>
+
+    <ListItem id="cohortclasses"
+    button
+    component = {Link} to = "/cohortclass">
+      <ListItemIcon>
+        <LibraryBooksIcon />
+      </ListItemIcon>
+      <ListItemText primary="Cohort Class Details" />
     </ListItem>
 
     {/* <ListItem 
@@ -48,30 +57,30 @@ export const mainListItems = (
   </div>
 );
 
-export const secondaryListItems = (
-  <div>
+// export const secondaryListItems = (
+//   <div>
 
-    <ListSubheader >Instructors</ListSubheader>
-    <ListItem button
-    component = {Link} to = "/instructorinformation">
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Sudipta Chattopadhyay" />
-    </ListItem>
-    <ListItem button
-    component = {Link} to = "/instructorinformation">
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Sun Jun" />
-    </ListItem>
-    <ListItem button
-    component = {Link} to = "/instructorinformation">
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Natalie Agus" />
-    </ListItem>
-  </div>
-);
+//     <ListSubheader >Instructors</ListSubheader>
+//     <ListItem button
+//     component = {Link} to = "/instructorinformation">
+//       <ListItemIcon>
+//         <AssignmentIcon />
+//       </ListItemIcon>
+//       <ListItemText primary="Sudipta Chattopadhyay" />
+//     </ListItem>
+//     <ListItem button
+//     component = {Link} to = "/instructorinformation">
+//       <ListItemIcon>
+//         <AssignmentIcon />
+//       </ListItemIcon>
+//       <ListItemText primary="Sun Jun" />
+//     </ListItem>
+//     <ListItem button
+//     component = {Link} to = "/instructorinformation">
+//       <ListItemIcon>
+//         <AssignmentIcon />
+//       </ListItemIcon>
+//       <ListItemText primary="Natalie Agus" />
+//     </ListItem>
+//   </div>
+// );

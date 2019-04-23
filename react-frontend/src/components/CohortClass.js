@@ -8,21 +8,20 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems } from '../lists/Adminmenu';
-// import {secondaryListItems} from '../lists/Adminmenu';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core'
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import MUIDataTable from "mui-datatables";
+import Tooltip from "@material-ui/core/Tooltip";
+import AddIcon from "@material-ui/icons/Add";
 
 const drawerWidth = 240;
 
@@ -51,22 +50,35 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
 });
 
-const lab = [
-  { value: 'Physics Lab', label: 'Physics Lab' },
-  { value: 'Chemistry and Biology Lab', label: 'Chemistry and Biology Lab', },
-  { value: 'ARMS II', label: 'AMRS II' },
-  { value: 'Digital Systems Lab', label: 'Digital Systems Lab' },
-  { value: '', label: 'None' }]
-
-class EditSchedule extends React.Component {
-
-  constructor() {
-    super();
-    this.state = {
-      name: "",
-      shareholders: [{ name: "" }],
-    };
+const constraints = [
+  {
+    value: 'ISTD',
+    label: 'ISTD',
+  },
+  {
+    value: 'EPD',
+    label: 'EPD',
+  },
+  {
+    value: 'ESD',
+    label: 'ESD',
+  },
+  {
+    value: 'ASD',
+    label: 'ASD',
+  },
+  {
+    value: 'Freshmore',
+    label: 'Freshmore'
+  },
+  {
+    value: 'HASS',
+    label: 'HASS'
   }
+];
+
+class CohortClass extends React.Component {
+
 
   state = {
     open: false,
@@ -89,27 +101,29 @@ class EditSchedule extends React.Component {
     this.setState({ open: false });
   };
 
+  handleClick = () => {
+    this.setState({ open: true });
+  }
+
 
   render() {
 
     const { classes } = this.props;
 
 
+
+
     const columns = [
-      "Course Code",
-      "Course Title",
-      "Course Lead",
-      "Instructors",
-      "Cohort Classes",
-      "Lab Venue",
-      "Status"
+      "Pillar",
+      "Class",
+      "Number of Students"
 
     ];
 
     const data = [
-      [50.003, "Computer System Engineering", "David Yau", "David Yau, Natalie Agus", "C01,C02,C03", "Digital System Laboratory", "Updated"],
-      [50.004, "Introduction to Algorithm", "David Yau", "David Yau, Natalie Agus", "C01,C02,C03", "", "Updated"],
-      [50.032, "Introduction to Probability and Statistics", "David Yau", "David Yau, Natalie Agus", "C01,C02,C03", "", "Updated"],
+      ["ISTD", "ISTD1", "40"],
+      ["ISTD", "ISTD2", "47"],
+      ["ISTD", "ISTD3", "44"],
 
     ];
 
@@ -119,27 +133,41 @@ class EditSchedule extends React.Component {
       filterType: 'dropdown',
       responsive: 'stacked',
       rowsPerPage: 10,
+      customToolbar: () => {
+        return (
+          <React.Fragment>
+            <Tooltip title={"custom icon"}>
+              <IconButton className={classes.iconButton} onClick={this.handleClick}>
+                <AddIcon className={classes.deleteIcon} />
+              </IconButton>
+            </Tooltip>
+          </React.Fragment>
+        );
+      },
       onChangePage: (numberRows) => {
         console.log(numberRows);
       },
       onSearchChange: (searchText) => {
         console.log(searchText);
       },
-      onRowClick: (rowData, rowState) => {
-        console.log(rowData, rowState);
-        this.setState({
-          open: true
-        })
+      //   onRowClick: (rowData, rowState) => {
+      //     console.log(rowData, rowState);
+      //     this.setState({
+      //       open:true
+      //     })
 
 
 
-      },
+      //   },
     };
 
 
 
     return (
+
       <div className={classes.root}>
+
+
         <CssBaseline />
         <AppBar
           position="fixed"
@@ -181,21 +209,17 @@ class EditSchedule extends React.Component {
 
           <List>{mainListItems}</List>
 
-          {/* <Divider />
-          <List>{secondaryListItems}</List>  */}
+
 
         </Drawer>
 
         <main className={classes.content}>
-          {/* <CourseTable/> */}
           <div>
             <div className={classes.toolbar} />
             <Typography id="tabtitle" variant="h4" gutterBottom component="h2">
-              Course Details
+              Cohort Class Details
           </Typography>
-            <MUIDataTable data={window.data} columns={columns} options={options} />
-            {/* {window.data} */}
-            {/* {this.renderDialog()} */}
+            <MUIDataTable id="tabtitle" data={window.cohortData} columns={columns} options={options} />
 
             <Dialog
               open={this.state.open}
@@ -204,60 +228,59 @@ class EditSchedule extends React.Component {
 
             >
               <form method='POST'>
-                <DialogTitle id="form-dialog-title">Course Details</DialogTitle>
+                <DialogTitle id="form-dialog-title">Cohort Class Details</DialogTitle>
                 <DialogContent>
-                  {/* <DialogContentText>
-          You may leave irrelevant fields blank. Please provide the details accurately.                 
-        </DialogContentText>
-        <DialogContentText>
-          Please list the classes enlisted in this class.                 
-        </DialogContentText> */}
-
 
                   <TextField
-                    name='courseCode'
-                    variant='outlined'
-                    margin="dense"
-                    fullWidth
-                    placeholder='Please type in the course code.'></TextField>
-                  <TextField
-                    name='cohortclass'
-                    variant='outlined'
-                    fullWidth
-                    placeholder='Please separate the classes with a comma.'></TextField>
-                  <TextField
-                    //autoFocus
-                    margin="dense"
-                    name='venue'
-                    id='lab'
+                    name='cohortPillar'
+                    id='choose-pillar'
                     select
-                    label='Choice of lab for lab sessions '
-                    //className={classes.textField}
-                    value={this.state.lab}
                     fullWidth
-                    onChange={this.handleChange('lab')}
+                    label='Pillar'
+                    className={classes.pillar}
+                    value={this.state.pillar1}
+                    onChange={this.handleChange('pillar1')}
+                    variant='outlined'
                     SelectProps={{
-                      // MenuProps: {
-                      //   className: classes.menu,
-                      // },
+                      MenuProps: {
+                        className: classes.menu,
+                      },
                     }}
-
-                    variant="outlined"
+                    margin="normal"
                   >
-                    {lab.map(option => (
+                    {constraints.map(option => (
                       <MenuItem key={option.value} value={option.value}>
                         {option.label}
                       </MenuItem>
                     ))}
                   </TextField>
+
+                  <TextField
+                    //autoFocus
+                    margin="dense"
+                    name='ClassID'
+                    label="Cohort Class Number. i.e. ISTD1"
+                    fullWidth
+                    variant="outlined"
+                  ></TextField>
+
+                  <TextField
+                    margin="dense"
+                    name='studentNo'
+                    label="Number of students in this class"
+                    fullWidth
+                    variant="outlined"
+                  ></TextField>
+
                 </DialogContent>
                 <DialogActions>
-                  <Button onClick={this.handleClose} color="primary" type='submit' name='please'>
+                  <Button onClick={this.handleClose} color="primary" type='submit' name='cohortInfo'>
                     Save
         </Button>
                 </DialogActions>
               </form>
             </Dialog>
+
 
 
           </div>
@@ -269,8 +292,9 @@ class EditSchedule extends React.Component {
 }
 
 
-EditSchedule.propTypes = {
+CohortClass.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(EditSchedule);
+export default withStyles(styles)(CohortClass);
+

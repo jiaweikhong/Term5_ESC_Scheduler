@@ -13,8 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems } from '../lists/PlannerMenu';
-import {Link} from 'react-router-dom';
-import {Button} from '@material-ui/core'
+import { Link } from 'react-router-dom';
+import { Button } from '@material-ui/core'
 import PlannerTable from './PlannerTable';
 
 
@@ -36,22 +36,22 @@ const styles = theme => ({
     width: drawerWidth,
   },
 
-  icons:{
+  icons: {
     position: 'absolute',
     right: 15
-    
+
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
   },
   toolbar: theme.mixins.toolbar,
-  
 
-  
+
+
 });
 
-function CreateSchedule (props) {
+function CreateSchedule(props) {
 
   const { classes } = props;
 
@@ -61,48 +61,60 @@ function CreateSchedule (props) {
       <AppBar
         position="fixed"
         className={classNames(classes.appBar)}>
-      
+
         <Toolbar >
           <Typography
             variant="h6"
             color="inherit"
             noWrap
-            // className ={classes.welcome}
+          // className ={classes.welcome}
           >
-            Welcome
+            Welcome {window.user}
           </Typography>
           <div className={classes.icons}>
-          <IconButton 
-          color="inherit"
-          component = {Link} to = "/plannernotification">    
-              <NotificationsIcon />    
-          </IconButton>
-          <Button 
-          color='inherit' 
-          component = {Link} to = "/">   
-          LOGOUT
+            <IconButton
+              color="inherit"
+              component={Link} to="/plannernotification">
+              <NotificationsIcon />
+            </IconButton>
+            <Button
+              color='inherit'
+              component={Link} to="/">
+              LOGOUT
         </Button>
-        </div>
+          </div>
         </Toolbar>
       </AppBar>
 
-      
+
       <Drawer
-      className={classes.drawer}
+        className={classes.drawer}
         variant="permanent"
         classes={{
           paper: classNames(classes.drawerPaper),
         }}
       >
         <div className={classes.toolbar} />
-        
+
         <List>{mainListItems}</List>
 
 
       </Drawer>
       <main className={classes.content}>
-	  	<PlannerTable/>
-      
+        <div className={classes.toolbar} />
+        <Typography id="tabtitle" variant="h4" gutterBottom component="h2">
+          Create Timetable
+          </Typography>
+        <PlannerTable />
+        <br />
+        <form method="POST">
+          <Button
+            id="submit"
+            type="submit">
+            Generate Schedule
+        </Button>
+        </form>
+
       </main>
     </div>
   );

@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request, jsonify
 import firebase_admin
 from firebase_admin import credentials, firestore
 import json
+# from AlgorithmTest.Algorithm import *
 
 cred = credentials.Certificate('term-5-esc-scheduler-firebase-adminsdk-cfadg-cd4c469d4d.json')
 default_app = firebase_admin.initialize_app(cred)
@@ -20,17 +21,16 @@ createInstructor = 0
 class Data():
     loggedUser = ""
     pillar = ""
+    # courses = ['50.001', '50.002', '50.003', '50.005', '50.034']
     incorrectLoginUser = ""
     incorrectTries = 0
     createInstructor = 0
-    create=0
     course =0
-    
 
 @app.route("/", methods=['GET', 'POST'])
 def my_index():
     # print("hello1")
-    return render_template("index.html", token="hi start")
+    return render_template("index.html")##, token="hi start")
 
 def check_instructor_login(check_username, check_password):
     bannedaccountsarray = bannedaccountsdict['banned']
@@ -87,93 +87,111 @@ def instructorwelcome():
     loggedUser = Data.loggedUser
     weeklysched = retrieveInstructorCourses(loggedUser)
     jsonify(weeklysched)
-    return render_template("index.html", user=loggedUser, token=weeklysched)
-
+    return render_template("index.html", user=loggedUser, instructorTimetable=weeklysched)
 
 @app.route("/uploadcourse", methods=['GET','POST'])
 def uploadcourse():
+    loggedUser = Data.loggedUser
+    weeklysched = retrieveInstructorCourses(loggedUser)
     if request.method == 'POST':
         ## submission for registered courses of instructor
+        name = Data.loggedUser
         if('course' in request.form ):
-         #the first time 'course' is clicked, create all the fields.
-            if((Data.create ==0)):    
-                InstructorDetailsDict = dbfs.collection('RawInput').document('InstructorDetails').get().to_dict()
-                natalie = {}
-                natalie['Natalie']={}
-                natalie['Natalie']['Courses']={}
-                natalie['Natalie']['Name']={}
-                natalie['Natalie']['ID']={}
-                natalie['Natalie']['Soft Constraints']={}
-                natalie['Natalie']['Soft Constraints']['0']={}
-                natalie['Natalie']['Soft Constraints']['1']={}
-                natalie['Natalie']['Soft Constraints']['2']={}
-                natalie['Natalie']['Soft Constraints']['3']={}
-                natalie['Natalie']['Soft Constraints']['4']={}
-                natalie['Natalie']['Name']=request.form['name']
-                natalie['Natalie']['ID']=request.form['ID']
-                natalie['Natalie']['Courses']['0']= request.form['coursecode1']
-                natalie['Natalie']['Courses']['1']= request.form['coursecode2']
-                natalie['Natalie']['Courses']['2']= request.form['coursecode3']
-                #Data.create = 1 prevents the next "POST" from emptying all the fields again
-                Data.create=1
-                NewInstructorDetailsDict = natalie 
-                dbfs.collection('RawInput').document('InstructorDetails').set(NewInstructorDetailsDict)
+         
+            if(dbfs.collection('RawInput').document(name).get().exists):
+                natalie = dbfs.collection('RawInput').document(name).get().to_dict()
+                natalie['Courses']={}
+                natalie['Name']={}
+                natalie['ID']={}
+                natalie['Name']=request.form['name']
+                natalie['ID']=request.form['ID']
+                natalie['Courses']['0']= request.form['coursecode1']
+                natalie['Courses']['1']= request.form['coursecode2']
+                natalie['Courses']['2']= request.form['coursecode3']
+                    
+                dbfs.collection('RawInput').document(name).update(natalie)
             
-            #for subsequent submissions. each submission clears only courses,name,id. 
+            #the first time 'course' is clicked, create all the fields.
             else: 
-                natalie = dbfs.collection('RawInput').document('InstructorDetails').get().to_dict()
-                natalie['Natalie']['Courses']={}
-                natalie['Natalie']['Name']={}
-                natalie['Natalie']['ID']={}
-                natalie['Natalie']['Name']=request.form['name']
-                natalie['Natalie']['ID']=request.form['ID']
-                natalie['Natalie']['Courses']['0']= request.form['coursecode1']
-                natalie['Natalie']['Courses']['1']= request.form['coursecode2']
-                natalie['Natalie']['Courses']['2']= request.form['coursecode3']
-                
-                dbfs.collection('RawInput').document('InstructorDetails').update(natalie)
+                InstructorDetailsDict = dbfs.collection('RawInput').get()
+                natalie = {}
+                natalie['Courses']={}
+                natalie['Name']={}
+                natalie['ID']={}
+                natalie['SoftConstraints']={}
+                natalie['SoftConstraints']['0']={}
+                natalie['SoftConstraints']['1']={}
+                natalie['SoftConstraints']['2']={}
+                natalie['SoftConstraints']['3']={}
+                natalie['SoftConstraints']['4']={}
+                natalie['SoftConstraints']['0']['0']={}
+                natalie['SoftConstraints']['0']['1']={}
+                natalie['SoftConstraints']['0']['2']={}
+                natalie['SoftConstraints']['0']['3']={}
+                natalie['SoftConstraints']['1']['0']={}
+                natalie['SoftConstraints']['1']['1']={}
+                natalie['SoftConstraints']['1']['2']={}
+                natalie['SoftConstraints']['1']['3']={}
+                natalie['SoftConstraints']['2']['0']={}
+                natalie['SoftConstraints']['2']['1']={}
+                natalie['SoftConstraints']['2']['2']={}
+                natalie['SoftConstraints']['2']['3']={}
+                natalie['SoftConstraints']['3']['0']={}
+                natalie['SoftConstraints']['3']['1']={}
+                natalie['SoftConstraints']['3']['2']={}
+                natalie['SoftConstraints']['3']['3']={}
+                natalie['SoftConstraints']['4']['0']={}
+                natalie['SoftConstraints']['4']['1']={}
+                natalie['SoftConstraints']['4']['2']={}
+                natalie['SoftConstraints']['4']['3']={}
+                natalie['Name']=request.form['name']
+                natalie['ID']=request.form['ID']
+                natalie['Courses']['0']= request.form['coursecode1']
+                natalie['Courses']['1']= request.form['coursecode2']
+                natalie['Courses']['2']= request.form['coursecode3']
+                NewInstructorDetailsDict = natalie 
+                dbfs.collection('RawInput').document(name).set(NewInstructorDetailsDict)
         
         if('constraints' in request.form ):
             # soft constraint fields will be already created when instructor presses submit under courses
-            natalie = dbfs.collection('RawInput').document('InstructorDetails').get().to_dict()
+            natalie = dbfs.collection('RawInput').document(name).get().to_dict()
 
-            natalie['Natalie']['Soft Constraints']['0']={}
-            natalie['Natalie']['Soft Constraints']['1']={}
-            natalie['Natalie']['Soft Constraints']['2']={}
-            natalie['Natalie']['Soft Constraints']['3']={}
-            natalie['Natalie']['Soft Constraints']['4']={}
+            natalie['SoftConstraints']['0']={}
+            natalie['SoftConstraints']['1']={}
+            natalie['SoftConstraints']['2']={}
+            natalie['SoftConstraints']['3']={}
+            natalie['SoftConstraints']['4']={}
 
-            natalie['Natalie']['Soft Constraints']['0']['0']=request.form['day1']
-            natalie['Natalie']['Soft Constraints']['0']['1']=request.form['from1']
-            natalie['Natalie']['Soft Constraints']['0']['2']=request.form['to1']
-            natalie['Natalie']['Soft Constraints']['0']['3']=request.form['reason1']
-            natalie['Natalie']['Soft Constraints']['1']['0']=request.form['day2']
-            natalie['Natalie']['Soft Constraints']['1']['1']=request.form['from2']
-            natalie['Natalie']['Soft Constraints']['1']['2']=request.form['to2']
-            natalie['Natalie']['Soft Constraints']['1']['3']=request.form['reason2']
-            natalie['Natalie']['Soft Constraints']['2']['0']=request.form['day3']
-            natalie['Natalie']['Soft Constraints']['2']['1']=request.form['from3']
-            natalie['Natalie']['Soft Constraints']['2']['2']=request.form['to3']
-            natalie['Natalie']['Soft Constraints']['2']['3']=request.form['reason3']
-            natalie['Natalie']['Soft Constraints']['3']['0']=request.form['day4']
-            natalie['Natalie']['Soft Constraints']['3']['1']=request.form['from4']
-            natalie['Natalie']['Soft Constraints']['3']['2']=request.form['to4']
-            natalie['Natalie']['Soft Constraints']['3']['3']=request.form['reason4']
-            natalie['Natalie']['Soft Constraints']['4']['0']=request.form['day5']
-            natalie['Natalie']['Soft Constraints']['4']['1']=request.form['from5']
-            natalie['Natalie']['Soft Constraints']['4']['2']=request.form['to5']
-            natalie['Natalie']['Soft Constraints']['4']['3']=request.form['reason5']
-
-            NewInstructorDetailsDict = natalie  
+            natalie['SoftConstraints']['0']['0']=request.form['day1']
+            natalie['SoftConstraints']['0']['1']=request.form['from1']
+            natalie['SoftConstraints']['0']['2']=request.form['to1']
+            natalie['SoftConstraints']['0']['3']=request.form['reason1']
+            natalie['SoftConstraints']['1']['0']=request.form['day2']
+            natalie['SoftConstraints']['1']['1']=request.form['from2']
+            natalie['SoftConstraints']['1']['2']=request.form['to2']
+            natalie['SoftConstraints']['1']['3']=request.form['reason2']
+            natalie['SoftConstraints']['2']['0']=request.form['day3']
+            natalie['SoftConstraints']['2']['1']=request.form['from3']
+            natalie['SoftConstraints']['2']['2']=request.form['to3']
+            natalie['SoftConstraints']['2']['3']=request.form['reason3']
+            natalie['SoftConstraints']['3']['0']=request.form['day4']
+            natalie['SoftConstraints']['3']['1']=request.form['from4']
+            natalie['SoftConstraints']['3']['2']=request.form['to4']
+            natalie['SoftConstraints']['3']['3']=request.form['reason4']
+            natalie['SoftConstraints']['4']['0']=request.form['day5']
+            natalie['SoftConstraints']['4']['1']=request.form['from5']
+            natalie['SoftConstraints']['4']['2']=request.form['to5']
+            natalie['SoftConstraints']['4']['3']=request.form['reason5'] 
 
             # paste back to firestore. this will delete the whole dict and set it from scratch.
-            dbfs.collection('RawInput').document('InstructorDetails').update(NewInstructorDetailsDict)
+            dbfs.collection('RawInput').document(name).update(natalie)
 
-    return render_template('index.html')
-
+    return render_template('index.html', user=loggedUser, token=weeklysched)
 
 @app.route("/softconstraints", methods=['GET','POST'])
 def CourseMaterial():
+    loggedUser = Data.loggedUser
+    weeklysched = retrieveInstructorCourses(loggedUser)
     if request.method == 'POST':
         courseCollection = dbfs.collection('courses').get()
         courseCode = request.form['courseCode1']
@@ -191,13 +209,15 @@ def CourseMaterial():
         course['Instructors']=instructors1
         course['CourseLead']=request.form['lead1']
         course['CohortClasses']={}
+        # Instructor can search for 'Pending'  when checking which courses need to be updated
+        course['Status']='Pending'
 
         ####### COMPONENTS
         # Lecture
         course['Components']={}
         course['Components']['Lecture']={}
         course['Components']['Lecture']['CohortClasses']={}
-        #course['Components']['Lecture']['NumberSessions']=request.form['lecture']
+        course['Components']['Lecture']['NumberSessions']=request.form['lecture']
         course['Components']['Lecture']['LectSession1']=request.form['lect_1']
         course['Components']['Lecture']['LectSession2']=request.form['lect_2']
         course['Components']['Lecture']['LectSession3']=request.form['lect_3']
@@ -206,18 +226,20 @@ def CourseMaterial():
         #Cohort session
         course['Components']['Cohort Session']={}
         course['Components']['Cohort Session']['Cohort Classes']={}
-        #course['Components']['Cohort Session']['NumberSessions']=request.form['cohort']
+        course['Components']['Cohort Session']['NumberSessions']=request.form['cohort']
         course['Components']['Cohort Session']['CohortSession1']=request.form['co_1']
         course['Components']['Cohort Session']['CohortSession2']=request.form['co_2']
         course['Components']['Cohort Session']['CohortSession3']=request.form['co_3']
+        course['Components']['Cohort Session']['shared']=bool(False)
         #Lab session
         course['Components']['Lab Session']={}
         course['Components']['Lab Session']['Cohort Classes']={}
-        #course['Components']['Lab Session']['NumberSessions']=request.form['lab']
+        course['Components']['Lab Session']['NumberSessions']=request.form['lab']
         course['Components']['Lab Session']['LabSession1']=request.form['lab1']
         course['Components']['Lab Session']['LabSession2']=request.form['lab2']
         course['Components']['Lab Session']['LabSession3']=request.form['lab3']
         course['Components']['Lab Session']['Venue']={}
+        course['Components']['Lab Session']['shared']=bool(False)
 
         ####### soft constraints
         course['SoftConstraints']={}
@@ -253,35 +275,190 @@ def CourseMaterial():
 
 
 
-    return render_template('index.html')
+    return render_template('index.html', user=loggedUser, token=weeklysched)
+
+
+@app.route("/cohortclass", methods=['GET','POST'])
+def CohortInformation():
+    loggedUser = Data.loggedUser
+    adminPillar = Data.pillar
+    weeklysched = retrieveCourse('EmptyCourse')
+    adminCoursesDetail = obtainCourses()
+    cohortClassDetails = obtainCohorts()
+
+    if request.method == 'POST':
+
+        if(request.form['ClassID']):
+            ClassInfo = dbfs.collection('CohortClassInfo').get()
+            classID = request.form['ClassID']
+            CohortDetailsDict = {}
+            
+            CohortDetailsDict['pillar'] = request.form['cohortPillar']
+            CohortDetailsDict['num'] = request.form['studentNo']
+
+
+            dbfs.collection('CohortClassInfo').document(classID).set(CohortDetailsDict)
+
+    return render_template('index.html', user=loggedUser, pillar=adminPillar, token=weeklysched, adminCoursesDetail=adminCoursesDetail, cohortClassDetails=cohortClassDetails)
 
 @app.route("/editschedule", methods=['GET','POST'])
 def EditSchedule():
-    if request.method == 'POST':
-        ## pull from firestore
-        
+    loggedUser = Data.loggedUser
+    adminPillar = Data.pillar
+    weeklysched = retrieveCourse('EmptyCourse')
+    adminCoursesDetail = obtainCourses()
+    cohortClassDetails = obtainCohorts()
 
-        # first course input from course lead. assumption: intructor fills in course1 before course2
+    if request.method == 'POST':
+        # print (weeklysched)
+        #course fields need to be created by instructor first. else, submission will give error
+        # if(request.form['courseCode']):
         if('please' in request.form):
             courseCode = request.form['courseCode']
             CourseDetailsDict = dbfs.collection('courses').document(courseCode).get().to_dict()
             classes = request.form['cohortclass']
             classList = classes.split(",")
+            print (CourseDetailsDict)
+            print (classList)
             
             CourseDetailsDict['CohortClasses'] = classList
             CourseDetailsDict['Components']['Lab Session']['Venue'] = request.form['venue']
             CourseDetailsDict['Components']['Lab Session']['Cohort Classes'] = classList
             CourseDetailsDict['Components']['Lecture']['Cohort Classes'] = classList
             CourseDetailsDict['Components']['Cohort Session']['Cohort Classes'] = classList
+            CourseDetailsDict['Status'] = "Updated"
 
-
-
-            # paste back to firestore. this will delete the whole dict and set it from scratch.
             dbfs.collection('courses').document(courseCode).update(CourseDetailsDict)
 
+    return render_template('index.html', user=loggedUser, pillar=adminPillar, token=weeklysched, adminCoursesDetail=adminCoursesDetail, cohortClassDetails=cohortClassDetails)
+
+@app.route("/eventscheduling", methods=['GET','POST'])
+def EventScheduling():
+    if request.method == 'POST':
+        error = ""
+        boolean = True
+        if 'AddEvent' in request.form:
+            dbfs.collection('Events').get
+            eventTitle = request.form['titleAdd']
+            event = {}
+            event['EventTitle'] = request.form['titleAdd']
+            event['Date'] = request.form['DateAdd']
+            event['Day'] = request.form['day']
+            event['Venue'] = request.form['venue']
+
+            venue = request.form['venue']
+            day = request.form['day']
+            start = request.form['StartAdd']
+            end = request.form['EndAdd']
+            i = int(start)
+            roomDocument = dbfs.collection('rooms').document(venue).get().to_dict()
+            for i in range (int(start),int(end)):
+                if(roomDocument['Week'][day][str(i)]):
+                    print(roomDocument['Week'][day][str(i)])
+                    error = "The venue is being used during this time slot"
+                    boolean = False
+
+           
+            if(boolean == True):
+                if(start == '1'):
+                    start = '8.5'
+                elif(start == '2'):
+                    start = '9'
+                elif(start == '3'):
+                    start = '9.5'
+                elif(start == '4'):
+                    start = '10'
+                elif(start == '5'):
+                    start = '10.5'
+                elif(start == '6'):
+                    start = '11'
+                elif(start == '7'):
+                    start = '11.5'
+                elif(start == '8'):
+                    start = '12'
+                elif(start == '9'):
+                    start = '12.5'
+                elif(start == '10'):
+                    start = '13'
+                elif(start == '10'):
+                    start = '13.5'
+                elif(start == '11'):
+                    start = '14'
+                elif(start == '12'):
+                    start = '14.5'
+                elif(start == '13'):
+                    start = '15'
+                elif(start == '14'):
+                    start = '15.5'
+                elif(start == '15'):
+                    start = '16'
+                elif(start == '16'):
+                    start = '16.5'
+                elif(start == '17'):
+                    start = '17'
+                elif(start == '18'):
+                    start = '17.5'
+                elif(start == '19'):
+                    start = '18'
+                elif(start == '20'):
+                    start = '18.5'
+
+                if(end == '1'):
+                    end = '8.5'
+                elif(end == '2'):
+                    end = '9'
+                elif(end == '3'):
+                    end = '9.5'
+                elif(end == '4'):
+                    end = '10'
+                elif(end == '5'):
+                    end = '10.5'
+                elif(end == '6'):
+                    end = '11'
+                elif(end == '7'):
+                    end = '11.5'
+                elif(end == '8'):
+                    end = '12'
+                elif(end == '9'):
+                    end = '12.5'
+                elif(end == '10'):
+                    end = '13'
+                elif(end == '10'):
+                    end = '13.5'
+                elif(end == '11'):
+                    end = '14'
+                elif(end == '12'):
+                    end = '14.5'
+                elif(end == '13'):
+                    end = '15'
+                elif(end == '14'):
+                    end = '15.5'
+                elif(end == '15'):
+                    end = '16'
+                elif(end == '16'):
+                    end = '16.5'
+                elif(end == '17'):
+                    end = '17'
+                elif(end == '18'):
+                    end = '17.5'
+                elif(end == '19'):
+                    end = '18'
+                elif(end == '20'):
+                    end = '18.5'
+                
+                event['StartTime']= start
+                event['EndTime'] = end
+                dbfs.collection('Events').document(eventTitle).set(event)
+
+        if 'DelEvent' in request.form:
+            eventTitle = request.form['titleDel']
+            dbfs.collection('Events').document(eventTitle).get
+            dbfs.collection('Events').document(eventTitle).delete()
+            
 
 
     return render_template('index.html')
+
 
 
 def check_admin_login(check_username, check_password):
@@ -325,6 +502,7 @@ def adminlogin():
             error = "You are locked out due to consecutive login failures. Please contact your admin."
         elif login_pass == 1:
             Data.loggedUser = check_username
+            # print ("login loggeduser name : " + Data.loggedUser)
             return redirect(url_for('adminwelcome'))
         else:
             error = "Invalid credentials, please try again. Incorrect tries = " + str(Data.incorrectTries)
@@ -334,16 +512,25 @@ def adminlogin():
 def adminwelcome():
     loggedUser = Data.loggedUser
     weeklysched = retrieveCourse("EmptyCourse")
+    adminCoursesDetail = obtainCourses()
+    cohortClassDetails = obtainCohorts()
+
     if request.method == 'POST':
-        if '50.003' in request.form:
-            weeklysched = retrieveCourse("50.003")
+        if '50.001' in request.form:
+            weeklysched = retrieveCourse("50.001")
+        elif '50.002' in request.form:
+            weeklysched = retrieveCourse("50.002")
         elif '50.005' in request.form:
             weeklysched = retrieveCourse("50.005")
+        elif '50.012' in request.form:
+            weeklysched = retrieveCourse("50.012")
         elif '50.034' in request.form:
             weeklysched = retrieveCourse("50.034")
     jsonify(weeklysched)
     adminPillar = Data.pillar
-    return render_template('index.html', token=weeklysched, user=loggedUser, pillar=adminPillar)
+    # print ("pillar: " + adminPillar)
+    # print ("user: " + loggedUser)
+    return render_template('index.html', token=weeklysched, user=loggedUser, pillar=adminPillar, adminCoursesDetail=adminCoursesDetail, cohortClassDetails=cohortClassDetails)
 
 def check_planner_login(check_username, check_password):
     bannedaccountsarray = bannedaccountsdict['banned']
@@ -389,8 +576,29 @@ def plannerlogin():
             error = "Invalid credentials, please try again. Incorrect tries = " + str(Data.incorrectTries)
     return render_template('index.html', error=error)
 
+def obtainCohorts():
+    cohortsInfo = {}
+    document = dbfs.collection('CohortClassInfo').get()
+    for cohortID in document:
+        cohortInfo = dbfs.collection('CohortClassInfo').document(cohortID.id).get().to_dict()
+        cohortsInfo[cohortID.id] = cohortInfo
+    # print (cohortInfo)
+    return cohortsInfo
+
+def obtainCourses():
+    coursesInfo = {}
+    document = dbfs.collection('courses').get()
+    # coursesInfo = document.getData()
+    for courseID in document:
+        # print(courseID.id)
+        courseInfo = dbfs.collection('courses').document(courseID.id).get().to_dict()
+        coursesInfo[courseID.id] = courseInfo
+    return coursesInfo
+
 @app.route("/plannerwelcome", methods=['GET', 'POST'])
 def plannerwelcome():
+    coursesInfo = obtainCourses()
+    user = Data.loggedUser
     if request.method == 'POST':
         if 'Freshmore' in request.form:
             return redirect(url_for('freshmoreschedule'))
@@ -402,7 +610,19 @@ def plannerwelcome():
             return redirect(url_for('esdschedule'))
         elif 'ASD' in request.form:
             return redirect(url_for('asdschedule'))
-    return render_template("index.html")
+
+    # print (coursesInfo)
+    return render_template("index.html", coursesInfo = coursesInfo, user=user)
+
+@app.route("/createschedule", methods=['GET', 'POST'])
+def createschedule():
+    coursesInfo = obtainCourses()
+    user = Data.loggedUser
+    if request.method == 'POST':
+        # run algo here
+        print ("Calling algo function now...")
+        # Algorithm.printHello()        # test function
+    return render_template("index.html", coursesInfo = coursesInfo, user=user)
 
 @app.route("/freshmoreschedule", methods=['GET', 'POST'])
 def freshmoreschedule():
@@ -413,25 +633,30 @@ def epdschedule():
     return render_template('index.html', token="this is from main.py (epd)")
 
 def retrieveCourse(courseID):
-    coursesdocument = dbfs.collection('courses').document(courseID).get().to_dict()
+    coursesdocument = dbfs.collection('courseTimetable').document(courseID).get().to_dict()
     week = coursesdocument['Week']
     # print(week)
     return week #dictionary
 
 @app.route("/istdschedule", methods=['GET', 'POST'])
 def istdschedule():
+    user = Data.loggedUser
+    coursesInfo = obtainCourses()
     # this is where we obtain data from firebase
     weeklysched = retrieveCourse("EmptyCourse")
     if request.method == 'POST':
-        if '50.003' in request.form:
-            weeklysched = retrieveCourse("50.003")
+        if '50.001' in request.form:
+            weeklysched = retrieveCourse("50.001")
+        elif '50.002' in request.form:
+            weeklysched = retrieveCourse("50.002")
         elif '50.005' in request.form:
             weeklysched = retrieveCourse("50.005")
+        elif '50.012' in request.form:
+            weeklysched = retrieveCourse("50.012")
         elif '50.034' in request.form:
             weeklysched = retrieveCourse("50.034")
-            # print (weeklysched)
     jsonify(weeklysched)
-    return render_template('index.html', token=weeklysched)
+    return render_template('index.html', token=weeklysched, coursesInfo=coursesInfo, user=user)
     
 @app.route("/esdschedule", methods=['GET', 'POST'])
 def esdschedule():

@@ -12,7 +12,7 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems } from '../lists/Adminmenu';
-import {secondaryListItems} from '../lists/Adminmenu';
+// import {secondaryListItems} from '../lists/Adminmenu';
 import {Link} from 'react-router-dom';
 import {Button, CardContent} from '@material-ui/core'
 import Card from '@material-ui/core/Card';
@@ -115,8 +115,8 @@ function AdminInstructPage (props) {
           
           <List>{mainListItems}</List>
 
-          <Divider />
-          <List>{secondaryListItems}</List> 
+          {/* <Divider />
+          <List>{secondaryListItems}</List>  */}
 
         </Drawer>
         <main className={classes.content}>

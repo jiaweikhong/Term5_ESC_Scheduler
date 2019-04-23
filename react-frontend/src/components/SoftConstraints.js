@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -25,7 +23,7 @@ import { FormLabel } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import ChipInput from 'material-ui-chip-input'
+// import ChipInput from 'material-ui-chip-input'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 
@@ -193,27 +191,27 @@ const hours = [
 
 const time = [
   {value: '0', label: '-'},
-  {value: '0830',label: '0830',},
-  {value: '0900',label: '0900',},
-  {value: '0930',label: '0930'},
-  {value: '1000',label: '1000'},
-  {value: '1030',label:'1030'},
-  {value: '1100',label: '1100',},
-  {value: '1130',label: '1130',},
-  {value: '1200',label: '1200',},
-  {value: '1230',label: '1230',},
-  {value: '1300',label: '1300',},
-  {value: '1330',label: '1330',},
-  {value: '1400',label: '1400',},
-  {value: '1430',label: '1430',},
-  {value: '1500',label: '1500',},
-  {value: '1530',label: '1530',},
-  {value: '1600',label: '1600',},
-  {value: '1630',label: '1630',},
-  {value: '1700',label: '1700',},
-  {value: '1730',label: '1730',},
-  {value: '1800',label: '1800',},
-  {value: '1830',label: '1830',},
+  {value: '8.5',label: '0830',},
+  {value: '9',label: '0900',},
+  {value: '9.5',label: '0930'},
+  {value: '10',label: '1000'},
+  {value: '10.5',label:'1030'},
+  {value: '11',label: '1100',},
+  {value: '11.5',label: '1130',},
+  {value: '12',label: '1200',},
+  {value: '12.5',label: '1230',},
+  {value: '13',label: '1300',},
+  {value: '13.5',label: '1330',},
+  {value: '14',label: '1400',},
+  {value: '14.5',label: '1430',},
+  {value: '15',label: '1500',},
+  {value: '15.5',label: '1530',},
+  {value: '16',label: '1600',},
+  {value: '16.5',label: '1630',},
+  {value: '17',label: '1700',},
+  {value: '17.5',label: '1730',},
+  {value: '18',label: '1800',},
+  {value: '18.5',label: '1830',},
 
 ];
 
@@ -246,7 +244,7 @@ class SoftConstraints extends React.Component {
     lab1:'',
     lab2:'',
     lab3:'',
-    value: 'female',
+    //value: 'female',
 
     
   };
@@ -284,7 +282,7 @@ class SoftConstraints extends React.Component {
             noWrap
             // className ={classes.welcome}
           >
-            Welcome
+            Welcome {window.user}
           </Typography>
           <div className={classes.icons}>
           <IconButton 
@@ -321,7 +319,7 @@ class SoftConstraints extends React.Component {
       <Card className={classes.card}>
           <CardContent>
           <div className={classes.text}>
-        <Typography gutterBottom variant="h4" component="h4">
+        <Typography id="tabtitle" gutterBottom variant="h4" component="h4">
         Course Details - ONLY for course leads</Typography>
         <Typography gutterBottom component ="h6">
         You may make subsequent submissions for course information on other courses.  </Typography>
@@ -367,6 +365,7 @@ class SoftConstraints extends React.Component {
           margin="normal"
           //variant="outlined"
           placeholder= "Course Code"
+          required
           
         />
 
@@ -387,6 +386,7 @@ class SoftConstraints extends React.Component {
           label="Course Instructors"
           placeholder= "Please put a ',' inbetween instructor names"
           helperText='Please include course lead'
+          required
         />
         <TextField
         name='lead1'
@@ -410,12 +410,12 @@ class SoftConstraints extends React.Component {
           className={classes.group}
           lecture={this.state.lecture}
           //value={this.state.lecture}
-          onChange={this.handleChange}
+          onChange={this.handleChange('lecture')}
         >
-          <FormControlLabel value="1" control={<Radio />} label="1" />
-          <FormControlLabel value="2" control={<Radio />} label="2" />
-          <FormControlLabel value="3" control={<Radio />} label="3" />
-          <FormControlLabel value="none" control={<Radio />} label="No lecture" />
+          <FormControlLabel value="1" control={<Radio required />} label="1" />
+          <FormControlLabel value="2" control={<Radio required/>} label="2" />
+          <FormControlLabel value="3" control={<Radio required/>} label="3" />
+          <FormControlLabel value="" control={<Radio required/>} label="No lecture" />
         </RadioGroup>
 
         </Grid>
@@ -511,14 +511,15 @@ class SoftConstraints extends React.Component {
           name="cohort"
           className={classes.group}
           cohort={this.state.cohort}
-          onChange={this.handleChange}
-          value={this.state.cohort}
+          onChange={this.handleChange('cohort')}
+          
         >
-          <FormControlLabel value="1" control={<Radio />} label="1" />
-          <FormControlLabel value="2" control={<Radio />} label="2" />
-          <FormControlLabel value="3" control={<Radio />} label="3" />
-          <FormControlLabel value="none" control={<Radio />} label="No cohort classes" />
+          <FormControlLabel value="1" control={<Radio required/>} label="1" />
+          <FormControlLabel value="2" control={<Radio required/>} label="2" />
+          <FormControlLabel value="3" control={<Radio required/>} label="3" />
+          <FormControlLabel value="" control={<Radio required/>} label="No cohort classes" />
         </RadioGroup>
+
     </Grid>
 
 
@@ -610,13 +611,12 @@ class SoftConstraints extends React.Component {
           name="lab"
           className={classes.group}
           lab={this.state.lab}
-          onChange={this.handleChange}
-          value = {this.state.lab}
+          onChange={this.handleChange('lab')}
         >
-          <FormControlLabel value="1" control={<Radio />} label="1" />
-          <FormControlLabel value="2" control={<Radio />} label="2" />
-          <FormControlLabel value="3" control={<Radio />} label="3" />
-          <FormControlLabel value="none" control={<Radio />} label="No lab" />
+          <FormControlLabel value="1" control={<Radio required/>} label="1" />
+          <FormControlLabel value="2" control={<Radio required/>} label="2" />
+          <FormControlLabel value="3" control={<Radio required/>} label="3" />
+          <FormControlLabel value="" control={<Radio required/>} label="No lab" />
         </RadioGroup>
         </Grid> 
 

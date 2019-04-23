@@ -81,8 +81,7 @@ function InstructorLogin(props) {
             className={classes.submit}>
             Sign in
           </Button>
-          <p>{ window.errornotif }</p>
-       
+          <p> { window.errornotif } </p>
         </form>
       </Paper>
     </main>
