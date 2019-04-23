@@ -37,14 +37,13 @@ class firestoreData:
         self.pullCourses()
         self.pullInstructors()
         self.pullRooms()
+        self.replaceStringWithObject()
+        print(self.courseArray)
 
         self.algo = Algorithm(self.instructorArray, self.cohortArray, self.rooms, self.courseArray)
         # cred = credentials.Certificate('term-5-esc-scheduler-firebase-adminsdk-cfadg-cd4c469d4d.json')
         # default_app = firebase_admin.initialize_app(cred)
         # dbfs = firestore.client()
-
-    def hihi(self):
-        print("hello from firestoreData")
 
     #insert classes
     def pullClasses(self):
@@ -194,7 +193,6 @@ class firestoreData:
                         float(courseDict['Components']['Cohort Session']['CohortSession3']), 
                         courseDict['Components']['Cohort Session']['shared'], 
                         cohort)
-            print(newCourse.components)
             self.courseArray.append(newCourse)
 
     def pullInstructors(self):
@@ -229,12 +227,12 @@ class firestoreData:
                     cohort.addCourses(course)
                     course.cohorts.remove(cohort.name)
                     course.cohorts.append(cohort)
+            print(course.cohorts)
 
     def generateAndPushTimetable(self):
         print("Generating and pushing timetable")
         possible = self.algo.generate_schedule()
         if possible:
-            #push timetable after generating it
             for course in self.courseArray:
                 coursesdocument = self.dbfs.collection('courseTimetable').document(str(course.courseID))
                 courseSchedule = {"Week": {}}
@@ -369,12 +367,11 @@ class firestoreData:
                 cohortsdocument.set(cohortSchedule)
         print("Timetable pushed to Firestore!")
 
-# cred = credentials.Certificate('term-5-esc-scheduler-firebase-adminsdk-cfadg-cd4c469d4d.json')
-# default_app = firebase_admin.initialize_app(cred)
-# dbfs = firestore.client()
-# firestoreTest = firestoreData(cred, default_app, dbfs)
-
-
+cred = credentials.Certificate('term-5-esc-scheduler-firebase-adminsdk-cfadg-cd4c469d4d.json')
+default_app = firebase_admin.initialize_app(cred)
+dbfs = firestore.client()
+firestoreTest = firestoreData(cred, default_app, dbfs)
+firestoreTest.generateAndPushTimetable()
 
 
 # for instructor in instructorArray:
