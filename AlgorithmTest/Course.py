@@ -13,7 +13,6 @@ class Course:
         #self.numComponents = {"Lecture": 0, "Cohort": 0, "Lab": 0}  # dictionary containing numLectures, numTutorials and numLabs as keys and the number as values
         #self.componentsDuration = {"Lecture": 0, "Cohort":0, "Lab": 0}  # dictionary containing lectureDuration, tutorialDuration and labDuration as keys and the number as values
         self.components = []
-        self.termConducted = None  # is it a term 4 or term 5 or what mod
         self.timetable = Timetable()
         self.venue = venues #{"Cohort": None, "Lecture": None, "Lab": None}
 
@@ -45,21 +44,11 @@ class Course:
         self.courseInstructors.append(instructor)
 
     def setComponentsAndDuration(self, componentname, duration, isShared, cohorts):
-        component = (componentname, duration, isShared, cohorts, self.assignRoom(componentname))
-
+        component = (componentname, duration, isShared, cohorts)
         self.components.append(component)
 
     def getComponents(self):
         return self.components
-
-    def assignRoom(self, component):
-        return self.venue[component][random.randint(0, len(self.venue[component]) - 1)]
-
-    def getVenue(self, component):
-        return self.venue[component]
-
-    def addPossibleRooms(self, possibleRooms):
-        self.venue = possibleRooms
 
 
 

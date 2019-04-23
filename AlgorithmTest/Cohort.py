@@ -2,13 +2,10 @@ from Timetable import Timetable
 import unittest
 
 class Cohort:
-    def __init__(self, num, pillar):
-        self.num = num
-        self.pillar = pillar
-        self.name = pillar + str(num)
+    def __init__(self, name):
+        self.name = name
         self.courses = []
         self.timetable = Timetable()
-        self.courseComponents = {}
 
     def addIntoTimeTable(self, course, day, timeslot, numslots, component, cohortName, roomID = ""):
         for i in range(numslots):

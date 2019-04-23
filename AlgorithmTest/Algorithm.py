@@ -7,13 +7,6 @@ import random
 import itertools
 import copy
 
-# TODO assign venues (algorithm)
-# TODO instructors who take different cohorts
-# TODO how to realise if schedule not possible -> check if there are course components left over! Then return None and print something
-# TODO generate multiple timetables for every possible permutation of courses
-# TODO function for holidays
-# TODO initialising the objects from website data
-
 class Algorithm:
 
     def __init__(self, instructors, cohorts, rooms, courses):
@@ -72,10 +65,16 @@ class Algorithm:
                                 break
                             else:
                                 continue
+                        
+                        if chosenRoom == None:
+                            print("No possible room for " + course.courseName)
+                            print(courseComponent)
+                            return False
 
                         conditions = (day[time] == [],
                                       self.checkInstructorSchedule(course.courseInstructors, dayindex, time, duration),
-                                      self.checkClassSchedule(course.cohorts, courseComponent[2], courseComponent[3], dayindex, time, duration))
+                                      self.checkClassSchedule(course.cohorts, courseComponent[2], courseComponent[3], dayindex, time, duration), 
+                                      self.checkRoomAvailability(chosenRoom, dayindex, time, duration))
                         if all(conditions):  # all is for and, any is for or
                             course.addIntoTimeTable(course.courseName, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
                             for instructor in course.courseInstructors:
@@ -89,6 +88,7 @@ class Algorithm:
                             chosenRoom.addIntoTimeTable(course.courseName, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
                             coursesAdded.append(course)
                             self.courseComponents[course.courseName].remove(courseComponent)
+                            chosenRoom = None
 
             for course in self.totalCourses:
                 for component in self.courseComponents[course.courseName]:
@@ -172,7 +172,7 @@ class Algorithm:
         for i in range(duration):
             if room.getTimeslot(day, time) != []:
                 return False
-        time += 1
+            time += 1
         return True
 
     #TODO Check this function
@@ -192,10 +192,10 @@ class Algorithm:
         duration = int(duration / 0.5)
         for dayindex in range(5):
             day = instructors[0].getTimetable().week[dayindex]
-            for time in range(0, len(day), duration):
+            for time in range(0, len(day)):
                 if duration > len(day) - 1 - time:
                     break
-                if self.checkInstructorSchedule(instructors, dayindex, time):
+                if self.checkInstructorSchedule(instructors, dayindex, time, duration):
                     for instructor in instructors:
                         instructor.addIntoTimeTable(meetingName, dayindex, time, duration, None, None, meetingRoom)
                     return True
@@ -214,93 +214,23 @@ class Algorithm:
             for course in self.totalCourses:
                 course.timetable = Timetable()
 
-# istd1 = Cohort(1, "ISTD")
-# istd2 = Cohort(2, "ISTD")
-# istd3 = Cohort(3, "ISTD")
-#
-# rooms = {"Cohort":[Room("2.513", "Cohort Classroom 13", "Cohort Classroom"), Room("2.514", "Cohort Classroom 14", "Cohort Classroom")],
-#          "Lab":[Room("2.403", "Digital Systems Lab", "Laboratory")],
-#          "Lecture":[Room("1.203", "Lecture Theatre 2", "Lecture Theatre")]}
-#
-# comp_struct = Course(1, "Comp Struct", rooms)
-# dw = Course(2, "Digital World", rooms)
-# cv = Course(3, "Computer Vision", rooms)
-# cse = Course(4, "Computer Systems Engineering", rooms)
-#
-# # Can initialise instructors first, then loop through them and create and add in the courses and cohorts
-# oka = Instructor(100, "Oka", [comp_struct, dw])
-# oka.addSoftConstraints(1, 1, 8.5, 10, "Consulting slot")
-# oka.addSoftConstraints(2, 3, 16.5, 18.5, "Family")
-# nat = Instructor(101, "Natalie", [cv, cse])
-# nat.addSoftConstraints(1, 2, 8.5, 10.5, "Date")
-# nat.addSoftConstraints(2, 3, 16, 18, "Club")
-#
-# instructorArray = [oka, nat]
-# courses = [comp_struct, dw, cv, cse]
-# for course in courses:
-#     for instructor in instructorArray:
-#         if course in instructor.getCourses():
-#             course.addInstructors(instructor)
-# cohorts = [istd1, istd2, istd3]
-# for cohort in cohorts:
-#     for course in courses:
-#         cohort.addCourses(course)
-# for course in courses:
-#     for cohort in cohorts:
-#         course.addCohorts(cohort)
-#
-# comp_struct.setComponentsAndDuration("Lecture", 1.5, True, [cohort.name for cohort in cohorts])
-# comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
-# comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
-# comp_struct.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
-# comp_struct.setComponentsAndDuration("Lab", 1, False, "ISTD1")
-# comp_struct.setComponentsAndDuration("Lab", 1, False, "ISTD2")
-# comp_struct.setComponentsAndDuration("Lab", 1, False, "ISTD3")
-#
-# dw.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
-# dw.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
-# dw.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
-#
-# cv.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
-# cv.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
-# cv.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
-#
-# cse.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
-# cse.setComponentsAndDuration("Cohort", 1.5, False, "ISTD2")
-# cse.setComponentsAndDuration("Cohort", 1.5, False, "ISTD3")
-# cse.setComponentsAndDuration("Lab", 1, False, "ISTD1")
-# cse.setComponentsAndDuration("Lab", 1, False, "ISTD2")
-# cse.setComponentsAndDuration("Lab", 1, False, "ISTD3")
-#
-# algo = Algorithm(instructorArray, cohorts, rooms)
-# algo.generateTimetableWithSoftConstraints()
-# for instructor in instructorArray:
-#     print(instructor.instructorName)
-#     instructor.printTimetable()
-# for cohort in cohorts:
-#     print(cohort.name)
-#     cohort.printTimetable()
-# for course in courses:
-#     print(course.courseName)
-#     course.printTimetable()
-
 #Instantiate classes
 # cohorts = []
-# istd1 = Cohort(1, "ISTD")
+# istd1 = Cohort("ISTD1")
 # cohorts.append(istd1)
-# istd2 = Cohort(2, "ISTD")
+# istd2 = Cohort("ISTD2")
 # cohorts.append(istd2)
-# istd3 = Cohort(3, "ISTD")
+# istd3 = Cohort("ISTD3")
 # cohorts.append(istd3)
-# istd4 = Cohort(4, "ISTD")
+# istd4 = Cohort("ISTD4")
 # cohorts.append(istd4)
-# istd5 = Cohort(5, "ISTD")
+# istd5 = Cohort("ISTD5")
 # cohorts.append(istd5)
-# istd6 = Cohort(6, "ISTD")
+# istd6 = Cohort("ISTD6")
 # cohorts.append(istd6)
-# # istd7 = Cohort(7, "ISTD")
+# # istd7 = Cohort("ISTD7")
 # # cohorts.append(istd7)
-# # istd8 = Cohort(8, "ISTD")
+# # istd8 = Cohort("ISTD8")
 # # cohorts.append(istd8)
 
 # rooms = {"Cohort": [Room("2.513", "Cohort Classroom 13", "Cohort Classroom"),
