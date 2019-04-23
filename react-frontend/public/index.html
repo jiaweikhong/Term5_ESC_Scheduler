@@ -48,11 +48,28 @@
       window.parsedtoken = JSON.parse(unparsedtoken);
     }
 
+    timeslots = ['0830 - 0900', '0900 - 0930', '0930 - 1000', '1000 - 1030', '1030 - 1100', '1100 - 1130', '1130 - 1200', '1200 - 1230', '1230 - 1300', '1300 - 1330', '1330 - 1400', '1400 - 1430', '1430 - 1500', '1500 - 1530', '1530 - 1600', '1600 - 1630', '1630 - 1700', '1700 - 1730', '1730 - 1800']
+    window.unparsedInstructorTimetable = "{{ instructorTimetable }}";
+    window.unparsedInstructorTimetable = window.unparsedInstructorTimetable.replace(/&#39;/g, "\"");
+    if (window.unparsedInstructorTimetable != "") {
+      window.parsedInstructorTimetable = JSON.parse(window.unparsedInstructorTimetable)
+      window.instructorTimetable = []
+      for (t = 0; t < 20; t++) {  // id is the courseID eg. 50.001, 50.002 etc
+        onePeriod = []
+        onePeriod.push(timeslots[t])
+        onePeriod.push(parsedInstructorTimetable['Monday'][t])
+        onePeriod.push(parsedInstructorTimetable['Tuesday'][t])
+        onePeriod.push(parsedInstructorTimetable['Wednesday'][t])
+        onePeriod.push(parsedInstructorTimetable['Thursday'][t])
+        onePeriod.push(parsedInstructorTimetable['Friday'][t])
+        window.instructorTimetable.push(onePeriod)
+      }
+    }
+
     window.unparsedCoursesInfo = "{{ coursesInfo }}";
     window.unparsedCoursesInfo = window.unparsedCoursesInfo.replace(/&#39;/g, "\"");
     window.unparsedCoursesInfo = window.unparsedCoursesInfo.replace(/False/g, "\"false\"");
     window.unparsedCoursesInfo = window.unparsedCoursesInfo.replace(/True/g, "\"true\"");
-    // console.log(window.unparsedCoursesInfo)
     if (window.unparsedCoursesInfo != "") {
       window.parsedCoursesInfo = JSON.parse(window.unparsedCoursesInfo)
       window.data = []
@@ -69,10 +86,56 @@
         }
         instructors = instructors.substring(0, instructors.length - 2)
         oneCourse.push(instructors)
-        // console.log(oneCourse)
         window.data.push(oneCourse)
       }
-      // console.log(window.data)
+    }
+
+    window.unparsedAdminCourseDetails = "{{ adminCoursesDetail }}"
+    window.unparsedAdminCourseDetails = window.unparsedAdminCourseDetails.replace(/&#39;/g, "\"");
+    window.unparsedAdminCourseDetails = window.unparsedAdminCourseDetails.replace(/False/g, "\"false\"");
+    window.unparsedAdminCourseDetails = window.unparsedAdminCourseDetails.replace(/True/g, "\"true\"");
+    if (window.unparsedAdminCourseDetails != "") {
+      window.parsedAdminCourseDetails = JSON.parse(window.unparsedAdminCourseDetails)
+      window.data = []
+      for (var id in parsedAdminCourseDetails) {  // id is the courseID eg. 50.001, 50.002 etc
+        oneCourse = []
+        oneCourse.push(id)
+        oneCourse.push(parsedAdminCourseDetails[id]['CourseTitle'])
+        oneCourse.push(parsedAdminCourseDetails[id]['CourseLead'])
+        instructors = ""
+        for (i = 0; i < parsedAdminCourseDetails[id]['Instructors'].length; i++) {
+          instructors += parsedAdminCourseDetails[id]['Instructors'][i]
+          instructors += ", "
+        }
+        instructors = instructors.substring(0, instructors.length - 2)
+        oneCourse.push(instructors)
+        cohortClasses = ""
+        for (i = 0; i < parsedAdminCourseDetails[id]['CohortClasses'].length; i++) {
+          cohortClasses += parsedAdminCourseDetails[id]['CohortClasses'][i]
+          cohortClasses += ", "
+        }
+        oneCourse.push(cohortClasses)
+        oneCourse.push(parsedAdminCourseDetails[id]['Components']['Lab Session']['Venue'])
+        oneCourse.push(parsedAdminCourseDetails[id]['Status'])
+        window.data.push(oneCourse)
+      }
+    }
+
+    window.unparsedCohortClassDetails = "{{ cohortClassDetails }}"
+    window.unparsedCohortClassDetails = window.unparsedCohortClassDetails.replace(/&#39;/g, "\"");
+    if (window.unparsedCohortClassDetails != "") {
+      window.parsedCohortClassDetails = JSON.parse(window.unparsedCohortClassDetails)
+      window.cohortData = []
+      for (var id in parsedCohortClassDetails) {  // id is the courseID eg. 50.001, 50.002 etc
+        oneCohort = []
+        oneCohort.push(parsedCohortClassDetails[id]['pillar'])
+        oneCohort.push(id)
+        oneCohort.push(parsedCohortClassDetails[id]['num'])
+        console.log("onecohort:")
+        console.log(oneCohort)
+        window.cohortData.push(oneCohort)
+      }
+      console.log(window.cohortData)
     }
 
   </script>

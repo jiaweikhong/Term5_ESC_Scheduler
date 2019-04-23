@@ -87,7 +87,7 @@ def instructorwelcome():
     loggedUser = Data.loggedUser
     weeklysched = retrieveInstructorCourses(loggedUser)
     jsonify(weeklysched)
-    return render_template("index.html", user=loggedUser, token=weeklysched)
+    return render_template("index.html", user=loggedUser, instructorTimetable=weeklysched)
 
 @app.route("/uploadcourse", methods=['GET','POST'])
 def uploadcourse():
@@ -280,6 +280,12 @@ def CourseMaterial():
 
 @app.route("/cohortclass", methods=['GET','POST'])
 def CohortInformation():
+    loggedUser = Data.loggedUser
+    adminPillar = Data.pillar
+    weeklysched = retrieveCourse('EmptyCourse')
+    adminCoursesDetail = obtainCourses()
+    cohortClassDetails = obtainCohorts()
+
     if request.method == 'POST':
 
         if(request.form['ClassID']):
@@ -293,13 +299,16 @@ def CohortInformation():
 
             dbfs.collection('CohortClassInfo').document(classID).set(CohortDetailsDict)
 
-    return render_template('index.html')
+    return render_template('index.html', user=loggedUser, pillar=adminPillar, token=weeklysched, adminCoursesDetail=adminCoursesDetail, cohortClassDetails=cohortClassDetails)
 
 @app.route("/editschedule", methods=['GET','POST'])
 def EditSchedule():
     loggedUser = Data.loggedUser
     adminPillar = Data.pillar
     weeklysched = retrieveCourse('EmptyCourse')
+    adminCoursesDetail = obtainCourses()
+    cohortClassDetails = obtainCohorts()
+
     if request.method == 'POST':
         # print (weeklysched)
         #course fields need to be created by instructor first. else, submission will give error
@@ -309,6 +318,8 @@ def EditSchedule():
             CourseDetailsDict = dbfs.collection('courses').document(courseCode).get().to_dict()
             classes = request.form['cohortclass']
             classList = classes.split(",")
+            print (CourseDetailsDict)
+            print (classList)
             
             CourseDetailsDict['CohortClasses'] = classList
             CourseDetailsDict['Components']['Lab Session']['Venue'] = request.form['venue']
@@ -319,7 +330,7 @@ def EditSchedule():
 
             dbfs.collection('courses').document(courseCode).update(CourseDetailsDict)
 
-    return render_template('index.html', user=loggedUser, pillar=adminPillar, token=weeklysched)
+    return render_template('index.html', user=loggedUser, pillar=adminPillar, token=weeklysched, adminCoursesDetail=adminCoursesDetail, cohortClassDetails=cohortClassDetails)
 
 @app.route("/eventscheduling", methods=['GET','POST'])
 def EventScheduling():
@@ -501,6 +512,9 @@ def adminlogin():
 def adminwelcome():
     loggedUser = Data.loggedUser
     weeklysched = retrieveCourse("EmptyCourse")
+    adminCoursesDetail = obtainCourses()
+    cohortClassDetails = obtainCohorts()
+
     if request.method == 'POST':
         if '50.001' in request.form:
             weeklysched = retrieveCourse("50.001")
@@ -516,7 +530,7 @@ def adminwelcome():
     adminPillar = Data.pillar
     # print ("pillar: " + adminPillar)
     # print ("user: " + loggedUser)
-    return render_template('index.html', token=weeklysched, user=loggedUser, pillar=adminPillar)
+    return render_template('index.html', token=weeklysched, user=loggedUser, pillar=adminPillar, adminCoursesDetail=adminCoursesDetail, cohortClassDetails=cohortClassDetails)
 
 def check_planner_login(check_username, check_password):
     bannedaccountsarray = bannedaccountsdict['banned']
@@ -562,7 +576,16 @@ def plannerlogin():
             error = "Invalid credentials, please try again. Incorrect tries = " + str(Data.incorrectTries)
     return render_template('index.html', error=error)
 
-def plannerObtainCourses():
+def obtainCohorts():
+    cohortsInfo = {}
+    document = dbfs.collection('CohortClassInfo').get()
+    for cohortID in document:
+        cohortInfo = dbfs.collection('CohortClassInfo').document(cohortID.id).get().to_dict()
+        cohortsInfo[cohortID.id] = cohortInfo
+    # print (cohortInfo)
+    return cohortsInfo
+
+def obtainCourses():
     coursesInfo = {}
     document = dbfs.collection('courses').get()
     # coursesInfo = document.getData()
@@ -574,7 +597,7 @@ def plannerObtainCourses():
 
 @app.route("/plannerwelcome", methods=['GET', 'POST'])
 def plannerwelcome():
-    coursesInfo = plannerObtainCourses()
+    coursesInfo = obtainCourses()
     user = Data.loggedUser
     if request.method == 'POST':
         if 'Freshmore' in request.form:
@@ -593,7 +616,7 @@ def plannerwelcome():
 
 @app.route("/createschedule", methods=['GET', 'POST'])
 def createschedule():
-    coursesInfo = plannerObtainCourses()
+    coursesInfo = obtainCourses()
     user = Data.loggedUser
     if request.method == 'POST':
         # run algo here
@@ -618,7 +641,7 @@ def retrieveCourse(courseID):
 @app.route("/istdschedule", methods=['GET', 'POST'])
 def istdschedule():
     user = Data.loggedUser
-    coursesInfo = plannerObtainCourses()
+    coursesInfo = obtainCourses()
     # this is where we obtain data from firebase
     weeklysched = retrieveCourse("EmptyCourse")
     if request.method == 'POST':

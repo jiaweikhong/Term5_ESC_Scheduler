@@ -52,7 +52,7 @@ class PlannerTable extends React.Component {
 
     const options = {
       filter: true,
-      selectableRows: true,
+      selectableRows: false,
       filterType: 'dropdown',
       responsive: 'stacked',
       rowsPerPage: 10,
@@ -162,7 +162,7 @@ class PlannerTable extends React.Component {
     };
 
     return (
-      <MUIDataTable title={"Create Timetable"} data={window.data} columns={columns} options={options} />
+      <MUIDataTable data={window.data} columns={columns} options={options} />
     );
 
   }
