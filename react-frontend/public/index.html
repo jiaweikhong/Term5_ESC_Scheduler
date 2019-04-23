@@ -114,6 +114,7 @@
           cohortClasses += parsedAdminCourseDetails[id]['CohortClasses'][i]
           cohortClasses += ", "
         }
+        cohortClasses = cohortClasses.substring(0, cohortClasses.length - 2)
         oneCourse.push(cohortClasses)
         oneCourse.push(parsedAdminCourseDetails[id]['Components']['Lab Session']['Venue'])
         oneCourse.push(parsedAdminCourseDetails[id]['Status'])

@@ -15,13 +15,6 @@ import random
 import itertools
 import copy
 
-# TODO assign venues (algorithm)
-# TODO instructors who take different cohorts
-# TODO how to realise if schedule not possible -> check if there are course components left over! Then return None and print something
-# TODO generate multiple timetables for every possible permutation of courses
-# TODO function for holidays
-# TODO initialising the objects from website data
-
 class Algorithm:
 
     def __init__(self, instructors, cohorts, rooms, courses):
@@ -71,7 +64,7 @@ class Algorithm:
 
                         # if self.isCourseOnSameDay(course.courseName, self.cohorts, courseComponent[3], dayindex):
                         #     continue
-
+                        chosenRoom = None
                         #Need to assign room by availability, rather than random
                         rooms = self.rooms[courseComponent[0]]
                         for room in rooms:
@@ -80,10 +73,15 @@ class Algorithm:
                                 break
                             else:
                                 continue
-
+                        
+                        if chosenRoom == None:
+                            print("No possible room for " + course.courseName)
+                            print(courseComponent)
+                            return False
                         conditions = (day[time] == [],
                                       self.checkInstructorSchedule(course.courseInstructors, dayindex, time, duration),
-                                      self.checkClassSchedule(course.cohorts, courseComponent[2], courseComponent[3], dayindex, time, duration))
+                                      self.checkClassSchedule(course.cohorts, courseComponent[2], courseComponent[3], dayindex, time, duration), 
+                                      self.checkRoomAvailability(chosenRoom, dayindex, time, duration))
                         if all(conditions):  # all is for and, any is for or
                             course.addIntoTimeTable(course.courseName, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
                             for instructor in course.courseInstructors:
@@ -180,7 +178,7 @@ class Algorithm:
         for i in range(duration):
             if room.getTimeslot(day, time) != []:
                 return False
-        time += 1
+            time += 1
         return True
 
     #TODO Check this function
@@ -200,10 +198,10 @@ class Algorithm:
         duration = int(duration / 0.5)
         for dayindex in range(5):
             day = instructors[0].getTimetable().week[dayindex]
-            for time in range(0, len(day), duration):
+            for time in range(0, len(day)):
                 if duration > len(day) - 1 - time:
                     break
-                if self.checkInstructorSchedule(instructors, dayindex, time):
+                if self.checkInstructorSchedule(instructors, dayindex, time, duration):
                     for instructor in instructors:
                         instructor.addIntoTimeTable(meetingName, dayindex, time, duration, None, None, meetingRoom)
                     return True
@@ -221,9 +219,6 @@ class Algorithm:
                 instructor.timetable = Timetable()
             for course in self.totalCourses:
                 course.timetable = Timetable()
-
-    def printHello():
-        print("timetable generating")
         
 # istd1 = Cohort(1, "ISTD")
 # istd2 = Cohort(2, "ISTD")
@@ -297,21 +292,21 @@ class Algorithm:
 
 #Instantiate classes
 # cohorts = []
-# istd1 = Cohort(1, "ISTD")
+# istd1 = Cohort("ISTD1")
 # cohorts.append(istd1)
-# istd2 = Cohort(2, "ISTD")
+# istd2 = Cohort("ISTD2")
 # cohorts.append(istd2)
-# istd3 = Cohort(3, "ISTD")
+# istd3 = Cohort("ISTD3")
 # cohorts.append(istd3)
-# istd4 = Cohort(4, "ISTD")
+# istd4 = Cohort("ISTD4")
 # cohorts.append(istd4)
-# istd5 = Cohort(5, "ISTD")
+# istd5 = Cohort("ISTD5")
 # cohorts.append(istd5)
-# istd6 = Cohort(6, "ISTD")
+# istd6 = Cohort("ISTD6")
 # cohorts.append(istd6)
-# # istd7 = Cohort(7, "ISTD")
+# # istd7 = Cohort("ISTD7")
 # # cohorts.append(istd7)
-# # istd8 = Cohort(8, "ISTD")
+# # istd8 = Cohort("ISTD8")
 # # cohorts.append(istd8)
 
 # rooms = {"Cohort": [Room("2.513", "Cohort Classroom 13", "Cohort Classroom"),

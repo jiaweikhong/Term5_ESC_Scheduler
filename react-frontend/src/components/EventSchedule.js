@@ -76,7 +76,7 @@ const styles = theme => ({
     width: 265,
 
   },
-  day:{
+  day: {
     marginLeft: 15
   }
 
@@ -266,7 +266,7 @@ class EventSchedule extends React.Component {
               noWrap
             // className ={classes.welcome}
             >
-              Welcome
+              Welcome { window.user }
           </Typography>
             <div className={classes.icons}>
               <IconButton
@@ -275,6 +275,7 @@ class EventSchedule extends React.Component {
                 <NotificationsIcon />
               </IconButton>
               <Button
+                id="logout"
                 color='inherit'
                 component={Link} to="/">
                 LOGOUT
@@ -298,59 +299,62 @@ class EventSchedule extends React.Component {
 
         </Drawer>
         <main className={classes.content}>
-
-          <MUIDataTable title={"Events"} data={data} columns={columns} options={options} />
+          <div className={classes.toolbar} />
+          <Typography id="tabtitle" variant="h4" gutterBottom component="h2">
+            Events
+          </Typography>
+          <MUIDataTable data={data} columns={columns} options={options} />
 
           <Dialog
             open={this.state.open}
             onClose={this.handleClose}
             aria-labelledby="form-dialog-title"
           >
-          <form method='POST'>
+            <form method='POST'>
 
-            <DialogTitle id="form-dialog-title">Add Event</DialogTitle>
-            <DialogContentText>Submissions with incomplete fields will not be recorded</DialogContentText>
-            
+              <DialogTitle id="form-dialog-title">Add Event</DialogTitle>
+              <DialogContentText>Submissions with incomplete fields will not be recorded</DialogContentText>
+
               <DialogContent>
                 <FormControl fullWidth>
-              <div>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <div>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
 
-                  <DatePicker
-                    required
-                    name='DateAdd'
-                    margin="normal"
-                    label="Date picker"
-                    value={selectedDate}
-                    onChange={this.handleDateChange}
-                  />
+                      <DatePicker
+                        required
+                        name='DateAdd'
+                        margin="normal"
+                        label="Date picker"
+                        value={selectedDate}
+                        onChange={this.handleDateChange}
+                      />
 
-                </MuiPickersUtilsProvider>
+                    </MuiPickersUtilsProvider>
 
-                <TextField
-                  name='day'
-                  required
-                  select
-                  label='Day'
-                  className={classes.day}
-                  value={this.state.day}
-                  onChange={this.handleChange('day')}
-                  variant='outlined'
-                  SelectProps={{
-                    MenuProps: {
-                      className: classes.menu,
-                    },
-                  }}
-                  margin="normal"
-                >
-                  {days.map(option => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                    <TextField
+                      name='day'
+                      required
+                      select
+                      label='Day'
+                      className={classes.day}
+                      value={this.state.day}
+                      onChange={this.handleChange('day')}
+                      variant='outlined'
+                      SelectProps={{
+                        MenuProps: {
+                          className: classes.menu,
+                        },
+                      }}
+                      margin="normal"
+                    >
+                      {days.map(option => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
                   </div>
-                  </FormControl>
+                </FormControl>
 
                 <TextField
                   required
@@ -450,119 +454,119 @@ class EventSchedule extends React.Component {
             aria-labelledby="form-dialog-title"
 
           >
-          <form method = 'POST'>
+            <form method='POST'>
 
 
-            <DialogTitle id="form-dialog-title">Delete Event</DialogTitle>
-            <DialogContentText>Please ensure that the title matches the existing event title.</DialogContentText>
-            <DialogContent>
+              <DialogTitle id="form-dialog-title">Delete Event</DialogTitle>
+              <DialogContentText>Please ensure that the title matches the existing event title.</DialogContentText>
+              <DialogContent>
 
 
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
 
-                <DatePicker
-                required
-                  name='DateDel'
-                  margin="normal"
-                  label="Date picker"
-                  value={selectedDate}
-                  onChange={this.handleDateChange}
-                />
-
-              </MuiPickersUtilsProvider>
-              <TextField
-              required
-                margin="dense"
-                name='titleDel'
-                label="Name of event"
-                fullWidth
-                variant="outlined"
-              ></TextField>
-
-              <TextField
-                name='venueDel'
-                select
-                fullWidth
-                required
-                label='Choice of venue'
-                // className={classes.pillar}
-                value={this.state.venue}
-                onChange={this.handleChange('venue')}
-                variant='outlined'
-                SelectProps={{
-                  MenuProps: {
-                    className: classes.menu,
-                  },
-                }}
-                margin="normal"
-              >
-                {constraints.map(option => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <FormControl fullWidth>
-                <div>
-                  <TextField
-                    name='StartDel'
-                    select
-                  required
-                    label='Start'
-                    // className={classes.pillar}
-                    value={this.state.start}
-                    onChange={this.handleChange('start')}
-                    variant='outlined'
-                    className={classes.time}
-                    SelectProps={{
-                      MenuProps: {
-                        className: classes.menu,
-                      },
-                    }}
+                  <DatePicker
+                    required
+                    name='DateDel'
                     margin="normal"
-                  >
-                    {time.map(option => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                  <TextField
-                    name='EndDel'
+                    label="Date picker"
+                    value={selectedDate}
+                    onChange={this.handleDateChange}
+                  />
+
+                </MuiPickersUtilsProvider>
+                <TextField
+                  required
+                  margin="dense"
+                  name='titleDel'
+                  label="Name of event"
+                  fullWidth
+                  variant="outlined"
+                ></TextField>
+
+                <TextField
+                  name='venueDel'
+                  select
+                  fullWidth
+                  required
+                  label='Choice of venue'
+                  // className={classes.pillar}
+                  value={this.state.venue}
+                  onChange={this.handleChange('venue')}
+                  variant='outlined'
+                  SelectProps={{
+                    MenuProps: {
+                      className: classes.menu,
+                    },
+                  }}
+                  margin="normal"
+                >
+                  {constraints.map(option => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <FormControl fullWidth>
+                  <div>
+                    <TextField
+                      name='StartDel'
+                      select
+                      required
+                      label='Start'
+                      // className={classes.pillar}
+                      value={this.state.start}
+                      onChange={this.handleChange('start')}
+                      variant='outlined'
+                      className={classes.time}
+                      SelectProps={{
+                        MenuProps: {
+                          className: classes.menu,
+                        },
+                      }}
+                      margin="normal"
+                    >
+                      {time.map(option => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                    <TextField
+                      name='EndDel'
                       required
 
-                    select
-                    className={classes.timeEnd}
-                    label='End'
-                    // className={classes.pillar}
-                    value={this.state.end}
-                    onChange={this.handleChange('end')}
-                    variant='outlined'
-                    SelectProps={{
-                      MenuProps: {
-                        className: classes.menu,
-                      },
-                    }}
-                    margin="normal"
-                  >
-                    {time.map(option => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </div>
-              </FormControl>
+                      select
+                      className={classes.timeEnd}
+                      label='End'
+                      // className={classes.pillar}
+                      value={this.state.end}
+                      onChange={this.handleChange('end')}
+                      variant='outlined'
+                      SelectProps={{
+                        MenuProps: {
+                          className: classes.menu,
+                        },
+                      }}
+                      margin="normal"
+                    >
+                      {time.map(option => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </div>
+                </FormControl>
 
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={this.handleClose} color="primary" type='submit' name='DelEvent'>
-                Save
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={this.handleClose} color="primary" type='submit' name='DelEvent'>
+                  Save
         </Button>
-            </DialogActions>
+              </DialogActions>
             </form>
           </Dialog>
-         
+
 
 
         </main>

@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request, jsonify
 import firebase_admin
 from firebase_admin import credentials, firestore
 import json
+from AlgorithmTest.firestoreData import *
 # from AlgorithmTest.Algorithm import *
 
 cred = credentials.Certificate('term-5-esc-scheduler-firebase-adminsdk-cfadg-cd4c469d4d.json')
@@ -295,10 +296,8 @@ def CohortInformation():
             ClassInfo = dbfs.collection('CohortClassInfo').get()
             classID = request.form['ClassID']
             CohortDetailsDict = {}
-            
             CohortDetailsDict['pillar'] = request.form['cohortPillar']
             CohortDetailsDict['num'] = request.form['studentNo']
-
 
             dbfs.collection('CohortClassInfo').document(classID).set(CohortDetailsDict)
 
@@ -314,6 +313,7 @@ def CohortInformation():
        
 
 
+            cohortClassDetails = obtainCohorts()
     return render_template('index.html', user=loggedUser, pillar=adminPillar, token=weeklysched, adminCoursesDetail=adminCoursesDetail, cohortClassDetails=cohortClassDetails)
 
 @app.route("/editschedule", methods=['GET','POST'])
@@ -636,7 +636,9 @@ def createschedule():
     if request.method == 'POST':
         # run algo here
         print ("Calling algo function now...")
-        # Algorithm.printHello()        # test function
+        algoRunner = firestoreData(cred, default_app, dbfs)
+        algoRunner.hihi()
+        # algoRunner.generateAndPushTimetable()
     return render_template("index.html", coursesInfo = coursesInfo, user=user)
 
 @app.route("/freshmoreschedule", methods=['GET', 'POST'])

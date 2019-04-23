@@ -1,7 +1,7 @@
 # Use the following imports if calling from Flask's main.py
-# from .Timetable import Timetable
+from .Timetable import Timetable
 # Use the following imports if using this file on its own
-from Timetable import Timetable
+# from Timetable import Timetable
 
 import unittest
 
@@ -10,14 +10,8 @@ class Instructor:
         self.instructorID = id
         self.instructorName = name
         self.coursesTeaching = courses
-        self.hardConstraints = []
-        for course in self.coursesTeaching:
-            self.hardConstraints.append(course)
         self.softConstraints = {}
         self.timetable = Timetable()
-
-    def getHardConstraints(self):
-        return self.hardConstraints
 
     def getCourses(self):
         return self.coursesTeaching
@@ -45,8 +39,6 @@ class Instructor:
             print("\n")
 
     def getTimeslot(self, day, timeslot):
-        #print(self.timetable.week[day][timeslot])
-        #print(self.timetable.week[day][timeslot] != [])
         return self.timetable.week[day][timeslot]
 
     def addSoftConstraints(self, priority, day, startTime, endTime, softConstraint):
@@ -62,15 +54,6 @@ class Instructor:
             for j in range(len(day)):
                 if day[j].__contains__(softConstraint):
                     day[j] = []
-
-
-# oka = Instructor(100, "Oka", ["Digital World", "Comp Struct"])
-# nat = Instructor(101, "Natalie", ["Digital World", "CSE"])
-# instructorArray = [oka, nat]
-# print(instructorArray[0].getHardConstraints())
-# print(instructorArray[1].getHardConstraints())
-
-#class UnitTestInstructor(unittest.TestCase):
 
 
 
