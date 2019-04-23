@@ -263,7 +263,7 @@ render(){
         <Card className={classes.card}>
           <CardContent>
         <div className={classes.text}>
-        <Typography gutterBottom variant="h4" component="h4">
+        <Typography id="tabtitle" gutterBottom variant="h4" component="h4">
         My Courses</Typography>
         <Typography gutterBottom component ="h6">
         Please fill in the following details for the courses you teach. Note that each submission will be a new submission. If uou wish to make changes to previous submissions, you are required to re-fill all fields. Thank you.</Typography>

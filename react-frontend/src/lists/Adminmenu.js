@@ -17,7 +17,7 @@ export const mainListItems = (
 
 
   <div>
-    <ListItem 
+    <ListItem id="pillarsched"
     button
     component = {Link} to = "/adminwelcome">
       <ListItemIcon>
@@ -26,7 +26,7 @@ export const mainListItems = (
       <ListItemText primary="Pillar Schedule" />
     </ListItem>
 
-    <ListItem 
+    <ListItem id="coursedet"
     button
     component = {Link} to = "/editschedule">
       <ListItemIcon>
@@ -35,7 +35,7 @@ export const mainListItems = (
       <ListItemText primary="Course Details" />
     </ListItem>
 
-    <ListItem 
+    <ListItem id="cohortclasses"
     button
     component = {Link} to = "/cohortclass">
       <ListItemIcon>

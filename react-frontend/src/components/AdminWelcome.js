@@ -73,7 +73,7 @@ function AdminWelcome(props) {
               <NotificationsIcon />
             </IconButton>
             <Button
-              id = "logout"
+              id="logout"
               color='inherit'
               component={Link} to="/">
               LOGOUT
@@ -100,7 +100,7 @@ function AdminWelcome(props) {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Typography variant="h4" gutterBottom component="h2">
+        <Typography id="tabtitle" variant="h4" gutterBottom component="h2">
           {window.pillar} Pillar Timetable
           </Typography>
         {/* {window.user}<br/>

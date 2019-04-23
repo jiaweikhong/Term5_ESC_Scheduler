@@ -87,7 +87,7 @@ def instructorwelcome():
     loggedUser = Data.loggedUser
     weeklysched = retrieveInstructorCourses(loggedUser)
     jsonify(weeklysched)
-    return render_template("index.html", user=loggedUser, token=weeklysched)
+    return render_template("index.html", user=loggedUser, instructorTimetable=weeklysched)
 
 @app.route("/uploadcourse", methods=['GET','POST'])
 def uploadcourse():

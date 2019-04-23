@@ -162,7 +162,7 @@ class PlannerTable extends React.Component {
     };
 
     return (
-      <MUIDataTable title={"Create Timetable"} data={window.data} columns={columns} options={options} />
+      <MUIDataTable data={window.data} columns={columns} options={options} />
     );
 
   }

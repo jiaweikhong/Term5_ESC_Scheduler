@@ -2,104 +2,77 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 
+def clickOn(id):
+    clickElem = driver.find_element_by_id(id)
+    clickElem.click()
+
+def fillField(field, textinput):
+    fieldElem = driver.find_element_by_id(field)
+    fieldElem.clear()
+    fieldElem.send_keys(textinput)
+
+def assertElementByID(id, text):
+    element = driver.find_element_by_id(id)
+    assert element.text == text
+    # print("assert success")
+
+def testInstructor():
+    clickOn("instructorlogin")
+    fillField("email", "Natalie")
+    fillField("password", "Natalie")
+    clickOn("submit")
+    assertElementByID("tabtitle", "My Timetable")
+    clickOn("myinfo")
+    assertElementByID("tabtitle", "My Courses")
+    clickOn("courseinfo")
+    assertElementByID("tabtitle", "Course Details - ONLY for course leads")
+    clickOn("mysched")
+    clickOn("logout")
+
+def testAdmin():
+    clickOn("adminlogin")
+    fillField("email", "ISTDadmin")
+    fillField("password", "pw")
+    clickOn("submit")
+    assertElementByID("tabtitle", "ISTD Pillar Timetable")
+    clickOn("course1")
+    clickOn("course2")
+    clickOn("course3")
+    clickOn("coursedet")
+    assertElementByID("tabtitle", "Course Details")
+    clickOn("cohortclasses")
+    assertElementByID("tabtitle", "Cohort Class Details")
+    clickOn("pillarsched")
+    clickOn("logout")
+
+def testPlanner():
+    clickOn("plannerlogin")
+    fillField("email", "john")
+    fillField("password", "john")
+    clickOn("submit")
+    assertElementByID("tabtitle", "My Schedules")
+    clickOn("istd")
+    clickOn("course1")
+    clickOn("course2")
+    clickOn("course3")
+    clickOn("createsched")
+    assertElementByID("tabtitle", "Create Timetable")
+    clickOn("home")
+    clickOn("editsched")
+    assertElementByID("tabtitle", "Edit Schedule")
+    clickOn("eventsched")
+    assertElementByID("tabtitle", "Event Schedule")
+    clickOn("logout")
+
 driver = webdriver.Chrome()
 driver.get("http://127.0.0.1:5000/")
 assert "SUTD Timetable Scheduler" in driver.title
 
 driver.fullscreen_window()
-
-# test instructor login
-time.sleep(1) # seconds
-instructorLoginElem = driver.find_element_by_id("instructorlogin")
-instructorLoginElem.click()
-
-emailElem = driver.find_element_by_id("email")
-emailElem.clear()
-emailElem.send_keys("Natalie")
-
-passwordElem = driver.find_element_by_id("password")
-passwordElem.clear()
-passwordElem.send_keys("Natalie")
-
-time.sleep(1) # seconds
-loginElem = driver.find_element_by_id("submit")
-loginElem.click()
-
-# assert "instructorwelcome" in driver.url
-
-time.sleep(1)
-logoutElem = driver.find_element_by_id("logout")
-logoutElem.click()
-
-# admin login
-time.sleep(1) # seconds
-adminLoginElem = driver.find_element_by_id("adminlogin")
-adminLoginElem.click()
-
-emailElem = driver.find_element_by_id("email")
-emailElem.clear()
-emailElem.send_keys("ISTDadmin")
-
-passwordElem = driver.find_element_by_id("password")
-passwordElem.clear()
-passwordElem.send_keys("pw")
-
-time.sleep(1) # seconds
-loginElem = driver.find_element_by_id("submit")
-loginElem.click()
-
-time.sleep(1) # seconds
-course1Elem = driver.find_element_by_id("course1")
-course1Elem.click()
-
-time.sleep(1) # seconds
-course2Elem = driver.find_element_by_id("course2")
-course2Elem.click()
-
-time.sleep(1) # seconds
-course3Elem = driver.find_element_by_id("course3")
-course3Elem.click()
-
-time.sleep(1)
-logoutElem = driver.find_element_by_id("logout")
-logoutElem.click()
-
-# planner login
-time.sleep(1) # seconds
-plannerLoginElem = driver.find_element_by_id("plannerlogin")
-plannerLoginElem.click()
-
-emailElem = driver.find_element_by_id("email")
-emailElem.clear()
-emailElem.send_keys("john")
-
-passwordElem = driver.find_element_by_id("password")
-passwordElem.clear()
-passwordElem.send_keys("john")
-
-time.sleep(1) # seconds
-loginElem = driver.find_element_by_id("submit")
-loginElem.click()
-
-time.sleep(1)
-istdElem = driver.find_element_by_id("istd")
-istdElem.click()
-
-time.sleep(1) # seconds
-course1Elem = driver.find_element_by_id("course1")
-course1Elem.click()
-
-time.sleep(1) # seconds
-course2Elem = driver.find_element_by_id("course2")
-course2Elem.click()
-
-time.sleep(1) # seconds
-course3Elem = driver.find_element_by_id("course3")
-course3Elem.click()
-
-time.sleep(1)
-logoutElem = driver.find_element_by_id("logout")
-logoutElem.click()
-
-time.sleep(1)
+testInstructor()
+testAdmin()
+testPlanner()
+print("Test run successful :)")
 driver.close()
+
+

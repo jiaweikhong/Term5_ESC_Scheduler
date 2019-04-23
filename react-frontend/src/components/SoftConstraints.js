@@ -319,7 +319,7 @@ class SoftConstraints extends React.Component {
       <Card className={classes.card}>
           <CardContent>
           <div className={classes.text}>
-        <Typography gutterBottom variant="h4" component="h4">
+        <Typography id="tabtitle" gutterBottom variant="h4" component="h4">
         Course Details - ONLY for course leads</Typography>
         <Typography gutterBottom component ="h6">
         You may make subsequent submissions for course information on other courses.  </Typography>
