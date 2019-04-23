@@ -1,17 +1,17 @@
 # Use the following imports if calling from Flask's main.py
-from .Timetable import Timetable
-from .Instructor import Instructor
-from .Cohort import Cohort
-from .Course import Course
-from .Room import Room
-from .Algorithm import Algorithm
+# from .Timetable import Timetable
+# from .Instructor import Instructor
+# from .Cohort import Cohort
+# from .Course import Course
+# from .Room import Room
+# from .Algorithm import Algorithm
 # Use the following imports if using this file on its own
-# from Timetable import Timetable
-# from Instructor import Instructor
-# from Cohort import Cohort
-# from Course import Course
-# from Room import Room
-# from Algorithm import Algorithm
+from Timetable import Timetable
+from Instructor import Instructor
+from Cohort import Cohort
+from Course import Course
+from Room import Room
+from Algorithm import Algorithm
 
 import random
 import itertools
@@ -194,7 +194,7 @@ class firestoreData:
                         float(courseDict['Components']['Cohort Session']['CohortSession3']), 
                         courseDict['Components']['Cohort Session']['shared'], 
                         cohort)
-            #print(newCourse.components)
+            print(newCourse.components)
             self.courseArray.append(newCourse)
 
     def pullInstructors(self):
@@ -208,7 +208,7 @@ class firestoreData:
             newInstructor = Instructor(instructorDict['ID'], instructorDict['Name'], 
             coursesTeaching)
 
-            for priority, details in instructorDict['Soft Constraints'].items():
+            for priority, details in instructorDict['SoftConstraints'].items():
                 if details == {}:
                     continue
                 if (not details['0'] is "") and (not details['1'] is "") and (not details['2'] is "") and (not details['3'] is ""):
@@ -367,6 +367,12 @@ class firestoreData:
                         dayName = "Friday"
                     cohortSchedule["Week"][dayName] = dayDict
                 cohortsdocument.set(cohortSchedule)
+
+# cred = credentials.Certificate('term-5-esc-scheduler-firebase-adminsdk-cfadg-cd4c469d4d.json')
+# default_app = firebase_admin.initialize_app(cred)
+# dbfs = firestore.client()
+# firestoreTest = firestoreData(cred, default_app, dbfs)
+
 
 
 
