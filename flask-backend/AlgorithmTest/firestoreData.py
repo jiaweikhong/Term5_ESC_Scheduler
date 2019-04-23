@@ -69,9 +69,6 @@ class firestoreData:
     def pullCourses(self):
         courseCollection = self.dbfs.collection('courses').get()
         for courseDoc in courseCollection:
-            #TODO REMOVE LATER
-            if courseDoc.id == "50.003" or courseDoc.id == "EmptyCourse":
-                continue
             courseDict = courseDoc.to_dict()
             newCourse = Course(courseDoc.id, courseDict['CourseTitle'], self.rooms, 
             courseDict['Pillar'], courseDict['CohortClasses'])
@@ -196,23 +193,23 @@ class firestoreData:
             self.courseArray.append(newCourse)
 
     def pullInstructors(self):
-        #initialise instructors
-        instructorDict = self.dbfs.collection("RawInput").document("InstructorDetails").get().to_dict()
-        for key, value in instructorDict.items():
+        instructorCollection = self.dbfs.collection("RawInput").get()
+        for instructorDoc in instructorCollection:
+            instructorDict = instructorCollection.to_dict()
             coursesTeaching = []
             for course in self.courseArray:
-                if course.courseID in instructorDict[key]['Courses'].values():
+                if course.courseID in instructorDict['Courses'].values():
                     coursesTeaching.append(course)
-            newInstructor = Instructor(instructorDict[key]['ID'], instructorDict[key]['Name'], 
+            newInstructor = Instructor(instructorDict['ID'], instructorDict['Name'], 
             coursesTeaching)
 
-            for priority, details in instructorDict[key]['Soft Constraints'].items():
+            for priority, details in instructorDict['Soft Constraints'].items():
                 if details == {}:
                     continue
                 if (not details['0'] is "") and (not details['1'] is "") and (not details['2'] is "") and (not details['3'] is ""):
                     newInstructor.addSoftConstraints(priority, details['0'],  details['1'], details['2'], 
                     details['3'])
-            
+                
             self.instructorArray.append(newInstructor)
 
     def replaceStringWithObject(self):
