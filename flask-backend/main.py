@@ -620,8 +620,7 @@ def createschedule():
         print ("Calling algo function now...")
         algoRunner = firestoreData(cred, default_app, dbfs)
         algoRunner.hihi()
-        # firestoreData.generateAndPushTimetable(firestoreData)
-        # Algorithm.printHello()        # test function
+        # algoRunner.generateAndPushTimetable()
     return render_template("index.html", coursesInfo = coursesInfo, user=user)
 
 @app.route("/freshmoreschedule", methods=['GET', 'POST'])

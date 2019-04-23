@@ -200,7 +200,7 @@ class firestoreData:
     def pullInstructors(self):
         instructorCollection = self.dbfs.collection("RawInput").get()
         for instructorDoc in instructorCollection:
-            instructorDict = instructorCollection.to_dict()
+            instructorDict = instructorDoc.to_dict()
             coursesTeaching = []
             for course in self.courseArray:
                 if course.courseID in instructorDict['Courses'].values():
@@ -208,7 +208,7 @@ class firestoreData:
             newInstructor = Instructor(instructorDict['ID'], instructorDict['Name'], 
             coursesTeaching)
 
-            for priority, details in instructorDict['Soft Constraints'].items():
+            for priority, details in instructorDict['SoftConstraints'].items():
                 if details == {}:
                     continue
                 if (not details['0'] is "") and (not details['1'] is "") and (not details['2'] is "") and (not details['3'] is ""):
@@ -231,7 +231,7 @@ class firestoreData:
                     course.cohorts.append(cohort)
 
     def generateAndPushTimetable(self):
-        print("generating and pushing timetable")
+        print("Generating and pushing timetable")
         possible = self.algo.generate_schedule()
         if possible:
             #push timetable after generating it
@@ -367,6 +367,7 @@ class firestoreData:
                         dayName = "Friday"
                     cohortSchedule["Week"][dayName] = dayDict
                 cohortsdocument.set(cohortSchedule)
+        print("Timetable pushed to Firestore!")
 
 # for instructor in instructorArray:
 #     print(instructor.instructorName)
