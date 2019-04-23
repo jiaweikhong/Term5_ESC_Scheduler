@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request, jsonify
 import firebase_admin
 from firebase_admin import credentials, firestore
 import json
+from AlgorithmTest.firestoreData import *
 # from AlgorithmTest.Algorithm import *
 
 cred = credentials.Certificate('term-5-esc-scheduler-firebase-adminsdk-cfadg-cd4c469d4d.json')
@@ -621,6 +622,9 @@ def createschedule():
     if request.method == 'POST':
         # run algo here
         print ("Calling algo function now...")
+        algoRunner = firestoreData(cred, default_app, dbfs)
+        algoRunner.hihi()
+        # firestoreData.generateAndPushTimetable(firestoreData)
         # Algorithm.printHello()        # test function
     return render_template("index.html", coursesInfo = coursesInfo, user=user)
 
