@@ -286,20 +286,16 @@ def CohortInformation():
     weeklysched = retrieveCourse('EmptyCourse')
     adminCoursesDetail = obtainCourses()
     cohortClassDetails = obtainCohorts()
-
     if request.method == 'POST':
-
         if(request.form['ClassID']):
             ClassInfo = dbfs.collection('CohortClassInfo').get()
             classID = request.form['ClassID']
             CohortDetailsDict = {}
-            
             CohortDetailsDict['pillar'] = request.form['cohortPillar']
             CohortDetailsDict['num'] = request.form['studentNo']
 
-
             dbfs.collection('CohortClassInfo').document(classID).set(CohortDetailsDict)
-
+            cohortClassDetails = obtainCohorts()
     return render_template('index.html', user=loggedUser, pillar=adminPillar, token=weeklysched, adminCoursesDetail=adminCoursesDetail, cohortClassDetails=cohortClassDetails)
 
 @app.route("/editschedule", methods=['GET','POST'])
