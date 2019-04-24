@@ -315,7 +315,7 @@ class EventSchedule extends React.Component {
           <Typography id="tabtitle" variant="h6" gutterBottom component="h2">
             {window.error}
           </Typography>
-          <MUIDataTable data={data} columns={columns} options={options} />
+          <MUIDataTable data={eventData} columns={columns} options={options} />
 
           <Dialog
             open={this.state.open}

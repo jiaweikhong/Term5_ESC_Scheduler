@@ -50,18 +50,23 @@
     //   ["hehe", "01.010", "Freshmore Writing Programme", "Pang Yang Hui", "Eunice Leong"]
     // ]
 
+    console.log("token:")
     window.unparsedtoken = "{{ token }}";
     window.unparsedtoken = window.unparsedtoken.replace(/&#39;/g, "\"");
     if (window.unparsedtoken != "") {
       window.parsedtoken = JSON.parse(unparsedtoken);
     }
 
+    console.log("instructortimetable")
     timeslots = ['0830 - 0900', '0900 - 0930', '0930 - 1000', '1000 - 1030', '1030 - 1100', '1100 - 1130', '1130 - 1200', '1200 - 1230', '1230 - 1300', '1300 - 1330', '1330 - 1400', '1400 - 1430', '1430 - 1500', '1500 - 1530', '1530 - 1600', '1600 - 1630', '1630 - 1700', '1700 - 1730', '1730 - 1800']
     window.unparsedInstructorTimetable = "{{ instructorTimetable }}";
+    // console.log(unparsedInstructorTimetable)
     window.unparsedInstructorTimetable = window.unparsedInstructorTimetable.replace(/&#39;/g, "\"");
     if (window.unparsedInstructorTimetable != "") {
       window.parsedInstructorTimetable = JSON.parse(window.unparsedInstructorTimetable)
+      // console.log(parsedInstructorTimetable)
       window.instructorTimetable = []
+      // console.log(instructorTimetable)
       for (t = 0; t < 20; t++) {  // id is the courseID eg. 50.001, 50.002 etc
         onePeriod = []
         onePeriod.push(timeslots[t])
@@ -71,10 +76,11 @@
         onePeriod.push(parsedInstructorTimetable['Thursday'][t])
         onePeriod.push(parsedInstructorTimetable['Friday'][t])
         window.instructorTimetable.push(onePeriod)
+        // console.log(instructorTimetable)
       }
     }
 
-    console.log("meow")
+    console.log("coursesinfo")
     window.unparsedCoursesInfo = "{{ coursesInfo }}";
     window.unparsedCoursesInfo = window.unparsedCoursesInfo.replace(/&#39;/g, "\"");
     window.unparsedCoursesInfo = window.unparsedCoursesInfo.replace(/False/g, "\"false\"");
@@ -132,9 +138,9 @@
         window.data.push(oneCourse)
       }
     }
-    console.log("admincrsdetail end")
-    console.log(data)
-
+    // console.log("admincrsdetail end")
+    // console.log(data)
+    console.log("cohortclassdetails")
     window.unparsedCohortClassDetails = "{{ cohortClassDetails }}"
     window.unparsedCohortClassDetails = window.unparsedCohortClassDetails.replace(/&#39;/g, "\"");
     if (window.unparsedCohortClassDetails != "") {
@@ -150,6 +156,25 @@
         window.cohortData.push(oneCohort)
       }
       // console.log(window.cohortData)
+    }
+
+    console.log("events:")
+    // console.log("{{ events}}")
+    window.unparsedEvents = "{{ events }}"
+    window.unparsedEvents = window.unparsedEvents.replace(/&#39;/g, "\"");
+    if (window.unparsedEvents != "") {
+      window.parsedEvents = JSON.parse(window.unparsedEvents)
+      window.eventData = []
+      for (var id in parsedEvents) {  // id is the courseID eg. 50.001, 50.002 etc
+        oneEvent = []
+        oneEvent.push(parsedEvents[id]['Date'])
+        oneEvent.push(parsedEvents[id]['EventTitle'])
+        oneEvent.push(parsedEvents[id]['Venue'])
+        oneEvent.push(parsedEvents[id]['StartTime'])
+        oneEvent.push(parsedEvents[id]['EndTime'])
+        window.eventData.push(oneEvent)
+      }
+      console.log(eventData)
     }
 
   </script>
