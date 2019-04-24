@@ -86,28 +86,28 @@ const styles = theme => ({
 });
 
 const time = [
-  { value: 0, label: '-' },
-  { value: 1, label: '0830', },
-  { value: 2, label: '0900', },
-  { value: 3, label: '0930' },
-  { value: 4, label: '1000' },
-  { value: 5, label: '1030' },
-  { value: 6, label: '1100', },
-  { value: 7, label: '1130', },
-  { value: 8, label: '1200', },
+  { value: '', label: '-' },
+  { value: 0, label: '0830', },
+  { value: 1, label: '0900', },
+  { value: 2, label: '0930' },
+  { value: 3, label: '1000' },
+  { value: 4, label: '1030' },
+  { value: 5, label: '1100', },
+  { value: 6, label: '1130', },
+  { value: 7, label: '1200', },
   { value: 8, label: '1230', },
-  { value: 10, label: '1300', },
-  { value: 11, label: '1330', },
-  { value: 12, label: '1400', },
-  { value: 13, label: '1430', },
-  { value: 14, label: '1500', },
-  { value: 15, label: '1530', },
-  { value: 16, label: '1600', },
-  { value: 17, label: '1630', },
-  { value: 18, label: '1700', },
-  { value: 19, label: '1730', },
-  { value: 20, label: '1800', },
-  { value: 21, label: '1830', },
+  { value: 9, label: '1300', },
+  { value: 10, label: '1330', },
+  { value: 11, label: '1400', },
+  { value: 12, label: '1430', },
+  { value: 13, label: '1500', },
+  { value: 14, label: '1530', },
+  { value: 15, label: '1600', },
+  { value: 16, label: '1630', },
+  { value: 17, label: '1700', },
+  { value: 18, label: '1730', },
+  { value: 19, label: '1800', },
+
 
 ];
 const constraints = [
@@ -312,6 +312,9 @@ class EventSchedule extends React.Component {
           <Typography id="tabtitle" variant="h6" gutterBottom component="h2">
             Events can only be added if the venue is available. Please check the availability of the venue for the new event.
           </Typography>
+          <Typography id="tabtitle" variant="h6" gutterBottom component="h2">
+            {window.error}
+          </Typography>
           <MUIDataTable data={data} columns={columns} options={options} />
 
           <Dialog
@@ -469,20 +472,6 @@ class EventSchedule extends React.Component {
               <DialogTitle id="form-dialog-title">Delete Event</DialogTitle>
               <DialogContentText>Please ensure that the title matches the existing event title.</DialogContentText>
               <DialogContent>
-
-
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-
-                  <DatePicker
-                    required
-                    name='DateDel'
-                    margin="normal"
-                    label="Date picker"
-                    value={selectedDate}
-                    onChange={this.handleDateChange}
-                  />
-
-                </MuiPickersUtilsProvider>
                 <TextField
                   required
                   margin="dense"
@@ -492,86 +481,12 @@ class EventSchedule extends React.Component {
                   variant="outlined"
                 ></TextField>
 
-                <TextField
-                  name='venueDel'
-                  select
-                  fullWidth
-                  required
-                  label='Choice of venue'
-                  // className={classes.pillar}
-                  value={this.state.venue}
-                  onChange={this.handleChange('venue')}
-                  variant='outlined'
-                  SelectProps={{
-                    MenuProps: {
-                      className: classes.menu,
-                    },
-                  }}
-                  margin="normal"
-                >
-                  {constraints.map(option => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <FormControl fullWidth>
-                  <div>
-                    <TextField
-                      name='StartDel'
-                      select
-                      required
-                      label='Start'
-                      // className={classes.pillar}
-                      value={this.state.start}
-                      onChange={this.handleChange('start')}
-                      variant='outlined'
-                      className={classes.time}
-                      SelectProps={{
-                        MenuProps: {
-                          className: classes.menu,
-                        },
-                      }}
-                      margin="normal"
-                    >
-                      {time.map(option => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                    <TextField
-                      name='EndDel'
-                      required
-
-                      select
-                      className={classes.timeEnd}
-                      label='End'
-                      // className={classes.pillar}
-                      value={this.state.end}
-                      onChange={this.handleChange('end')}
-                      variant='outlined'
-                      SelectProps={{
-                        MenuProps: {
-                          className: classes.menu,
-                        },
-                      }}
-                      margin="normal"
-                    >
-                      {time.map(option => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  </div>
-                </FormControl>
-
+              
               </DialogContent>
               <DialogActions>
                 <Button onClick={this.handleClose} color="primary" type='submit' name='DelEvent'>
                   Save
-        </Button>
+              </Button>
               </DialogActions>
             </form>
           </Dialog>

@@ -33,7 +33,7 @@ export const mainListItems = (
       <ListItemText primary="Create Schedule" />
     </ListItem>
 
-    <ListItem id="editsched"
+    {/* <ListItem id="editsched"
       button
       component={Link} to="/plannereditschedule">
       <ListItemIcon>
@@ -41,7 +41,7 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Edit Schedule" />
     </ListItem>
-
+ */}
 
 
     <ListItem
