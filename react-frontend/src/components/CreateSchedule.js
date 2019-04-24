@@ -307,6 +307,9 @@ class CreateSchedule extends React.Component {
         <Typography id="message" gutterBottom component="h2">
           {window.noclass}
         </Typography>
+        <Typography id="message" gutterBottom component="h2">
+          {window.classAdd}
+        </Typography>
         <br/>
           <MUIDataTable data={window.data} columns={columns} options={options} />
           <br />

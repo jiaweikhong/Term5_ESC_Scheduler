@@ -364,7 +364,7 @@ def EditSchedule():
 
 @app.route("/eventscheduling", methods=['GET','POST'])
 def EventScheduling():
-    error = ""
+    venue = ""
     if request.method == 'POST':
         
         boolean = True
@@ -389,7 +389,7 @@ def EventScheduling():
                 for i in range(int(start),10):
                     if(roomDocument['Week'][day][str(i)]):
                         print('venue being used')
-                        error = "The venue is being used during this time slot"
+                        venue = "The venue is being used during this time slot"
                         boolean == False
                         break
 
@@ -398,7 +398,7 @@ def EventScheduling():
                 for i in range (int(start),int(end)):
                     if(roomDocument['Week'][day][str(i)]):
                         print(roomDocument['Week'][day][str(i)])
-                        error = "The venue is being used during this time slot"
+                        venue = "The venue is being used during this time slot"
                         boolean = False
                         break
 
@@ -416,7 +416,7 @@ def EventScheduling():
             dbfs.collection('Events').document(eventTitle).delete()
 
     events = obtainEvents()
-    return render_template('index.html', events=events, error=error)
+    return render_template('index.html', events=events, venue=venue)
 
 
 
@@ -624,6 +624,7 @@ def createschedule():
     errorInstructor =""
     errorRoom=""
     errorCohort = ""
+    classAdd=""
     if request.method == 'POST':
 
         # # run algo here
@@ -721,82 +722,73 @@ def createschedule():
             instrucInfo = courseInfo['Instructors']
 
             if (day == 'Wednesday' or day == 'Friday') and (int(start) > 9 or int(end) > 9):
-                error = "This timeslot is blocked out for events/activities"
+                classAdd = "This timeslot is blocked out for events/activities"
             
             else:
-                # check courseTimetable availability
+
                 CourseDoc = dbfs.collection('courseTimetable').document(courseCode).get().to_dict()
+                cohortDocument = dbfs.collection('cohortTimetable').document(cohort).get().to_dict()
+                roomDocument = dbfs.collection('roomTimetable').document(venue).get().to_dict()
+                InstructorDoc = obtainInstructors(instrucInfo)
+
+                # check courseTimetable availability
                 for i in timeslot:
-                    if CourseDoc['Week'][day][i]:
-                        # print("COURSE:"+CourseDoc['Week'][day][i])
+                    if CourseDoc['Week'][day][str(i)]:
                         check = True
-                        errorCourse = courseCode + "is having a session during this timeslot"
+                        errorCourse = courseCode + " is having a session during this timeslot"
                         break
     
-
-                cohortDocument = dbfs.collection('cohortTimetable').document(cohort).get().to_dict()          
                 for i in timeslot:
-                    if cohortDocument['Week'][day][i]:
+                    if cohortDocument['Week'][day][str(i)]:
                         check = True
-                        print("COHORT:"+cohortDocument['Week'][day][i])
-                        errorCohort = cohort + "is having a another class during this timeslot"
+                        errorCohort = cohort + " is having a another class during this timeslot"
                         break
 
 
-                instructorDocument = dbfs.collection('instructorTimetable').document('test').get().to_dict()
                 for instructor in instrucInfo:
                     for i in timeslot:
-                        if instructorDocument[instructor]['Week'][day][i]:
+                        if InstructorDoc[instructor]['Week'][day][str(i)]:
                             check = True
-                            print("INSTRUCTOR:"+instructorDocument[instructor]['Week'][day][i])
-                            errorInstructor = instructor + "is having another class during this timeslot"
+                            errorInstructor = instructor + " is having another class during this timeslot"
                             break
 
-                roomDocument = dbfs.collection('roomTimetable').document(venue).get().to_dict() 
                 for i in timeslot:
-                    if roomDocument['Week'][day][i]:
+                    if roomDocument['Week'][day][str(i)]:
                         check = True
-                        print("COHORT:"+roomDocument['Week'][day][i])
-                        errorRoom = venue + "is occupied during this timeslot"
+                        errorRoom = venue + " is occupied during this timeslot"
                         break
 
 
                 #ADDING NEW COURSE TO ALL TIMETABLES
-                if check == False:
-                    CourseDoc = dbfs.collection('courseTimetable').document(courseCode).get().to_dict()
-                    cohortDocument = dbfs.collection('cohortTimetable').document(cohort).get().to_dict()
-                    instructorDocument = dbfs.collection('instructorTimetable').document('test').get().to_dict()
-                    roomDocument = dbfs.collection('roomTimetable').document(venue).get().to_dict()
+                if check == False:                    
                     for i in timeslot:
-                        CourseDoc['Week'][day][i] = courseTitle + ","+courseCode+","+session +","+ cohort +","+ venue
-                        print("COURSE:"+CourseDoc['Week'][day][i])
+                        CourseDoc['Week'][day][str(i)] = courseTitle + ","+courseCode+","+session +","+ cohort +","+ venue
         
-                        cohortDocument['Week'][day][i] = courseTitle + ","+courseCode+","+session +","+ cohort +","+ venue
-                        print("COHORT:"+cohortDocument['Week'][day][i])
+                        cohortDocument['Week'][day][str(i)] = courseTitle + ","+courseCode+","+session +","+ cohort +","+ venue
                     
-                        for instructor in instrucInfo:
-                            instructorDocument[instructor]['Week'][day][i] = courseTitle + ","+courseCode+","+session +","+ cohort +","+ venue
-                            print(instructor +":"+instructorDocument[instructor]['Week'][day][i])
+                        roomDocument['Week'][day][str(i)] = courseTitle + ","+courseCode+","+session +","+ cohort +","+ venue
 
-                        roomDocument['Week'][day][i] = courseTitle + ","+courseCode+","+session +","+ cohort +","+ venue
-                        print("ROOM:"+roomDocument['Week'][day][i])
+                        for instructor in instrucInfo:
+                            InstructorDoc[instructor]['Week'][day][str(i)] = courseTitle + ","+courseCode+","+session +","+ cohort +","+ venue
+
 
                     dbfs.collection('courseTimetable').document(courseCode).update(CourseDoc)
                     dbfs.collection('cohortTimetable').document(cohort).update(cohortDocument)
                     dbfs.collection('roomTimetable').document(venue).update(roomDocument)
-                    dbfs.collection('instructorTimetable').document('test').update(instructorDocument)
+                    for instructor in InstructorDoc:
+                        dbfs.collection('instructorTimetable').document(instructor).update(InstructorDoc[instructor])
                                     
         if 'generateButton' in request.form:
             # # run algo here
-            # print ("Calling algo function now...")
-            # algoRunner = firestoreData(cred, default_app, dbfs)
+            print ("Calling algo function now...")
+            algoRunner = firestoreData(cred, default_app, dbfs)
             # # algoRunner.hihi()
-            # timetableGenerated = algoRunner.generateAndPushTimetable()
+            timetableGenerated = algoRunner.generateAndPushTimetable()
             if timetableGenerated == True:
                 message = "Timetable generated!"
             else:
                 message = "Timetable cannot be generated :("
-    return render_template("index.html", coursesInfo = coursesInfo, user=user, message=message,errorCohort=errorCohort,errorCourse=errorCourse,errorInstructor=errorInstructor,errorRoom=errorRoom,noclass=noclass)
+    return render_template("index.html", coursesInfo = coursesInfo, user=user, message=message,errorCohort=errorCohort,errorCourse=errorCourse,errorInstructor=errorInstructor,errorRoom=errorRoom,noclass=noclass,classAdd=classAdd)
 
 @app.route("/freshmoreschedule", methods=['GET', 'POST'])
 def freshmoreschedule():

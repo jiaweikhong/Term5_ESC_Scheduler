@@ -176,8 +176,6 @@ class InstructorEvent extends React.Component {
                         </div>
                     </Toolbar>
                 </AppBar>
-
-
                 <Drawer
                     className={classes.drawer}
                     variant="permanent"
