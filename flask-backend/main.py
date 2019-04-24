@@ -81,10 +81,16 @@ def instructorlogin():
     return render_template('index.html', error=error)
 
 def retrieveInstructorCourses(loggedUser):
-    coursesdocument = dbfs.collection('instructors').document('JBXLfE3480F9TYQMqd4j').get().to_dict()
-    week = coursesdocument[loggedUser]['Week']
-    # print (week)
-    return week #dictionary
+    # coursesdocument = dbfs.collection('instructors').document('JBXLfE3480F9TYQMqd4j').get().to_dict()
+    # week = coursesdocument[loggedUser]['Week']
+    # # print (week)
+    # return week #dictionary
+    if (loggedUser in dbfs.collection('instructorTimetable').stream()):
+        instructordocument = dbfs.collection('instructorTimetable').document(loggedUser).get().to_dict()
+        week = instructordocument['Week']
+    else:
+        week = []
+    return week
 
 @app.route("/instructorwelcome", methods=['GET', 'POST'])
 def instructorwelcome():
@@ -301,8 +307,8 @@ def CohortInformation():
             CohortDetailsDict = {}
             CohortDetailsDict['pillar'] = request.form['cohortPillar']
             CohortDetailsDict['num'] = request.form['studentNo']
-
             dbfs.collection('CohortClassInfo').document(classID).set(CohortDetailsDict)
+            # cohortClassDetails = obtainCohorts()
 
         if('DelButton' in request.form):
             classID = request.form['delClass']
@@ -310,13 +316,7 @@ def CohortInformation():
                 print("exist")
                 dbfs.collection('CohortClassInfo').document(classID).get
                 dbfs.collection('CohortClassInfo').document(classID).delete()
-
-                
-
-       
-
-
-            cohortClassDetails = obtainCohorts()
+        cohortClassDetails = obtainCohorts()
     return render_template('index.html', user=loggedUser, pillar=adminPillar, token=weeklysched, adminCoursesDetail=adminCoursesDetail, cohortClassDetails=cohortClassDetails)
 
 @app.route("/editschedule", methods=['GET','POST'])
@@ -347,6 +347,7 @@ def EditSchedule():
             CourseDetailsDict['Status'] = "Updated"
 
             dbfs.collection('courses').document(courseCode).update(CourseDetailsDict)
+            adminCoursesDetail = obtainCourses()
 
     return render_template('index.html', user=loggedUser, pillar=adminPillar, token=weeklysched, adminCoursesDetail=adminCoursesDetail, cohortClassDetails=cohortClassDetails)
 
@@ -475,6 +476,7 @@ def adminwelcome():
     adminPillar = Data.pillar
     # print ("pillar: " + adminPillar)
     # print ("user: " + loggedUser)
+    print (adminCoursesDetail)
     return render_template('index.html', token=weeklysched, user=loggedUser, pillar=adminPillar, adminCoursesDetail=adminCoursesDetail, cohortClassDetails=cohortClassDetails)
 
 def check_planner_login(check_username, check_password):
@@ -538,6 +540,7 @@ def obtainCourses():
         # print(courseID.id)
         courseInfo = dbfs.collection('courses').document(courseID.id).get().to_dict()
         coursesInfo[courseID.id] = courseInfo
+    # print (coursesInfo)
     return coursesInfo
 
 @app.route("/plannerwelcome", methods=['GET', 'POST'])

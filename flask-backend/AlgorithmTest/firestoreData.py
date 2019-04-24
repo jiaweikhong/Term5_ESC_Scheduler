@@ -264,13 +264,10 @@ class firestoreData:
                     #print(courseSchedule)
                 coursesdocument.set(courseSchedule)
 
-            instructorSchedule = {}
-            for instructor in self.instructorArray:
-                instructorSchedule[instructor.instructorName] = {"Week": {}}
-
             #print(instructorSchedule)
             for instructor in self.instructorArray:
                 instructorsdocument = self.dbfs.collection('instructorTimetable').document(instructor.instructorName)
+                instructorSchedule = {"Week": {}}
                 for dayindex in range(5):
                     dayDict = {}
                     day = instructor.getTimetable().week[dayindex]
@@ -296,10 +293,10 @@ class firestoreData:
                         dayName = "Thursday"
                     elif dayindex == 4:
                         dayName = "Friday"
-                    instructorSchedule[instructor.instructorName]["Week"][dayName] = dayDict
+                    instructorSchedule["Week"][dayName] = dayDict
                     #instructorSchedule[instructor.instructorName]["password"] = instructor.instructorName
 
-            instructorsdocument.set(instructorSchedule)
+                instructorsdocument.set(instructorSchedule)
 
             for roomType in self.rooms:
                 for room in self.rooms[roomType]:
