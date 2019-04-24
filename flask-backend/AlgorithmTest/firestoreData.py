@@ -227,7 +227,6 @@ class firestoreData:
                     cohort.addCourses(course)
                     course.cohorts.remove(cohort.name)
                     course.cohorts.append(cohort)
-            print(course.cohorts)
 
     def generateAndPushTimetable(self):
         print("Generating and pushing timetable")
@@ -365,7 +364,11 @@ class firestoreData:
                         dayName = "Friday"
                     cohortSchedule["Week"][dayName] = dayDict
                 cohortsdocument.set(cohortSchedule)
-        print("Timetable pushed to Firestore!")
+            print("Timetable pushed to Firestore!")
+            return True
+        else:
+            print("End of firestoreData function")
+            return False
 
 # cred = credentials.Certificate('term-5-esc-scheduler-firebase-adminsdk-cfadg-cd4c469d4d.json')
 # default_app = firebase_admin.initialize_app(cred)
@@ -374,13 +377,13 @@ class firestoreData:
 # firestoreTest.generateAndPushTimetable()
 
 
-# for instructor in instructorArray:
+# for instructor in firestoreTest.instructorArray:
 #     print(instructor.instructorName)
 #     instructor.printTimetable()
-# for cohort in cohortArray:
+# for cohort in firestoreTest.cohortArray:
 #     print(cohort.name)
 #     cohort.printTimetable()
-# for key, value in rooms.items():
+# for key, value in firestoreTest.rooms.items():
 #     for room in value:
 #         print(room.roomName)
 #         room.printTimetable()

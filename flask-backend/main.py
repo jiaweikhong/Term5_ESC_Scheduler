@@ -19,6 +19,7 @@ bannedaccountsarray = bannedaccountsdict['banned']
 app = Flask("__main__")
 
 createInstructor = 0
+
 class Data():
     loggedUser = ""
     pillar = ""
@@ -522,7 +523,7 @@ def plannerlogin():
 
 def obtainCohorts():
     cohortsInfo = {}
-    document = dbfs.collection('CohortClassInfo').get()
+    document = dbfs.collection('CohortClassInfo').stream()
     for cohortID in document:
         cohortInfo = dbfs.collection('CohortClassInfo').document(cohortID.id).get().to_dict()
         cohortsInfo[cohortID.id] = cohortInfo
@@ -531,7 +532,7 @@ def obtainCohorts():
 
 def obtainCourses():
     coursesInfo = {}
-    document = dbfs.collection('courses').get()
+    document = dbfs.collection('courses').stream()
     # coursesInfo = document.getData()
     for courseID in document:
         # print(courseID.id)
@@ -572,6 +573,7 @@ def createschedule():
     coursesInfo = obtainCourses()
     user = Data.loggedUser
     error=""
+    message = ""
     if request.method == 'POST':
 
         #TODO uncomment before pushing
@@ -645,47 +647,6 @@ def createschedule():
                 dbfs.collection('cohortTimetable').document(cohort).set(cohortDocument)
                 dbfs.collection('instructorTimetable').document('test').set(instructorDocument)
                 dbfs.collection('roomTimetable').document(venue).set(roomDocument)
-                
-
-                # cohortDocument = dbfs.collection('cohortTimetable').get() 
-                # for cohort in cohortDocument:
-                #     timetable = dbfs.collection('cohortTimetable').document(cohort.id).get().to_dict()           
-                #     for i in timeslot:
-                #         details = timetable['Week'][day][str(i)].split(',')
-                #         course = details[0]
-                #         # TODO NEED TO ADD COURSE TITLE 
-                #         if(course == courseCode):
-                #             print("COHORT:"+timetable['Week'][day][str(i)])
-                #         # TODO timetable['Week'][day][str(i)] = {}
-    
-                # #TODO dbfs.collection('courseTimetable').document(courseCode).set(CohortDoc)
-
-                # instructorDocument = dbfs.collection('instructorTimetable').document('Oka Kurniawan').get().to_dict()
-
-                # for instructor in instructorDocument:
-                #     # print(instructor)         
-                #     for i in timeslot:
-                #         details = instructorDocument[instructor]['Week'][day][str(i)].split(',')
-                #         course = details[0]
-                #         # TODO NEED TO ADD COURSE TITLE 
-                #         if(course == courseCode):
-                #             print("INSTRUCTOR:"+instructorDocument[instructor]['Week'][day][str(i)])
-                #         # TODO timetable['Week'][day][str(i)] = {}
-
-
-
-                # roomDocument = dbfs.collection('roomTimetable').get() 
-                # for room in roomDocument:
-                #     timetable = dbfs.collection('roomTimetable').document(room.id).get().to_dict()           
-                #     for i in timeslot:
-                #         details = timetable['Week'][day][str(i)].split(',')
-                #         course = details[0]
-                #         # TODO NEED TO ADD COURSE TITLE 
-                #         if(course == courseCode):
-                #             print("COHORT:"+timetable['Week'][day][str(i)])
-                #         # TODO timetable['Week'][day][str(i)] = {}
-    
-                # #TODO dbfs.collection('courseTimetable').document(courseCode).set(CohortDoc)
 
         if 'addCourse' in request.form:
 
@@ -769,7 +730,19 @@ def createschedule():
                     dbfs.collection('roomTimetable').document(venue).update(roomDocument)
                     dbfs.collection('instructorTimetable').document('test').update(instructorDocument)
                                             
-    return render_template("index.html", coursesInfo = coursesInfo, user=user)
+
+    
+        if 'generateButton' in request.form:
+            # run algo here
+            print ("Calling algo function now...")
+            algoRunner = firestoreData(cred, default_app, dbfs)
+            # algoRunner.hihi()
+            timetableGenerated = algoRunner.generateAndPushTimetable()
+            if timetableGenerated == True:
+                message = "Timetable generated!"
+            else:
+                message = "Timetable cannot be generated :("
+    return render_template("index.html", coursesInfo = coursesInfo, user=user, message=message)
 
 @app.route("/freshmoreschedule", methods=['GET', 'POST'])
 def freshmoreschedule():
@@ -813,4 +786,5 @@ def esdschedule():
 def asdschedule():
     return render_template('index.html', token="this is from main.py (asd)")
 
-app.run(debug="True")
+if __name__ == "__main__":
+    app.run(debug="True")

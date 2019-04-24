@@ -285,6 +285,19 @@ class CreateSchedule extends React.Component {
           <Typography id="tabtitle" variant="h4" gutterBottom component="h2">
             Create Timetable
           </Typography>
+          <form method="POST">
+          <Button
+            size="medium"
+            id="submit"
+            type="submit"
+            name ='generateButton'>
+            Click here to Generate Schedule
+        </Button>
+        </form>
+        <Typography id="message" gutterBottom component="h2">
+          {window.message}
+        </Typography>
+        <br/>
           <MUIDataTable data={window.data} columns={columns} options={options} />
           <br />
           <form method="POST">
@@ -651,28 +664,8 @@ class CreateSchedule extends React.Component {
             </form>
           </Dialog>
 
-          {/* <Dialog
-            open={this.state.delete}
-            onClose={this.handleClose}
-            aria-labelledby="form-dialog-title"
-          >
-            <form method='POST'>
-            <DialogContent>
-              <DialogContentText>Indicate the course you wish to remove from all timetables.</DialogContentText>
-              <TextField
-                name='cancel'
-                fullWidth
-                placeholder='Course Code'
-                variant='outlined' />
-                </DialogContent>
-              <DialogActions>
-              <Button onClick={this.handleClose} color="primary" type='submit' name='canCourse'>
-                Save
-                </Button>
-                </DialogActions>
-
-            </form>
-          </Dialog> */}
+        
+      
 
         </main>
       </div>

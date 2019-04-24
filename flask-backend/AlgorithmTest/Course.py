@@ -21,9 +21,9 @@ class Course:
         self.timetable = Timetable()
         self.venue = venues #{"Cohort": None, "Lecture": None, "Lab": None}
 
-    def addIntoTimeTable(self, course, day, timeslot, numslots, component, cohortName, roomID = ""):
+    def addIntoTimeTable(self, course, courseID, day, timeslot, numslots, component, cohortName, roomID = ""):
         for i in range(numslots):
-            self.timetable.setTimeslot(course, day, timeslot, component, cohortName, roomID)
+            self.timetable.setTimeslot(course, courseID, day, timeslot, component, cohortName, roomID)
             timeslot += 1
 
     def getTimetable(self):
