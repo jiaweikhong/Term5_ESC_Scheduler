@@ -224,11 +224,6 @@ class CreateSchedule extends React.Component {
                 <ClearIcon className={classes.deleteIcon} />
               </IconButton>
             </Tooltip>
-            {/* <Tooltip title={"Delete Course"}>
-              <IconButton className={classes.iconButton} onClick={this.handleDelete}>
-                <ClearIcon className={classes.deleteIcon} />
-              </IconButton>
-            </Tooltip> */}
           </React.Fragment>
         );
       },
@@ -308,6 +303,9 @@ class CreateSchedule extends React.Component {
         </Typography>
         <Typography id="message" gutterBottom component="h2">
           {window.errorInstructor}
+        </Typography>
+        <Typography id="message" gutterBottom component="h2">
+          {window.noclass}
         </Typography>
         <br/>
           <MUIDataTable data={window.data} columns={columns} options={options} />

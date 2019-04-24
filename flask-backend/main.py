@@ -351,6 +351,9 @@ def EditSchedule():
 
     return render_template('index.html', user=loggedUser, pillar=adminPillar, token=weeklysched, adminCoursesDetail=adminCoursesDetail, cohortClassDetails=cohortClassDetails)
 
+
+
+
 @app.route("/eventscheduling", methods=['GET','POST'])
 def EventScheduling():
     error = ""
@@ -585,11 +588,18 @@ def duration(start,end):
 
     
 
+def obtainInstructors(instructors):
+    InstructorInfo = {}
+    for prof in instructors:
+        profInfo = dbfs.collection('instructorTimetable').document(prof).get().to_dict()
+        InstructorInfo[prof] = profInfo
+    return InstructorInfo
+
 @app.route("/createschedule", methods=['GET', 'POST'])
 def createschedule():
     coursesInfo = obtainCourses()
     user = Data.loggedUser
-    error=""
+    noclass=""
     message = ""
     errorCourse = ""
     errorInstructor =""
@@ -597,12 +607,11 @@ def createschedule():
     errorCohort = ""
     if request.method == 'POST':
 
-        #TODO uncomment before pushing
         # # run algo here
         # print ("Calling algo function now...")
         # algoRunner = firestoreData(cred, default_app, dbfs)
-        # algoRunner.hihi()
-        # # algoRunner.generateAndPushTimetable()
+        # # algoRunner.hihi()
+        # algoRunner.generateAndPushTimetable()
 
 
         if 'delCourse' in request.form:
@@ -615,59 +624,62 @@ def createschedule():
             session = request.form['typeDel']
             cohort = request.form['cohortDel']
             title = request.form['titleDel']
+            instructors = {}
 
             courseInfo = dbfs.collection('courses').document(courseCode).get().to_dict()
             instrucInfo = courseInfo['Instructors']
 
 
             if (day == 'Wednesday' or day == 'Friday') and (int(start) > 9 or int(end) > 9):
-                error = "These are special time slots "
+                noclass = " There are no classes after 1pm on  "+day
             
             else:
 
                 CourseDoc = dbfs.collection('courseTimetable').document(courseCode).get().to_dict()
                 cohortDocument = dbfs.collection('cohortTimetable').document(cohort).get().to_dict()
-                instructorDocument = dbfs.collection('instructorTimetable').document('test').get().to_dict()
+                # instructorDocument = dbfs.collection('instructorTimetable').get()
                 roomDocument = dbfs.collection('roomTimetable').document(venue).get().to_dict()
+                InstructorDoc = obtainInstructors(instrucInfo)
+                # print(InstructorDoc)
+
 
                 for i in timeslot:
                     #COURSES
-                    if(CourseDoc['Week'][day][i]):
-                        courseList = CourseDoc['Week'][day][i].split(',')
-                        code1 = courseList[1]
+                    if(CourseDoc['Week'][day][str(i)]):
+                        courseList = CourseDoc['Week'][day][str(i)].split(',')
+                        code1 = courseList[1].strip()
                         if code1 == courseCode:
-                            CourseDoc['Week'][day][i] = ""
-                            # print("COURSE:"+CourseDoc['Week'][day][i])
+                            CourseDoc['Week'][day][str(i)] = ""
     
                     #COHORTS
-                    if(cohortDocument['Week'][day][i]):
-                        cohortList = cohortDocument['Week'][day][i].split(',')
-                        code2 = cohortList[1]
+                    if(cohortDocument['Week'][day][str(i)]):
+                        cohortList = cohortDocument['Week'][day][str(i)].split(',')
+                        code2 = cohortList[1].strip()
                         if code2 == courseCode:
-                            cohortDocument['Week'][day][i] = ""
-                            # print("COHORT:"+cohortDocument['Week'][day][i])
+                            cohortDocument['Week'][day][str(i)] = ""
 
                     #ROOMS
-                    if(roomDocument['Week'][day][i]):
-                        roomList = roomDocument['Week'][day][i].split(',')
-                        code3 = roomList[1]
+                    if(roomDocument['Week'][day][str(i)]):
+                        roomList = roomDocument['Week'][day][str(i)].split(',')
+                        code3 = roomList[1].strip()
+                        print(code3)
                         if code3 == courseCode:
-                            roomDocument['Week'][day][i] = ""
-                            # print("ROOM:"+roomDocument['Week'][day][i])
+                            print('passed3')
+                            roomDocument['Week'][day][str(i)] = ""
 
                     #INSTRUCTORS
                     for instructor in instrucInfo:
-                        if(instructorDocument[instructor]['Week'][day][i]):
-                            instructList = instructorDocument[instructor]["Week"][day][i].split(',')
-                            code4 = instructList[1]
-                            if code4 == courseCode:
-                                instructorDocument[instructor]['Week'][day][i] = ""
-                                # print(instructor+":"+instructorDocument[instructor]['Week'][day][i])
+                        List = InstructorDoc[instructor]['Week'][day][str(i)].split(',')
+                        code4 = List[1].strip()
+                        print(code4)
+                        if code4 == courseCode:
+                            InstructorDoc[instructor]['Week'][day][str(i)] = ""
 
                 dbfs.collection('courseTimetable').document(courseCode).set(CourseDoc)
                 dbfs.collection('cohortTimetable').document(cohort).set(cohortDocument)
-                dbfs.collection('instructorTimetable').document('test').set(instructorDocument)
                 dbfs.collection('roomTimetable').document(venue).set(roomDocument)
+                for instructor in instrucInfo:
+                    dbfs.collection('instructorTimetable').document(instructor).set(InstructorDoc[instructor])             
 
         if 'addCourse' in request.form:
 
@@ -758,16 +770,16 @@ def createschedule():
 
     
         if 'generateButton' in request.form:
-            # run algo here
-            print ("Calling algo function now...")
-            algoRunner = firestoreData(cred, default_app, dbfs)
-            # algoRunner.hihi()
-            timetableGenerated = algoRunner.generateAndPushTimetable()
+            # # run algo here
+            # print ("Calling algo function now...")
+            # algoRunner = firestoreData(cred, default_app, dbfs)
+            # # algoRunner.hihi()
+            # timetableGenerated = algoRunner.generateAndPushTimetable()
             if timetableGenerated == True:
                 message = "Timetable generated!"
             else:
                 message = "Timetable cannot be generated :("
-    return render_template("index.html", coursesInfo = coursesInfo, user=user, message=message,errorCohort=errorCohort,errorCourse=errorCourse,errorInstructor=errorInstructor,errorRoom=errorRoom)
+    return render_template("index.html", coursesInfo = coursesInfo, user=user, message=message,errorCohort=errorCohort,errorCourse=errorCourse,errorInstructor=errorInstructor,errorRoom=errorRoom,noclass=noclass)
 
 @app.route("/freshmoreschedule", methods=['GET', 'POST'])
 def freshmoreschedule():
