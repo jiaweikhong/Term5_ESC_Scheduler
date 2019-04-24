@@ -105,15 +105,19 @@ function CreateSchedule(props) {
         <Typography id="tabtitle" variant="h4" gutterBottom component="h2">
           Create Timetable
           </Typography>
-        <PlannerTable />
-        <br />
         <form method="POST">
           <Button
+            size="medium"
             id="submit"
             type="submit">
-            Generate Schedule
+            Click here to Generate Schedule
         </Button>
         </form>
+        <Typography id="message" gutterBottom component="h2">
+          {window.message}
+        </Typography>
+        <br/>
+        <PlannerTable />
 
       </main>
     </div>

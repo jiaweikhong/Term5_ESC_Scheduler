@@ -1,17 +1,17 @@
 # Use the following imports if calling from Flask's main.py
-# from .Timetable import Timetable
-# from .Instructor import Instructor
-# from .Cohort import Cohort
-# from .Course import Course
-# from .Room import Room
-# from .Algorithm import Algorithm
+from .Timetable import Timetable
+from .Instructor import Instructor
+from .Cohort import Cohort
+from .Course import Course
+from .Room import Room
+from .Algorithm import Algorithm
 # Use the following imports if using this file on its own
-from Timetable import Timetable
-from Instructor import Instructor
-from Cohort import Cohort
-from Course import Course
-from Room import Room
-from Algorithm import Algorithm
+# from Timetable import Timetable
+# from Instructor import Instructor
+# from Cohort import Cohort
+# from Course import Course
+# from Room import Room
+# from Algorithm import Algorithm
 
 import random
 import itertools
@@ -367,13 +367,14 @@ class firestoreData:
             print("Timetable pushed to Firestore!")
             return True
         else:
+            print("End of firestoreData function")
             return False
 
-cred = credentials.Certificate('term-5-esc-scheduler-firebase-adminsdk-cfadg-cd4c469d4d.json')
-default_app = firebase_admin.initialize_app(cred)
-dbfs = firestore.client()
-firestoreTest = firestoreData(cred, default_app, dbfs)
-firestoreTest.generateAndPushTimetable()
+# cred = credentials.Certificate('term-5-esc-scheduler-firebase-adminsdk-cfadg-cd4c469d4d.json')
+# default_app = firebase_admin.initialize_app(cred)
+# dbfs = firestore.client()
+# firestoreTest = firestoreData(cred, default_app, dbfs)
+# firestoreTest.generateAndPushTimetable()
 
 
 # for instructor in firestoreTest.instructorArray:

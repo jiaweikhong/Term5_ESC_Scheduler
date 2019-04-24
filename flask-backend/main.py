@@ -19,6 +19,7 @@ bannedaccountsarray = bannedaccountsdict['banned']
 app = Flask("__main__")
 
 createInstructor = 0
+
 class Data():
     loggedUser = ""
     pillar = ""
@@ -593,7 +594,7 @@ def plannerlogin():
 
 def obtainCohorts():
     cohortsInfo = {}
-    document = dbfs.collection('CohortClassInfo').get()
+    document = dbfs.collection('CohortClassInfo').stream()
     for cohortID in document:
         cohortInfo = dbfs.collection('CohortClassInfo').document(cohortID.id).get().to_dict()
         cohortsInfo[cohortID.id] = cohortInfo
@@ -602,7 +603,7 @@ def obtainCohorts():
 
 def obtainCourses():
     coursesInfo = {}
-    document = dbfs.collection('courses').get()
+    document = dbfs.collection('courses').stream()
     # coursesInfo = document.getData()
     for courseID in document:
         # print(courseID.id)
@@ -633,13 +634,18 @@ def plannerwelcome():
 def createschedule():
     coursesInfo = obtainCourses()
     user = Data.loggedUser
+    message = ""
     if request.method == 'POST':
         # run algo here
         print ("Calling algo function now...")
         algoRunner = firestoreData(cred, default_app, dbfs)
-        algoRunner.hihi()
-        # algoRunner.generateAndPushTimetable()
-    return render_template("index.html", coursesInfo = coursesInfo, user=user)
+        # algoRunner.hihi()
+        timetableGenerated = algoRunner.generateAndPushTimetable()
+        if timetableGenerated == True:
+            message = "Timetable generated!"
+        else:
+            message = "Timetable cannot be generated :("
+    return render_template("index.html", coursesInfo = coursesInfo, user=user, message=message)
 
 @app.route("/freshmoreschedule", methods=['GET', 'POST'])
 def freshmoreschedule():
@@ -683,4 +689,5 @@ def esdschedule():
 def asdschedule():
     return render_template('index.html', token="this is from main.py (asd)")
 
-app.run(debug="True")
+if __name__ == "__main__":
+    app.run(debug="True")

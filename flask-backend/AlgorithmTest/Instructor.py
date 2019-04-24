@@ -1,7 +1,7 @@
 # Use the following imports if calling from Flask's main.py
-# from .Timetable import Timetable
+from .Timetable import Timetable
 # Use the following imports if using this file on its own
-from Timetable import Timetable
+# from Timetable import Timetable
 
 import unittest
 
