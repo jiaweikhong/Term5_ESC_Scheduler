@@ -196,7 +196,7 @@ class InstructorEvent extends React.Component {
                     <Typography id='tabtitle' variant="h4" gutterBottom component="h2">
                         Event Schedules
                     </Typography>
-                    <MUIDataTable data={data} columns={columns} options={options} />
+                    <MUIDataTable data={window.eventData} columns={columns} options={options} />
                 </main>
             </div>
         );

@@ -85,22 +85,31 @@ def retrieveInstructorCourses(loggedUser):
     # week = coursesdocument[loggedUser]['Week']
     # # print (week)
     # return week #dictionary
-    if (loggedUser in dbfs.collection('instructorTimetable').stream()):
-        instructordocument = dbfs.collection('instructorTimetable').document(loggedUser).get().to_dict()
-        week = instructordocument['Week']
-    else:
-        week = []
+    print (loggedUser)
+    week = {'Monday':'error'}
+    instructorTimetableCollection =  dbfs.collection('instructorTimetable').stream()
+    # if (loggedUser in dbfs.collection('instructorTimetable').stream()):
+    for person in instructorTimetableCollection:
+        if loggedUser == person.id:
+            instructordocument = dbfs.collection('instructorTimetable').document(loggedUser).get().to_dict()
+            week = instructordocument['Week']
+            break
+    # else:
+        week = {'Monday': {'0':''}, 'Tuesday': {'0':''},'Wednesday': {'0':''},'Thursday': {'0':''},'Friday': {'0':''}}
+    print(week)
     return week
 
 @app.route("/instructorwelcome", methods=['GET', 'POST'])
 def instructorwelcome():
+    events = obtainEvents()
     loggedUser = Data.loggedUser
     weeklysched = retrieveInstructorCourses(loggedUser)
     jsonify(weeklysched)
-    return render_template("index.html", user=loggedUser, instructorTimetable=weeklysched)
+    return render_template("index.html", events=events, user=loggedUser, instructorTimetable=weeklysched)
 
 @app.route("/uploadcourse", methods=['GET','POST'])
 def uploadcourse():
+    events = obtainEvents()
     loggedUser = Data.loggedUser
     weeklysched = retrieveInstructorCourses(loggedUser)
     if request.method == 'POST':
@@ -196,10 +205,11 @@ def uploadcourse():
             # paste back to firestore. this will delete the whole dict and set it from scratch.
             dbfs.collection('RawInput').document(name).update(natalie)
 
-    return render_template('index.html', user=loggedUser, token=weeklysched)
+    return render_template('index.html', events=events, user=loggedUser, token=weeklysched)
 
 @app.route("/softconstraints", methods=['GET','POST'])
 def CourseMaterial():
+    events = obtainEvents()
     loggedUser = Data.loggedUser
     weeklysched = retrieveInstructorCourses(loggedUser)
     if request.method == 'POST':
@@ -278,14 +288,10 @@ def CourseMaterial():
         course['SoftConstraints']['4']['1']=request.form['from5']
         course['SoftConstraints']['4']['2']=request.form['to5']
         course['SoftConstraints']['4']['3']=request.form['reason5']
-
-
         # paste back to firestore. this will delete the whole dict and set it from scratch.
         dbfs.collection('courses').document(courseCode).set(course)
 
-
-
-    return render_template('index.html', user=loggedUser, token=weeklysched)
+    return render_template('index.html', events=events, user=loggedUser, token=weeklysched)
 
 
 @app.route("/cohortclass", methods=['GET','POST'])
@@ -297,6 +303,7 @@ def CohortInformation():
     cohortClassDetails = obtainCohorts()
     check = True
     error=""
+    events = obtainEvents()
 
     if request.method == 'POST':
 
@@ -317,10 +324,11 @@ def CohortInformation():
                 dbfs.collection('CohortClassInfo').document(classID).get
                 dbfs.collection('CohortClassInfo').document(classID).delete()
         cohortClassDetails = obtainCohorts()
-    return render_template('index.html', user=loggedUser, pillar=adminPillar, token=weeklysched, adminCoursesDetail=adminCoursesDetail, cohortClassDetails=cohortClassDetails)
+    return render_template('index.html', events=events, user=loggedUser, pillar=adminPillar, token=weeklysched, adminCoursesDetail=adminCoursesDetail, cohortClassDetails=cohortClassDetails)
 
 @app.route("/editschedule", methods=['GET','POST'])
 def EditSchedule():
+    events = obtainEvents()
     loggedUser = Data.loggedUser
     adminPillar = Data.pillar
     weeklysched = retrieveCourse('EmptyCourse')
@@ -349,7 +357,7 @@ def EditSchedule():
             dbfs.collection('courses').document(courseCode).update(CourseDetailsDict)
             adminCoursesDetail = obtainCourses()
 
-    return render_template('index.html', user=loggedUser, pillar=adminPillar, token=weeklysched, adminCoursesDetail=adminCoursesDetail, cohortClassDetails=cohortClassDetails)
+    return render_template('index.html', events=events, user=loggedUser, pillar=adminPillar, token=weeklysched, adminCoursesDetail=adminCoursesDetail, cohortClassDetails=cohortClassDetails)
 
 @app.route("/eventscheduling", methods=['GET','POST'])
 def EventScheduling():
@@ -389,10 +397,9 @@ def EventScheduling():
             eventTitle = request.form['titleDel']
             dbfs.collection('Events').document(eventTitle).get
             dbfs.collection('Events').document(eventTitle).delete()
-            
 
-
-    return render_template('index.html')
+    events = obtainEvents()
+    return render_template('index.html', events=events)
 
 
 
@@ -456,6 +463,7 @@ def adminlogin():
 
 @app.route("/adminwelcome", methods=['GET', 'POST'])
 def adminwelcome():
+    events = obtainEvents()
     loggedUser = Data.loggedUser
     weeklysched = retrieveCourse("EmptyCourse")
     adminCoursesDetail = obtainCourses()
@@ -477,7 +485,7 @@ def adminwelcome():
     # print ("pillar: " + adminPillar)
     # print ("user: " + loggedUser)
     print (adminCoursesDetail)
-    return render_template('index.html', token=weeklysched, user=loggedUser, pillar=adminPillar, adminCoursesDetail=adminCoursesDetail, cohortClassDetails=cohortClassDetails)
+    return render_template('index.html', events=events, token=weeklysched, user=loggedUser, pillar=adminPillar, adminCoursesDetail=adminCoursesDetail, cohortClassDetails=cohortClassDetails)
 
 def check_planner_login(check_username, check_password):
     bannedaccountsarray = bannedaccountsdict['banned']
@@ -508,6 +516,7 @@ def check_planner_login(check_username, check_password):
 @app.route("/plannerlogin", methods=['GET', 'POST'])
 def plannerlogin():
     error = ""
+    events=obtainEvents()
     if request.method == 'POST':
         # Check if username match password
         check_username = request.form['email']
@@ -521,7 +530,7 @@ def plannerlogin():
             return redirect(url_for('plannerwelcome'))
         else:
             error = "Invalid credentials, please try again. Incorrect tries = " + str(Data.incorrectTries)
-    return render_template('index.html', error=error)
+    return render_template('index.html', error=error, events=events)
 
 def obtainCohorts():
     cohortsInfo = {}
@@ -542,6 +551,15 @@ def obtainCourses():
         coursesInfo[courseID.id] = courseInfo
     # print (coursesInfo)
     return coursesInfo
+
+def obtainEvents():
+    eventsCollection = dbfs.collection("Events").stream()
+    events = {}
+    for event in eventsCollection:
+        eventInfo = dbfs.collection("Events").document(event.id).get().to_dict()
+        events[event.id] = eventInfo
+    return events
+
 
 @app.route("/plannerwelcome", methods=['GET', 'POST'])
 def plannerwelcome():
@@ -569,14 +587,13 @@ def duration(start,end):
         i+=1
     return time
 
-    
-
 @app.route("/createschedule", methods=['GET', 'POST'])
 def createschedule():
     coursesInfo = obtainCourses()
     user = Data.loggedUser
     error=""
     message = ""
+    events = obtainEvents()
     errorCourse = ""
     errorInstructor =""
     errorRoom=""
@@ -584,11 +601,10 @@ def createschedule():
     if request.method == 'POST':
 
         #TODO uncomment before pushing
-        # # run algo here
-        # print ("Calling algo function now...")
-        # algoRunner = firestoreData(cred, default_app, dbfs)
-        # algoRunner.hihi()
-        # # algoRunner.generateAndPushTimetable()
+        # run algo here
+        print ("Calling algo function now...")
+        algoRunner = firestoreData(cred, default_app, dbfs)
+        algoRunner.generateAndPushTimetable()
 
 
         if 'delCourse' in request.form:
@@ -740,9 +756,7 @@ def createschedule():
                     dbfs.collection('cohortTimetable').document(cohort).update(cohortDocument)
                     dbfs.collection('roomTimetable').document(venue).update(roomDocument)
                     dbfs.collection('instructorTimetable').document('test').update(instructorDocument)
-                                            
-
-    
+                                    
         if 'generateButton' in request.form:
             # run algo here
             print ("Calling algo function now...")
@@ -773,6 +787,7 @@ def retrieveCourse(courseID):
 def istdschedule():
     user = Data.loggedUser
     coursesInfo = obtainCourses()
+    events = obtainEvents()
     # this is where we obtain data from firebase
     weeklysched = retrieveCourse("EmptyCourse")
     if request.method == 'POST':
@@ -787,7 +802,7 @@ def istdschedule():
         elif '50.034' in request.form:
             weeklysched = retrieveCourse("50.034")
     jsonify(weeklysched)
-    return render_template('index.html', token=weeklysched, coursesInfo=coursesInfo, user=user)
+    return render_template('index.html', token=weeklysched, coursesInfo=coursesInfo, user=user, events=events)
     
 @app.route("/esdschedule", methods=['GET', 'POST'])
 def esdschedule():

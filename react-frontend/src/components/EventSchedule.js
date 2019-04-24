@@ -312,7 +312,7 @@ class EventSchedule extends React.Component {
           <Typography id="tabtitle" variant="h6" gutterBottom component="h2">
             Events can only be added if the venue is available. Please check the availability of the venue for the new event.
           </Typography>
-          <MUIDataTable data={data} columns={columns} options={options} />
+          <MUIDataTable data={window.eventData} columns={columns} options={options} />
 
           <Dialog
             open={this.state.open}
