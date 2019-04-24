@@ -42,12 +42,14 @@ export const mainListItems = (
       <ListItemText primary="Course Information" />
     </ListItem>
     
-    {/* <ListItem button>
+    <ListItem id='events'
+    button
+    component = {Link} to = "/instructorevents">
       <ListItemIcon>
-        <BarChartIcon />
+        <CheckBoxIcon />
       </ListItemIcon>
       <ListItemText primary="Event Schedule" />
-    </ListItem> */}
+    </ListItem>
     
   </div>
 );

@@ -6,7 +6,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
 import ClearIcon from '@material-ui/icons/Clear';
 import CreateIcon from '@material-ui/icons/Create';
@@ -16,38 +16,26 @@ export const mainListItems = (
 
 
   <div>
-<ListItem id="createsched"
-    button
-    component = {Link} to = "/createschedule">
+    <ListItem id="home"
+      button
+      component={Link} to="/plannerwelcome">
+      <ListItemIcon>
+        <DashboardIcon />
+      </ListItemIcon>
+      <ListItemText primary="Home" />
+    </ListItem>
+    <ListItem id="createsched"
+      button
+      component={Link} to="/createschedule">
       <ListItemIcon>
         <LibraryAddIcon />
       </ListItemIcon>
       <ListItemText primary="Create Schedule" />
     </ListItem>
 
-    <ListItem id="home"
-    button
-    component = {Link} to = "/plannerwelcome">
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText primary="Home" />
-    </ListItem>
-
-    
-
-    {/* <ListItem 
-    button
-    component = {Link} to = "/deleteschedule">
-      <ListItemIcon>
-        <ClearIcon />
-      </ListItemIcon>
-      <ListItemText primary="Delete Schedule" />
-    </ListItem> */}
-
     <ListItem id="editsched"
-    button
-    component = {Link} to = "/plannereditschedule">
+      button
+      component={Link} to="/plannereditschedule">
       <ListItemIcon>
         <CreateIcon />
       </ListItemIcon>
@@ -55,16 +43,16 @@ export const mainListItems = (
     </ListItem>
 
 
-    
-    <ListItem 
-    id="eventsched"
-    button
-    component = {Link} to ='/eventscheduling'>
+
+    <ListItem
+      id="eventsched"
+      button
+      component={Link} to='/eventscheduling'>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
       <ListItemText primary="Event Schedule" />
     </ListItem>
-    
+
   </div>
 );

@@ -297,16 +297,21 @@ class CreateSchedule extends React.Component {
         <Typography id="message" gutterBottom component="h2">
           {window.message}
         </Typography>
+        <Typography id="message" gutterBottom component="h2">
+          {window.errorCourse}
+        </Typography>
+        <Typography id="message" gutterBottom component="h2">
+          {window.errorCohort}
+        </Typography>
+        <Typography id="message" gutterBottom component="h2">
+          {window.errorRoom}
+        </Typography>
+        <Typography id="message" gutterBottom component="h2">
+          {window.errorInstructor}
+        </Typography>
         <br/>
           <MUIDataTable data={window.data} columns={columns} options={options} />
           <br />
-          <form method="POST">
-            <Button
-              id="submit"
-              type="submit">
-              Generate Schedule
-        </Button>
-          </form>
 
           <Dialog
             open={this.state.open}

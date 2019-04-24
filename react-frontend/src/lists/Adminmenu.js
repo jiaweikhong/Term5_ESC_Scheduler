@@ -43,44 +43,14 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Cohort Class Details" />
     </ListItem>
-
-    {/* <ListItem 
+    <ListItem id="cohortclasses"
     button
-  component = {Link} to = "/softconstraints"> {/*need to change 
+    component = {Link} to = "/adminevents">
       <ListItemIcon>
-        <PeopleIcon />
+        <LibraryBooksIcon />
       </ListItemIcon>
-      <ListItemText primary="Edit Soft Constraints" />
-    </ListItem> */}
+      <ListItemText primary="Event Schedule" />
+    </ListItem>
 
-    
   </div>
 );
-
-// export const secondaryListItems = (
-//   <div>
-
-//     <ListSubheader >Instructors</ListSubheader>
-//     <ListItem button
-//     component = {Link} to = "/instructorinformation">
-//       <ListItemIcon>
-//         <AssignmentIcon />
-//       </ListItemIcon>
-//       <ListItemText primary="Sudipta Chattopadhyay" />
-//     </ListItem>
-//     <ListItem button
-//     component = {Link} to = "/instructorinformation">
-//       <ListItemIcon>
-//         <AssignmentIcon />
-//       </ListItemIcon>
-//       <ListItemText primary="Sun Jun" />
-//     </ListItem>
-//     <ListItem button
-//     component = {Link} to = "/instructorinformation">
-//       <ListItemIcon>
-//         <AssignmentIcon />
-//       </ListItemIcon>
-//       <ListItemText primary="Natalie Agus" />
-//     </ListItem>
-//   </div>
-// );

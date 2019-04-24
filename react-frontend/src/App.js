@@ -10,6 +10,7 @@ import InstructorWelcome from './components/InstructorWelcome';
 import UploadCourse from './components/UploadCourse';
 import SoftConstraints from './components/SoftConstraints';
 import InstructorNotification from './components/InstructorNotification';
+import InstructorEvent from './components/InstructorEvent'
 
 import AdminLogin from "./components/AdminLogin";
 import AdminWelcome from './components/AdminWelcome';
@@ -17,6 +18,7 @@ import EditSchedule from './components/EditSchedule';
 import AdminNotification from './components/AdminNotifications';
 import AdminInstructPage from './components/AdminInstructPage';
 import CohortClass from './components/CohortClass';
+import AdminEvent from './components/AdminEvent';
 
 import PlannerLogin from "./components/PlannerLogin";
 import PlannerWelcome from './components/PlannerWelcome';
@@ -48,6 +50,7 @@ class App extends Component {
             <Route path="/uploadcourse" component={UploadCourse} />
             <Route path="/softconstraints" component={SoftConstraints} />
             <Route path="/instructornotifications" component={InstructorNotification} />
+            <Route path ='/instructorevents' component={InstructorEvent}/>
 
             {/* related to admins */}
             <Route path="/adminlogin" component={AdminLogin} />
@@ -56,6 +59,7 @@ class App extends Component {
             <Route path="/adminnotifications" component={AdminNotification} />
             <Route path="/instructorinformation" component={AdminInstructPage}/>
             <Route path="/cohortclass" component={CohortClass}/>
+            <Route path='/adminevents' component={AdminEvent}/>
 
             {/* related to planners */}
             <Route path="/plannerlogin" component={PlannerLogin} />

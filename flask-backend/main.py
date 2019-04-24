@@ -128,26 +128,26 @@ def uploadcourse():
                 natalie['SoftConstraints']['2']={}
                 natalie['SoftConstraints']['3']={}
                 natalie['SoftConstraints']['4']={}
-                natalie['SoftConstraints']['0']['0']={}
-                natalie['SoftConstraints']['0']['1']={}
-                natalie['SoftConstraints']['0']['2']={}
-                natalie['SoftConstraints']['0']['3']={}
-                natalie['SoftConstraints']['1']['0']={}
-                natalie['SoftConstraints']['1']['1']={}
-                natalie['SoftConstraints']['1']['2']={}
-                natalie['SoftConstraints']['1']['3']={}
-                natalie['SoftConstraints']['2']['0']={}
-                natalie['SoftConstraints']['2']['1']={}
-                natalie['SoftConstraints']['2']['2']={}
-                natalie['SoftConstraints']['2']['3']={}
-                natalie['SoftConstraints']['3']['0']={}
-                natalie['SoftConstraints']['3']['1']={}
-                natalie['SoftConstraints']['3']['2']={}
-                natalie['SoftConstraints']['3']['3']={}
-                natalie['SoftConstraints']['4']['0']={}
-                natalie['SoftConstraints']['4']['1']={}
-                natalie['SoftConstraints']['4']['2']={}
-                natalie['SoftConstraints']['4']['3']={}
+                natalie['SoftConstraints']['0']['0']=""
+                natalie['SoftConstraints']['0']['1']=""
+                natalie['SoftConstraints']['0']['2']=""
+                natalie['SoftConstraints']['0']['3']=""
+                natalie['SoftConstraints']['1']['0']=""
+                natalie['SoftConstraints']['1']['1']=""
+                natalie['SoftConstraints']['1']['2']=""
+                natalie['SoftConstraints']['1']['3']=""
+                natalie['SoftConstraints']['2']['0']=""
+                natalie['SoftConstraints']['2']['1']=""
+                natalie['SoftConstraints']['2']['2']=""
+                natalie['SoftConstraints']['2']['3']=""
+                natalie['SoftConstraints']['3']['0']=""
+                natalie['SoftConstraints']['3']['1']=""
+                natalie['SoftConstraints']['3']['2']=""
+                natalie['SoftConstraints']['3']['3']=""
+                natalie['SoftConstraints']['4']['0']=""
+                natalie['SoftConstraints']['4']['1']=""
+                natalie['SoftConstraints']['4']['2']=""
+                natalie['SoftConstraints']['4']['3']=""
                 natalie['Name']=request.form['name']
                 natalie['ID']=request.form['ID']
                 natalie['Courses']['0']= request.form['coursecode1']
@@ -242,7 +242,7 @@ def CourseMaterial():
         course['Components']['Lab Session']['LabSession1']=request.form['lab1']
         course['Components']['Lab Session']['LabSession2']=request.form['lab2']
         course['Components']['Lab Session']['LabSession3']=request.form['lab3']
-        course['Components']['Lab Session']['Venue']={}
+        course['Components']['Lab Session']['Venue']=""
         course['Components']['Lab Session']['shared']=bool(False)
 
         ####### soft constraints
@@ -574,6 +574,10 @@ def createschedule():
     user = Data.loggedUser
     error=""
     message = ""
+    errorCourse = ""
+    errorInstructor =""
+    errorRoom=""
+    errorCohort = ""
     if request.method == 'POST':
 
         #TODO uncomment before pushing
@@ -676,9 +680,10 @@ def createschedule():
                 CourseDoc = dbfs.collection('courseTimetable').document(courseCode).get().to_dict()
                 for i in timeslot:
                     if CourseDoc['Week'][day][i]:
-                        print("COURSE:"+CourseDoc['Week'][day][i])
+                        # print("COURSE:"+CourseDoc['Week'][day][i])
                         check = True
                         errorCourse = courseCode + "is having a session during this timeslot"
+                        break
     
 
                 cohortDocument = dbfs.collection('cohortTimetable').document(cohort).get().to_dict()          
@@ -687,6 +692,7 @@ def createschedule():
                         check = True
                         print("COHORT:"+cohortDocument['Week'][day][i])
                         errorCohort = cohort + "is having a another class during this timeslot"
+                        break
 
 
                 instructorDocument = dbfs.collection('instructorTimetable').document('test').get().to_dict()
@@ -696,6 +702,7 @@ def createschedule():
                             check = True
                             print("INSTRUCTOR:"+instructorDocument[instructor]['Week'][day][i])
                             errorInstructor = instructor + "is having another class during this timeslot"
+                            break
 
                 roomDocument = dbfs.collection('roomTimetable').document(venue).get().to_dict() 
                 for i in timeslot:
@@ -703,6 +710,7 @@ def createschedule():
                         check = True
                         print("COHORT:"+roomDocument['Week'][day][i])
                         errorRoom = venue + "is occupied during this timeslot"
+                        break
 
 
                 #ADDING NEW COURSE TO ALL TIMETABLES
@@ -742,7 +750,7 @@ def createschedule():
                 message = "Timetable generated!"
             else:
                 message = "Timetable cannot be generated :("
-    return render_template("index.html", coursesInfo = coursesInfo, user=user, message=message)
+    return render_template("index.html", coursesInfo = coursesInfo, user=user, message=message,errorCohort=errorCohort,errorCourse=errorCourse,errorInstructor=errorInstructor,errorRoom=errorRoom)
 
 @app.route("/freshmoreschedule", methods=['GET', 'POST'])
 def freshmoreschedule():
