@@ -67,10 +67,12 @@
       }
     }
 
+    console.log("meow")
     window.unparsedCoursesInfo = "{{ coursesInfo }}";
     window.unparsedCoursesInfo = window.unparsedCoursesInfo.replace(/&#39;/g, "\"");
     window.unparsedCoursesInfo = window.unparsedCoursesInfo.replace(/False/g, "\"false\"");
     window.unparsedCoursesInfo = window.unparsedCoursesInfo.replace(/True/g, "\"true\"");
+    // window.data=[]
     if (window.unparsedCoursesInfo != "") {
       window.parsedCoursesInfo = JSON.parse(window.unparsedCoursesInfo)
       window.data = []
@@ -90,7 +92,8 @@
         window.data.push(oneCourse)
       }
     }
-
+    // console.log(data)
+    console.log("admincoursesdtail")
     window.unparsedAdminCourseDetails = "{{ adminCoursesDetail }}"
     window.unparsedAdminCourseDetails = window.unparsedAdminCourseDetails.replace(/&#39;/g, "\"");
     window.unparsedAdminCourseDetails = window.unparsedAdminCourseDetails.replace(/False/g, "\"false\"");
@@ -122,6 +125,8 @@
         window.data.push(oneCourse)
       }
     }
+    console.log("admincrsdetail end")
+    console.log(data)
 
     window.unparsedCohortClassDetails = "{{ cohortClassDetails }}"
     window.unparsedCohortClassDetails = window.unparsedCohortClassDetails.replace(/&#39;/g, "\"");
@@ -133,11 +138,11 @@
         oneCohort.push(parsedCohortClassDetails[id]['pillar'])
         oneCohort.push(id)
         oneCohort.push(parsedCohortClassDetails[id]['num'])
-        console.log("onecohort:")
-        console.log(oneCohort)
+        // console.log("onecohort:")
+        // console.log(oneCohort)
         window.cohortData.push(oneCohort)
       }
-      console.log(window.cohortData)
+      // console.log(window.cohortData)
     }
 
   </script>
