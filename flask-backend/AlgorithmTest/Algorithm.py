@@ -74,11 +74,11 @@ class Algorithm:
                             else:
                                 continue
                         
-                        if chosenRoom == None:
-                            print("No possible room for " + course.courseName)
-                            print(courseComponent)
-                            self.wipeTimetable(False)
-                            return False
+                        # if chosenRoom == None:
+                        #     print("No possible room for " + course.courseName)
+                        #     print(courseComponent)
+                        #     self.wipeTimetable(False)
+                        #     return False
 
                         conditions = (day[time] == [],
                                       self.checkInstructorSchedule(course.courseInstructors, dayindex, time, duration),
