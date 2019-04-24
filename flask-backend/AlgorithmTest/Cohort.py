@@ -1,7 +1,7 @@
 # Use the following imports if calling from Flask's main.py
-from .Timetable import Timetable
+# from .Timetable import Timetable
 # Use the following imports if using this file on its own
-# from Timetable import Timetable
+from Timetable import Timetable
 import unittest
 
 class Cohort:
@@ -10,9 +10,9 @@ class Cohort:
         self.courses = []
         self.timetable = Timetable()
 
-    def addIntoTimeTable(self, course, day, timeslot, numslots, component, cohortName, roomID = ""):
+    def addIntoTimeTable(self, course, courseID, day, timeslot, numslots, component, cohortName, roomID = ""):
         for i in range(numslots):
-            self.timetable.setTimeslot(course, day, timeslot, component, cohortName, roomID)
+            self.timetable.setTimeslot(course, courseID, day, timeslot, component, cohortName, roomID)
             timeslot += 1
 
     def getTimetable(self):

@@ -77,22 +77,24 @@ class Algorithm:
                         if chosenRoom == None:
                             print("No possible room for " + course.courseName)
                             print(courseComponent)
+                            self.wipeTimetable(False)
                             return False
+
                         conditions = (day[time] == [],
                                       self.checkInstructorSchedule(course.courseInstructors, dayindex, time, duration),
                                       self.checkClassSchedule(course.cohorts, courseComponent[2], courseComponent[3], dayindex, time, duration), 
                                       self.checkRoomAvailability(chosenRoom, dayindex, time, duration))
                         if all(conditions):  # all is for and, any is for or
-                            course.addIntoTimeTable(course.courseName, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
+                            course.addIntoTimeTable(course.courseName, course.courseID, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
                             for instructor in course.courseInstructors:
-                                instructor.addIntoTimeTable(course.courseName, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
+                                instructor.addIntoTimeTable(course.courseName, course.courseID, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
                             for cohort in course.cohorts:
                                 #REMEMBER TO CHECK IF YOU PASS IN THE COHORT OBJECT OR THE COHORT NAME!
                                 if courseComponent[2] is False and courseComponent[3] == cohort.name:
-                                    cohort.addIntoTimeTable(course.courseName, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
+                                    cohort.addIntoTimeTable(course.courseName, course.courseID, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
                                 elif courseComponent[2] is True:
-                                    cohort.addIntoTimeTable(course.courseName, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
-                            chosenRoom.addIntoTimeTable(course.courseName, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
+                                    cohort.addIntoTimeTable(course.courseName, course.courseID, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
+                            chosenRoom.addIntoTimeTable(course.courseName, course.courseID, dayindex, time, duration, componentName, courseComponent[3], chosenRoom.roomID)
                             coursesAdded.append(course)
                             self.courseComponents[course.courseName].remove(courseComponent)
 
@@ -323,7 +325,7 @@ class Algorithm:
 #                      Room("2.503", "Lecture Theatre 5", "Lecture Theatre"),
 #                      Room("2.303", "Lecture Theatre 3", "Lecture Theatre")]}
 
-# #Instantiate courses
+# # #Instantiate courses
 # courses = []
 # info_sys = Course("50.001", "Introduction to Information Systems", rooms, "ISTD", ["ISTD1", "ISTD2", "ISTD3","ISTD4"])
 # info_sys.setComponentsAndDuration("Cohort", 1.5, False, "ISTD1")
@@ -368,8 +370,8 @@ class Algorithm:
 # ml.setComponentsAndDuration("Cohort", 1.5, False, "ISTD6")
 # ml.setComponentsAndDuration("Cohort", 1.5, False, "ISTD5")
 # ml.setComponentsAndDuration("Cohort", 1.5, False, "ISTD6")
-# ml.setComponentsAndDuration("Lab", 2, False, "ISTD5")
-# ml.setComponentsAndDuration("Lab", 2, False, "ISTD6")
+# # ml.setComponentsAndDuration("Lab", 2, False, "ISTD5")
+# # ml.setComponentsAndDuration("Lab", 2, False, "ISTD6")
 # courses.append(ml)
 
 # networks = Course("50.012", "Networks", rooms, "ISTD", ["ISTD5", "ISTD6"])

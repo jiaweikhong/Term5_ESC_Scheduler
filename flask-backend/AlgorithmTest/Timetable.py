@@ -21,8 +21,8 @@ class Timetable:
     def getTimetable(self):
         return self.week
 
-    def setTimeslot(self, course, day, timeslot, component, cohortName, roomID):
-        self.week[day][timeslot].append((course, component, cohortName, roomID))
+    def setTimeslot(self, course, courseID, day, timeslot, component, cohortName, roomID):
+        self.week[day][timeslot].append((course, courseID, component, cohortName, roomID))
 
     #def setHoliday(self, days):
         # #days must be in [dayindex, dayindex]
