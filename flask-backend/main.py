@@ -361,8 +361,9 @@ def EditSchedule():
 
 @app.route("/eventscheduling", methods=['GET','POST'])
 def EventScheduling():
+    error = ""
     if request.method == 'POST':
-        error = ""
+        
         boolean = True
         if 'AddEvent' in request.form:
             dbfs.collection('Events').get
@@ -378,12 +379,25 @@ def EventScheduling():
             start = request.form['StartAdd']
             end = request.form['EndAdd']
             i = int(start)
-            roomDocument = dbfs.collection('rooms').document(venue).get().to_dict()
-            for i in range (int(start),int(end)):
-                if(roomDocument['Week'][day][str(i)]):
-                    print(roomDocument['Week'][day][str(i)])
-                    error = "The venue is being used during this time slot"
-                    boolean = False
+            roomDocument = dbfs.collection('roomTimetable').document(venue).get().to_dict()
+
+            if day == 'Wednesday' or day == 'Friday':
+                print('short Day')
+                for i in range(int(start),10):
+                    if(roomDocument['Week'][day][str(i)]):
+                        print('venue being used')
+                        error = "The venue is being used during this time slot"
+                        boolean == False
+                        break
+
+            else:
+                print("long day")
+                for i in range (int(start),int(end)):
+                    if(roomDocument['Week'][day][str(i)]):
+                        print(roomDocument['Week'][day][str(i)])
+                        error = "The venue is being used during this time slot"
+                        boolean = False
+                        break
 
             if boolean == True:
                 start = convertTime(boolean, start)
@@ -399,14 +413,14 @@ def EventScheduling():
             dbfs.collection('Events').document(eventTitle).delete()
 
     events = obtainEvents()
-    return render_template('index.html', events=events)
+    return render_template('index.html', events=events, error=error)
 
 
 
 def convertTime(boolean, time):
     if(boolean == True):
         start = 8.5     
-        for i in range(1,21) :
+        for i in range(0,20) :
             if str(i) == time:
                 return str(start)
             else:
