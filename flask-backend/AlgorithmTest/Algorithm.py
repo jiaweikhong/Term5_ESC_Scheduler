@@ -1,15 +1,15 @@
 # Use the following imports if calling from Flask's main.py
-# from .Timetable import Timetable
-# from .Instructor import Instructor
-# from .Cohort import Cohort
-# from .Course import Course
-# from .Room import Room
+from .Timetable import Timetable
+from .Instructor import Instructor
+from .Cohort import Cohort
+from .Course import Course
+from .Room import Room
 # Use the following imports if using this file on its own
-from Timetable import Timetable
-from Instructor import Instructor
-from Cohort import Cohort
-from Course import Course
-from Room import Room
+# from Timetable import Timetable
+# from Instructor import Instructor
+# from Cohort import Cohort
+# from Course import Course
+# from Room import Room
 
 import random
 import itertools

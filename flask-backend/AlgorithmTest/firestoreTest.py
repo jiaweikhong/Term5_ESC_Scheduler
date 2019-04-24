@@ -1,10 +1,10 @@
-from Timetable import Timetable
-from Instructor import Instructor
-from Cohort import Cohort
-from Course import Course
-from Room import Room
-from Algorithm import Algorithm
-from firestoreData import firestoreData
+from .Timetable import Timetable
+from .Instructor import Instructor
+from .Cohort import Cohort
+from .Course import Course
+from .Room import Room
+from .Algorithm import Algorithm
+from .firestoreData import firestoreData
 
 import random
 import itertools

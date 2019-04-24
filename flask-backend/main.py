@@ -27,6 +27,8 @@ class Data():
     incorrectTries = 0
     createInstructor = 0
     course =0
+    longDays = ["Monday","Tuesday","Thursday"]
+    shortDays = ["Wednesday","Friday"]
 
 @app.route("/", methods=['GET', 'POST'])
 def my_index():
@@ -373,93 +375,9 @@ def EventScheduling():
                     error = "The venue is being used during this time slot"
                     boolean = False
 
-           
-            if(boolean == True):
-                if(start == '1'):
-                    start = '8.5'
-                elif(start == '2'):
-                    start = '9'
-                elif(start == '3'):
-                    start = '9.5'
-                elif(start == '4'):
-                    start = '10'
-                elif(start == '5'):
-                    start = '10.5'
-                elif(start == '6'):
-                    start = '11'
-                elif(start == '7'):
-                    start = '11.5'
-                elif(start == '8'):
-                    start = '12'
-                elif(start == '9'):
-                    start = '12.5'
-                elif(start == '10'):
-                    start = '13'
-                elif(start == '10'):
-                    start = '13.5'
-                elif(start == '11'):
-                    start = '14'
-                elif(start == '12'):
-                    start = '14.5'
-                elif(start == '13'):
-                    start = '15'
-                elif(start == '14'):
-                    start = '15.5'
-                elif(start == '15'):
-                    start = '16'
-                elif(start == '16'):
-                    start = '16.5'
-                elif(start == '17'):
-                    start = '17'
-                elif(start == '18'):
-                    start = '17.5'
-                elif(start == '19'):
-                    start = '18'
-                elif(start == '20'):
-                    start = '18.5'
-
-                if(end == '1'):
-                    end = '8.5'
-                elif(end == '2'):
-                    end = '9'
-                elif(end == '3'):
-                    end = '9.5'
-                elif(end == '4'):
-                    end = '10'
-                elif(end == '5'):
-                    end = '10.5'
-                elif(end == '6'):
-                    end = '11'
-                elif(end == '7'):
-                    end = '11.5'
-                elif(end == '8'):
-                    end = '12'
-                elif(end == '9'):
-                    end = '12.5'
-                elif(end == '10'):
-                    end = '13'
-                elif(end == '10'):
-                    end = '13.5'
-                elif(end == '11'):
-                    end = '14'
-                elif(end == '12'):
-                    end = '14.5'
-                elif(end == '13'):
-                    end = '15'
-                elif(end == '14'):
-                    end = '15.5'
-                elif(end == '15'):
-                    end = '16'
-                elif(end == '16'):
-                    end = '16.5'
-                elif(end == '17'):
-                    end = '17'
-                elif(end == '18'):
-                    end = '17.5'
-                elif(end == '19'):
-                    end = '18'
-                elif(end == '20'):
-                    end = '18.5'
+            if boolean == True:
+                start = convertTime(boolean, start)
+                end = convertTime(boolean, end)
                 
                 event['StartTime']= start
                 event['EndTime'] = end
@@ -474,6 +392,17 @@ def EventScheduling():
 
     return render_template('index.html')
 
+
+
+def convertTime(boolean, time):
+    if(boolean == True):
+        start = 8.5     
+        for i in range(1,21) :
+            if str(i) == time:
+                return str(start)
+            else:
+                start += 0.5
+    return str(time)
 
 
 def check_admin_login(check_username, check_password):
@@ -629,16 +558,217 @@ def plannerwelcome():
     # print (coursesInfo)
     return render_template("index.html", coursesInfo = coursesInfo, user=user)
 
+def duration(start,end):
+    time = []
+    for i in range (int(start),int(end)+1):
+        time.append(i)
+        i+=1
+    return time
+
+    
+
 @app.route("/createschedule", methods=['GET', 'POST'])
 def createschedule():
     coursesInfo = obtainCourses()
     user = Data.loggedUser
+    error=""
     if request.method == 'POST':
-        # run algo here
-        print ("Calling algo function now...")
-        algoRunner = firestoreData(cred, default_app, dbfs)
-        algoRunner.hihi()
-        # algoRunner.generateAndPushTimetable()
+
+        #TODO uncomment before pushing
+        # # run algo here
+        # print ("Calling algo function now...")
+        # algoRunner = firestoreData(cred, default_app, dbfs)
+        # algoRunner.hihi()
+        # # algoRunner.generateAndPushTimetable()
+
+
+        if 'delCourse' in request.form:
+            courseCode = request.form['courseCodedel']
+            start = request.form['delStart']
+            end = request.form['delEnd']
+            day = request.form['daydel']
+            timeslot = duration(start,end)
+            venue = request.form['venueDel']
+            session = request.form['typeDel']
+            cohort = request.form['cohortDel']
+            title = request.form['titleDel']
+
+            courseInfo = dbfs.collection('courses').document(courseCode).get().to_dict()
+            instrucInfo = courseInfo['Instructors']
+
+
+            if (day == 'Wednesday' or day == 'Friday') and (int(start) > 9 or int(end) > 9):
+                error = "These are special time slots "
+            
+            else:
+
+                CourseDoc = dbfs.collection('courseTimetable').document(courseCode).get().to_dict()
+                cohortDocument = dbfs.collection('cohortTimetable').document(cohort).get().to_dict()
+                instructorDocument = dbfs.collection('instructorTimetable').document('test').get().to_dict()
+                roomDocument = dbfs.collection('roomTimetable').document(venue).get().to_dict()
+
+                for i in timeslot:
+                    #COURSES
+                    if(CourseDoc['Week'][day][i]):
+                        courseList = CourseDoc['Week'][day][i].split(',')
+                        code1 = courseList[1]
+                        if code1 == courseCode:
+                            CourseDoc['Week'][day][i] = ""
+                            # print("COURSE:"+CourseDoc['Week'][day][i])
+    
+                    #COHORTS
+                    if(cohortDocument['Week'][day][i]):
+                        cohortList = cohortDocument['Week'][day][i].split(',')
+                        code2 = cohortList[1]
+                        if code2 == courseCode:
+                            cohortDocument['Week'][day][i] = ""
+                            # print("COHORT:"+cohortDocument['Week'][day][i])
+
+                    #ROOMS
+                    if(roomDocument['Week'][day][i]):
+                        roomList = roomDocument['Week'][day][i].split(',')
+                        code3 = roomList[1]
+                        if code3 == courseCode:
+                            roomDocument['Week'][day][i] = ""
+                            # print("ROOM:"+roomDocument['Week'][day][i])
+
+                    #INSTRUCTORS
+                    for instructor in instrucInfo:
+                        if(instructorDocument[instructor]['Week'][day][i]):
+                            instructList = instructorDocument[instructor]["Week"][day][i].split(',')
+                            code4 = instructList[1]
+                            if code4 == courseCode:
+                                instructorDocument[instructor]['Week'][day][i] = ""
+                                # print(instructor+":"+instructorDocument[instructor]['Week'][day][i])
+
+                dbfs.collection('courseTimetable').document(courseCode).set(CourseDoc)
+                dbfs.collection('cohortTimetable').document(cohort).set(cohortDocument)
+                dbfs.collection('instructorTimetable').document('test').set(instructorDocument)
+                dbfs.collection('roomTimetable').document(venue).set(roomDocument)
+                
+
+                # cohortDocument = dbfs.collection('cohortTimetable').get() 
+                # for cohort in cohortDocument:
+                #     timetable = dbfs.collection('cohortTimetable').document(cohort.id).get().to_dict()           
+                #     for i in timeslot:
+                #         details = timetable['Week'][day][str(i)].split(',')
+                #         course = details[0]
+                #         # TODO NEED TO ADD COURSE TITLE 
+                #         if(course == courseCode):
+                #             print("COHORT:"+timetable['Week'][day][str(i)])
+                #         # TODO timetable['Week'][day][str(i)] = {}
+    
+                # #TODO dbfs.collection('courseTimetable').document(courseCode).set(CohortDoc)
+
+                # instructorDocument = dbfs.collection('instructorTimetable').document('Oka Kurniawan').get().to_dict()
+
+                # for instructor in instructorDocument:
+                #     # print(instructor)         
+                #     for i in timeslot:
+                #         details = instructorDocument[instructor]['Week'][day][str(i)].split(',')
+                #         course = details[0]
+                #         # TODO NEED TO ADD COURSE TITLE 
+                #         if(course == courseCode):
+                #             print("INSTRUCTOR:"+instructorDocument[instructor]['Week'][day][str(i)])
+                #         # TODO timetable['Week'][day][str(i)] = {}
+
+
+
+                # roomDocument = dbfs.collection('roomTimetable').get() 
+                # for room in roomDocument:
+                #     timetable = dbfs.collection('roomTimetable').document(room.id).get().to_dict()           
+                #     for i in timeslot:
+                #         details = timetable['Week'][day][str(i)].split(',')
+                #         course = details[0]
+                #         # TODO NEED TO ADD COURSE TITLE 
+                #         if(course == courseCode):
+                #             print("COHORT:"+timetable['Week'][day][str(i)])
+                #         # TODO timetable['Week'][day][str(i)] = {}
+    
+                # #TODO dbfs.collection('courseTimetable').document(courseCode).set(CohortDoc)
+
+        if 'addCourse' in request.form:
+
+            courseCode = request.form['courseCode']
+            start = request.form['StartAdd']
+            end = request.form['EndAdd']
+            day = request.form['day']
+            venue = request.form['venue']
+            session = request.form['type']
+            cohort = request.form['cohort']
+            timeslot = duration(start,end)
+            check = False
+            courseTitle = request.form['courseTitle']
+            errorCourse = ""
+            errorInstructor =""
+            errorRoom=""
+            errorCohort = ""
+
+            courseInfo = dbfs.collection('courses').document(courseCode).get().to_dict()
+            instrucInfo = courseInfo['Instructors']
+
+            if (day == 'Wednesday' or day == 'Friday') and (int(start) > 9 or int(end) > 9):
+                error = "This timeslot is blocked out for events/activities"
+            
+            else:
+                # check courseTimetable availability
+                CourseDoc = dbfs.collection('courseTimetable').document(courseCode).get().to_dict()
+                for i in timeslot:
+                    if CourseDoc['Week'][day][i]:
+                        print("COURSE:"+CourseDoc['Week'][day][i])
+                        check = True
+                        errorCourse = courseCode + "is having a session during this timeslot"
+    
+
+                cohortDocument = dbfs.collection('cohortTimetable').document(cohort).get().to_dict()          
+                for i in timeslot:
+                    if cohortDocument['Week'][day][i]:
+                        check = True
+                        print("COHORT:"+cohortDocument['Week'][day][i])
+                        errorCohort = cohort + "is having a another class during this timeslot"
+
+
+                instructorDocument = dbfs.collection('instructorTimetable').document('test').get().to_dict()
+                for instructor in instrucInfo:
+                    for i in timeslot:
+                        if instructorDocument[instructor]['Week'][day][i]:
+                            check = True
+                            print("INSTRUCTOR:"+instructorDocument[instructor]['Week'][day][i])
+                            errorInstructor = instructor + "is having another class during this timeslot"
+
+                roomDocument = dbfs.collection('roomTimetable').document(venue).get().to_dict() 
+                for i in timeslot:
+                    if roomDocument['Week'][day][i]:
+                        check = True
+                        print("COHORT:"+roomDocument['Week'][day][i])
+                        errorRoom = venue + "is occupied during this timeslot"
+
+
+                #ADDING NEW COURSE TO ALL TIMETABLES
+                if check == False:
+                    CourseDoc = dbfs.collection('courseTimetable').document(courseCode).get().to_dict()
+                    cohortDocument = dbfs.collection('cohortTimetable').document(cohort).get().to_dict()
+                    instructorDocument = dbfs.collection('instructorTimetable').document('test').get().to_dict()
+                    roomDocument = dbfs.collection('roomTimetable').document(venue).get().to_dict()
+                    for i in timeslot:
+                        CourseDoc['Week'][day][i] = courseTitle + ","+courseCode+","+session +","+ cohort +","+ venue
+                        print("COURSE:"+CourseDoc['Week'][day][i])
+        
+                        cohortDocument['Week'][day][i] = courseTitle + ","+courseCode+","+session +","+ cohort +","+ venue
+                        print("COHORT:"+cohortDocument['Week'][day][i])
+                    
+                        for instructor in instrucInfo:
+                            instructorDocument[instructor]['Week'][day][i] = courseTitle + ","+courseCode+","+session +","+ cohort +","+ venue
+                            print(instructor +":"+instructorDocument[instructor]['Week'][day][i])
+
+                        roomDocument['Week'][day][i] = courseTitle + ","+courseCode+","+session +","+ cohort +","+ venue
+                        print("ROOM:"+roomDocument['Week'][day][i])
+
+                    dbfs.collection('courseTimetable').document(courseCode).update(CourseDoc)
+                    dbfs.collection('cohortTimetable').document(cohort).update(cohortDocument)
+                    dbfs.collection('roomTimetable').document(venue).update(roomDocument)
+                    dbfs.collection('instructorTimetable').document('test').update(instructorDocument)
+                                            
     return render_template("index.html", coursesInfo = coursesInfo, user=user)
 
 @app.route("/freshmoreschedule", methods=['GET', 'POST'])
