@@ -77,7 +77,8 @@ const styles = theme => ({
 
   },
   day: {
-    marginLeft: 15
+    marginLeft: 15,
+    width: 265
   }
 
 
@@ -215,6 +216,10 @@ class EventSchedule extends React.Component {
 
     const data = [
       ['August 18th', "Artificial Intelligence Talk", "Albert Hong", "1600", "1800"],
+      ['August 18th', "ISTD Pillar Talk", "Albert Hong", "1600", "1700"],
+      ['May 18th', "Global Exchange Talk", "2.403", "0800", "1700"],
+      ['November 25th', "EPD Pillar Talk", " 2.412", "1600", "1800"],
+      ['June 23rd', "Capstone Talk", "Albert Hong", "1400", "1600"],
 
     ];
 
@@ -234,16 +239,17 @@ class EventSchedule extends React.Component {
       customToolbar: () => {
         return (
           <React.Fragment>
-            <Tooltip title={"Add Event"}>
+            <Tooltip title={"Add event"}>
               <IconButton className={classes.iconButton} onClick={this.handleAdd}>
                 <AddIcon className={classes.deleteIcon} />
               </IconButton>
             </Tooltip>
-            <Tooltip title={"Delete Event"}>
+            <Tooltip title={"Delete event"}>
               <IconButton className={classes.iconButton} onClick={this.handleDelete}>
                 <ClearIcon className={classes.deleteIcon} />
               </IconButton>
             </Tooltip>
+           
           </React.Fragment>
         );
       },
@@ -302,6 +308,9 @@ class EventSchedule extends React.Component {
           <div className={classes.toolbar} />
           <Typography id="tabtitle" variant="h4" gutterBottom component="h2">
             Events
+          </Typography>
+          <Typography id="tabtitle" variant="h6" gutterBottom component="h2">
+            Events can only be added if the venue is available. Please check the availability of the venue for the new event.
           </Typography>
           <MUIDataTable data={data} columns={columns} options={options} />
 

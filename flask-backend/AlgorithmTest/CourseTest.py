@@ -2,7 +2,7 @@ import unittest
 # Use the following imports if calling from Flask's main.py
 # from .Course import Course
 # Use the following imports if using this file on its own
-from Course import Course
+from .Course import Course
 
 
 class CohortTest(unittest.TestCase):
