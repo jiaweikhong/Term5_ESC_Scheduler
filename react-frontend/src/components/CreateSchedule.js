@@ -165,11 +165,22 @@ const pillars = [
 
 ];
 
+function getModalStyle() {
+  const top = 50;
+  const left = 50;
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
 
 class CreateSchedule extends React.Component {
   state = {
     open: false,
     delopen: false,
+    modopen: false,
     pillar: '',
     day: '',
     start: '',
@@ -190,6 +201,13 @@ class CreateSchedule extends React.Component {
   };
   handleClose = () => {
     this.setState({ open: false, delopen: false });
+  };
+  handleOpen = () => {
+    this.setState({ modopen: true });
+  };
+
+  handleMClose = () => {
+    this.setState({ modopen: false });
   };
 
   render() {
@@ -232,6 +250,21 @@ class CreateSchedule extends React.Component {
 
     return (
       <div className={classes.root}>
+        <Modal
+          aria-labelledby="modal-title"
+          aria-describedby="modal-description"
+          open={this.state.open}
+          onClose={this.handleMClose}
+        >
+          <div style={getModalStyle()} className={classes.paper}>
+            <Typography variant="h6" id="modal-title">
+              Schedule Sent
+            </Typography>
+            <Typography variant="subtitle1" id="modal-description">
+              Created Schedule has been sent to Admins and Instructors
+            </Typography>
+          </div>
+        </Modal>
         <CssBaseline />
         <AppBar
           position="fixed"
@@ -247,11 +280,18 @@ class CreateSchedule extends React.Component {
               Welcome {window.user}
             </Typography>
             <div className={classes.icons}>
-              <IconButton
-                color="inherit"
-                component={Link} to="/plannernotification">
-                <NotificationsIcon />
-              </IconButton>
+              <form method="POST">
+                <ButtonToolbar>
+                  <Button
+                    id = "changebool"
+                    variant="primary"
+                    name = "changebool"
+                    onClick = {this.handleOpen}
+                  >
+                    Send Notifications
+                  </Button>
+                </ButtonToolbar>
+              </form>
               <Button
                 color='inherit'
                 component={Link} to="/">
