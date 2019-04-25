@@ -61,6 +61,7 @@ const styles = theme => ({
   },
   submit: {
     color: '#0097a7',
+    marginBottom: theme.spacing.unit * 3,
   },
 });
 
@@ -170,7 +171,7 @@ class InstructorWelcome extends React.Component{
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <form method="POST">
-        <Button className={classes.submit} style={{ borderColor: '#0097a7' }} id="instructorpressed" color="inherit" name="instructorpressed" type="submit">Check and Acknowledge Notifications</Button>
+        <Button variant="outlined" className={classes.submit} style={{ borderColor: '#0097a7' }} id="instructorpressed" color="inherit" name="instructorpressed" type="submit">Check and Acknowledge Notifications</Button>
         </form>
         <MUIDataTable title={'My Timetable'} data={window.instructorTimetable} columns={columns} options={options} />
 

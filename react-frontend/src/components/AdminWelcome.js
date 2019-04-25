@@ -112,11 +112,8 @@ class AdminWelcome extends React.Component {
         <Typography id="tabtitle" variant="h4" gutterBottom component="h2">
           {window.pillar} Pillar Timetable
           </Typography>
-        {/* {window.user}<br/>
-        {window.pillar}<br/>
-        {window.pillarcourses[0]}<br/> */}
         <form method="POST">
-          <Button className={classes.submit} style={{ borderColor: '#0097a7' }} variant="outlined"  id="adminpressed" color="inherit" name="adminpressed" type="submit">Check for Notifications</Button>
+          <Button className={classes.submit} style={{ borderColor: '#0097a7' }} variant="outlined" id="adminpressed" color="inherit" name="adminpressed" type="submit">Check and Acknowledge Notifications</Button>
         </form>
         <form method="POST">
           <Button className={classes.submit} style={{ borderColor: '#0097a7' }} variant="outlined" id="course1" type='submit' color='inherit' name={window.pillarcourses[0]}>{window.pillarcourses[0]}</Button>
