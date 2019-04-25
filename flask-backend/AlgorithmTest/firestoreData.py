@@ -229,9 +229,9 @@ class firestoreData:
 
     def generateAndPushTimetable(self):
         print("Generating and pushing timetable")
-        possible = self.algo.generate_schedule()
+        possible = self.algo.generateTimetableWithSoftConstraints()
         print(possible)
-        if possible:
+        if possible or possible == None:
             for course in self.courseArray:
                 coursesdocument = self.dbfs.collection('courseTimetable').document(str(course.courseID))
                 courseSchedule = {"Week": {}}

@@ -111,26 +111,24 @@ class Algorithm:
         #for each priority, add in all the instructors' soft constraints and then generate the schedule
         #If can, move on to the next priority level
         #If cannot, randomly remove one from that priority level and try again
-        for priority in range(1, 6):
+        for priority in range(0, 5):
             array = []
             for instructor in self.instructors:
-                #print(instructor.softConstraints)
-                if priority in instructor.softConstraints.keys():
-                    softConstraint = instructor.softConstraints[priority]
+                #print(instructor.softConstraints.keys())
+                if str(priority) in instructor.softConstraints.keys():
+                    softConstraint = instructor.softConstraints[str(priority)]
                     instructorSoftConstraint = softConstraint[0]
-                    startTime = softConstraint[2]
-                    endTime = softConstraint[3]
-                    day = softConstraint[1]
-                    startTimeIndex = startTime - 8.5
+                    startTime = float(softConstraint[2])
+                    endTime = float(softConstraint[3])
+                    day = int(softConstraint[1])
+                    startTimeIndex = float(startTime) - 8.5
                     if startTimeIndex < 0:
-                        return "No such time"
+                        return False
                     array.append((instructor, instructorSoftConstraint, day, startTime, endTime))
-                    instructor.addIntoTimeTable(instructorSoftConstraint, day, int(startTimeIndex), int((endTime - startTime) / 0.5), None, None, None)
+                    instructor.addIntoTimeTable(instructorSoftConstraint, None, day, int(startTimeIndex), int((endTime - startTime) / 0.5), None, None, None)
 
             self.softConstraints[priority] = array
-
-        if self.generate_schedule():
-            print("Hello")
+        if not self.generate_schedule(): #if schedule with soft constraints are not possible
             for priority in range(5, 0, -1):
                 combinations = []
                 if self.softConstraints[priority] == []:
@@ -149,7 +147,8 @@ class Algorithm:
                                 continue
                             for element in possibility:
                                 element[0].addIntoTimeTable(element[1], element[2], element[3], element[4])
-        
+        else:
+            return True
         return False
 
 
