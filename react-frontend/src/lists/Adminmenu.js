@@ -43,7 +43,8 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Cohort Class Details" />
     </ListItem>
-    <ListItem id="cohortclasses"
+
+    <ListItem id="events"
     button
     component = {Link} to = "/adminevents">
       <ListItemIcon>
