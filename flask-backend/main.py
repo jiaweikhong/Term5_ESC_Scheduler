@@ -132,7 +132,7 @@ def instructorwelcome():
             List.append(new)
         print(List)
         algoRunner = firestoreData(cred, default_app, dbfs)
-        scheduleMeeting(List,duration)
+        algoRunner.scheduleMeeting(List,duration)
 
 
     return render_template("index.html", events=events, user=loggedUser, instructorTimetable=weeklysched, notif=notif)

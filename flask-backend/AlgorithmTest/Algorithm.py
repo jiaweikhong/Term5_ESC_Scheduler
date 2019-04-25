@@ -160,7 +160,6 @@ class Algorithm:
             time += 1
         return True
 
-
     def checkClassSchedule(self, classes, isShared, className, day, time, duration):
         for i in range(duration):
             for cohort in classes:
@@ -196,19 +195,32 @@ class Algorithm:
                             return True
         return False
 
-    def compareScheduleForMeeting(self, instructors, duration, meetingRoom = None, meetingName = "Meeting"):
-        duration = int(duration / 0.5)
-        for dayindex in range(5):
-            day = instructors[0].getTimetable().week[dayindex]
+    def compareScheduleForMeeting(self, instructors, duration, meetingID, meetingRoom = None, meetingName = "Meeting"):
+        instructorNames = [instructor[0] for instructor in instructors]
+        duration = int(float(duration) / 0.5)
+        for dayindex in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]:
+            day = instructors[0][1][dayindex]
             for time in range(0, len(day)):
                 if duration > len(day) - 1 - time:
                     break
-                if self.checkInstructorSchedule(instructors, dayindex, time, duration):
+                if self.checkInstructorScheduleFromFirestore(instructors, dayindex, time, duration):
                     for instructor in instructors:
-                        instructor.addIntoTimeTable(meetingName, dayindex, time, duration, None, None, meetingRoom)
+                        tempTime = time
+                        for i in range(duration):
+                            instructor[1][dayindex][str(tempTime)] = str(meetingName) + " " + str(meetingID) + " " + str(None) + " " + instructorNames.join(", ") + " " + str(None)
+                            tempTime += 1
                     return True
 
         return False
+        
+    def checkInstructorScheduleFromFirestore(self, instructors, day, time, duration):
+        for i in range(duration):
+            for instructor in instructors:
+                if instructor[1][str(day)][str(time)] != "":
+                    return False
+            time += 1
+        return True
+
 
     def wipeTimetable(self, isPossible):
         if not isPossible:
