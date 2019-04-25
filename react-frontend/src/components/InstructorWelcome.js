@@ -7,6 +7,11 @@ import { Button } from '@material-ui/core'
 import MUIDataTable from "mui-datatables";
 import CustomToolbarSelect from './TableHeader'
 import InstructorAppBar from './InstructorAppBar';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
 
 const drawerWidth = 240;
 
@@ -41,7 +46,18 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
 });
 
+
+
 class InstructorWelcome extends React.Component{
+  state = {
+    open: false,
+  }
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+  
+  handleClick = () => {
+    this.setState({ open: true });};
   
   render(){
 
@@ -105,17 +121,53 @@ class InstructorWelcome extends React.Component{
           My Timetable
         </Typography>
       <form method = "POST>">
-        <Button variant="outlined" color="black" className={classes.button} type='submit' name='scheduleMeeting'>
+        <Button variant="outlined" color="black" className={classes.button} onClick={this.handleClick} >
         SCHEDULE MEETING
       </Button>
       </form>
 
         <MUIDataTable title={"Your Timetable"} data={window.instructorTimetable} columns={columns} options={options} />
 
+        <Dialog
+              open={this.state.open}
+              onClose={this.handleClose}
+              aria-labelledby="form-dialog-title"
+
+            >
+              <form method='POST'>
+                <DialogTitle id="form-dialog-title">Meeting Scheduling</DialogTitle>
+                <DialogContent>
+
+                  <TextField
+                    //autoFocus
+                    margin="dense"
+                    name='instructorMeeting'
+                    label="Name of instructors. Please separate each instructor with a comma."
+                    fullWidth
+                    variant="outlined"
+                  ></TextField>
+
+                  <TextField
+                    margin="dense"
+                    name='duratonMeeting'
+                    label="Duration of meeting (hr) e.g. 1.5"
+                    fullWidth
+                    variant="outlined"
+                  ></TextField>
+
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={this.handleClose} color="primary" type='submit' name='meeting'>
+                    Save
+                  </Button>
+                </DialogActions>
+              </form>
+            </Dialog>
       </main>
     </div>
   );
-}}
+}
+}
 
 InstructorWelcome.propTypes = {
   classes: PropTypes.object.isRequired,
