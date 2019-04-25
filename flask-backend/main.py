@@ -696,6 +696,7 @@ def obtainInstructors(instructors):
 def createschedule():
     coursesInfo = obtainCourses()
     user = Data.loggedUser
+    events = obtainEvents()
     noclass=""
     message = ""
     events = obtainEvents()
@@ -879,7 +880,7 @@ def createschedule():
                 message = "Timetable generated!"
             else:
                 message = "Timetable cannot be generated :("
-    return render_template("index.html", coursesInfo = coursesInfo, user=user, message=message,errorCohort=errorCohort,errorCourse=errorCourse,errorInstructor=errorInstructor,errorRoom=errorRoom,noclass=noclass,classAdd=classAdd,added = added, deleted = deleted)
+    return render_template("index.html", events=events, coursesInfo = coursesInfo, user=user, message=message,errorCohort=errorCohort,errorCourse=errorCourse,errorInstructor=errorInstructor,errorRoom=errorRoom,noclass=noclass,classAdd=classAdd,added = added, deleted = deleted)
 
 @app.route("/freshmoreschedule", methods=['GET', 'POST'])
 def freshmoreschedule():
