@@ -32,13 +32,12 @@ class firestoreData:
         self.rooms = {"Cohort": [], "Lab": [], "Lecture": []}
         self.courseArray = []
         self.instructorArray = []
-
+        
+        self.pullRooms()
         self.pullClasses()
         self.pullCourses()
         self.pullInstructors()
-        self.pullRooms()
         self.replaceStringWithObject()
-        print(self.courseArray)
 
         self.algo = Algorithm(self.instructorArray, self.cohortArray, self.rooms, self.courseArray)
         # cred = credentials.Certificate('term-5-esc-scheduler-firebase-adminsdk-cfadg-cd4c469d4d.json')
@@ -75,7 +74,7 @@ class firestoreData:
         for courseDoc in courseCollection:
             courseDict = courseDoc.to_dict()
             newCourse = Course(courseDoc.id, courseDict['CourseTitle'], self.rooms, 
-            courseDict['Pillar'], courseDict['CohortClasses'])
+            courseDict['Pillar'], [cohort.strip() for cohort in courseDict['CohortClasses']] )
 
             if courseDict['Components']['Lecture']['LectSession1'] != '':
                 if courseDict['Components']['Lecture']['shared']:
@@ -203,15 +202,15 @@ class firestoreData:
             for course in self.courseArray:
                 if course.courseID in instructorDict['Courses'].values():
                     coursesTeaching.append(course)
-            newInstructor = Instructor(instructorDict['ID'], instructorDict['Name'], 
+            newInstructor = Instructor(instructorDict['ID'], instructorDoc.id, 
             coursesTeaching)
 
             for priority, details in instructorDict['SoftConstraints'].items():
-                if details == {}:
+                if details == []:
                     continue
-                if (not details['0'] is "") and (not details['1'] is "") and (not details['2'] is "") and (not details['3'] is ""):
-                    newInstructor.addSoftConstraints(priority, details['0'],  details['1'], details['2'], 
-                    details['3'])
+                if (not details[0] == "") and (not details[1] == "") and (not details[2] == "") and (not details[3] == ""):
+                    newInstructor.addSoftConstraints(priority, details[0],  details[1], details[2], 
+                    details[3])
                 
             self.instructorArray.append(newInstructor)
 
@@ -231,6 +230,7 @@ class firestoreData:
     def generateAndPushTimetable(self):
         print("Generating and pushing timetable")
         possible = self.algo.generate_schedule()
+        print(possible)
         if possible:
             for course in self.courseArray:
                 coursesdocument = self.dbfs.collection('courseTimetable').document(str(course.courseID))
@@ -245,7 +245,7 @@ class firestoreData:
                                 #print(elements)
                                 if type(elements) == list:
                                     for i in elements:
-                                        elementArray.append(i.name)
+                                        elementArray.append(i)
                                 else:
                                     elementArray.append(str(elements))
                         dayDict[str(time)] = ", ".join(elementArray)
@@ -278,7 +278,7 @@ class firestoreData:
                                 #print(elements)
                                 if type(elements) == list:
                                     for i in elements:
-                                        elementArray.append(i.name)
+                                        elementArray.append(i)
                                 else:
                                     elementArray.append(str(elements))
                         dayDict[str(time)] = ", ".join(elementArray)
@@ -312,7 +312,7 @@ class firestoreData:
                                     #print(elements)
                                     if type(elements) == list:
                                         for i in elements:
-                                            elementArray.append(i.name)
+                                            elementArray.append(i)
                                     else:
                                         elementArray.append(str(elements))
                             dayDict[str(time)] = ", ".join(elementArray)
@@ -344,7 +344,7 @@ class firestoreData:
                                 #print(elements)
                                 if type(elements) == list:
                                     for i in elements:
-                                        elementArray.append(i.name)
+                                        elementArray.append(i)
                                 else:
                                     elementArray.append(str(elements))
                         dayDict[str(time)] = ", ".join(elementArray)
@@ -385,6 +385,7 @@ class firestoreData:
 # default_app = firebase_admin.initialize_app(cred)
 # dbfs = firestore.client()
 # firestoreTest = firestoreData(cred, default_app, dbfs)
+# print(firestoreTest.instructorArray[0].softConstraints)
 # firestoreTest.generateAndPushTimetable()
 
 

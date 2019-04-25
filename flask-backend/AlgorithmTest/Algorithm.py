@@ -130,6 +130,7 @@ class Algorithm:
             self.softConstraints[priority] = array
 
         if self.generate_schedule():
+            print("Hello")
             for priority in range(5, 0, -1):
                 combinations = []
                 if self.softConstraints[priority] == []:
@@ -148,8 +149,8 @@ class Algorithm:
                                 continue
                             for element in possibility:
                                 element[0].addIntoTimeTable(element[1], element[2], element[3], element[4])
-        else:
-            return False
+        
+        return False
 
 
     def checkInstructorSchedule(self, instructors, day, time, duration):
