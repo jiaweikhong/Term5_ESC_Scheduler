@@ -213,7 +213,7 @@ class Algorithm:
                     return True
 
         return False
-        
+
     def checkInstructorScheduleFromFirestore(self, instructors, day, time, duration):
         for i in range(duration):
             for instructor in instructors:
