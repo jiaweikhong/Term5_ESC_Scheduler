@@ -138,20 +138,24 @@ def instructorwelcome():
                 print("exists")
 
             else:
-                instructorList = instructors.split(',')
+                instructorList = instructors.split(', ')
                 for instructor in instructorList:
-                    print(instructor)
-                    new = instructor.strip()
-                    List.append(new)
+                    # print(instructor)
+                    # new = instructor.strip()
+                    List.append(instructor)
                 print(List)
                 algoRunner = firestoreData(cred, default_app, dbfs)
                 algoRunner.scheduleMeeting(List,duration, meetingID)
+                weeklysched = retrieveInstructorCourses(loggedUser)
+                jsonify(weeklysched)
 
         if 'meetingdel' in request.form:
             List = Data.loggedUser
             meetingID = request.form['delmeetingID']
             algoRunner = firestoreData(cred, default_app, dbfs)
             algoRunner.deleteMeeting(List, meetingID)
+            weeklysched = retrieveInstructorCourses(loggedUser)
+            jsonify(weeklysched)
     
     return render_template("index.html", events=events, user=loggedUser, instructorTimetable=weeklysched, notif=notif, meeting = meeting)
 
