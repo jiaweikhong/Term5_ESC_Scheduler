@@ -108,6 +108,8 @@ def instructorwelcome():
     loggedUser = Data.loggedUser
     instructarray = instructorsdocument[loggedUser]
     notifbool = instructorsdocument[loggedUser]['NotifReceived']
+    meeting = ''
+
     if notifbool == True:
         notif = 'The new timetable can now be viewed below. You can press the acknowledge notification button to remove this message.'
     elif notifbool == False:
@@ -125,17 +127,38 @@ def instructorwelcome():
         List = []
         instructors = request.form['instructorMeeting']
         duration = request.form['duratonMeeting']
-        instructorList = instructors.split(',')
-        for instructor in instructorList:
-            print(instructor)
-            new = instructor.strip()
-            List.append(new)
-        print(List)
-        algoRunner = firestoreData(cred, default_app, dbfs)
-        scheduleMeeting(List,duration)
+        meetingID = request.form['meetingID']
+        
+        result = checkMeeting(meetingID)
+        print(result)
 
+        if result == False:
+            meeting = 'This is an existing meeting ID'
+            print("exists")
 
-    return render_template("index.html", events=events, user=loggedUser, instructorTimetable=weeklysched, notif=notif)
+        else:
+            instructorList = instructors.split(',')
+            for instructor in instructorList:
+                print(instructor)
+                new = instructor.strip()
+                List.append(new)
+            print(List)
+            # algoRunner = firestoreData(cred, default_app, dbfs)
+            # algoRunner.scheduleMeeting(List,duration)
+    
+    return render_template("index.html", events=events, user=loggedUser, instructorTimetable=weeklysched, notif=notif, meeting = meeting)
+
+def checkMeeting(meetingID):
+    dummy={}
+    meetingCollection = dbfs.collection('meetingID').stream()
+    for ID in meetingCollection:
+        if ID.id == meetingID:
+            return False
+    
+    dbfs.collection('meetingID').document(meetingID).set(dummy)
+    return True
+        
+
 
 @app.route("/uploadcourse", methods=['GET','POST'])
 def uploadcourse():
@@ -514,7 +537,7 @@ def adminwelcome():
     loggedUser = Data.loggedUser
     weeklysched = retrieveCourse("EmptyCourse")
     adminarray = adminsdocument[loggedUser]
-    notifbool = adminsdocument[loggeduser]['NotifReceived']
+    notifbool = adminsdocument[loggedUser]['NotifReceived']
     adminCoursesDetail = obtainCourses()
     cohortClassDetails = obtainCohorts()
     if notifbool == True:

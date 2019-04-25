@@ -123,14 +123,6 @@ class AdminEvent extends React.Component {
 
         ];
 
-        const data = [
-            ['August 18th', "Artificial Intelligence Talk", "Albert Hong", "1600", "1800"],
-            ['August 18th', "ISTD Pillar Talk", "Albert Hong", "1600", "1700"],
-            ['May 18th', "Global Exchange Talk", "2.403", "0800", "1700"],
-            ['November 25th', "EPD Pillar Talk", " 2.412", "1600", "1800"],
-            ['June 23rd', "Capstone Talk", "Albert Hong", "1400", "1600"],
-
-        ];
 
         const options = {
             filter: true,
@@ -152,26 +144,10 @@ class AdminEvent extends React.Component {
                 <CssBaseline />
                 <AdminAppbar />
 
-
-                <Drawer
-                    className={classes.drawer}
-                    variant="permanent"
-                    classes={{
-                        paper: classNames(classes.drawerPaper),
-                    }}
-                >
-                    <div className={classes.toolbar} />
-
-                    <List>{mainListItems}</List>
-
-
-                </Drawer>
                 <main className={classes.content}>
                 <div className={classes.toolbar}/>
-                    <Typography id='tabtitle' variant="h4" gutterBottom component="h2">
-                        Event Schedules
-                    </Typography>
-                    <MUIDataTable data={window.eventData} columns={columns} options={options} />
+
+                    <MUIDataTable title={"Event Schedules"} data={window.eventData} columns={columns} options={options} />
                 </main>
             </div>
         );

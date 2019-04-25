@@ -59,21 +59,6 @@ class AdminWelcome extends React.Component {
 
       <AdminAppbar />
       
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classNames(classes.drawerPaper),
-        }}
-      >
-        <div className={classes.toolbar} />
-
-        <List>{mainListItems}</List>
-
-        {/* <Divider />
-        <List>{secondaryListItems}</List> */}
-
-      </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Typography id="tabtitle" variant="h4" gutterBottom component="h2">

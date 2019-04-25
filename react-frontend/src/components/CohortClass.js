@@ -130,12 +130,12 @@ class CohortClass extends React.Component {
       customToolbar: () => {
         return (
           <React.Fragment>
-            <Tooltip title={"custom icon"}>
+            <Tooltip title={"Add Class"}>
               <IconButton className={classes.iconButton} onClick={this.handleClick}>
                 <AddIcon className={classes.deleteIcon} />
               </IconButton>
             </Tooltip>
-            <Tooltip title={"Delete Event"}>
+            <Tooltip title={"Delete Class"}>
               <IconButton className={classes.iconButton} onClick={this.handleDelete}>
                 <ClearIcon className={classes.deleteIcon} />
               </IconButton>
@@ -166,10 +166,8 @@ class CohortClass extends React.Component {
         <main className={classes.content}>
           <div>
             <div className={classes.toolbar} />
-            <Typography id="tabtitle" variant="h4" gutterBottom component="h2">
-              Cohort Class Details
-          </Typography>
-            <MUIDataTable id="tabtitle" data={window.cohortData} columns={columns} options={options} />
+
+            <MUIDataTable title={"Cohort classes"} data={window.cohortData} columns={columns} options={options} />
 
             <Dialog
               open={this.state.open}
@@ -258,14 +256,8 @@ class CohortClass extends React.Component {
                     Save
                   </Button>
                 </DialogActions>
-                
               </form>
             </Dialog>
-
-            
-
-
-
           </div>
         </main>
 

@@ -3,12 +3,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import PeopleIcon from '@material-ui/icons/People';
-import BarChartIcon from '@material-ui/icons/BarChart';
 import { Link } from 'react-router-dom'; 
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import TodayIcon from '@material-ui/icons/Today'
+import ViewlistIcon from '@material-ui/icons/Viewlist'
 
 
 export const mainListItems = (
@@ -37,7 +35,7 @@ export const mainListItems = (
     button
     component = {Link} to = "/softconstraints">
       <ListItemIcon>
-        <CheckBoxIcon />
+        <ViewlistIcon />
       </ListItemIcon>
       <ListItemText primary="Course Information" />
     </ListItem>
@@ -46,7 +44,7 @@ export const mainListItems = (
     button
     component = {Link} to = "/instructorevents">
       <ListItemIcon>
-        <CheckBoxIcon />
+        <TodayIcon />
       </ListItemIcon>
       <ListItemText primary="Event Schedule" />
     </ListItem>

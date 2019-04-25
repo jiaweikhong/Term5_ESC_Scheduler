@@ -113,9 +113,6 @@ class EditSchedule extends React.Component {
         this.setState({
           open: true
         })
-
-
-
       },
     };
 
@@ -128,10 +125,8 @@ class EditSchedule extends React.Component {
         <main className={classes.content}>
           <div>
             <div className={classes.toolbar} />
-            <Typography id="tabtitle" variant="h4" gutterBottom component="h2">
-              Course Details
-          </Typography>
-            <MUIDataTable data={window.data} columns={columns} options={options} />
+   
+            <MUIDataTable title={'Course Details'} data={window.data} columns={columns} options={options} />
             {/* {window.data} */}
             {/* {this.renderDialog()} */}
 
