@@ -580,6 +580,7 @@ def obtainEvents():
 
 @app.route("/plannerwelcome", methods=['GET', 'POST'])
 def plannerwelcome():
+    events = obtainEvents()
     coursesInfo = obtainCourses()
     user = Data.loggedUser
     if request.method == 'POST':
@@ -595,7 +596,7 @@ def plannerwelcome():
             return redirect(url_for('asdschedule'))
 
     # print (coursesInfo)
-    return render_template("index.html", coursesInfo = coursesInfo, user=user)
+    return render_template("index.html", events=events, coursesInfo = coursesInfo, user=user)
 
 def duration(start,end):
     time = []
