@@ -52,7 +52,7 @@ class PlannerAppbar extends React.Component {
                 <AppBar
                     position="fixed"
                     className={classNames(classes.appBar)}
-                    style={{ backgroundColor: '#000000' }}>
+                    style={{ backgroundColor: '#0097a7' }}>
 
                     <Toolbar >
                         <Typography
