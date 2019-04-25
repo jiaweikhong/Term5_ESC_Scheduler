@@ -55,13 +55,17 @@ const styles = theme => ({
 class InstructorWelcome extends React.Component{
   state = {
     open: false,
+    delopen:false
   }
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({ open: false , delopen:false});
   };
   
   handleClick = () => {
     this.setState({ open: true });};
+
+    handleDel = () => {
+      this.setState({ delopen: true });};
   
   render(){
 
@@ -92,38 +96,24 @@ class InstructorWelcome extends React.Component{
               <AccountBoxIcon  />
             </IconButton>
           </Tooltip>
+          <Tooltip title={"Delete Meeting"}>
+            <IconButton className={classes.iconButton} onClick={this.handleDel}>
+              <AccountBoxIcon  />
+            </IconButton>
+          </Tooltip>
 
         </React.Fragment>
       );
     },
 
-    // customToolbarSelect: (selectedRows, displayData, setSelectedRows) => (
-    //   <CustomToolbarSelect selectedRows={selectedRows} displayData={displayData} setSelectedRows={setSelectedRows} />
-    // ),
-    // onRowsSelect: (rowsSelected, allRows) => {
-    //   console.log(rowsSelected, allRows);
-    // },
-    // onRowsDelete: (rowsDeleted) => {
-    //   console.log(rowsDeleted, "were deleted!");
-    // },
+
     onChangePage: (numberRows) => {
       console.log(numberRows);
     },
     onSearchChange: (searchText) => {
       console.log(searchText);
     },
-    // onColumnSortChange: (column, direction) => {
-    //   console.log(column, direction);
-    // },
-    // onColumnViewChange: (column, action) => {
-    //   console.log(column, action);
-    // },
-    // onFilterChange: (column, filters) => {
-    //   console.log(column, filters);
-    // },
-    // onCellClick: (cellData, cellMeta) => {
-    //   console.log(cellData, cellMeta);
-    // }
+
   }
 
   return (
@@ -133,14 +123,7 @@ class InstructorWelcome extends React.Component{
 
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {/* <Typography id='tabtitle' variant="h4" gutterBottom component="h2">
-          My Timetable
-        </Typography> */}
-      {/* <form method = "POST>">
-        <Button variant="outlined" color="black" className={classes.button} onClick={this.handleClick} style={{ borderColor: '#0097a7' }} >
-        SCHEDULE MEETING
-      </Button>
-      </form> */}
+
         <MUIDataTable title={'My Timetable'} data={window.instructorTimetable} columns={columns} options={options} />
 
         <Dialog
@@ -188,6 +171,36 @@ class InstructorWelcome extends React.Component{
                 </DialogContent>
                 <DialogActions>
                   <Button onClick={this.handleClose} color="primary" type='submit' name='meeting'>
+                    Save
+                  </Button>
+                </DialogActions>
+              </form>
+            </Dialog>
+
+            <Dialog
+              open={this.state.delopen}
+              onClose={this.handleClose}
+              aria-labelledby="form-dialog-title"
+
+            >
+              <form method='POST'>
+                <DialogTitle id="form-dialog-title">Delete Meeting</DialogTitle>
+                <DialogContent>
+
+                <TextField
+                    //autoFocus
+                    margin="dense"
+                    name='delmeetingID'
+                    label="MeetingID"
+                    fullWidth
+                    required
+                    className={classes.meeting}
+                    variant="outlined"
+                  ></TextField>
+
+             </DialogContent>
+                <DialogActions>
+                  <Button onClick={this.handleClose} color="primary" type='submit' name='meetingdel'>
                     Save
                   </Button>
                 </DialogActions>
