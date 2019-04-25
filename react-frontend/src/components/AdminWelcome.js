@@ -70,7 +70,7 @@ function getModalStyle() {
 }
 class AdminWelcome extends React.Component {
   state = {
-    open: true,
+    open: false,
   };
 
   handleOpen = () => {
@@ -100,7 +100,7 @@ class AdminWelcome extends React.Component {
           {window.notif}
         </Typography>
       </div>
-    </Modal>    
+    </Modal>
       <CssBaseline />
 
 
@@ -298,7 +298,7 @@ class AdminWelcome extends React.Component {
           </TableBody>
         </Table>
         <form method="POST">
-          <Button id="adminpressed" color="inherit" name="adminpressed" type="submit">Acknowledge Notifications</Button>
+          <Button id="adminpressed" color="inherit" name="adminpressed" type="submit">Check for Notifications</Button>
         </form>
 
       </main>

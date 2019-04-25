@@ -74,7 +74,7 @@ function getModalStyle() {
 
 class InstructorWelcome extends React.Component{
   state = {
-    modopen: true,
+    modopen: false,
     open: false,
     delopen:false
   }
@@ -167,7 +167,7 @@ class InstructorWelcome extends React.Component{
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <form method="POST">
-        <Button id="instructorpressed" color="inherit" name="instructorpressed" type="submit">Acknowledge Notifications</Button>
+        <Button id="instructorpressed" color="inherit" name="instructorpressed" type="submit">Check for Notifications</Button>
         </form>
         <MUIDataTable title={'My Timetable'} data={window.instructorTimetable} columns={columns} options={options} />
 
