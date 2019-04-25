@@ -74,7 +74,7 @@ function getModalStyle() {
 
 class InstructorWelcome extends React.Component{
   state = {
-    modopen: false,
+    modopen: true,
     open: false,
     delopen:false
   }

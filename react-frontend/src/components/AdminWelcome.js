@@ -70,7 +70,7 @@ function getModalStyle() {
 }
 class AdminWelcome extends React.Component {
   state = {
-    open: false,
+    open: true,
   };
 
   handleOpen = () => {
