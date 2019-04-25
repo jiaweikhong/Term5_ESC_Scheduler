@@ -397,7 +397,7 @@ class firestoreData:
             return False
     
     def deleteMeeting(self, instructor, meetingID):
-        instructordocument = self.dbfs.collection("instructorTimetable").document(instructor)
+        instructordocument = self.dbfs.collection("instructorTimetable").document(instructor).get()
         instructorDict = instructordocument.to_dict()
         instructorSchedule = instructorDict["Week"]
         for dayindex in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]:
@@ -406,7 +406,7 @@ class firestoreData:
                 if meetingID in instructorSchedule[dayindex][str(time)]:
                     instructorSchedule[dayindex][str(time)] = ""
                 
-        weekDictionary = {"Week":instructorSchedule}
+        weekDictionary = {"Week": instructorSchedule}
         instructordocument.set(weekDictionary)
 
 
