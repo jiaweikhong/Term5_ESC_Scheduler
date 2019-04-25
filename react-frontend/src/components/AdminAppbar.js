@@ -63,11 +63,6 @@ class AdminAppbar extends React.Component {
                             Welcome {window.user}
                         </Typography>
                         <div className={classes.icons}>
-                            <IconButton
-                                color="inherit"
-                                component={Link} to="/adminnotifications">
-                                <NotificationsIcon />
-                            </IconButton>
                             <Button
                                 id='logout'
                                 color='inherit'

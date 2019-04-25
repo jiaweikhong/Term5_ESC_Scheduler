@@ -14,6 +14,7 @@ import TextField from '@material-ui/core/TextField';
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from '@material-ui/core/IconButton';
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
+import Modal from '@material-ui/core/Modal';
 
 const drawerWidth = 240;
 
@@ -42,6 +43,14 @@ const styles = theme => ({
     right: 15
 
   },
+  paper: {
+    position: 'absolute',
+    width: theme.spacing.unit * 50,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing.unit * 4,
+    outline: 'none',
+  },
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
@@ -52,21 +61,40 @@ const styles = theme => ({
   }
 });
 
+function getModalStyle() {
+  const top = 50;
+  const left = 50;
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
+
 class InstructorWelcome extends React.Component{
   state = {
+    modopen: true,
     open: false,
     delopen:false
   }
   handleClose = () => {
     this.setState({ open: false , delopen:false});
   };
-  
+
   handleClick = () => {
     this.setState({ open: true });};
 
-    handleDel = () => {
+  handleDel = () => {
       this.setState({ delopen: true });};
-  
+
+  handleMOpen = () => {
+        this.setState({ modopen: true });
+  };
+
+  handleMClose = () => {
+        this.setState({ modopen: false });
+  };
   render(){
 
   const { classes } = this.props;
@@ -118,12 +146,29 @@ class InstructorWelcome extends React.Component{
 
   return (
     <div className={classes.root}>
+      <Modal
+      aria-labelledby="modal-title"
+      aria-describedby="modal-description"
+      open={this.state.modopen}
+      onClose={this.handleMClose}
+    >
+      <div style={getModalStyle()} className={classes.paper}>
+        <Typography variant="h6" id="modal-title">
+          Welcome {window.user}
+        </Typography>
+        <Typography variant="subtitle1" id="modal-description">
+          {window.notif}
+        </Typography>
+        </div>
+      </Modal>
       <CssBaseline />
       <InstructorAppBar />
 
       <main className={classes.content}>
         <div className={classes.toolbar} />
-
+        <form method="POST">
+        <Button id="instructorpressed" color="inherit" name="instructorpressed" type="submit">Acknowledge Notifications</Button>
+        </form>
         <MUIDataTable title={'My Timetable'} data={window.instructorTimetable} columns={columns} options={options} />
 
         <Dialog
