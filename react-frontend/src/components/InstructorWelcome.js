@@ -123,12 +123,25 @@ function InstructorWelcome(props) {
           >
             Welcome {window.user}
           </Typography>
-          <div className={classes.icons}>
-            <IconButton
+          <Typography
+              variant="h5"
               color="inherit"
-              component={Link} to="/instructornotifications">
-              <NotificationsIcon />
-            </IconButton>
+              noWrap
+          // className ={classes.welcome}
+          >
+            {window.notif}
+          </Typography>
+          <div className={classes.icons}>
+             <form method="POST">
+                <Button variant="contained"
+                  name="instructorpressed"
+                  color="inherit"
+                  type ="submit"
+                  component="span">
+                  Acknowledge Notifications
+                  <NotificationsIcon />
+                </Button>
+             </form>
             <Button
               id="logout"
               color='inherit'
