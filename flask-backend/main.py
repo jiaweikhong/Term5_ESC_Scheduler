@@ -496,7 +496,7 @@ def adminwelcome():
     loggedUser = Data.loggedUser
     weeklysched = retrieveCourse("EmptyCourse")
     adminarray = adminsdocument[loggedUser]
-    notifbool = adminsdocument[loggeduser]['NotifReceived']
+    notifbool = adminsdocument[loggedUser]['NotifReceived']
     adminCoursesDetail = obtainCourses()
     cohortClassDetails = obtainCohorts()
     if notifbool == True:

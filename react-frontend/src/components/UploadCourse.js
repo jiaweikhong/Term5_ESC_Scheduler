@@ -70,7 +70,8 @@ const styles = theme => ({
     display: 'flex',
   },
   text:{
-    textAlign: 'left'
+    textAlign: 'left',
+    color: '#0097a7',
   },
 
   appBar: {
@@ -405,7 +406,7 @@ render(){
         />
         </div>
         <FormControl fullWidth>
-        <Button variant="contained" color="primary" className={classes.button} type='submit' name='course'>
+        <Button style={{ backgroundColor:'#0097a7'}} variant="contained" color="primary" className={classes.button} type='submit' name='course'>
         Submit
       </Button>
       </FormControl>
@@ -440,7 +441,7 @@ render(){
 
       <FormControl >
         <div className={classes.dense}></div>
-        <FormLabel className={classes.text} focused>Select the time slot you wish to keep free from your timetable. Requets with valid reasons will be prioritised. Thank you.</FormLabel>
+        <FormLabel className={classes.text}>Select the time slot you wish to keep free from your timetable. Requets with valid reasons will be prioritised. Thank you.</FormLabel>
         
      <div >
      
@@ -916,7 +917,7 @@ render(){
         
         </FormControl>
         <FormControl fullWidth>
-        <Button variant="contained" color="primary" className={classes.button} type='submit' name='constraints'>
+        <Button style={{ backgroundColor:"#0097a7"}}variant="contained" color="primary" className={classes.button} type='submit' name='constraints'>
         Submit
       </Button>
       </FormControl>

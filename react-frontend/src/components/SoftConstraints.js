@@ -48,7 +48,8 @@ const styles = theme => ({
     display: 'flex',
   },
   text:{
-    textAlign: 'left'
+    textAlign: 'left',
+    color: '#0097a7',
   },
 
   appBar: {
@@ -348,7 +349,7 @@ class SoftConstraints extends React.Component {
 
     <Grid item xs ={6}>
     <div className={classes.space} />
-    <FormLabel component="legend" className={classes.text} focused>Number of lelctures per week</FormLabel>
+    <FormLabel component="legend" className={classes.text}>Number of lelctures per week</FormLabel>
         <RadioGroup
           aria-label="lecture"
           name="lecture"
@@ -368,7 +369,7 @@ class SoftConstraints extends React.Component {
 
         <Grid item xs={6}>
         <div className={classes.space} />
-    <FormLabel component='legend' className={classes.text} focused>Duration of each lecture</FormLabel>
+    <FormLabel component='legend' className={classes.text}>Duration of each lecture</FormLabel>
     <FormControl fullWidth>
     <TextField
         id='choose-soft-constraint'
@@ -450,7 +451,7 @@ class SoftConstraints extends React.Component {
 
     <Grid item xs={6}>
     <div className={classes.space} />
-    <FormLabel component="legend" className={classes.text} focused>Number of cohort classes per week</FormLabel>
+    <FormLabel component="legend" className={classes.text}>Number of cohort classes per week</FormLabel>
         <RadioGroup
           aria-label="lecture"
           name="cohort"
@@ -470,7 +471,7 @@ class SoftConstraints extends React.Component {
 
     <Grid item xs={6}>
     <div className={classes.space} />
-    <FormLabel component='legend' className={classes.text} focused>Duration of each cohort class</FormLabel>
+    <FormLabel component='legend' className={classes.text}>Duration of each cohort class</FormLabel>
     <FormControl fullWidth>
     <TextField
         id='choose-soft-constraint'
@@ -550,7 +551,7 @@ class SoftConstraints extends React.Component {
 
        <Grid item xs ={6}>
        <div className={classes.space} />
-    <FormLabel component="legend" className={classes.text} focused>Number of lab sessions per week</FormLabel>
+    <FormLabel component="legend" className={classes.text}>Number of lab sessions per week</FormLabel>
         <RadioGroup
           aria-label="lab"
           name="lab"
@@ -567,7 +568,7 @@ class SoftConstraints extends React.Component {
 
          <Grid item xs={6}>
          <div className={classes.space} />
-    <FormLabel component='legend' className={classes.text} focused>Duration of each lab session</FormLabel>
+    <FormLabel component='legend' className={classes.text}>Duration of each lab session</FormLabel>
     <FormControl fullWidth>
     <TextField
         id='choose-soft-constraint'
@@ -661,7 +662,7 @@ class SoftConstraints extends React.Component {
         <Divider/>
         <FormControl >
         <div className={classes.dense}></div>
-        <FormLabel className={classes.text} focused>Select the time slot you wish to keep free from your timetable. Requets with valid reasons will be prioritised. Thank you.</FormLabel>
+        <FormLabel className={classes.text}>Select the time slot you wish to keep free from your timetable. Requets with valid reasons will be prioritised. Thank you.</FormLabel>
         
      <div >
      
@@ -1139,7 +1140,7 @@ class SoftConstraints extends React.Component {
 
         </div>
         <FormControl fullWidth>
-        <Button variant="contained" color="primary" className={classes.button} type='submit' name='courseInfo1'>
+        <Button style={{backgroundColor:'#0097a7'}} variant="contained" color="primary" className={classes.button} type='submit' name='courseInfo1'>
         Submit
       </Button>
       </FormControl>

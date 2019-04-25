@@ -27,6 +27,7 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit,
+    color: '#0097a7',
   },
 
   icons: {
@@ -105,7 +106,7 @@ class InstructorWelcome extends React.Component{
           My Timetable
         </Typography>
       <form method = "POST>">
-        <Button variant="outlined" color="black" className={classes.button} type='submit' name='scheduleMeeting'>
+        <Button style={{ borderColor:'#0097a7'}} variant="outlined" color="black" className={classes.button} type='submit' name='scheduleMeeting'>
         SCHEDULE MEETING
       </Button>
       </form>
