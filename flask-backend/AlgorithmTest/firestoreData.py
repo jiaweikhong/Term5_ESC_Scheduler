@@ -370,32 +370,54 @@ class firestoreData:
     def scheduleMeeting(self, instructors, duration, meetingID):
         instructorCollection = self.dbfs.collection("instructorTimetable").get()
         databaseInstructors = []
-        print(databaseInstructors)
+        #print(databaseInstructors)
         for instructorDoc in instructorCollection:
             instructorDict = instructorDoc.to_dict()
             #print(instructorDict)
             instructorSchedule = instructorDict["Week"]
             databaseInstructors.append((instructorDoc.id, instructorSchedule))
-
+        
         passInInstructors = []
         for instructor in instructors:
             for checkInstructor in databaseInstructors:
                 if instructor == checkInstructor[0]:
                     passInInstructors.append(checkInstructor)
-                    instructors.remove(instructor)
-        
-        #If an instructor is not found/not in database
-        if instructors != []:
-            return False
 
-        if self.algo.compareScheduleForMeeting(passInInstructors, duration, meetingID):
-            for instructor in passInInstructors:
-                instructordocument = self.dbfs.collection("instructorTimetable").document(instructor[0])
-                weekDictionary = {"Week":instructor[1]}
-                instructordocument.set(weekDictionary)
-                return True
+        if self.compareScheduleForMeeting(passInInstructors, duration, meetingID):
+            return True
         else:
             return False
+    
+    def compareScheduleForMeeting(self, instructors, duration, meetingID, meetingRoom = None, meetingName = "Meeting"):
+        instructorNames = [instructor[0] for instructor in instructors]
+        duration = int(float(duration) / 0.5)
+        for dayindex in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]:
+            day = instructors[0][1][dayindex]
+            for time in range(0, len(day)):
+                if duration > len(day) - 1 - time:
+                    break
+                if self.checkInstructorScheduleFromFirestore(instructors, dayindex, time, duration):
+                    for instructor in instructors:
+                        print(instructor[0])
+                        tempTime = time
+                        for i in range(duration):
+                            s = ", "
+                            instructor[1][dayindex][str(tempTime)] = str(meetingName) + " " + str(meetingID) + " " + s.join(instructorNames)
+                            tempTime += 1
+                        instructordocument = self.dbfs.collection("instructorTimetable").document(instructor[0])
+                        weekDictionary = {"Week":instructor[1]}
+                        instructordocument.set(weekDictionary)
+                    return True
+
+        return False
+
+    def checkInstructorScheduleFromFirestore(self, instructors, day, time, duration):
+        for i in range(duration):
+            for instructor in instructors:
+                if instructor[1][str(day)][str(time)] != "":
+                    return False
+            time += 1
+        return True
     
     def deleteMeeting(self, instructor, meetingID):
         instructordocument = self.dbfs.collection("instructorTimetable").document(instructor).get()
@@ -404,9 +426,9 @@ class firestoreData:
         for dayindex in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]:
             day = instructorSchedule[dayindex]
             for time in range(0, len(day)):
-                if meetingID in instructorSchedule[dayindex][str(time)]:
+                if meetingID in instructorSchedule[dayindex][str(time)] and "Meeting" in instructorSchedule[dayindex][str(time)]:
                     instructorSchedule[dayindex][str(time)] = ""
-                
+        print(instructorSchedule)
         weekDictionary = {"Week": instructorSchedule}
         self.dbfs.collection("instructorTimetable").document(instructor).set(weekDictionary)
 

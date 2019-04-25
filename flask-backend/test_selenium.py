@@ -19,11 +19,20 @@ def assertElementByID(id, text):
     assert element.text == text
     print("Text Assertion Success: " + text)
 
+def clickOffNotif(idOfNext):
+    action = webdriver.common.action_chains.ActionChains(driver)
+    clickElem = driver.find_element_by_id(idOfNext)
+    action.move_to_element_with_offset(clickElem, 5, 5) #move 150 pixels to the right to access Help link
+    action.click()
+    action.perform()
+
 def testInstructor():
     clickOn("instructorlogin")
     fillField("email", "Sudipta")
     fillField("password", "password")
     clickOn("submit")
+    # driver.find_element_by_xpath("//body").click()
+    clickOffNotif("myinfo")
     # assertElementByID("scheduleMeeting", "SCHEDULE MEETING")
     clickOn("myinfo")
     assertElementByID("instructions", "Please fill in the following details for the courses you teach. Note that each submission will be a new submission. If you wish to make changes to previous submissions, you are required to re-fill all fields. Thank you.")
@@ -31,6 +40,7 @@ def testInstructor():
     assertElementByID("instructions", "You may make subsequent submissions for course information on other courses.")
     clickOn("events")
     clickOn("mysched")
+    clickOffNotif("logout")
     clickOn("logout")
 
 def testAdmin():
@@ -38,6 +48,7 @@ def testAdmin():
     fillField("email", "ISTDadmin")
     fillField("password", "password")
     clickOn("submit")
+    clickOffNotif("coursedet")
     assertElementByID("course1", "50.001")
     # clickOn("course1")
     # clickOn("course2")
@@ -48,6 +59,7 @@ def testAdmin():
     # assertElementByID("tabtitle", "Cohort Class Details")
     clickOn("events")
     clickOn("pillarsched")
+    clickOffNotif("logout")
     clickOn("logout")
 
 def testPlanner():
@@ -66,7 +78,6 @@ def testPlanner():
     # assertElementByID("tabtitle", "Events")
     clickOn("home")
     # assertElementByID("tabtitle", "My Schedules")
-
     clickOn("logout")
 
 driver.get("http://127.0.0.1:5000/")
