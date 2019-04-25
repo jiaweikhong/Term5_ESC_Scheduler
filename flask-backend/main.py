@@ -648,25 +648,34 @@ def createschedule():
     errorRoom=""
     errorCohort = ""
     classAdd=""
+    natarray = instructorsdocument['Natalie Agus']
+    okaarray = instructorsdocument['Oka Kurniawan']
+    asdarray = adminarray['ASDadmin']
+    epdadmin = adminarray["EPDadmin"]
+    esdarray = adminarray['ESDadmin']
+    istdadmin = adminarray["ISTDadmin"]
     if request.method == 'POST':
-
-        # # run algo here
-        # print ("Calling algo function now...")
-        # algoRunner = firestoreData(cred, default_app, dbfs)
-        # # algoRunner.hihi()
-        # algoRunner.generateAndPushTimetable()
+        # run algo here
+        print ("Calling algo function now...")
         if 'changebool' in request.form:
-            instructorsdocument.update({
-                u'Natalie.NotifReceived' : True
-                u'Oka.NotifReceived' : True
+            natarray.update({
+                u'NotifReceived' : True
                 })
-            adminsdocument.update({
-			    u'ISTDadmin.NotifReceived' : True
-                u'ESDadmin.NotifReceived' : True
-                u'ASDadmin.NotifReceived' : True
-                u'EPDadmin.NotifReceived' : True
-		        })
-
+            okaarray.update({
+                u'NotifReceived' : True
+                })
+            asdarray.update({
+                u'NotifReceived' : True
+                })
+            epdarray.update({
+                u'NotifReceived' : True
+                })
+            esdarray.update({
+                u'NotifReceived' : True
+                })
+            istdarray.update({
+                u'NotifReceived' : True
+                })                    
         if 'delCourse' in request.form:
             courseCode = request.form['courseCodedel']
             start = request.form['delStart']
