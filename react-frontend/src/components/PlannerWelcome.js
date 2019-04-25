@@ -1,43 +1,3 @@
-// import React from 'react';
-// import { NavLink } from 'react-router-dom'; 
-
-// const PlannerWelcome = () => {
-
-// 	return (
-
-//         <html>
-
-//             <head>
-//                 <title>Welcome Planner</title>
-//             </head>
-
-//             <body>
-//                 <h1>Welcome</h1>
-
-
-//                 <table class="center">
-//                     <tr>
-//                     <td><form><input type="button" class="button button1" value="Create Schedule" onclick="window.location.href='createschedule'" /></form></td>
-// 				    <td><input type="button" class="button button1" value="Delete Schedule" onclick="window.location.href='deleteSchedule.html'" /></td>
-//                     </tr>
-
-//                     <tr>
-
-//                     <td><form><input type="button" class="button button1" value="View/Edit Event Schedule" onclick="window.location.href='eventScheduleCoord.html'" /></form></td>
-// 				    <td><input type="button" class="button button1" value="View/Edit Course Schedule" onclick="window.location.href='courseScheduleCoord.html'" /></td>
-//                     </tr>
-//                 </table>
-//             </body>
-
-// 		<p><NavLink to="/">Logout</NavLink></p>
-
-//         </html>
-// 	);
-// };
-
-
-// export default PlannerWelcome;
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -53,12 +13,8 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems } from '../lists/PlannerMenu';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core'
+import PlannerAppbar from './PlannerAppbar';
 
-
-// TODO
-// try to stay in welcome page and only change the content when clicking on the list icons
-//change icons for list
-//
 
 const drawerWidth = 240;
 
@@ -100,47 +56,8 @@ function PlannerWelcome(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={classNames(classes.appBar)}>
-
-        <Toolbar >
-          <Typography
-            variant="h6"
-            color="inherit"
-            noWrap
-          // className ={classes.welcome}
-          >
-            Welcome {window.user}
-          </Typography>
-          <div className={classes.icons}>
-            <IconButton
-              color="inherit"
-              component={Link} to="/plannernotification">
-              <NotificationsIcon />
-            </IconButton>
-            <Button
-              id="logout"
-              color='inherit'
-              component={Link} to="/">
-              LOGOUT
-        </Button>
-          </div>
-        </Toolbar>
-      </AppBar>
-
-
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classNames(classes.drawerPaper),
-        }}
-      >
-        <div className={classes.toolbar} />
-
-        <List>{mainListItems}</List>
-      </Drawer>
+      <PlannerAppbar />
+      
 
 
       <main className={classes.content}>

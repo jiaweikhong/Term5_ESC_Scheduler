@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 import { Button, Divider, TextField, FormControl } from '@material-ui/core'
 import { FormLabel } from '@material-ui/core';
 import MUIDataTable from "mui-datatables";
-
+import AdminAppbar from './AdminAppbar';
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -150,32 +150,7 @@ class AdminEvent extends React.Component {
         return (
             <div className={classes.root}>
                 <CssBaseline />
-                <AppBar
-                    position="fixed"
-                    className={classNames(classes.appBar)}>
-
-                    <Toolbar >
-                        <Typography
-                            variant="h6"
-                            color="inherit"
-                            noWrap
-                        >
-                            Welcome {window.user}
-                        </Typography>
-                        <div className={classes.icons}>
-                            <IconButton
-                                color="inherit"
-                                component={Link} to="/adminnotifications">
-                                <NotificationsIcon />
-                            </IconButton>
-                            <Button
-                                color='inherit'
-                                component={Link} to="/">
-                                LOGOUT
-        </Button>
-                        </div>
-                    </Toolbar>
-                </AppBar>
+                <AdminAppbar />
 
 
                 <Drawer

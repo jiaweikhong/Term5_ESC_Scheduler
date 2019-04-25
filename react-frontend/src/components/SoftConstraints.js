@@ -3,32 +3,19 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems } from '../lists/instructormenu';
-import {Link} from 'react-router-dom';
 import {Button, Divider, TextField, FormControl} from '@material-ui/core'
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import MenuItem from '@material-ui/core/MenuItem';
-import CourseMaterial from './CourseMaterial';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { FormLabel } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-// import ChipInput from 'material-ui-chip-input'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
-
-
-
+import InstructorAppBar from './InstructorAppBar';
 
 const drawerWidth = 240;
 
@@ -244,7 +231,6 @@ class SoftConstraints extends React.Component {
     lab1:'',
     lab2:'',
     lab3:'',
-    //value: 'female',
 
     
   };
@@ -271,48 +257,7 @@ class SoftConstraints extends React.Component {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={classNames(classes.appBar)}>
-      
-        <Toolbar >
-          <Typography
-            variant="h6"
-            color="inherit"
-            noWrap
-            // className ={classes.welcome}
-          >
-            Welcome {window.user}
-          </Typography>
-          <div className={classes.icons}>
-          <IconButton 
-          color="inherit"
-          component = {Link} to = "/instructornotifications">    
-              <NotificationsIcon />    
-          </IconButton>
-          <Button 
-          color='inherit' 
-          component = {Link} to = "/">   
-          LOGOUT
-        </Button>
-        </div>
-        </Toolbar>
-      </AppBar>
-
-      
-      <Drawer
-      className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classNames(classes.drawerPaper),
-        }}
-      >
-        <div className={classes.toolbar} />
-        
-        <List>{mainListItems}</List>
-
-
-      </Drawer>
+      <InstructorAppBar />
       <main className={classes.content}>
       <form method='POST'>
 

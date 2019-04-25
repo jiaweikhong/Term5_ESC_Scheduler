@@ -103,9 +103,21 @@ def retrieveInstructorCourses(loggedUser):
 def instructorwelcome():
     events = obtainEvents()
     loggedUser = Data.loggedUser
+    instructarray = instructorsdocument[loggedUser]
+    notifbool = instructorsdocument[loggedUser]['NotifReceived']
+    if notifbool == True:
+        notif = 'The new timetable can now be viewed below. You can press the acknowledge notification button to remove this message.'
+    elif notifbool == False:
+        notif = ''
     weeklysched = retrieveInstructorCourses(loggedUser)
     jsonify(weeklysched)
-    return render_template("index.html", events=events, user=loggedUser, instructorTimetable=weeklysched)
+    if request.method == 'POST':
+        if 'instructorpressed' in request.form:
+            if notifbool == True:
+                instructarray.update({
+                    u'NotifReceived' : False
+                })
+    return render_template("index.html", events=events, user=loggedUser, instructorTimetable=weeklysched, notif=notif)
 
 @app.route("/uploadcourse", methods=['GET','POST'])
 def uploadcourse():
@@ -483,9 +495,14 @@ def adminwelcome():
     events = obtainEvents()
     loggedUser = Data.loggedUser
     weeklysched = retrieveCourse("EmptyCourse")
+    adminarray = adminsdocument[loggedUser]
+    notifbool = adminsdocument[loggeduser]['NotifReceived']
     adminCoursesDetail = obtainCourses()
     cohortClassDetails = obtainCohorts()
-
+    if notifbool == True:
+        notif = 'The new timetable can now be viewed below. You can press the acknowledge notification button to remove this message.'
+    elif notifbool == False:
+        notif = ''
     if request.method == 'POST':
         if '50.001' in request.form:
             weeklysched = retrieveCourse("50.001")
@@ -497,12 +514,17 @@ def adminwelcome():
             weeklysched = retrieveCourse("50.012")
         elif '50.034' in request.form:
             weeklysched = retrieveCourse("50.034")
+        elif 'adminpressed' in request.form:
+            if notifbool == True:
+                adminarray.update({
+			        u'NotifReceived' : False
+		        })
     jsonify(weeklysched)
     adminPillar = Data.pillar
     # print ("pillar: " + adminPillar)
     # print ("user: " + loggedUser)
     print (adminCoursesDetail)
-    return render_template('index.html', events=events, token=weeklysched, user=loggedUser, pillar=adminPillar, adminCoursesDetail=adminCoursesDetail, cohortClassDetails=cohortClassDetails)
+    return render_template('index.html', events=events, token=weeklysched, user=loggedUser, pillar=adminPillar, adminCoursesDetail=adminCoursesDetail, cohortClassDetails=cohortClassDetails, notif=notif)
 
 def check_planner_login(check_username, check_password):
     bannedaccountsarray = bannedaccountsdict['banned']
@@ -633,7 +655,17 @@ def createschedule():
         # algoRunner = firestoreData(cred, default_app, dbfs)
         # # algoRunner.hihi()
         # algoRunner.generateAndPushTimetable()
-
+        if 'changebool' in request.form:
+            instructorsdocument.update({
+                u'Natalie.NotifReceived' : True
+                u'Oka.NotifReceived' : True
+                })
+            adminsdocument.update({
+			    u'ISTDadmin.NotifReceived' : True
+                u'ESDadmin.NotifReceived' : True
+                u'ASDadmin.NotifReceived' : True
+                u'EPDadmin.NotifReceived' : True
+		        })
 
         if 'delCourse' in request.form:
             courseCode = request.form['courseCodedel']

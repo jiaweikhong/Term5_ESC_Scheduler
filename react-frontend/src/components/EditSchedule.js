@@ -1,19 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems } from '../lists/Adminmenu';
-// import {secondaryListItems} from '../lists/Adminmenu';
-import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core'
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -23,6 +12,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import MUIDataTable from "mui-datatables";
+import AdminAppbar from './AdminAppbar';
 
 const drawerWidth = 240;
 
@@ -106,13 +96,6 @@ class EditSchedule extends React.Component {
 
     ];
 
-    const data = [
-      [50.003, "Computer System Engineering", "David Yau", "David Yau, Natalie Agus", "C01,C02,C03", "Digital System Laboratory", "Updated"],
-      [50.004, "Introduction to Algorithm", "David Yau", "David Yau, Natalie Agus", "C01,C02,C03", "", "Updated"],
-      [50.032, "Introduction to Probability and Statistics", "David Yau", "David Yau, Natalie Agus", "C01,C02,C03", "", "Updated"],
-
-    ];
-
     const options = {
       filter: true,
       selectableRows: false,
@@ -141,53 +124,8 @@ class EditSchedule extends React.Component {
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar
-          position="fixed"
-          className={classNames(classes.appBar)}>
-
-          <Toolbar >
-            <Typography
-              variant="h6"
-              color="inherit"
-              noWrap
-            // className ={classes.welcome}
-            >
-              Welcome {window.user}
-            </Typography>
-            <div className={classes.icons}>
-              <IconButton
-                color="inherit"
-                component={Link} to="/adminnotifications">
-                <NotificationsIcon />
-              </IconButton>
-              <Button
-                color='inherit'
-                component={Link} to="/">
-                LOGOUT
-          </Button>
-            </div>
-          </Toolbar>
-        </AppBar>
-
-
-        <Drawer
-          className={classes.drawer}
-          variant="permanent"
-          classes={{
-            paper: classNames(classes.drawerPaper),
-          }}
-        >
-          <div className={classes.toolbar} />
-
-          <List>{mainListItems}</List>
-
-          {/* <Divider />
-          <List>{secondaryListItems}</List>  */}
-
-        </Drawer>
-
+        <AdminAppbar />
         <main className={classes.content}>
-          {/* <CourseTable/> */}
           <div>
             <div className={classes.toolbar} />
             <Typography id="tabtitle" variant="h4" gutterBottom component="h2">

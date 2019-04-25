@@ -25,6 +25,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import PlannerAppbar from './PlannerAppbar';
+import Modal from '@material-ui/core/Modal';
 
 
 const drawerWidth = 240;
@@ -68,7 +71,7 @@ const styles = theme => ({
     width: 150,
     marginLeft: 20
   },
-
+ 
 });
 
 
@@ -165,11 +168,22 @@ const pillars = [
 
 ];
 
+function getModalStyle() {
+  const top = 50;
+  const left = 50;
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
 
 class CreateSchedule extends React.Component {
   state = {
     open: false,
     delopen: false,
+    modopen: false,
     pillar: '',
     day: '',
     start: '',
@@ -190,6 +204,13 @@ class CreateSchedule extends React.Component {
   };
   handleClose = () => {
     this.setState({ open: false, delopen: false });
+  };
+  handleOpen = () => {
+    this.setState({ modopen: true });
+  };
+
+  handleMClose = () => {
+    this.setState({ modopen: false });
   };
 
   render() {
@@ -232,49 +253,23 @@ class CreateSchedule extends React.Component {
 
     return (
       <div className={classes.root}>
-        <CssBaseline />
-        <AppBar
-          position="fixed"
-          className={classNames(classes.appBar)}>
-
-          <Toolbar >
-            <Typography
-              variant="h6"
-              color="inherit"
-              noWrap
-            // className ={classes.welcome}
-            >
-              Welcome {window.user}
-            </Typography>
-            <div className={classes.icons}>
-              <IconButton
-                color="inherit"
-                component={Link} to="/plannernotification">
-                <NotificationsIcon />
-              </IconButton>
-              <Button
-                color='inherit'
-                component={Link} to="/">
-                LOGOUT
-        </Button>
-            </div>
-          </Toolbar>
-        </AppBar>
-
-
-        <Drawer
-          className={classes.drawer}
-          variant="permanent"
-          classes={{
-            paper: classNames(classes.drawerPaper),
-          }}
+        <Modal
+          aria-labelledby="modal-title"
+          aria-describedby="modal-description"
+          open={this.state.open}
+          onClose={this.handleMClose}
         >
-          <div className={classes.toolbar} />
-
-          <List>{mainListItems}</List>
-
-
-        </Drawer>
+          <div style={getModalStyle()} className={classes.paper}>
+            <Typography variant="h6" id="modal-title">
+              Schedule Sent
+            </Typography>
+            <Typography variant="subtitle1" id="modal-description">
+              Created Schedule has been sent to Admins and Instructors
+            </Typography>
+          </div>
+        </Modal>
+        <CssBaseline />
+        <PlannerAppbar />
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Typography id="tabtitle" variant="h4" gutterBottom component="h2">
@@ -310,6 +305,7 @@ class CreateSchedule extends React.Component {
         <Typography id="message" gutterBottom component="h2">
           {window.classAdd}
         </Typography>
+
         <br/>
           <MUIDataTable data={window.data} columns={columns} options={options} />
           <br />
@@ -499,7 +495,7 @@ class CreateSchedule extends React.Component {
           >
             <form method='POST'>
 
-              <DialogTitle id="form-dialog-title">Add course to schedule</DialogTitle>
+              <DialogTitle id="form-dialog-title">Delete course from schedule</DialogTitle>
               <DialogContent>
 
                 <TextField

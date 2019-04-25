@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom';
 import { Button, Divider, TextField, FormControl } from '@material-ui/core'
 import { FormLabel } from '@material-ui/core';
 import MUIDataTable from "mui-datatables";
+import InstructorAppbar from './InstructorAppbar';
 
 const drawerWidth = 240;
 
@@ -150,45 +151,7 @@ class InstructorEvent extends React.Component {
         return (
             <div className={classes.root}>
                 <CssBaseline />
-                <AppBar
-                    position="fixed"
-                    className={classNames(classes.appBar)}>
-
-                    <Toolbar >
-                        <Typography
-                            variant="h6"
-                            color="inherit"
-                            noWrap
-                        >
-                            Welcome {window.user}
-                        </Typography>
-                        <div className={classes.icons}>
-                            <IconButton
-                                color="inherit"
-                                component={Link} to="/adminnotifications">
-                                <NotificationsIcon />
-                            </IconButton>
-                            <Button
-                                color='inherit'
-                                component={Link} to="/">
-                                LOGOUT
-                             </Button>
-                        </div>
-                    </Toolbar>
-                </AppBar>
-                <Drawer
-                    className={classes.drawer}
-                    variant="permanent"
-                    classes={{
-                        paper: classNames(classes.drawerPaper),
-                    }}
-                >
-                    <div className={classes.toolbar} />
-
-                    <List>{mainListItems}</List>
-
-
-                </Drawer>
+                <InstructorAppbar />
                 <main className={classes.content}>
                 <div className={classes.toolbar}/>
                     <Typography id='tabtitle' variant="h4" gutterBottom component="h2">

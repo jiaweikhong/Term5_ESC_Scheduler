@@ -1,11 +1,12 @@
 import React from 'react'
-import { Typography, Paper, Avatar, Button} from '@material-ui/core'
-import VerifiedUserOutlined from '@material-ui/icons/LockOutlined'
+import { Typography, Paper, Button} from '@material-ui/core'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { Link } from 'react-router-dom'; 
 import sutdlogo from "./images/sutdlogo.jpeg"
 
+
 const styles = theme => ({
+
     main: {
         width: 'auto',
         display: 'block', 
@@ -24,10 +25,7 @@ const styles = theme => ({
         alignItems: 'center',
         padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
     },
-    // avatar: {
-    //     margin: theme.spacing.unit,
-    //     backgroundColor: theme.palette.primary.main,
-    // },
+
     submit: {
         marginTop: theme.spacing.unit * 3,
     },
@@ -43,16 +41,15 @@ function Home(props) {
     const { classes } = props
 
     return (
+        <div className="backgroundSignIn">
         <main className={classes.main}>
             <Paper className={classes.paper}>
-                {/* <Avatar className={classes.avatar}> */}
                 <img 
                 className ={classes.logo}
                 src={sutdlogo} 
                 alt="SUTDlogo"
                 
                  />
-                {/* </Avatar> */}
                 <Typography component="h1" variant="h5">
                     SUTD Timetable Scheduler
                 </Typography>
@@ -88,6 +85,7 @@ function Home(props) {
                 </Button>
             </Paper>
         </main>
+        </div>
     )
 }
 
