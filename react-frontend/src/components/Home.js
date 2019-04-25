@@ -61,7 +61,7 @@ function Home(props) {
                     component = {Link} to = "/instructorlogin"
                     type="submit"
                     fullWidth
-                    variant="outlined"
+                    variant="contained"
                     color="primary"
                     className={classes.submit}
                     id = "instructorlogin">

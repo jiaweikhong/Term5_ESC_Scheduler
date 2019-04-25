@@ -427,7 +427,9 @@ def EditSchedule():
 
 @app.route("/eventscheduling", methods=['GET','POST'])
 def EventScheduling():
-    venue = ""
+    unavailable = ""
+    loggedUser = Data.loggedUser
+    coursesInfo = obtainCourses()
     if request.method == 'POST':
 
         boolean = True
@@ -461,10 +463,11 @@ def EventScheduling():
                 for i in range (int(start),int(end)):
                     if(roomDocument['Week'][day][str(i)]):
                         print(roomDocument['Week'][day][str(i)])
-                        venue = "The venue is being used during this time slot"
+                        unavailable = "The venue is being used during this time slot"
                         boolean = False
+                        print(boolean)
                         break
-
+            print(boolean)
             if boolean == True:
                 start = convertTime(boolean, start)
                 end = convertTime(boolean, end)
@@ -479,7 +482,8 @@ def EventScheduling():
             dbfs.collection('Events').document(eventTitle).delete()
 
     events = obtainEvents()
-    return render_template('index.html', events=events, venue=venue)
+    
+    return render_template('index.html', events=events, unavailable=unavailable, user=loggedUser, coursesInfo=coursesInfo)
 
 
 

@@ -259,7 +259,7 @@ class EventSchedule extends React.Component {
           </Typography>
          
           <Typography id="tabtitle" variant="h6" gutterBottom component="h2">
-            {window.venue}
+            {window.unavailable}
           </Typography>
           <MUIDataTable title={"Please check whether venue is available."} data={window.eventData} columns={columns} options={options} />
 
