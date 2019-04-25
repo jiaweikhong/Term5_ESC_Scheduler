@@ -115,9 +115,9 @@ def instructorwelcome():
                 instructorsdocument[loggedUser]['NotifReceived'] = False
                 dbfs.collection('instructors').document('JBXLfE3480F9TYQMqd4j').set(instructorsdocument)
     if notifbool == True:
-        notif = 'The new timetable can now be viewed below. You can click outside of the modal to close it.'
+        notif = 'There is a new timetable since your last login. Please click outside of the box to close this notification.'
     elif notifbool == False:
-        notif = 'Welcome, click outside of the modal to close it.'
+        notif = 'There is no new timetable since your last login. Please click outside of the box to close this notification'
     weeklysched = retrieveInstructorCourses(loggedUser)
     jsonify(weeklysched)
 
@@ -570,9 +570,9 @@ def adminwelcome():
                 adminsdocument[loggedUser]['NotifReceived'] = False
                 dbfs.collection('admins').document('LlE9Gj5E1ySq6VcIUkM0').set(adminsdocument)
     if notifbool == True:
-            notif = 'The new timetable can now be viewed below. You can click outside of the modal to close it.'
+        notif = 'Welcome, there is a new timetable since your last login. Please click outside of the box to close this notification.'
     elif notifbool == False:
-            notif = 'Welcome, click outside of the modal to close it.'
+        notif = 'Welcome, there is no new timetable since your last login. Please click outside of the box to close this notification'
     jsonify(weeklysched)
     adminPillar = Data.pillar
     # print ("pillar: " + adminPillar)
@@ -708,7 +708,7 @@ def createschedule():
         if 'changebool' in request.form:
             print(instructorsdocument)
             instructorsdocument['Sudipta']['NotifReceived'] = True
-            instructorsdocument['Oka Kurniawan']['NotifReceived'] = True
+            instructorsdocument['Natalie Agus']['NotifReceived'] = True
             adminsdocument['ASDadmin']['NotifReceived'] = True
             adminsdocument['ESDadmin']['NotifReceived'] = True
             adminsdocument['EPDadmin']['NotifReceived'] = True
