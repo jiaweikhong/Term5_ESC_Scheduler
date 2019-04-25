@@ -138,10 +138,10 @@ def instructorwelcome():
             else:
                 instructorList = instructors.split(',')
                 for instructor in instructorList:
-                    print(instructor)
+                    #print(instructor)
                     new = instructor.strip()
                     List.append(new)
-                print(List)
+                #print(List)
                 algoRunner = firestoreData(cred, default_app, dbfs)
                 algoRunner.scheduleMeeting(List,duration, meetingID)
 

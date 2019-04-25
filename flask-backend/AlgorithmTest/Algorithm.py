@@ -195,33 +195,6 @@ class Algorithm:
                             return True
         return False
 
-    def compareScheduleForMeeting(self, instructors, duration, meetingID, meetingRoom = None, meetingName = "Meeting"):
-        instructorNames = [instructor[0] for instructor in instructors]
-        duration = int(float(duration) / 0.5)
-        for dayindex in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]:
-            day = instructors[0][1][dayindex]
-            for time in range(0, len(day)):
-                if duration > len(day) - 1 - time:
-                    break
-                if self.checkInstructorScheduleFromFirestore(instructors, dayindex, time, duration):
-                    for instructor in instructors:
-                        tempTime = time
-                        for i in range(duration):
-                            s = ", "
-                            instructor[1][dayindex][str(tempTime)] = str(meetingName) + " " + str(meetingID) + " " + s.join(instructorNames)
-                            tempTime += 1
-                    return True
-
-        return False
-
-    def checkInstructorScheduleFromFirestore(self, instructors, day, time, duration):
-        for i in range(duration):
-            for instructor in instructors:
-                if instructor[1][str(day)][str(time)] != "":
-                    return False
-            time += 1
-        return True
-
 
     def wipeTimetable(self, isPossible):
         if not isPossible:
