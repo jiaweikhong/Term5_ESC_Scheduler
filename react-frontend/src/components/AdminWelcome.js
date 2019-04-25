@@ -47,9 +47,10 @@ const styles = theme => ({
 
 });
 
-function AdminWelcome(props) {
+class AdminWelcome extends React.Component {
+    render(){
 
-  const { classes } = props;
+  const { classes } = this.props;
 
   return (
     <div className={classes.root}>
@@ -267,7 +268,7 @@ function AdminWelcome(props) {
       </main>
     </div>
   );
-}
+}}
 
 
 AdminWelcome.propTypes = {
