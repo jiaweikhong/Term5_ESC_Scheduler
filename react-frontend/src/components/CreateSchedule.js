@@ -71,6 +71,10 @@ const styles = theme => ({
     width: 150,
     marginLeft: 20
   },
+
+  submit: {
+    color: '#0097a7',
+  },
  
 });
 
@@ -277,6 +281,9 @@ class CreateSchedule extends React.Component {
           </Typography>
           <form method="POST">
           <Button
+            style={{ borderColor: '#0097a7' }}
+            className={classes.submit} 
+            variant="outlined"
             size="medium"
             id="submit"
             type="submit"

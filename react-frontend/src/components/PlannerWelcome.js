@@ -14,6 +14,7 @@ import { mainListItems } from '../lists/PlannerMenu';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core'
 import PlannerAppbar from './PlannerAppbar';
+import { red } from '@material-ui/core/colors';
 
 const drawerWidth = 240;
 
@@ -45,6 +46,8 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
 
   submit: {
+    color: '#0097a7',
+    width: 180,
     marginTop: theme.spacing.unit * 3,
   },
 
@@ -68,23 +71,23 @@ function PlannerWelcome(props) {
         </Typography>
 
         <form method="POST">
-          <Button id="freshmore" type="submit" name="Freshmore" variant="outlined" className={classes.submit}>Freshmore</Button>
+          <Button style={{ borderColor: '#0097a7' }} id="freshmore" type="submit" name="Freshmore" variant="outlined" className={classes.submit}>Freshmore</Button>
         </form>
 
         <form method="POST">
-          <Button id="epd" type="submit" color='inherit' name="EPD" variant="outlined" className={classes.submit}>EPD</Button>
+          <Button style={{ borderColor: '#0097a7' }} id="epd" type="submit" name="EPD" variant="outlined" className={classes.submit}>EPD</Button>
         </form>
 
         <form method="POST">
-          <Button id="istd" type='submit'color='inherit'name='ISTD' variant="outlined" className={classes.submit}>ISTD</Button>
+          <Button style={{ borderColor: '#0097a7' }} id="istd" type='submit'name='ISTD' variant="outlined" className={classes.submit}>ISTD</Button>
         </form>
 
         <form method="POST">
-          <Button id="esd" type="submit" color='inherit' name="ESD" variant="outlined" className={classes.submit}>ESD</Button>
+          <Button style={{ borderColor: '#0097a7' }} id="esd" type="submit" name="ESD" variant="outlined" className={classes.submit}>ESD</Button>
         </form>
 
         <form method="POST">
-          <Button id="asd" type="submit" color='#inherit' name="ASD" variant="outlined" className={classes.submit}>ASD</Button>
+          <Button style={{ borderColor: '#0097a7' }} id="asd" type="submit" name="ASD" variant="outlined" className={classes.submit}>ASD</Button>
         </form>
 
       </main>

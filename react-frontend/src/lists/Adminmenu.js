@@ -8,13 +8,7 @@ import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import TodayIcon from '@material-ui/icons/Today'
 import ViewlistIcon from '@material-ui/icons/Viewlist'
 
-
-
-
-
 export const mainListItems = (
-
-
   <div>
     <ListItem id="pillarsched"
     button
@@ -42,7 +36,8 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Cohort Class Details" />
     </ListItem>
-    <ListItem id="cohortclasses"
+
+    <ListItem id="events"
     button
     component = {Link} to = "/adminevents">
       <ListItemIcon>

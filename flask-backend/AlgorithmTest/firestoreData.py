@@ -229,9 +229,9 @@ class firestoreData:
 
     def generateAndPushTimetable(self):
         print("Generating and pushing timetable")
-        possible = self.algo.generate_schedule()
+        possible = self.algo.generateTimetableWithSoftConstraints()
         print(possible)
-        if possible:
+        if possible or possible == None:
             for course in self.courseArray:
                 coursesdocument = self.dbfs.collection('courseTimetable').document(str(course.courseID))
                 courseSchedule = {"Week": {}}
@@ -367,11 +367,19 @@ class firestoreData:
             print("End of firestoreData function")
             return False
 
-    def scheduleMeeting(self, instructors, duration):
+    def scheduleMeeting(self, instructors, duration, meetingID):
+        instructorCollection = self.dbfs.collection("instructorTimetable").get()
+        databaseInstructors = []
+        for instructorDoc in instructorCollection:
+            instructorDict = instructorDoc.to_dict()
+            #print(instructorDict)
+            instructorSchedule = instructorDict["Week"]
+            databaseInstructors.append((instructorDoc.id, instructorSchedule))
+
         passInInstructors = []
         for instructor in instructors:
-            for checkInstructor in self.instructorArray:
-                if instructor == checkInstructor.name:
+            for checkInstructor in databaseInstructors:
+                if instructor == checkInstructor[0]:
                     passInInstructors.append(checkInstructor)
                     instructors.remove(instructor)
         
@@ -379,7 +387,28 @@ class firestoreData:
         if instructors != []:
             return False
 
-        return self.algo.compareScheduleForMeeting(passInInstructors, duration)
+        if self.algo.compareScheduleForMeeting(passInInstructors, duration, meetingID):
+            for instructor in databaseInstructors:
+                instructordocument = self.dbfs.collection("instructorTimetable").document(instructor[0])
+                weekDictionary = {"Week":instructor[1]}
+                instructordocument.set(weekDictionary)
+                return True
+        else:
+            return False
+    
+    def deleteMeeting(self, instructor, meetingID):
+        instructordocument = self.dbfs.collection("instructorTimetable").document(instructor)
+        instructorDict = instructordocument.to_dict()
+        instructorSchedule = instructorDict["Week"]
+        for dayindex in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]:
+            day = instructorSchedule[dayindex]
+            for time in range(0, len(day)):
+                if meetingID in instructorSchedule[dayindex][str(time)]:
+                    instructorSchedule[dayindex][str(time)] = ""
+                
+        weekDictionary = {"Week":instructorSchedule}
+        instructordocument.set(weekDictionary)
+
 
 # cred = credentials.Certificate('term-5-esc-scheduler-firebase-adminsdk-cfadg-cd4c469d4d.json')
 # default_app = firebase_admin.initialize_app(cred)

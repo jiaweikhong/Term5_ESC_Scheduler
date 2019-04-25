@@ -111,26 +111,24 @@ class Algorithm:
         #for each priority, add in all the instructors' soft constraints and then generate the schedule
         #If can, move on to the next priority level
         #If cannot, randomly remove one from that priority level and try again
-        for priority in range(1, 6):
+        for priority in range(0, 5):
             array = []
             for instructor in self.instructors:
-                #print(instructor.softConstraints)
-                if priority in instructor.softConstraints.keys():
-                    softConstraint = instructor.softConstraints[priority]
+                #print(instructor.softConstraints.keys())
+                if str(priority) in instructor.softConstraints.keys():
+                    softConstraint = instructor.softConstraints[str(priority)]
                     instructorSoftConstraint = softConstraint[0]
-                    startTime = softConstraint[2]
-                    endTime = softConstraint[3]
-                    day = softConstraint[1]
-                    startTimeIndex = startTime - 8.5
+                    startTime = float(softConstraint[2])
+                    endTime = float(softConstraint[3])
+                    day = int(softConstraint[1])
+                    startTimeIndex = float(startTime) - 8.5
                     if startTimeIndex < 0:
-                        return "No such time"
+                        return False
                     array.append((instructor, instructorSoftConstraint, day, startTime, endTime))
-                    instructor.addIntoTimeTable(instructorSoftConstraint, day, int(startTimeIndex), int((endTime - startTime) / 0.5), None, None, None)
+                    instructor.addIntoTimeTable(instructorSoftConstraint, None, day, int(startTimeIndex), int((endTime - startTime) / 0.5), None, None, None)
 
             self.softConstraints[priority] = array
-
-        if self.generate_schedule():
-            print("Hello")
+        if not self.generate_schedule(): #if schedule with soft constraints are not possible
             for priority in range(5, 0, -1):
                 combinations = []
                 if self.softConstraints[priority] == []:
@@ -149,7 +147,8 @@ class Algorithm:
                                 continue
                             for element in possibility:
                                 element[0].addIntoTimeTable(element[1], element[2], element[3], element[4])
-        
+        else:
+            return True
         return False
 
 
@@ -160,7 +159,6 @@ class Algorithm:
                     return False
             time += 1
         return True
-
 
     def checkClassSchedule(self, classes, isShared, className, day, time, duration):
         for i in range(duration):
@@ -197,19 +195,32 @@ class Algorithm:
                             return True
         return False
 
-    def compareScheduleForMeeting(self, instructors, duration, meetingRoom = None, meetingName = "Meeting"):
-        duration = int(duration / 0.5)
-        for dayindex in range(5):
-            day = instructors[0].getTimetable().week[dayindex]
+    def compareScheduleForMeeting(self, instructors, duration, meetingID, meetingRoom = None, meetingName = "Meeting"):
+        instructorNames = [instructor[0] for instructor in instructors]
+        duration = int(float(duration) / 0.5)
+        for dayindex in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]:
+            day = instructors[0][1][dayindex]
             for time in range(0, len(day)):
                 if duration > len(day) - 1 - time:
                     break
-                if self.checkInstructorSchedule(instructors, dayindex, time, duration):
+                if self.checkInstructorScheduleFromFirestore(instructors, dayindex, time, duration):
                     for instructor in instructors:
-                        instructor.addIntoTimeTable(meetingName, dayindex, time, duration, None, None, meetingRoom)
+                        tempTime = time
+                        for i in range(duration):
+                            instructor[1][dayindex][str(tempTime)] = str(meetingName) + " " + str(meetingID) + " " + str(None) + " " + instructorNames.join(", ") + " " + str(None)
+                            tempTime += 1
                     return True
 
         return False
+        
+    def checkInstructorScheduleFromFirestore(self, instructors, day, time, duration):
+        for i in range(duration):
+            for instructor in instructors:
+                if instructor[1][str(day)][str(time)] != "":
+                    return False
+            time += 1
+        return True
+
 
     def wipeTimetable(self, isPossible):
         if not isPossible:

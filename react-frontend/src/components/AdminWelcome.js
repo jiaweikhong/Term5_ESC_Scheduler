@@ -44,7 +44,10 @@ const styles = theme => ({
     padding: theme.spacing.unit * 3,
   },
   toolbar: theme.mixins.toolbar,
-
+  submit: {
+    color: '#0097a7',
+    marginRight: theme.spacing.unit * 3,
+  },
 });
 
 class AdminWelcome extends React.Component {
@@ -69,11 +72,11 @@ class AdminWelcome extends React.Component {
         {window.pillarcourses[0]}<br/> */}
 
         <form method="POST">
-          <Button id="course1" type='submit' color='inherit' name={window.pillarcourses[0]}>{window.pillarcourses[0]}</Button>
-          <Button id="course2" type='submit' color='inherit' name={window.pillarcourses[1]}>{window.pillarcourses[1]}</Button>
-          <Button id="course3" type='submit' color='inherit' name={window.pillarcourses[2]}>{window.pillarcourses[2]}</Button>
-          <Button id="course1" type='submit' color='inherit' name={window.pillarcourses[3]}>{window.pillarcourses[3]}</Button>
-          <Button id="course2" type='submit' color='inherit' name={window.pillarcourses[4]}>{window.pillarcourses[4]}</Button>
+          <Button className={classes.submit} style={{ borderColor: '#0097a7' }} variant="outlined" id="course1" type='submit' color='inherit' name={window.pillarcourses[0]}>{window.pillarcourses[0]}</Button>
+          <Button className={classes.submit} style={{ borderColor: '#0097a7' }} variant="outlined" id="course2" type='submit' color='inherit' name={window.pillarcourses[1]}>{window.pillarcourses[1]}</Button>
+          <Button className={classes.submit} style={{ borderColor: '#0097a7' }} variant="outlined" id="course3" type='submit' color='inherit' name={window.pillarcourses[2]}>{window.pillarcourses[2]}</Button>
+          <Button className={classes.submit} style={{ borderColor: '#0097a7' }} variant="outlined" id="course1" type='submit' color='inherit' name={window.pillarcourses[3]}>{window.pillarcourses[3]}</Button>
+          <Button className={classes.submit} style={{ borderColor: '#0097a7' }} variant="outlined" id="course2" type='submit' color='inherit' name={window.pillarcourses[4]}>{window.pillarcourses[4]}</Button>
         </form>
 
         <Table>
@@ -250,6 +253,8 @@ class AdminWelcome extends React.Component {
             </TableRow>
           </TableBody>
         </Table>
+
+
       </main>
     </div>
   );

@@ -34,6 +34,7 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit,
+    color: '#0097a7',
   },
 
   icons: {

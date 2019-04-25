@@ -50,7 +50,8 @@ const styles = theme => ({
     display: 'flex',
   },
   text:{
-    textAlign: 'left'
+    textAlign: 'left',
+    color: '#0097a7',
   },
 
   appBar: {
@@ -203,8 +204,8 @@ render(){
         <div className={classes.text}>
         <Typography id="tabtitle" gutterBottom variant="h4" component="h4">
         My Courses</Typography>
-        <Typography gutterBottom component ="h6">
-        Please fill in the following details for the courses you teach. Note that each submission will be a new submission. If uou wish to make changes to previous submissions, you are required to re-fill all fields. Thank you.</Typography>
+        <Typography id="instructions" gutterBottom component ="h6">
+        Please fill in the following details for the courses you teach. Note that each submission will be a new submission. If you wish to make changes to previous submissions, you are required to re-fill all fields. Thank you.</Typography>
         </div>
         <Divider/>
 
@@ -383,7 +384,7 @@ render(){
         />
         </div>
         <FormControl fullWidth>
-        <Button variant="contained" color="primary" className={classes.button} type='submit' name='course'>
+        <Button style={{ backgroundColor:'#0097a7'}} variant="contained" color="primary" className={classes.button} type='submit' name='course'>
         Submit
       </Button>
       </FormControl>
@@ -418,7 +419,7 @@ render(){
 
       <FormControl >
         <div className={classes.dense}></div>
-        <FormLabel className={classes.text} focused>Select the time slot you wish to keep free from your timetable. Requets with valid reasons will be prioritised. Thank you.</FormLabel>
+        <FormLabel className={classes.text}>Select the time slot you wish to keep free from your timetable. Requets with valid reasons will be prioritised. Thank you.</FormLabel>
         
      <div >
      
@@ -894,7 +895,7 @@ render(){
         
         </FormControl>
         <FormControl fullWidth>
-        <Button variant="contained" color="primary" className={classes.button} type='submit' name='constraints'>
+        <Button style={{ backgroundColor:"#0097a7"}}variant="contained" color="primary" className={classes.button} type='submit' name='constraints'>
         Submit
       </Button>
       </FormControl>
