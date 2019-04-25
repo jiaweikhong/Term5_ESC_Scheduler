@@ -25,6 +25,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import Modal from '@material-ui/core/Modal';
 
 
 const drawerWidth = 240;
