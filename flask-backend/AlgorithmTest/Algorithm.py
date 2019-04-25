@@ -207,7 +207,8 @@ class Algorithm:
                     for instructor in instructors:
                         tempTime = time
                         for i in range(duration):
-                            instructor[1][dayindex][str(tempTime)] = str(meetingName) + " " + str(meetingID) + " " + str(None) + " " + instructorNames.join(", ") + " " + str(None)
+                            s = ", "
+                            instructor[1][dayindex][str(tempTime)] = str(meetingName) + " " + str(meetingID) + " " + str(None) + " " + s.join(instructorNames) + " " + str(None)
                             tempTime += 1
                     return True
 
