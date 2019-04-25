@@ -650,10 +650,10 @@ def createschedule():
     classAdd=""
     natarray = instructorsdocument['Natalie Agus']
     okaarray = instructorsdocument['Oka Kurniawan']
-    asdarray = adminarray['ASDadmin']
-    epdadmin = adminarray["EPDadmin"]
-    esdarray = adminarray['ESDadmin']
-    istdadmin = adminarray["ISTDadmin"]
+    asdarray = adminsdocument['ASDadmin']
+    epdadmin = adminsdocument["EPDadmin"]
+    esdarray = adminsdocument['ESDadmin']
+    istdadmin = adminsdocument["ISTDadmin"]
     if request.method == 'POST':
         # run algo here
         print ("Calling algo function now...")
