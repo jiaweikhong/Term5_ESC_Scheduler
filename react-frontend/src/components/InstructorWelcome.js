@@ -1,22 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems } from '../lists/instructormenu';
-import { Link } from 'react-router-dom';
-import { Button, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import MUIDataTable from "mui-datatables";
 import CustomToolbarSelect from './TableHeader'
-
-
+import InstructorAppBar from './InstructorAppBar';
 
 const drawerWidth = 240;
 
@@ -34,6 +24,9 @@ const styles = theme => ({
   },
   drawerPaper: {
     width: drawerWidth,
+  },
+  button: {
+    margin: theme.spacing.unit,
   },
 
   icons: {
@@ -60,14 +53,6 @@ function InstructorWelcome(props) {
     'Thursday',
     'Friday'
   ];
-
-  const data = [
-    ["ISTD", 50.003, "Elements of Software Construction", "Sun Jun", "Sudipta Chattopadhyay"],
-    ["ISTD5", 50.005, "Computer Systems Engineering", "David Yau", "Natalie Agus"],
-    ["ISTD", 50.034, "Introduction to Probability and Statistics", "Tony Quek", "Gemma Roig, Cong Kai Fong Ernest"],
-    ["Freshmore", 10.004, "Advanced Math II", "Sergey Kushnarev", "Wang XinYin"],
-    ["HASS", "01.010", "Freshmore Writing Programme", "Pang Yang Hui", "Eunice Leong"],
-  ]
 
   const options = {
     filter: true,
@@ -110,51 +95,18 @@ function InstructorWelcome(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={classNames(classes.appBar)}>
+      <InstructorAppBar />
 
-        <Toolbar >
-          <Typography
-            variant="h6"
-            color="inherit"
-            noWrap
-          // className ={classes.welcome}
-          >
-            Welcome {window.user}
-          </Typography>
-          <div className={classes.icons}>
-            <IconButton
-              color="inherit"
-              component={Link} to="/instructornotifications">
-              <NotificationsIcon />
-            </IconButton>
-            <Button
-              id="logout"
-              color='inherit'
-              component={Link} to="/">
-              LOGOUT
-        </Button>
-          </div>
-        </Toolbar>
-      </AppBar>
-
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classNames(classes.drawerPaper),
-        }}
-      >
-        <div className={classes.toolbar} />
-        <List>{mainListItems}</List>
-
-      </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Typography id='tabtitle' variant="h4" gutterBottom component="h2">
           My Timetable
         </Typography>
+      <form method = "POST>">
+        <Button variant="outlined" color="black" className={classes.button} type='submit' name='scheduleMeeting'>
+        SCHEDULE MEETING
+      </Button>
+      </form>
 
         <MUIDataTable title={"Your Timetable"} data={window.instructorTimetable} columns={columns} options={options} />
 

@@ -50,6 +50,7 @@ function InstructorLogin(props) {
   const { classes } = props;
 
   return (
+    <div className="backgroundSignIn">
     <main className={classes.main}>
       <CssBaseline />
       <Paper className={classes.paper}>
@@ -85,6 +86,7 @@ function InstructorLogin(props) {
         </form>
       </Paper>
     </main>
+    </div>
   );
 }
 

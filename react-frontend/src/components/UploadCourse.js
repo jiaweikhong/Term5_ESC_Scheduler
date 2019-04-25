@@ -21,6 +21,7 @@ import CardContent from '@material-ui/core/CardContent';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { FormLabel } from '@material-ui/core';
+import InstructorAppBar from './InstructorAppBar';
 
 
 
@@ -216,48 +217,7 @@ render(){
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={classNames(classes.appBar)}>
-      
-        <Toolbar >
-          <Typography
-            variant="h6"
-            color="inherit"
-            noWrap
-            // className ={classes.welcome}
-          >
-            Welcome {window.user}
-          </Typography>
-          <div className={classes.icons}>
-          <IconButton 
-          color="inherit"
-          component = {Link} to = "/instructornotifications">    
-              <NotificationsIcon />    
-          </IconButton>
-          <Button 
-          color='inherit' 
-          component = {Link} to = "/">   
-          LOGOUT
-        </Button>
-        </div>
-        </Toolbar>
-      </AppBar>
-
-      
-      <Drawer
-      className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classNames(classes.drawerPaper),
-        }}
-      >
-        <div className={classes.toolbar} />
-        
-        <List>{mainListItems}</List>
-
-
-      </Drawer>
+      <InstructorAppBar />
       <main className={classes.content}>
       <form method='POST'>
         <Card className={classes.card}>

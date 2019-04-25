@@ -13,6 +13,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems } from '../lists/Adminmenu';
 import { Link } from 'react-router-dom';
 import { Button, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core'
+import AdminAppbar from './AdminAppbar';
 
 
 const drawerWidth = 240;
@@ -53,36 +54,10 @@ function AdminWelcome(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={classNames(classes.appBar)}>
+      
 
-        <Toolbar >
-          <Typography
-            variant="h6"
-            color="inherit"
-            noWrap
-          // className ={classes.welcome}
-          >
-            Welcome {window.user}
-          </Typography>
-          <div className={classes.icons}>
-            <IconButton
-              color="inherit"
-              component={Link} to="/adminnotifications">
-              <NotificationsIcon />
-            </IconButton>
-            <Button
-              id="logout"
-              color='inherit'
-              component={Link} to="/">
-              LOGOUT
-          </Button>
-          </div>
-        </Toolbar>
-      </AppBar>
-
-
+      <AdminAppbar />
+      
       <Drawer
         className={classes.drawer}
         variant="permanent"

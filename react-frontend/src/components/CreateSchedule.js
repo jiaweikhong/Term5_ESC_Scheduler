@@ -25,6 +25,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import PlannerAppbar from './PlannerAppbar';
 
 
 const drawerWidth = 240;
@@ -68,7 +70,7 @@ const styles = theme => ({
     width: 150,
     marginLeft: 20
   },
-
+ 
 });
 
 
@@ -233,48 +235,7 @@ class CreateSchedule extends React.Component {
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar
-          position="fixed"
-          className={classNames(classes.appBar)}>
-
-          <Toolbar >
-            <Typography
-              variant="h6"
-              color="inherit"
-              noWrap
-            // className ={classes.welcome}
-            >
-              Welcome {window.user}
-            </Typography>
-            <div className={classes.icons}>
-              <IconButton
-                color="inherit"
-                component={Link} to="/plannernotification">
-                <NotificationsIcon />
-              </IconButton>
-              <Button
-                color='inherit'
-                component={Link} to="/">
-                LOGOUT
-        </Button>
-            </div>
-          </Toolbar>
-        </AppBar>
-
-
-        <Drawer
-          className={classes.drawer}
-          variant="permanent"
-          classes={{
-            paper: classNames(classes.drawerPaper),
-          }}
-        >
-          <div className={classes.toolbar} />
-
-          <List>{mainListItems}</List>
-
-
-        </Drawer>
+        <PlannerAppbar />
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Typography id="tabtitle" variant="h4" gutterBottom component="h2">
@@ -310,6 +271,7 @@ class CreateSchedule extends React.Component {
         <Typography id="message" gutterBottom component="h2">
           {window.classAdd}
         </Typography>
+
         <br/>
           <MUIDataTable data={window.data} columns={columns} options={options} />
           <br />
@@ -499,7 +461,7 @@ class CreateSchedule extends React.Component {
           >
             <form method='POST'>
 
-              <DialogTitle id="form-dialog-title">Add course to schedule</DialogTitle>
+              <DialogTitle id="form-dialog-title">Delete course from schedule</DialogTitle>
               <DialogContent>
 
                 <TextField

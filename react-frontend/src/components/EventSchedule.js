@@ -27,6 +27,7 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import DateFnsUtils from '@date-io/date-fns';
+import PlannerAppbar from './PlannerAppbar';
 
 
 
@@ -214,15 +215,6 @@ class EventSchedule extends React.Component {
 
     ];
 
-    const data = [
-      ['August 18th', "Artificial Intelligence Talk", "Albert Hong", "1600", "1800"],
-      ['August 18th', "ISTD Pillar Talk", "Albert Hong", "1600", "1700"],
-      ['May 18th', "Global Exchange Talk", "2.403", "0800", "1700"],
-      ['November 25th', "EPD Pillar Talk", " 2.412", "1600", "1800"],
-      ['June 23rd', "Capstone Talk", "Albert Hong", "1400", "1600"],
-
-    ];
-
     const options = {
       filter: true,
       selectableRows: false,
@@ -256,66 +248,20 @@ class EventSchedule extends React.Component {
 
     };
 
-
-
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar
-          position="fixed"
-          className={classNames(classes.appBar)}>
-
-          <Toolbar >
-            <Typography
-              variant="h6"
-              color="inherit"
-              noWrap
-            // className ={classes.welcome}
-            >
-              Welcome { window.user }
-          </Typography>
-            <div className={classes.icons}>
-              <IconButton
-                color="inherit"
-                component={Link} to="/plannernotification">
-                <NotificationsIcon />
-              </IconButton>
-              <Button
-                id="logout"
-                color='inherit'
-                component={Link} to="/">
-                LOGOUT
-        </Button>
-            </div>
-          </Toolbar>
-        </AppBar>
-
-
-        <Drawer
-          className={classes.drawer}
-          variant="permanent"
-          classes={{
-            paper: classNames(classes.drawerPaper),
-          }}
-        >
-          <div className={classes.toolbar} />
-
-          <List>{mainListItems}</List>
-
-
-        </Drawer>
+        <PlannerAppbar />
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Typography id="tabtitle" variant="h4" gutterBottom component="h2">
             Events
           </Typography>
-          <Typography id="tabtitle" variant="h6" gutterBottom component="h2">
-            Events can only be added if the venue is available. Please check the availability of the venue for the new event.
-          </Typography>
+         
           <Typography id="tabtitle" variant="h6" gutterBottom component="h2">
             {window.venue}
           </Typography>
-          <MUIDataTable data={window.eventData} columns={columns} options={options} />
+          <MUIDataTable title={"Please check whether venue is available."} data={window.eventData} columns={columns} options={options} />
 
           <Dialog
             open={this.state.open}

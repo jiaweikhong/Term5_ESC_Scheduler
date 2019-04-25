@@ -23,6 +23,7 @@ import MUIDataTable from "mui-datatables";
 import Tooltip from "@material-ui/core/Tooltip";
 import AddIcon from "@material-ui/icons/Add";
 import ClearIcon from "@material-ui/icons/Clear";
+import AdminAppbar from './AdminAppbar';
 
 const drawerWidth = 240;
 
@@ -120,13 +121,6 @@ class CohortClass extends React.Component {
 
     ];
 
-    // const data = [
-    //   ["ISTD", "ISTD1", "40"],
-    //   ["ISTD", "ISTD2", "47"],
-    //   ["ISTD", "ISTD3", "44"],
-
-    // ];
-
     const options = {
       filter: true,
       selectableRows: false,
@@ -155,15 +149,7 @@ class CohortClass extends React.Component {
       onSearchChange: (searchText) => {
         console.log(searchText);
       },
-      //   onRowClick: (rowData, rowState) => {
-      //     console.log(rowData, rowState);
-      //     this.setState({
-      //       open:true
-      //     })
 
-
-
-      //   },
     };
 
 
@@ -174,49 +160,8 @@ class CohortClass extends React.Component {
 
 
         <CssBaseline />
-        <AppBar
-          position="fixed"
-          className={classNames(classes.appBar)}>
-
-          <Toolbar >
-            <Typography
-              variant="h6"
-              color="inherit"
-              noWrap
-            // className ={classes.welcome}
-            >
-              Welcome {window.user}
-            </Typography>
-            <div className={classes.icons}>
-              <IconButton
-                color="inherit"
-                component={Link} to="/adminnotifications">
-                <NotificationsIcon />
-              </IconButton>
-              <Button
-                color='inherit'
-                component={Link} to="/">
-                LOGOUT
-          </Button>
-            </div>
-          </Toolbar>
-        </AppBar>
-
-
-        <Drawer
-          className={classes.drawer}
-          variant="permanent"
-          classes={{
-            paper: classNames(classes.drawerPaper),
-          }}
-        >
-          <div className={classes.toolbar} />
-
-          <List>{mainListItems}</List>
-
-
-
-        </Drawer>
+        <AdminAppbar />
+        
 
         <main className={classes.content}>
           <div>
