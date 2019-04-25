@@ -699,7 +699,7 @@ def createschedule():
         if 'changebool' in request.form:
             print(instructorsdocument)
             instructorsdocument['Sudipta']['NotifReceived'] = True
-            instructorsdocument['Oka Kurniawan']['NotifReceived'] = True
+            instructorsdocument['Natalie Agus']['NotifReceived'] = True
             adminsdocument['ASDadmin']['NotifReceived'] = True
             adminsdocument['ESDadmin']['NotifReceived'] = True
             adminsdocument['EPDadmin']['NotifReceived'] = True

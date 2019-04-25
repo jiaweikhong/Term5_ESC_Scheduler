@@ -58,7 +58,10 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
   meeting:{
     width: 550
-  }
+  },
+  submit: {
+    color: '#0097a7',
+  },
 });
 
 function getModalStyle() {
@@ -167,7 +170,7 @@ class InstructorWelcome extends React.Component{
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <form method="POST">
-        <Button id="instructorpressed" color="inherit" name="instructorpressed" type="submit">Check and Acknowledge Notifications</Button>
+        <Button className={classes.submit} style={{ borderColor: '#0097a7' }} id="instructorpressed" color="inherit" name="instructorpressed" type="submit">Check and Acknowledge Notifications</Button>
         </form>
         <MUIDataTable title={'My Timetable'} data={window.instructorTimetable} columns={columns} options={options} />
 
