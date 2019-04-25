@@ -109,12 +109,12 @@ function ISTDSchedule(props) {
         </Typography>
 
         <form method="POST">
-          <Button id="course1" type='submit' color='inherit' name='50.001'>50.001</Button>
-          <Button id="course2" type='submit' color='inherit' name='50.002'>50.002</Button>
-          <Button id="course3" type='submit' color='inherit' name='50.003'>50.003</Button>
-          <Button id="course2" type='submit' color='inherit' name='50.005'>50.005</Button>
-          <Button id="course2" type='submit' color='inherit' name='50.012'>50.012</Button>
-          <Button id="course3" type='submit' color='inherit' name='50.034'>50.034</Button>
+          <Button id="course1" type='submit' color='inherit' name='50.001' variant="outlined">50.001</Button>
+          <Button id="course2" type='submit' color='inherit' name='50.002' variant="outlined">50.002</Button>
+          <Button id="course3" type='submit' color='inherit' name='50.003' variant="outlined">50.003</Button>
+          <Button id="course2" type='submit' color='inherit' name='50.005' variant="outlined">50.005</Button>
+          <Button id="course2" type='submit' color='inherit' name='50.012' variant="outlined">50.012</Button>
+          <Button id="course3" type='submit' color='inherit' name='50.034' variant="outlined">50.034</Button>
         </form>
 
         <Table>

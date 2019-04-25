@@ -15,7 +15,6 @@ import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core'
 import PlannerAppbar from './PlannerAppbar';
 
-
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -45,7 +44,9 @@ const styles = theme => ({
   },
   toolbar: theme.mixins.toolbar,
 
-
+  submit: {
+    marginTop: theme.spacing.unit * 3,
+  },
 
 });
 
@@ -67,23 +68,23 @@ function PlannerWelcome(props) {
         </Typography>
 
         <form method="POST">
-          <Button id="freshmore" type="submit" color='inherit' name="Freshmore">Freshmore</Button>
+          <Button id="freshmore" type="submit" name="Freshmore" variant="outlined" className={classes.submit}>Freshmore</Button>
         </form>
 
         <form method="POST">
-          <Button id="epd" type="submit" color='inherit' name="EPD">EPD</Button>
+          <Button id="epd" type="submit" color='inherit' name="EPD" variant="outlined" className={classes.submit}>EPD</Button>
         </form>
 
         <form method="POST">
-          <Button id="istd" type='submit'color='inherit'name='ISTD'>ISTD</Button>
+          <Button id="istd" type='submit'color='inherit'name='ISTD' variant="outlined" className={classes.submit}>ISTD</Button>
         </form>
 
         <form method="POST">
-          <Button id="esd" type="submit" color='inherit' name="ESD">ESD</Button>
+          <Button id="esd" type="submit" color='inherit' name="ESD" variant="outlined" className={classes.submit}>ESD</Button>
         </form>
 
         <form method="POST">
-          <Button id="asd" type="submit" color='inherit' name="ASD">ASD</Button>
+          <Button id="asd" type="submit" color='#inherit' name="ASD" variant="outlined" className={classes.submit}>ASD</Button>
         </form>
 
       </main>
