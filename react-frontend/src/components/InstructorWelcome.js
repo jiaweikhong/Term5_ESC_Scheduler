@@ -41,9 +41,11 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
 });
 
-function InstructorWelcome(props) {
+class InstructorWelcome extends React.Component{
+  
+  render(){
 
-  const { classes } = props;
+  const { classes } = this.props;
 
   const columns = [
     'Time Slot',
@@ -113,7 +115,7 @@ function InstructorWelcome(props) {
       </main>
     </div>
   );
-}
+}}
 
 InstructorWelcome.propTypes = {
   classes: PropTypes.object.isRequired,
