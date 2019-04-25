@@ -686,8 +686,10 @@ def duration(start,end):
 def obtainInstructors(instructors):
     InstructorInfo = {}
     for prof in instructors:
-        profInfo = dbfs.collection('instructorTimetable').document(prof).get().to_dict()
-        InstructorInfo[prof] = profInfo
+        if prof:
+            profInfo = dbfs.collection('instructorTimetable').document(prof).get().to_dict()
+            InstructorInfo[prof] = profInfo
+            print(profInfo)
     return InstructorInfo
 
 @app.route("/createschedule", methods=['GET', 'POST'])
@@ -783,6 +785,7 @@ def createschedule():
                     dbfs.collection('instructorTimetable').document(instructor).set(InstructorDoc[instructor])
 
         if 'addCourse' in request.form:
+            print('addCourse')
 
             courseCode = request.form['courseCode']
             start = request.form['StartAdd']
@@ -811,6 +814,7 @@ def createschedule():
                 cohortDocument = dbfs.collection('cohortTimetable').document(cohort).get().to_dict()
                 roomDocument = dbfs.collection('roomTimetable').document(venue).get().to_dict()
                 InstructorDoc = obtainInstructors(instrucInfo)
+                # print(InstructorDoc)
 
                 # check courseTimetable availability
                 for i in timeslot:
@@ -827,6 +831,7 @@ def createschedule():
 
 
                 for instructor in instrucInfo:
+                    print(instructor)
                     for i in timeslot:
                         if InstructorDoc[instructor]['Week'][day][str(i)]:
                             check = True
