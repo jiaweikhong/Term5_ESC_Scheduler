@@ -407,7 +407,7 @@ class firestoreData:
                     instructorSchedule[dayindex][str(time)] = ""
                 
         weekDictionary = {"Week": instructorSchedule}
-        instructordocument.set(weekDictionary)
+        self.dbfs.collection("instructorTimetable").document(instructor).set(weekDictionary)
 
 
 # cred = credentials.Certificate('term-5-esc-scheduler-firebase-adminsdk-cfadg-cd4c469d4d.json')
