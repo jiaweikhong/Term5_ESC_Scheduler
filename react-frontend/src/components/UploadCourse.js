@@ -2,18 +2,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems } from '../lists/instructormenu';
-import {Link} from 'react-router-dom';
 import {Button, Divider, TextField, FormControl} from '@material-ui/core'
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -22,17 +13,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { FormLabel } from '@material-ui/core';
 import InstructorAppBar from './InstructorAppBar';
-
-
-
-
-
-
-
-// TODO
-// try to stay in welcome page and only change the content when clicking on the list icons
-//change icons for list
-//
 
 const drawerWidth = 240;
 
@@ -177,7 +157,6 @@ const time = [
   {value: '17.5',label: '1730',},
   {value: '18',label: '1800',},
   {value: '18.5',label: '1830',},
-
 ];
 
 const day = [
@@ -187,7 +166,6 @@ const day = [
   {value: '3', label: 'Wednesday'},
   {value: '4', label: 'Thursday'},
   {value: '5', label: 'Friday'},
-
 ]
 
 

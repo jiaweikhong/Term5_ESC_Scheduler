@@ -32,6 +32,9 @@ const styles = theme => ({
     logo:{
         width:100,
         height:50
+    },
+    space:{
+        height: theme.spacing.unnit * 5
     }
 })
 
@@ -42,6 +45,7 @@ function Home(props) {
 
     return (
         <div className="backgroundSignIn">
+        <div className={classes.space} />
         <main className={classes.main}>
             <Paper className={classes.paper}>
                 <img 

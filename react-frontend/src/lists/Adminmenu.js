@@ -3,11 +3,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Link } from 'react-router-dom'; 
-import ListSubheader from '@material-ui/core/ListSubheader';
-import AssignmentIcon from '@material-ui/icons/Assignment';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+import TodayIcon from '@material-ui/icons/Today'
+import ViewlistIcon from '@material-ui/icons/Viewlist'
 
 export const mainListItems = (
   <div>
@@ -33,7 +32,7 @@ export const mainListItems = (
     button
     component = {Link} to = "/cohortclass">
       <ListItemIcon>
-        <LibraryBooksIcon />
+        <ViewlistIcon />
       </ListItemIcon>
       <ListItemText primary="Cohort Class Details" />
     </ListItem>
@@ -42,7 +41,7 @@ export const mainListItems = (
     button
     component = {Link} to = "/adminevents">
       <ListItemIcon>
-        <LibraryBooksIcon />
+        <TodayIcon />
       </ListItemIcon>
       <ListItemText primary="Event Schedule" />
     </ListItem>

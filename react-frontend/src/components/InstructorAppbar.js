@@ -61,7 +61,7 @@ class InstructorAppbar extends React.Component {
                         noWrap
                     // className ={classes.welcome}
                     >
-                        Welcome, {window.user}
+                        Welcome {window.user}
                     </Typography>
                     <div className={classes.icons}>
                         <IconButton
