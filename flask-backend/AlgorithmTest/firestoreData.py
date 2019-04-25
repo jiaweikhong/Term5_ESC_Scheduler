@@ -367,6 +367,20 @@ class firestoreData:
             print("End of firestoreData function")
             return False
 
+    def scheduleMeeting(self, instructors, duration):
+        passInInstructors = []
+        for instructor in instructors:
+            for checkInstructor in self.instructorArray:
+                if instructor == checkInstructor.name:
+                    passInInstructors.append(checkInstructor)
+                    instructors.remove(instructor)
+        
+        #If an instructor is not found/not in database
+        if instructors != []:
+            return False
+
+        return self.algo.compareScheduleForMeeting(passInInstructors, duration)
+
 # cred = credentials.Certificate('term-5-esc-scheduler-firebase-adminsdk-cfadg-cd4c469d4d.json')
 # default_app = firebase_admin.initialize_app(cred)
 # dbfs = firestore.client()

@@ -27,6 +27,7 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import PlannerAppbar from './PlannerAppbar';
+import Modal from '@material-ui/core/Modal';
 
 
 const drawerWidth = 240;
@@ -167,11 +168,22 @@ const pillars = [
 
 ];
 
+function getModalStyle() {
+  const top = 50;
+  const left = 50;
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
 
 class CreateSchedule extends React.Component {
   state = {
     open: false,
     delopen: false,
+    modopen: false,
     pillar: '',
     day: '',
     start: '',
@@ -192,6 +204,13 @@ class CreateSchedule extends React.Component {
   };
   handleClose = () => {
     this.setState({ open: false, delopen: false });
+  };
+  handleOpen = () => {
+    this.setState({ modopen: true });
+  };
+
+  handleMClose = () => {
+    this.setState({ modopen: false });
   };
 
   render() {
@@ -234,6 +253,21 @@ class CreateSchedule extends React.Component {
 
     return (
       <div className={classes.root}>
+        <Modal
+          aria-labelledby="modal-title"
+          aria-describedby="modal-description"
+          open={this.state.open}
+          onClose={this.handleMClose}
+        >
+          <div style={getModalStyle()} className={classes.paper}>
+            <Typography variant="h6" id="modal-title">
+              Schedule Sent
+            </Typography>
+            <Typography variant="subtitle1" id="modal-description">
+              Created Schedule has been sent to Admins and Instructors
+            </Typography>
+          </div>
+        </Modal>
         <CssBaseline />
         <PlannerAppbar />
         <main className={classes.content}>
