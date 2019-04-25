@@ -370,6 +370,7 @@ class firestoreData:
     def scheduleMeeting(self, instructors, duration, meetingID):
         instructorCollection = self.dbfs.collection("instructorTimetable").get()
         databaseInstructors = []
+        print(databaseInstructors)
         for instructorDoc in instructorCollection:
             instructorDict = instructorDoc.to_dict()
             #print(instructorDict)
@@ -388,7 +389,7 @@ class firestoreData:
             return False
 
         if self.algo.compareScheduleForMeeting(passInInstructors, duration, meetingID):
-            for instructor in databaseInstructors:
+            for instructor in passInInstructors:
                 instructordocument = self.dbfs.collection("instructorTimetable").document(instructor[0])
                 weekDictionary = {"Week":instructor[1]}
                 instructordocument.set(weekDictionary)
