@@ -9,7 +9,7 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems } from '../lists/Adminmenu';
+import { mainListItems } from '../lists/PlannerMenu';
 import { Link } from 'react-router-dom';
 import { Button, } from '@material-ui/core'
 

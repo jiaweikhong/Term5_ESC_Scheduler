@@ -656,13 +656,13 @@ def createschedule():
         # algoRunner.generateAndPushTimetable()
         if 'changebool' in request.form:
             instructorsdocument.update({
-                u'Natalie.NotifReceived' : True
+                u'Natalie.NotifReceived' : True,
                 u'Oka.NotifReceived' : True
                 })
             adminsdocument.update({
-			    u'ISTDadmin.NotifReceived' : True
-                u'ESDadmin.NotifReceived' : True
-                u'ASDadmin.NotifReceived' : True
+			    u'ISTDadmin.NotifReceived' : True,
+                u'ESDadmin.NotifReceived' : True,
+                u'ASDadmin.NotifReceived' : True,
                 u'EPDadmin.NotifReceived' : True
 		        })
 
@@ -821,6 +821,20 @@ def createschedule():
             else:
                 message = "Timetable cannot be generated :("
     return render_template("index.html", coursesInfo = coursesInfo, user=user, message=message,errorCohort=errorCohort,errorCourse=errorCourse,errorInstructor=errorInstructor,errorRoom=errorRoom,noclass=noclass,classAdd=classAdd)
+
+# @app.route("/instructorwelcome", methods=['GET', 'POST'])
+# def ScheduleMeeting():
+#     if request.method == 'POST':
+
+#         if 'scheduleMeeting' in request.form:
+#             algoRunner = firestoreData(cred, default_app, dbfs)
+#             # # algoRunner.hihi()
+#             timetableGenerated = algoRunner.generateAndPushTimetable()
+
+
+
+#         return render_template("index.html")
+
 
 @app.route("/freshmoreschedule", methods=['GET', 'POST'])
 def freshmoreschedule():
