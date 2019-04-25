@@ -123,22 +123,13 @@ def instructorwelcome():
 
     if request.method == 'POST':
         List = []
-<<<<<<< HEAD
-        instructors = request.form['instructorMeeting']
-        duration = request.form['duratonMeeting']
-        meetingID = request.form['meetingID']
-
-        result = checkMeeting(meetingID)
-        print(result)
-=======
         if 'meeting' in request.form:
             instructors = request.form['instructorMeeting']
             duration = request.form['duratonMeeting']
             meetingID = request.form['meetingID']
-            
+
             result = checkMeeting(meetingID)
             print(result)
->>>>>>> 8c0b1673ad5b6c17fd1725665227235a7e6d9268
 
             if result == False:
                 meeting = 'This is an existing meeting ID'
@@ -158,13 +149,8 @@ def instructorwelcome():
             List = Data.loggedUser
             meetingID = request.form['delmeetingID']
             algoRunner = firestoreData(cred, default_app, dbfs)
-<<<<<<< HEAD
-            algoRunner.scheduleMeeting(List,duration, meetingID)
-
-=======
             algoRunner.deleteMeeting(List, meetingID)
-    
->>>>>>> 8c0b1673ad5b6c17fd1725665227235a7e6d9268
+
     return render_template("index.html", events=events, user=loggedUser, instructorTimetable=weeklysched, notif=notif, meeting = meeting)
 
 def checkMeeting(meetingID):
