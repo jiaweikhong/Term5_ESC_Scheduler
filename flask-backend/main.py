@@ -106,9 +106,9 @@ def instructorwelcome():
     instructarray = instructorsdocument[loggedUser]
     notifbool = instructorsdocument[loggedUser]['NotifReceived']
     if notifbool == True:
-        notif = 'The new timetable can now be viewed. Click outside the window to close this.'
+        notif = 'The new timetable can now be viewed below. You can press the acknowledge notification button to remove this message.'
     elif notifbool == False:
-        notif = 'The timetable has not been created yet. Click outside the window to close this.'
+        notif = ''
     weeklysched = retrieveInstructorCourses(loggedUser)
     jsonify(weeklysched)
     if request.method == 'POST':
@@ -500,9 +500,9 @@ def adminwelcome():
     adminCoursesDetail = obtainCourses()
     cohortClassDetails = obtainCohorts()
     if notifbool == True:
-        notif = 'The new timetable can now be viewed below.'
+        notif = 'The new timetable can now be viewed below. You can press the acknowledge notification button to remove this message.'
     elif notifbool == False:
-        notif = 'The timetable has not been created yet.'
+        notif = ''
     if request.method == 'POST':
         if '50.001' in request.form:
             weeklysched = retrieveCourse("50.001")
