@@ -2,19 +2,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems } from '../lists/PlannerMenu';
-import { Link } from 'react-router-dom';
-import { Button, DialogContentText, FormControl } from '@material-ui/core'
+import { Button, FormControl } from '@material-ui/core'
 import MUIDataTable from "mui-datatables";
 import Tooltip from "@material-ui/core/Tooltip";
 import ClearIcon from "@material-ui/icons/Clear";
@@ -25,7 +17,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
+import { borders } from '@material-ui/system';
 import PlannerAppbar from './PlannerAppbar';
 import Modal from '@material-ui/core/Modal';
 
@@ -83,7 +75,22 @@ const styles = theme => ({
   submit: {
     color: '#0097a7',
     marginTop: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit
+
   },
+  space:{height:20},
+
+  typography:{
+    backgroundColor: '#ffe082',
+    width:500,
+    borderRadius:20,
+    fontSize:18,
+    // padding:5,
+    marginLeft:370,
+    marginTop:5
+
+  }
+  
 
 });
 
@@ -284,10 +291,13 @@ class CreateSchedule extends React.Component {
         <CssBaseline />
         <PlannerAppbar />
         <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Typography id="tabtitle" variant="h4" gutterBottom component="h2">
+          <div className={classes.space} />
+          {/* <Typography id="tabtitle" variant="h4" gutterBottom component="h2">
             Create Timetable
-          </Typography>
+          </Typography> */}
+
+          <FormControl fullWidth>
+          <div>
           <form method="POST">
           <Button
             style={{ borderColor: '#0097a7' }}
@@ -296,37 +306,50 @@ class CreateSchedule extends React.Component {
             size="medium"
             id="submit"
             type="submit"
-            name ='generateButton'>
+            name ='generateButton'
+            marginRight='10'
+            >
             Click here to Generate Schedule
         </Button>
-        </form>
-        <form method="POST">
+      
         <Button className={classes.submit} style={{ borderColor: '#0097a7' }} variant="outlined" id = "changebool" color="inherit" type="submit" name = "changebool" onClick={this.handleOpen}>Send Notifications</Button>
-        </form>        
-        <Typography id="message" gutterBottom component="h2">
+        </form>  
+        </div>
+        </FormControl>  
+
+
+        <Typography id="message" gutterBottom className={classes.typography}>
           {window.message}
         </Typography>
-        <Typography id="message" gutterBottom component="h2">
+        <Typography id="message" gutterBottom  className={classes.typography}>
           {window.errorCourse}
         </Typography>
-        <Typography id="message" gutterBottom component="h2">
+        <Typography id="message" gutterBottom  className={classes.typography}>
           {window.errorCohort}
         </Typography>
-        <Typography id="message" gutterBottom component="h2">
+        <Typography id="message" gutterBottom  className={classes.typography}>
           {window.errorRoom}
         </Typography>
-        <Typography id="message" gutterBottom component="h2">
+        <Typography id="message" gutterBottom  className={classes.typography}>
           {window.errorInstructor}
         </Typography>
-        <Typography id="message" gutterBottom component="h2">
+        <Typography id="message" gutterBottom  className={classes.typography}>
           {window.noclass}
         </Typography>
-        <Typography id="message" gutterBottom component="h2">
+        <Typography id="message" gutterBottom  className={classes.typography}>
           {window.classAdd}
         </Typography>
+        <Typography id="message" gutterBottom  className={classes.typography}>
+          {window.added}
+        </Typography>
+        <Typography id="message" gutterBottom  className={classes.typography}>
+          {window.deleted}
+        </Typography>
+
+       
 
         <br/>
-          <MUIDataTable data={window.data} columns={columns} options={options} />
+          <MUIDataTable title = {'Course Details'} data={window.data} columns={columns} options={options} />
           <br />
 
           <Dialog

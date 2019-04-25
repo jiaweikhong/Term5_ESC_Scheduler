@@ -25,6 +25,7 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import DateFnsUtils from '@date-io/date-fns';
+import PlannerAppbar from './PlannerAppbar';
 
 
 const drawerWidth = 240;
@@ -257,49 +258,7 @@ class EventSchedule extends React.Component {
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar
-          position="fixed"
-          className={classNames(classes.appBar)}>
-
-          <Toolbar >
-            <Typography
-              variant="h6"
-              color="inherit"
-              noWrap
-            // className ={classes.welcome}
-            >
-              Welcome { window.user }
-          </Typography>
-            <div className={classes.icons}>
-              <IconButton
-                color="inherit"
-                component={Link} to="/plannernotification">
-                <NotificationsIcon />
-              </IconButton>
-              <Button
-                id="logout"
-                color='inherit'
-                component={Link} to="/">
-                LOGOUT
-        </Button>
-            </div>
-          </Toolbar>
-        </AppBar>
-
-
-        <Drawer
-          className={classes.drawer}
-          variant="permanent"
-          classes={{
-            paper: classNames(classes.drawerPaper),
-          }}
-        >
-          <div className={classes.toolbar} />
-
-          <List>{mainListItems}</List>
-
-
-        </Drawer>
+        <PlannerAppbar />
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Typography id="tabtitle" variant="h4" gutterBottom component="h2">

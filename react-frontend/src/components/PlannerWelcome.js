@@ -67,7 +67,7 @@ function PlannerWelcome(props) {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Typography id="tabtitle" variant="h4" gutterBottom component="h2">
-          My Schedules
+          Planner Schedules
         </Typography>
 
         <form method="POST">

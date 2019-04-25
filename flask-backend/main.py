@@ -704,6 +704,8 @@ def createschedule():
     errorRoom=""
     errorCohort = ""
     classAdd=""
+    added =""
+    deleted = ""
     if request.method == 'POST':
         # run algo here
         print ("Calling algo function now...")
@@ -772,17 +774,19 @@ def createschedule():
 
                     #INSTRUCTORS
                     for instructor in instrucInfo:
-                        List = InstructorDoc[instructor]['Week'][day][str(i)].split(',')
-                        code4 = List[1].strip()
-                        print(code4)
-                        if code4 == courseCode:
-                            InstructorDoc[instructor]['Week'][day][str(i)] = ""
+                        if InstructorDoc[instructor]['Week'][day][str(i)]:
+                            List = InstructorDoc[instructor]['Week'][day][str(i)].split(',')
+                            code4 = List[1].strip()
+                            print(code4)
+                            if code4 == courseCode:
+                                InstructorDoc[instructor]['Week'][day][str(i)] = ""
 
                 dbfs.collection('courseTimetable').document(courseCode).set(CourseDoc)
                 dbfs.collection('cohortTimetable').document(cohort).set(cohortDocument)
                 dbfs.collection('roomTimetable').document(venue).set(roomDocument)
                 for instructor in instrucInfo:
                     dbfs.collection('instructorTimetable').document(instructor).set(InstructorDoc[instructor])
+                deleted = "Course has been successfully deleted"
 
         if 'addCourse' in request.form:
             print('addCourse')
@@ -863,6 +867,7 @@ def createschedule():
                     dbfs.collection('roomTimetable').document(venue).update(roomDocument)
                     for instructor in InstructorDoc:
                         dbfs.collection('instructorTimetable').document(instructor).update(InstructorDoc[instructor])
+                    added = "Course has been successfully added."
 
         if 'generateButton' in request.form:
             # # run algo here
@@ -874,7 +879,7 @@ def createschedule():
                 message = "Timetable generated!"
             else:
                 message = "Timetable cannot be generated :("
-    return render_template("index.html", coursesInfo = coursesInfo, user=user, message=message,errorCohort=errorCohort,errorCourse=errorCourse,errorInstructor=errorInstructor,errorRoom=errorRoom,noclass=noclass,classAdd=classAdd)
+    return render_template("index.html", coursesInfo = coursesInfo, user=user, message=message,errorCohort=errorCohort,errorCourse=errorCourse,errorInstructor=errorInstructor,errorRoom=errorRoom,noclass=noclass,classAdd=classAdd,added = added, deleted = deleted)
 
 @app.route("/freshmoreschedule", methods=['GET', 'POST'])
 def freshmoreschedule():

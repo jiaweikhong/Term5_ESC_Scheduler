@@ -15,6 +15,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from '@material-ui/core/IconButton';
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import Modal from '@material-ui/core/Modal';
+import {Delete} from '@material-ui/icons';
 
 const drawerWidth = 240;
 
@@ -63,6 +64,18 @@ const styles = theme => ({
     color: '#0097a7',
     marginBottom: theme.spacing.unit * 3,
   },
+  space:{height:25},
+
+  typography:{
+    backgroundColor: '#ffe082',
+    width:500,
+    borderRadius:20,
+    fontSize:18,
+    // padding:5,
+    marginLeft:370,
+    marginTop:5
+
+  }
 });
 
 function getModalStyle() {
@@ -130,7 +143,7 @@ class InstructorWelcome extends React.Component{
           </Tooltip>
           <Tooltip title={"Delete Meeting"}>
             <IconButton className={classes.iconButton} onClick={this.handleDel}>
-              <AccountBoxIcon  />
+              <Delete  />
             </IconButton>
           </Tooltip>
 
@@ -169,10 +182,11 @@ class InstructorWelcome extends React.Component{
       <InstructorAppBar />
 
       <main className={classes.content}>
-        <div className={classes.toolbar} />
+        <div className={classes.space} />
         <form method="POST">
         <Button variant="outlined" className={classes.submit} style={{ borderColor: '#0097a7' }} id="instructorpressed" color="inherit" name="instructorpressed" type="submit">Check and Acknowledge Notifications</Button>
         </form>
+        <Typography gutterBottom  className={classes.typography}></Typography>
         <MUIDataTable title={'My Timetable'} data={window.instructorTimetable} columns={columns} options={options} />
 
         <Dialog

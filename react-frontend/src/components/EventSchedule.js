@@ -2,18 +2,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems } from '../lists/PlannerMenu';
-import { Link } from 'react-router-dom';
 import { Button, FormControl, DialogContentText } from '@material-ui/core'
 import MUIDataTable from "mui-datatables";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -80,6 +72,18 @@ const styles = theme => ({
   day: {
     marginLeft: 15,
     width: 265
+  },
+  space:{height:20},
+
+  typography:{
+    backgroundColor: '#ffe082',
+    width:500,
+    borderRadius:20,
+    fontSize:18,
+    // padding:5,
+    marginLeft:370,
+    marginTop:5
+
   }
 
 
@@ -253,15 +257,15 @@ class EventSchedule extends React.Component {
         <CssBaseline />
         <PlannerAppbar />
         <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Typography id="tabtitle" variant="h4" gutterBottom component="h2">
+          <div className={classes.space} />
+          {/* <Typography id="tabtitle" variant="h4" gutterBottom component="h2">
             Events
-          </Typography>
+          </Typography> */}
          
-          <Typography id="tabtitle" variant="h6" gutterBottom component="h2">
+          <Typography id="tabtitle"  gutterBottom className={classes.typography}>
             {window.unavailable}
           </Typography>
-          <MUIDataTable title={"Please check whether venue is available."} data={window.eventData} columns={columns} options={options} />
+          <MUIDataTable title={"Event Scheduling"} data={window.eventData} columns={columns} options={options} />
 
           <Dialog
             open={this.state.open}

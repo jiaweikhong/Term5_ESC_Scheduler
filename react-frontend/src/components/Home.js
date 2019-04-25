@@ -34,7 +34,7 @@ const styles = theme => ({
         height:50
     },
     space:{
-        height: theme.spacing.unnit * 5
+        height: 80
     }
 })
 
@@ -61,7 +61,7 @@ function Home(props) {
                     component = {Link} to = "/instructorlogin"
                     type="submit"
                     fullWidth
-                    variant="contained"
+                    variant="outlined"
                     color="primary"
                     className={classes.submit}
                     id = "instructorlogin">
