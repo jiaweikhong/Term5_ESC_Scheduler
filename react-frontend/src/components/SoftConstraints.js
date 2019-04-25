@@ -267,8 +267,8 @@ class SoftConstraints extends React.Component {
           <div className={classes.text}>
         <Typography id="tabtitle" gutterBottom variant="h4" component="h4">
         Course Details - ONLY for course leads</Typography>
-        <Typography gutterBottom component ="h6">
-        You may make subsequent submissions for course information on other courses.  </Typography>
+        <Typography id="instructions" gutterBottom component = "h6">
+        You may make subsequent submissions for course information on other courses.</Typography>
         <Divider/>
         </div>
         <CardActions className={classes.textfields}>

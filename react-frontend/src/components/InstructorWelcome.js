@@ -122,7 +122,7 @@ class InstructorWelcome extends React.Component{
           My Timetable
         </Typography>
       <form method = "POST>">
-        <Button onClick={this.handleClick} style={{ borderColor:'#0097a7'}} variant="outlined" color="black" className={classes.button} type='submit' name='scheduleMeeting'>
+        <Button id='scheduleMeeting' onClick={this.handleClick} style={{ borderColor:'#0097a7'}} variant="outlined" color="black" className={classes.button} type='submit' name='scheduleMeeting'>
         SCHEDULE MEETING
       </Button>
       </form>

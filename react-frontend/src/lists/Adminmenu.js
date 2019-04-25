@@ -9,13 +9,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 
-
-
-
-
 export const mainListItems = (
-
-
   <div>
     <ListItem id="pillarsched"
     button
