@@ -117,7 +117,6 @@ function ISTDSchedule(props) {
           <Button id="course2" type='submit' name='50.002' variant="outlined" style={{ borderColor: '#0097a7' }} className={classes.submit}>50.002</Button>
           <Button id="course3" type='submit' name='50.003' variant="outlined" style={{ borderColor: '#0097a7' }} className={classes.submit}>50.003</Button>
           <Button id="course2" type='submit' name='50.005' variant="outlined" style={{ borderColor: '#0097a7' }} className={classes.submit}>50.005</Button>
-          <Button id="course2" type='submit' name='50.012' variant="outlined" style={{ borderColor: '#0097a7' }} className={classes.submit}>50.012</Button>
           <Button id="course3" type='submit' name='50.034' variant="outlined" style={{ borderColor: '#0097a7' }} className={classes.submit}>50.034</Button>
         </form>
 

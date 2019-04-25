@@ -873,9 +873,6 @@ def createschedule():
                 message = "Timetable cannot be generated :("
     return render_template("index.html", coursesInfo = coursesInfo, user=user, message=message,errorCohort=errorCohort,errorCourse=errorCourse,errorInstructor=errorInstructor,errorRoom=errorRoom,noclass=noclass,classAdd=classAdd)
 
-
-
-
 @app.route("/freshmoreschedule", methods=['GET', 'POST'])
 def freshmoreschedule():
     return render_template('index.html', token="this is from main.py (freshmore)")
@@ -902,10 +899,10 @@ def istdschedule():
             weeklysched = retrieveCourse("50.001")
         elif '50.002' in request.form:
             weeklysched = retrieveCourse("50.002")
+        elif '50.003' in request.form:
+            weeklysched = retrieveCourse("50.003")
         elif '50.005' in request.form:
             weeklysched = retrieveCourse("50.005")
-        elif '50.012' in request.form:
-            weeklysched = retrieveCourse("50.012")
         elif '50.034' in request.form:
             weeklysched = retrieveCourse("50.034")
     jsonify(weeklysched)
