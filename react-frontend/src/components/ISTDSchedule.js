@@ -13,6 +13,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems } from '../lists/PlannerMenu';
 import { Link } from 'react-router-dom';
 import { Button, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core'
+import PlannerAppbar from './PlannerAppbar';
 
 // TODO
 // try to stay in welcome page and only change the content when clicking on the list icons
@@ -62,49 +63,8 @@ function ISTDSchedule(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={classNames(classes.appBar)}>
-
-        <Toolbar >
-          <Typography
-            variant="h6"
-            color="inherit"
-            noWrap>
-            View Schedule
-          </Typography>
-
-          <div className={classes.icons}>
-            <IconButton
-              color="inherit"
-              component={Link} to="/plannernotification">
-              <NotificationsIcon />
-            </IconButton>
-
-            <Button
-              id="logout"
-              color='inherit'
-              component={Link} to="/">
-              LOGOUT
-            </Button>
-
-          </div>
-        </Toolbar>
-      </AppBar>
-
-
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classNames(classes.drawerPaper),
-        }}
-      >
-        <div className={classes.toolbar} />
-
-        <List>{mainListItems}</List>
-      </Drawer>
-
+      
+      <PlannerAppbar />
 
       <main className={classes.content}>
         <div className={classes.toolbar} />

@@ -56,6 +56,7 @@ const styles = theme => ({
   submit: {
     color: '#0097a7',
     marginRight: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 3,
   },
 });
 function getModalStyle() {
@@ -100,7 +101,7 @@ class AdminWelcome extends React.Component {
           {window.notif}
         </Typography>
       </div>
-    </Modal>    
+    </Modal>
       <CssBaseline />
 
 
@@ -111,10 +112,9 @@ class AdminWelcome extends React.Component {
         <Typography id="tabtitle" variant="h4" gutterBottom component="h2">
           {window.pillar} Pillar Timetable
           </Typography>
-        {/* {window.user}<br/>
-        {window.pillar}<br/>
-        {window.pillarcourses[0]}<br/> */}
-
+        <form method="POST">
+          <Button className={classes.submit} style={{ borderColor: '#0097a7' }} variant="outlined" id="adminpressed" color="inherit" name="adminpressed" type="submit">Check and Acknowledge Notifications</Button>
+        </form>
         <form method="POST">
           <Button className={classes.submit} style={{ borderColor: '#0097a7' }} variant="outlined" id="course1" type='submit' color='inherit' name={window.pillarcourses[0]}>{window.pillarcourses[0]}</Button>
           <Button className={classes.submit} style={{ borderColor: '#0097a7' }} variant="outlined" id="course2" type='submit' color='inherit' name={window.pillarcourses[1]}>{window.pillarcourses[1]}</Button>
@@ -297,9 +297,7 @@ class AdminWelcome extends React.Component {
             </TableRow>
           </TableBody>
         </Table>
-        <form method="POST">
-          <Button id="adminpressed" color="inherit" name="adminpressed" type="submit">Acknowledge Notifications</Button>
-        </form>
+
 
       </main>
     </div>

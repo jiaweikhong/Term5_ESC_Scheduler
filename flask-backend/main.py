@@ -115,9 +115,9 @@ def instructorwelcome():
                 instructorsdocument[loggedUser]['NotifReceived'] = False
                 dbfs.collection('instructors').document('JBXLfE3480F9TYQMqd4j').set(instructorsdocument)
     if notifbool == True:
-        notif = 'The new timetable can now be viewed below. You can click outside of the modal to close it.'
+        notif = 'There is a new timetable since your last login. Please click outside of the box to close this notification.'
     elif notifbool == False:
-        notif = 'Welcome, click outside of the modal to close it.'
+        notif = 'There is no new timetable since your last login. Please click outside of the box to close this notification'
     weeklysched = retrieveInstructorCourses(loggedUser)
     jsonify(weeklysched)
 
@@ -136,20 +136,25 @@ def instructorwelcome():
                 print("exists")
 
             else:
-                instructorList = instructors.split(',')
+                instructorList = instructors.split(', ')
                 for instructor in instructorList:
-                    #print(instructor)
-                    new = instructor.strip()
-                    List.append(new)
-                #print(List)
+                    # print(instructor)
+                    # new = instructor.strip()
+                    List.append(instructor)
+                print(List)
                 algoRunner = firestoreData(cred, default_app, dbfs)
                 algoRunner.scheduleMeeting(List,duration, meetingID)
+                weeklysched = retrieveInstructorCourses(loggedUser)
+                jsonify(weeklysched)
 
         if 'meetingdel' in request.form:
             List = Data.loggedUser
             meetingID = request.form['delmeetingID']
             algoRunner = firestoreData(cred, default_app, dbfs)
             algoRunner.deleteMeeting(List, meetingID)
+            weeklysched = retrieveInstructorCourses(loggedUser)
+            jsonify(weeklysched)
+    
 
     return render_template("index.html", events=events, user=loggedUser, instructorTimetable=weeklysched, notif=notif, meeting = meeting)
 
@@ -422,7 +427,9 @@ def EditSchedule():
 
 @app.route("/eventscheduling", methods=['GET','POST'])
 def EventScheduling():
-    venue = ""
+    unavailable = ""
+    loggedUser = Data.loggedUser
+    coursesInfo = obtainCourses()
     if request.method == 'POST':
 
         boolean = True
@@ -456,10 +463,11 @@ def EventScheduling():
                 for i in range (int(start),int(end)):
                     if(roomDocument['Week'][day][str(i)]):
                         print(roomDocument['Week'][day][str(i)])
-                        venue = "The venue is being used during this time slot"
+                        unavailable = "The venue is being used during this time slot"
                         boolean = False
+                        print(boolean)
                         break
-
+            print(boolean)
             if boolean == True:
                 start = convertTime(boolean, start)
                 end = convertTime(boolean, end)
@@ -474,7 +482,8 @@ def EventScheduling():
             dbfs.collection('Events').document(eventTitle).delete()
 
     events = obtainEvents()
-    return render_template('index.html', events=events, venue=venue)
+    
+    return render_template('index.html', events=events, unavailable=unavailable, user=loggedUser, coursesInfo=coursesInfo)
 
 
 
@@ -561,9 +570,9 @@ def adminwelcome():
                 adminsdocument[loggedUser]['NotifReceived'] = False
                 dbfs.collection('admins').document('LlE9Gj5E1ySq6VcIUkM0').set(adminsdocument)
     if notifbool == True:
-            notif = 'The new timetable can now be viewed below. You can click outside of the modal to close it.'
+        notif = 'Welcome, there is a new timetable since your last login. Please click outside of the box to close this notification.'
     elif notifbool == False:
-            notif = 'Welcome, click outside of the modal to close it.'
+        notif = 'Welcome, there is no new timetable since your last login. Please click outside of the box to close this notification'
     jsonify(weeklysched)
     adminPillar = Data.pillar
     # print ("pillar: " + adminPillar)
@@ -699,7 +708,7 @@ def createschedule():
         if 'changebool' in request.form:
             print(instructorsdocument)
             instructorsdocument['Sudipta']['NotifReceived'] = True
-            instructorsdocument['Oka Kurniawan']['NotifReceived'] = True
+            instructorsdocument['Natalie Agus']['NotifReceived'] = True
             adminsdocument['ASDadmin']['NotifReceived'] = True
             adminsdocument['ESDadmin']['NotifReceived'] = True
             adminsdocument['EPDadmin']['NotifReceived'] = True
