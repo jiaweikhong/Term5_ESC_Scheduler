@@ -109,26 +109,24 @@ def instructorwelcome():
     instructarray = instructorsdocument[loggedUser]
     notifbool = instructorsdocument[loggedUser]['NotifReceived']
     meeting = ''
-
-    if notifbool == True:
-        notif = 'The new timetable can now be viewed below. You can press the acknowledge notification button to remove this message.'
-    elif notifbool == False:
-        notif = ''
-    weeklysched = retrieveInstructorCourses(loggedUser)
-    jsonify(weeklysched)
     if request.method == 'POST':
         if 'instructorpressed' in request.form:
             if notifbool == True:
-                instructarray.update({
-                    u'NotifReceived' : False
-                })
+                instructorsdocument[loggedUser]['NotifReceived'] = False
+                dbfs.collection('instructors').document('JBXLfE3480F9TYQMqd4j').set(instructorsdocument)
+    if notifbool == True:
+        notif = 'The new timetable can now be viewed below. You can click outside of the modal to close it.'
+    elif notifbool == False:
+        notif = 'Welcome, click outside of the modal to close it.'
+    weeklysched = retrieveInstructorCourses(loggedUser)
+    jsonify(weeklysched)
 
     if request.method == 'POST':
         List = []
         instructors = request.form['instructorMeeting']
         duration = request.form['duratonMeeting']
         meetingID = request.form['meetingID']
-        
+
         result = checkMeeting(meetingID)
         print(result)
 
@@ -145,7 +143,7 @@ def instructorwelcome():
             print(List)
             algoRunner = firestoreData(cred, default_app, dbfs)
             algoRunner.scheduleMeeting(List,duration, meetingID)
-    
+
     return render_template("index.html", events=events, user=loggedUser, instructorTimetable=weeklysched, notif=notif, meeting = meeting)
 
 def checkMeeting(meetingID):
@@ -154,10 +152,10 @@ def checkMeeting(meetingID):
     for ID in meetingCollection:
         if ID.id == meetingID:
             return False
-    
+
     dbfs.collection('meetingID').document(meetingID).set(dummy)
     return True
-        
+
 
 
 @app.route("/uploadcourse", methods=['GET','POST'])
@@ -169,7 +167,7 @@ def uploadcourse():
         ## submission for registered courses of instructor
         name = Data.loggedUser
         if('course' in request.form ):
-         
+
             if(dbfs.collection('RawInput').document(name).get().exists):
                 natalie = dbfs.collection('RawInput').document(name).get().to_dict()
                 natalie['Courses']={}
@@ -180,11 +178,11 @@ def uploadcourse():
                 natalie['Courses']['0']= request.form['coursecode1']
                 natalie['Courses']['1']= request.form['coursecode2']
                 natalie['Courses']['2']= request.form['coursecode3']
-                    
+
                 dbfs.collection('RawInput').document(name).update(natalie)
-            
+
             #the first time 'course' is clicked, create all the fields.
-            else: 
+            else:
                 InstructorDetailsDict = dbfs.collection('RawInput').get()
                 natalie = {}
                 natalie['Courses']={}
@@ -221,9 +219,9 @@ def uploadcourse():
                 natalie['Courses']['0']= request.form['coursecode1']
                 natalie['Courses']['1']= request.form['coursecode2']
                 natalie['Courses']['2']= request.form['coursecode3']
-                NewInstructorDetailsDict = natalie 
+                NewInstructorDetailsDict = natalie
                 dbfs.collection('RawInput').document(name).set(NewInstructorDetailsDict)
-        
+
         if('constraints' in request.form ):
             # soft constraint fields will be already created when instructor presses submit under courses
             natalie = dbfs.collection('RawInput').document(name).get().to_dict()
@@ -399,7 +397,7 @@ def EditSchedule():
             classList = classes.split(",")
             print (CourseDetailsDict)
             print (classList)
-            
+
             CourseDetailsDict['CohortClasses'] = classList
             CourseDetailsDict['Components']['Lab Session']['Venue'] = request.form['venue']
             CourseDetailsDict['Components']['Lab Session']['Cohort Classes'] = classList
@@ -419,7 +417,7 @@ def EditSchedule():
 def EventScheduling():
     venue = ""
     if request.method == 'POST':
-        
+
         boolean = True
         if 'AddEvent' in request.form:
             dbfs.collection('Events').get
@@ -458,7 +456,7 @@ def EventScheduling():
             if boolean == True:
                 start = convertTime(boolean, start)
                 end = convertTime(boolean, end)
-                
+
                 event['StartTime']= start
                 event['EndTime'] = end
                 dbfs.collection('Events').document(eventTitle).set(event)
@@ -475,7 +473,7 @@ def EventScheduling():
 
 def convertTime(boolean, time):
     if(boolean == True):
-        start = 8.5     
+        start = 8.5
         for i in range(0,20) :
             if str(i) == time:
                 return str(start)
@@ -540,10 +538,6 @@ def adminwelcome():
     notifbool = adminsdocument[loggedUser]['NotifReceived']
     adminCoursesDetail = obtainCourses()
     cohortClassDetails = obtainCohorts()
-    if notifbool == True:
-        notif = 'The new timetable can now be viewed below. You can press the acknowledge notification button to remove this message.'
-    elif notifbool == False:
-        notif = ''
     if request.method == 'POST':
         if '50.001' in request.form:
             weeklysched = retrieveCourse("50.001")
@@ -557,9 +551,12 @@ def adminwelcome():
             weeklysched = retrieveCourse("50.034")
         elif 'adminpressed' in request.form:
             if notifbool == True:
-                adminarray.update({
-			        u'NotifReceived' : False
-		        })
+                adminsdocument[loggedUser]['NotifReceived'] = False
+                dbfs.collection('admins').document('LlE9Gj5E1ySq6VcIUkM0').set(adminsdocument)
+    if notifbool == True:
+            notif = 'The new timetable can now be viewed below. You can click outside of the modal to close it.'
+    elif notifbool == False:
+            notif = 'Welcome, click outside of the modal to close it.'
     jsonify(weeklysched)
     adminPillar = Data.pillar
     # print ("pillar: " + adminPillar)
@@ -668,7 +665,7 @@ def duration(start,end):
         i+=1
     return time
 
-    
+
 
 def obtainInstructors(instructors):
     InstructorInfo = {}
@@ -689,34 +686,19 @@ def createschedule():
     errorRoom=""
     errorCohort = ""
     classAdd=""
-    natarray = instructorsdocument['Natalie Agus']
-    okaarray = instructorsdocument['Oka Kurniawan']
-    asdarray = adminsdocument['ASDadmin']
-    epdadmin = adminsdocument["EPDadmin"]
-    esdarray = adminsdocument['ESDadmin']
-    istdadmin = adminsdocument["ISTDadmin"]
     if request.method == 'POST':
         # run algo here
         print ("Calling algo function now...")
         if 'changebool' in request.form:
-            natarray.update({
-                u'NotifReceived' : True
-                })
-            okaarray.update({
-                u'NotifReceived' : True
-                })
-            asdarray.update({
-                u'NotifReceived' : True
-                })
-            epdarray.update({
-                u'NotifReceived' : True
-                })
-            esdarray.update({
-                u'NotifReceived' : True
-                })
-            istdarray.update({
-                u'NotifReceived' : True
-                })                    
+            print(instructorsdocument)
+            instructorsdocument['Sudipta']['NotifReceived'] = True
+            instructorsdocument['Oka Kurniawan']['NotifReceived'] = True
+            adminsdocument['ASDadmin']['NotifReceived'] = True
+            adminsdocument['ESDadmin']['NotifReceived'] = True
+            adminsdocument['EPDadmin']['NotifReceived'] = True
+            adminsdocument['ISTDadmin']['NotifReceived'] = True
+            dbfs.collection('instructors').document('JBXLfE3480F9TYQMqd4j').set(instructorsdocument)
+            dbfs.collection('admins').document('LlE9Gj5E1ySq6VcIUkM0').set(adminsdocument)
         if 'delCourse' in request.form:
             courseCode = request.form['courseCodedel']
             start = request.form['delStart']
@@ -735,7 +717,7 @@ def createschedule():
 
             if (day == 'Wednesday' or day == 'Friday') and (int(start) > 9 or int(end) > 9):
                 noclass = " There are no classes after 1pm on  "+day
-            
+
             else:
 
                 CourseDoc = dbfs.collection('courseTimetable').document(courseCode).get().to_dict()
@@ -753,7 +735,7 @@ def createschedule():
                         code1 = courseList[1].strip()
                         if code1 == courseCode:
                             CourseDoc['Week'][day][str(i)] = ""
-    
+
                     #COHORTS
                     if(cohortDocument['Week'][day][str(i)]):
                         cohortList = cohortDocument['Week'][day][str(i)].split(',')
@@ -782,7 +764,7 @@ def createschedule():
                 dbfs.collection('cohortTimetable').document(cohort).set(cohortDocument)
                 dbfs.collection('roomTimetable').document(venue).set(roomDocument)
                 for instructor in instrucInfo:
-                    dbfs.collection('instructorTimetable').document(instructor).set(InstructorDoc[instructor])             
+                    dbfs.collection('instructorTimetable').document(instructor).set(InstructorDoc[instructor])
 
         if 'addCourse' in request.form:
 
@@ -806,7 +788,7 @@ def createschedule():
 
             if (day == 'Wednesday' or day == 'Friday') and (int(start) > 9 or int(end) > 9):
                 classAdd = "This timeslot is blocked out for events/activities"
-            
+
             else:
 
                 CourseDoc = dbfs.collection('courseTimetable').document(courseCode).get().to_dict()
@@ -820,7 +802,7 @@ def createschedule():
                         check = True
                         errorCourse = courseCode + " is having a session during this timeslot"
                         break
-    
+
                 for i in timeslot:
                     if cohortDocument['Week'][day][str(i)]:
                         check = True
@@ -843,12 +825,12 @@ def createschedule():
 
 
                 #ADDING NEW COURSE TO ALL TIMETABLES
-                if check == False:                    
+                if check == False:
                     for i in timeslot:
                         CourseDoc['Week'][day][str(i)] = courseTitle + ","+courseCode+","+session +","+ cohort +","+ venue
-        
+
                         cohortDocument['Week'][day][str(i)] = courseTitle + ","+courseCode+","+session +","+ cohort +","+ venue
-                    
+
                         roomDocument['Week'][day][str(i)] = courseTitle + ","+courseCode+","+session +","+ cohort +","+ venue
 
                         for instructor in instrucInfo:
@@ -860,7 +842,7 @@ def createschedule():
                     dbfs.collection('roomTimetable').document(venue).update(roomDocument)
                     for instructor in InstructorDoc:
                         dbfs.collection('instructorTimetable').document(instructor).update(InstructorDoc[instructor])
-                                    
+
         if 'generateButton' in request.form:
             # # run algo here
             print ("Calling algo function now...")
@@ -907,7 +889,7 @@ def istdschedule():
             weeklysched = retrieveCourse("50.034")
     jsonify(weeklysched)
     return render_template('index.html', token=weeklysched, coursesInfo=coursesInfo, user=user, events=events)
-    
+
 @app.route("/esdschedule", methods=['GET', 'POST'])
 def esdschedule():
     return render_template('index.html', token="this is from main.py (esd)")

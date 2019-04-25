@@ -67,6 +67,14 @@ const styles = theme => ({
     width: 265,
 
   },
+  paper: {
+    position: 'absolute',
+    width: theme.spacing.unit * 50,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing.unit * 4,
+    outline: 'none',
+  },
   pillar: {
     width: 150,
     marginLeft: 20
@@ -75,7 +83,7 @@ const styles = theme => ({
   submit: {
     color: '#0097a7',
   },
- 
+
 });
 
 
@@ -282,7 +290,7 @@ class CreateSchedule extends React.Component {
           <form method="POST">
           <Button
             style={{ borderColor: '#0097a7' }}
-            className={classes.submit} 
+            className={classes.submit}
             variant="outlined"
             size="medium"
             id="submit"
@@ -291,6 +299,9 @@ class CreateSchedule extends React.Component {
             Click here to Generate Schedule
         </Button>
         </form>
+        <form method="POST">
+        <Button id = "changebool" color="inherit" type="submit" name = "changebool" onClick={this.handleOpen}>Send Notifications</Button>
+        </form>        
         <Typography id="message" gutterBottom component="h2">
           {window.message}
         </Typography>
@@ -673,8 +684,8 @@ class CreateSchedule extends React.Component {
             </form>
           </Dialog>
 
-        
-      
+
+
 
         </main>
       </div>

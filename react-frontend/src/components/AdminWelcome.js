@@ -14,6 +14,7 @@ import { mainListItems } from '../lists/Adminmenu';
 import { Link } from 'react-router-dom';
 import { Button, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core'
 import AdminAppbar from './AdminAppbar';
+import Modal from '@material-ui/core/Modal';
 
 
 const drawerWidth = 240;
@@ -43,25 +44,68 @@ const styles = theme => ({
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
   },
+  paper: {
+    position: 'absolute',
+    width: theme.spacing.unit * 50,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing.unit * 4,
+    outline: 'none',
+  },
   toolbar: theme.mixins.toolbar,
   submit: {
     color: '#0097a7',
     marginRight: theme.spacing.unit * 3,
   },
 });
+function getModalStyle() {
+  const top = 50;
+  const left = 50;
 
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
 class AdminWelcome extends React.Component {
+  state = {
+    open: true,
+  };
+
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
     render(){
 
   const { classes } = this.props;
 
   return (
     <div className={classes.root}>
+    <Modal
+      aria-labelledby="modal-title"
+      aria-describedby="modal-description"
+      open={this.state.open}
+      onClose={this.handleClose}
+    >
+      <div style={getModalStyle()} className={classes.paper}>
+        <Typography variant="h6" id="modal-title">
+          Welcome {window.user}
+        </Typography>
+        <Typography variant="subtitle1" id="modal-description">
+          {window.notif}
+        </Typography>
+      </div>
+    </Modal>    
       <CssBaseline />
-      
+
 
       <AdminAppbar />
-      
+
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Typography id="tabtitle" variant="h4" gutterBottom component="h2">
@@ -253,7 +297,9 @@ class AdminWelcome extends React.Component {
             </TableRow>
           </TableBody>
         </Table>
-
+        <form method="POST">
+          <Button id="adminpressed" color="inherit" name="adminpressed" type="submit">Acknowledge Notifications</Button>
+        </form>
 
       </main>
     </div>

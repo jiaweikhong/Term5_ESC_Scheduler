@@ -19,7 +19,7 @@ const styles = theme => ({
     root: {
       display: 'flex',
     },
-  
+
     appBar: {
       zIndex: theme.zIndex.drawer + 1,
     },
@@ -30,11 +30,11 @@ const styles = theme => ({
     drawerPaper: {
       width: drawerWidth,
     },
-  
+
     icons:{
       position: 'absolute',
       right: 15
-      
+
     },
     content: {
       flexGrow: 1,
@@ -64,11 +64,6 @@ class InstructorAppbar extends React.Component {
                         Welcome {window.user}
                     </Typography>
                     <div className={classes.icons}>
-                        <IconButton
-                            color="inherit"
-                            component={Link} to="/instructornotifications">
-                            <NotificationsIcon />
-                        </IconButton>
                         <Button
                             id="logout"
                             color='inherit'
@@ -102,5 +97,5 @@ class InstructorAppbar extends React.Component {
 InstructorAppbar.propTypes = {
     classes: PropTypes.object.isRequired,
   };
-  
+
   export default withStyles(styles)(InstructorAppbar);
