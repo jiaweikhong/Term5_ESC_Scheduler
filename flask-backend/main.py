@@ -80,6 +80,9 @@ def instructorlogin():
             error = "Invalid credentials, please try again. Incorrect tries = " + str(Data.incorrectTries)
     return render_template('index.html', error=error)
 
+
+
+
 def retrieveInstructorCourses(loggedUser):
     # coursesdocument = dbfs.collection('instructors').document('JBXLfE3480F9TYQMqd4j').get().to_dict()
     # week = coursesdocument[loggedUser]['Week']
@@ -117,6 +120,21 @@ def instructorwelcome():
                 instructarray.update({
                     u'NotifReceived' : False
                 })
+
+    if request.method == 'POST':
+        List = []
+        instructors = request.form['instructorMeeting']
+        duration = request.form['duratonMeeting']
+        instructorList = instructors.split(',')
+        for instructor in instructorList:
+            print(instructor)
+            new = instructor.strip()
+            List.append(new)
+        print(List)
+        algoRunner = firestoreData(cred, default_app, dbfs)
+        scheduleMeeting(List,duration)
+
+
     return render_template("index.html", events=events, user=loggedUser, instructorTimetable=weeklysched, notif=notif)
 
 @app.route("/uploadcourse", methods=['GET','POST'])
@@ -832,18 +850,7 @@ def createschedule():
                 message = "Timetable cannot be generated :("
     return render_template("index.html", coursesInfo = coursesInfo, user=user, message=message,errorCohort=errorCohort,errorCourse=errorCourse,errorInstructor=errorInstructor,errorRoom=errorRoom,noclass=noclass,classAdd=classAdd)
 
-# @app.route("/instructorwelcome", methods=['GET', 'POST'])
-# def ScheduleMeeting():
-#     if request.method == 'POST':
 
-#         if 'scheduleMeeting' in request.form:
-#             algoRunner = firestoreData(cred, default_app, dbfs)
-#             # # algoRunner.hihi()
-#             timetableGenerated = algoRunner.generateAndPushTimetable()
-
-
-
-#         return render_template("index.html")
 
 
 @app.route("/freshmoreschedule", methods=['GET', 'POST'])
