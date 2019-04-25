@@ -115,9 +115,9 @@ def instructorwelcome():
                 instructorsdocument[loggedUser]['NotifReceived'] = False
                 dbfs.collection('instructors').document('JBXLfE3480F9TYQMqd4j').set(instructorsdocument)
     if notifbool == True:
-        notif = 'Welcome, there is a new timetable since your last login. Please click outside of the box to close this notification.'
+        notif = 'There is a new timetable since your last login. Please click outside of the box to close this notification.'
     elif notifbool == False:
-        notif = 'Welcome, there is no new timetable since your last login. Please click outside of the box to close this notification'
+        notif = 'There is no new timetable since your last login. Please click outside of the box to close this notification'
     weeklysched = retrieveInstructorCourses(loggedUser)
     jsonify(weeklysched)
 
